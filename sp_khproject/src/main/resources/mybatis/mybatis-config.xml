@@ -6,12 +6,14 @@
 		<setting name="jdbcTypeForNull" value="NULL"/>
 	</settings>
 	<typeAliases>
+		<!-- 
 		<typeAlias type="com.myhome.web.dept.model.DeptDTO" alias="deptDto" />
 		<typeAlias type="com.myhome.web.emp.model.EmpDTO" alias="empDto" />
 		<typeAlias type="com.myhome.web.board.model.BoardDTO" alias="boardDto" />
 		<typeAlias type="com.myhome.web.board.model.BoardStaticsDTO" alias="boardStaticsDto" />
 		<typeAlias type="com.myhome.web.upload.model.FileUploadDTO" alias="fileUploadDto" />
 		<typeAlias type="com.myhome.web.login.model.PermDTO" alias="permDto" />
+		 -->
 		<!--
 		<typeAlias type="job.model.JobDTO" alias="jobDto" />
 		<typeAlias type="locs.model.LocsDTO" alias="locsDto" />
