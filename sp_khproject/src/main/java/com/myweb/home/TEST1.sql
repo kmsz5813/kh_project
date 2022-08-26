@@ -1,9 +1,11 @@
 SELECT * FROM CUMMUNITY;
 SELECT * FROM SEL_ITEM;
 SELECT * FROM 
+<<<<<<< HEAD
 
-ㅁㄴㅇㄻ
-테스트ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+
+=======
+ㄻㄴㅇㄻㄴ
 
 DROP TABLE COMMUNITY;
 DROP TABLE SEL_ITEM;
