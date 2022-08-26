@@ -3,7 +3,7 @@ SELECT * FROM SEL_ITEM;
 SELECT * FROM 
 
 ㅁㄴㅇㄻ
-
+테스트ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
 
 DROP TABLE COMMUNITY;
 DROP TABLE SEL_ITEM;
