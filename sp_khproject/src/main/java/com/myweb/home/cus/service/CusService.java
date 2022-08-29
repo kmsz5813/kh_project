@@ -12,14 +12,14 @@ public class CusService {
 	@Autowired
 	private CusDAO dao;
 	
-	public int add(CusDTO data) {
+	public boolean add(CusDTO data) {
 		
 		boolean result = dao.insertData(data);
 		
 		if(result) {
 			return result;
 		}else {
-			return -1;
+			return false;
 		}
 	}
 }
