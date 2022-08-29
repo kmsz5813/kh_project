@@ -8,5 +8,6 @@
 	
 	<typeAliases>
 		<typeAlias type="com.myweb.home.cus.model.CusDTO" alias="cusDto" />
+		<typeAlias type="com.myweb.home.sel.model.SelDTO" alias="selDto" />
 	</typeAliases>
 </configuration>
