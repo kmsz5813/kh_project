@@ -9,10 +9,13 @@ public class CusDAO {
 	
 	@Autowired
 	private SqlSession session = null;
+	
+	private String mapper = "cusMapper.%s";
 
 	public boolean insertData(CusDTO data) {
-		// TODO Auto-generated method stub
-		return false;
+		String mapperId = String.format(mapper, "insertData");
+		int res = session.insert(mapperId, data);
+		return res == 1 ? true : false;
 	}
 
 }
