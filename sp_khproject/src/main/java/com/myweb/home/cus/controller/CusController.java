@@ -28,8 +28,7 @@ public class CusController {
 	}
 	
 	@PostMapping(value="/cussign")
-	public String cussign(HttpServletRequest request
-						  ) {
+	public String cussign(HttpServletRequest request) {
 		String cus_email = request.getParameter("cus_email");
 		String cus_name = request.getParameter("cus_name");
 		String cus_pw = request.getParameter("cus_pw");
