@@ -1,4 +1,4 @@
-package com.myweb.home.sel.model;
+package com.myweb.home.selitem.model;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;

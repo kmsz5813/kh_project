@@ -1,4 +1,4 @@
-package com.myweb.home.sel.model;
+package com.myweb.home.selitem.model;
 
 import java.sql.Date;
 
