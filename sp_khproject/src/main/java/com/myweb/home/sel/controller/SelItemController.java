@@ -10,5 +10,5 @@ import com.myweb.home.sel.model.SelItemDTO;
 @RequestMapping(value="/sel")
 public class SelItemController {
 
-	@GetMapping(value="/selitem")
+//	@GetMapping(value="/selitem");
 }
