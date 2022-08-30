@@ -7,4 +7,8 @@
 	INSERT INTO CUSTOMER_ACCOUNT(CUS_EMAIL, CUS_NAME, CUS_PW, CUS_JOB, CUS_FIELD, CUS_INTEREST, CUS_SENDEMAIL)
     VALUES(#{cus_email}, #{cus_name}, #{cus_pw}, #{cus_job}, #{cus_field}, #{cus_interest}, #{cus_sendemail} )
 	</insert>
+	
+	<select id="selectLogin" resultType="cusDto">
+	SELECT * FROM CUSTOMER_ACCOUNT WHERE CUS_EMAIL = #{cus_email} AND CUS_PW = #{cus_pw}
+	</select>
 </mapper>

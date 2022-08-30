@@ -7,4 +7,8 @@
 	INSERT INTO SELLER_ACCOUNT(SEL_EMAIL, SEL_NAME, SEL_PW, SEL_JOB, SEL_FIELD, SEL_INTEREST, SEL_SENDEMAIL)
     VALUES(#{sel_email}, #{sel_name}, #{sel_pw}, #{sel_job}, #{sel_field}, #{sel_interest}, #{sel_sendemail} )
 	</insert>
+	
+	<select id="selectLogin" resultType="selDto">
+	SELECT * FROM SELLER_ACCOUNT WHERE SEL_EMAIL = #{sel_email} AND SEL_PW = #{sel_pw}
+	</select>
 </mapper>

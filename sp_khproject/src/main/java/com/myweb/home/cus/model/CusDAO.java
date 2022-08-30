@@ -18,4 +18,10 @@ public class CusDAO {
 		return res == 1 ? true : false;
 	}
 
+	public CusDTO selectLogin(CusDTO cusData) {
+		String mapperId = String.format(mapper, "selectLogin");
+		CusDTO result = session.selectOne(mapperId, cusData);
+		return result;
+	}
+
 }
