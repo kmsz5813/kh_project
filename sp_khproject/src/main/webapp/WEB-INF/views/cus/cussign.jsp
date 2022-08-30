@@ -16,6 +16,7 @@
 	<c:url var="cusSignurl" value="/cus/cussign" />
 	<form action="${cusSignurl}" name=frm1 method="post">
 		<div>
+			<header></header>
 			<label>이메일</label>
 			<label class="message-label"></label><br> 
 			<input type="email" name="cus_email" placeholder="이메일을 입력해주세요." required >
@@ -45,6 +46,7 @@
 			<label class="message-label"></label><br> 
 		</div>
 		<div>	
+
 			<label>비밀번호확인</label>
 			<label class="message-label"></label><br>
 			<input type="password" name="correct_pw" class="pwpw" placeholder="비밀번호를 한 번 더 입력해 주세요." required>

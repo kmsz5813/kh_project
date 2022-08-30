@@ -1,18 +1,18 @@
-package com.myweb.home.cus.service;
+package com.myweb.home.sel.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.myweb.home.cus.model.CusDAO;
-import com.myweb.home.cus.model.CusDTO;
+import com.myweb.home.sel.model.SelDAO;
+import com.myweb.home.sel.model.SelDTO;
 
 @Service
-public class CusService {
+public class SelService {
 
 	@Autowired
-	private CusDAO dao;
+	private SelDAO dao;
 	
-	public boolean add(CusDTO data) {
+	public boolean add(SelDTO data) {
 		
 		boolean result = dao.insertData(data);
 		
@@ -22,4 +22,5 @@ public class CusService {
 			return false;
 		}
 	}
+
 }
