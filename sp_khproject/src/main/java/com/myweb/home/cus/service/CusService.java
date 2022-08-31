@@ -1,5 +1,7 @@
 package com.myweb.home.cus.service;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,5 +23,18 @@ public class CusService {
 		}else {
 			return false;
 		}
+	}
+
+	public boolean getLogin(HttpSession session, CusDTO cusData) {
+		
+		CusDTO data = dao.selectLogin(cusData);
+		
+		if(data != null) {
+			session.setAttribute("loginData", data);
+			return true;
+		}else {
+			return false;
+		}
+		
 	}
 }
