@@ -18,30 +18,32 @@
 		<div class="mb-5 center">
 			<p class="fw-normal fs-2 text-center">회원가입</p>
 		</div>
-		<div class="mb-3">
-			<select class="form-select" name="index">
-				<option value="10">일반회원</option>
-				<option value="20">판매자</option>
-			</select>
+		<div class="mb-5 center">
+			<p class="fw-normal fs-6 text-center">어떤 서비스를 이용하고 싶으세요?</p>
 		</div>
-		<div class="mb-3">
-			<input class="form-control"  type="text" name="email"  aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg">
+		<div class="row mt-3">
+			<div class="col">
+				<div class="card">
+					<button type="button" class="btn btn-secondary text-black opacity-50" style="height: 3rem;" onclick="location.href='/home/sel/selsign'">전문가</button>
+				</div>
+			</div>
+			<div class="col">
+				<div class="card">
+					<button type="button" class="btn btn-secondary text-white" style="height: 3rem ;" onclick="location.href='home/cus/cussign'">일반회원</button>
+				</div>
+			</div>
 		</div>
-		<div class="mb-3">
-			<input class="form-control" type="password" name="pw"  aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg">
-		</div>
-		<div class="mb-3">
-			<p class="right">아이디 / 비밀번호 찾기</p>
-		</div>
-		<div class="mb-3">
-			<button type="submit" class="form-control p-1 mb-2 bg-secondary  text-center fw-normal" style="--bs-bg-opacity: .5;">로그인</button>
-		</div>
-		<div class="mb-3">
-			<p class="fw-normal fs-5 text-center">sns계정으로 로그인하세요</p>
-		</div>
-		<div class="mb-3">
-			<button class="form-control p-1 mb-2 bg-secondary  text-center fw-normal"  type="button" onclick="location.href='sel/selsign'">회원가입</button>
-			<!--회원가입페이지로 연결 -->
+		<div class="row mt-3">
+			<div class="col">
+				<div class="card">
+					<button type="button" class="btn btn-light" style="height: 20rem;">전문가 사진</button>
+				</div>
+			</div>
+			<div class="col">
+				<div class="card">
+					<button type="button" class="btn btn-light" style="height: 20rem ;">일반회원 사진</button>
+				</div>
+			</div>
 		</div>
 	</div>
 	</section>

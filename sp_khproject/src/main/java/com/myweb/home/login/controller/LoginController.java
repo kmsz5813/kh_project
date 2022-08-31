@@ -31,7 +31,7 @@ public class LoginController {
 	
 	@GetMapping(value="")
 	public String login(Model model) {
-		logger.info("login()");
+		
 		return "login/login";
 	}
 	

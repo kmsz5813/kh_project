@@ -42,7 +42,7 @@
 			<p class="fw-normal fs-5 text-center">sns계정으로 로그인하세요</p>
 		</div>
 		<div class="mb-3">
-			<button class="form-control p-1 mb-2 bg-secondary  text-center fw-normal"  type="button" onclick="location.href='sel/selsign'">회원가입</button>
+			<button class="form-control p-1 mb-2 bg-secondary  text-center fw-normal"  type="button" onclick="location.href='login/sign'">회원가입</button>
 			<!--회원가입페이지로 연결 -->
 		</div>
 	</form>
