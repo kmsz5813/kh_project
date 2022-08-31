@@ -37,8 +37,8 @@ public class LoginController {
 	
 	@PostMapping(value="")
 	public String login(HttpServletRequest request, 
-						HttpSession session,
-						String url) {
+						HttpSession session
+						) {
 		
 		String index = request.getParameter("index");
 		
@@ -53,13 +53,13 @@ public class LoginController {
 			boolean result = cusService.getLogin(session, cusData);
 			
 			if(result) {
-				return "home";
+				return "redirect:main";
 				
 			}
 			
 		}else {
 			String sel_email = request.getParameter("email");
-			String cus_pw = request.getParameter("pw");
+			String sel_pw = request.getParameter("pw");
 			
 			SelDTO selData = new SelDTO();
 			selData.setSel_email(sel_email);
@@ -68,10 +68,9 @@ public class LoginController {
 			boolean result = selService.getLogin(session, selData);
 			
 			if(result) {
-				return "home";
+				return "redirect:main";
 			}
 		}
-		
 		return "login/login";
 	}
 	

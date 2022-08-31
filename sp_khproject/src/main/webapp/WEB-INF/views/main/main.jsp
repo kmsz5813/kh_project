@@ -29,9 +29,15 @@
 <body>
 	<header>
 		<div style="text-align: right;">
-			<a>로그인</a>/ 
-			<a>회원가입</a>/ 
+			<c:if test="${empty loginData }">
+			<a href="/home/login">로그인</a>/ 
+			<a href="/home/">회원가입</a>/ 
 			<a>FAQ</a>
+			</c:if>
+			<c:if test="${not empty loginData }">
+			${loginData.cus_email }님 환영합니다!
+			</c:if>
+			
 		</div>
 	</header>
 	
