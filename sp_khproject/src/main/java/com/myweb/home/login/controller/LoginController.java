@@ -12,10 +12,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.myweb.home.cus.model.CusDTO;
-import com.myweb.home.cus.service.CusService;
-import com.myweb.home.sel.model.SelDTO;
-import com.myweb.home.sel.service.SelService;
+import com.myweb.home.Accounts.model.AccountsDTO;
+import com.myweb.home.login.service.LoginService;
+
 
 @Controller
 @RequestMapping(value="/login")
@@ -24,55 +23,35 @@ public class LoginController {
 		
 	
 	@Autowired
-	private CusService cusService;
+	private LoginService service;
 	
-	@Autowired
-	private SelService selService;
 	
 	@GetMapping(value="")
 	public String login(Model model) {
 		
 		return "login/login";
 	}
-	
+
 	@PostMapping(value="")
 	public String login(HttpServletRequest request, 
-						HttpSession session,
-						String url) {
+						HttpSession session
+						) {
 		
-		String index = request.getParameter("index");
-		
-		if(index.equals("10")) {
-			String cus_email = request.getParameter("email");
-			String cus_pw = request.getParameter("pw");
+			String email = request.getParameter("email");
+			String pw = request.getParameter("pw");
 			
-			CusDTO cusData = new CusDTO();
-			cusData.setCus_email(cus_email);
-			cusData.setCus_pw(cus_pw);
+			AccountsDTO data = new AccountsDTO();
+			data.setAc_email(email);
+			data.setAc_pw(pw);
 			
-			boolean result = cusService.getLogin(session, cusData);
+			boolean result = service.getLogin(session, data);
 			
 			if(result) {
-				return "home";
-				
+				return "redirect:main";
 			}
+			return "login/login";
 			
-		}else {
-			String sel_email = request.getParameter("email");
-			String cus_pw = request.getParameter("pw");
-			
-			SelDTO selData = new SelDTO();
-			selData.setSel_email(sel_email);
-			selData.setSel_pw(sel_email);
-			
-			boolean result = selService.getLogin(session, selData);
-			
-			if(result) {
-				return "home";
-			}
-		}
-		
-		return "login/login";
+
 	}
 	
 	@GetMapping(value="/sign")
@@ -80,5 +59,88 @@ public class LoginController {
 		
 		return "login/sign";
 	}
+	
+	@GetMapping(value="/cussign")
+	public String cussign(Model model) {
+		
+		return "login/cussign";
+	}
+	
+	@PostMapping(value="/cussign")
+	public String cussign(HttpServletRequest request) {
+		String cus_email = request.getParameter("cus_email");
+		String cus_name = request.getParameter("cus_name");
+		String cus_pw = request.getParameter("cus_pw");
+		String cus_job = request.getParameter("cus_job");
+		String cus_field = request.getParameter("cus_field");
+		String cus_interest = request.getParameter("cus_interest");
+		String cus_sendemail = request.getParameter("cus_sendemail");
+		
+		if("on".equals(cus_sendemail)) {
+			cus_sendemail = "Y";
+		}else{
+			cus_sendemail = "N";
+		}
+		
+		AccountsDTO data = new AccountsDTO();
+		data.setAc_email(cus_email);
+		data.setAc_name(cus_name);
+		data.setAc_pw(cus_pw);
+		data.setAc_job(cus_job);
+		data.setAc_field(cus_field);
+		data.setAc_interest(cus_interest);
+		data.setAc_index(10);
+		data.setAc_sendemail(cus_sendemail);
+		
+		
+		boolean result = service.add(data);
+		
+		
+		if(result) {
+			return "login/cussign";
+		}
+		
+		return "login/cussign";
+	}
+	
+	@GetMapping(value="/selsign")
+	public String selsign(Model model) {
+		
+		return "login/selsign";
+	}
+	
+	@PostMapping(value="/selsign")
+	public String selsign(Model model, HttpServletRequest request) {
+		String sel_email = request.getParameter("sel_email");
+		String sel_name = request.getParameter("sel_name");
+		String sel_pw = request.getParameter("sel_pw");
+		String sel_job = request.getParameter("sel_job");
+		String sel_field = request.getParameter("sel_field");
+		String sel_interest = request.getParameter("sel_interest");
+		String sel_sendemail = request.getParameter("sel_sendemail");
+		
+		if("on".equals(sel_sendemail)) {
+			sel_sendemail = "Y";
+		}else{
+			sel_sendemail = "N";
+		}
+	
+		
+		AccountsDTO data = new AccountsDTO();
+		data.setAc_email(sel_email);
+		data.setAc_name(sel_name);
+		data.setAc_pw(sel_pw);
+		data.setAc_job(sel_job);
+		data.setAc_field(sel_field);
+		data.setAc_interest(sel_interest);
+		data.setAc_index(20);
+		data.setAc_sendemail(sel_sendemail);
+		
+		
+		boolean result = service.add(data);
+		
+		return "login/selsign";
+	}
+	
 	
 }

@@ -24,12 +24,12 @@
 		<div class="row mt-3">
 			<div class="col">
 				<div class="card">
-					<button type="button" class="btn btn-secondary text-black opacity-50" style="height: 3rem;" onclick="location.href='/home/sel/selsign'">전문가</button>
+					<button type="button" class="btn btn-secondary text-black opacity-50" style="height: 3rem;" onclick="location.href='/home/login/selsign'">전문가</button>
 				</div>
 			</div>
 			<div class="col">
 				<div class="card">
-					<button type="button" class="btn btn-secondary text-white" style="height: 3rem ;" onclick="location.href='/home/cus/cussign'">일반회원</button>
+					<button type="button" class="btn btn-secondary text-white" style="height: 3rem ;" onclick="location.href='/home/login/cussign'">일반회원</button>
 				</div>
 			</div>
 		</div>

@@ -14,7 +14,6 @@
 </h1>
 
 <P>  The time on the server is ${serverTime}. </P>
-	${data.email }
-	${data.id }
+
 </body>
 </html>

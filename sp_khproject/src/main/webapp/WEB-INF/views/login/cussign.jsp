@@ -18,7 +18,7 @@
 
 	<section class="container w-25">
 		<div class="mt-5">
-		<c:url var="cusSignurl" value="/cus/cussign" />
+		<c:url var="cusSignurl" value="/login/cussign" />
 			<form action="${cusSignurl}" method="post">
 				<div class="mb-3 center">
 					<p class="fw-normal fs-2 text-center">회원가입</p>

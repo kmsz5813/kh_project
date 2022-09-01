@@ -21,12 +21,6 @@
 			<p class="fw-normal fs-2 text-center">로그인</p>
 		</div>
 		<div class="mb-3">
-			<select class="form-select" name="index">
-				<option value="10">일반회원</option>
-				<option value="20">판매자</option>
-			</select>
-		</div>
-		<div class="mb-3">
 			<input class="form-control"  type="text" name="email"  aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg">
 		</div>
 		<div class="mb-3">
