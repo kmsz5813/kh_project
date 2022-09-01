@@ -17,33 +17,234 @@
 	<!-- bootstrap js 적용 -->
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-	
+	<!-- 폰트 적용 -->
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
+
+	<!-- style, css -->
 	<style>
+	
+	a:link {
+		text-decoration: none;
+		color: black;
+		font-weight: bold;
+		font-family: 'Noto Sans KR', sans-serif;
+	}
+	
+	footer {
+		font-family: 'Noto Sans KR', sans-serif;
+	}
+	
+	.navbar {
+		border-top: 3px solid lightgrey;
+		border-bottom: 3px solid lightgrey;
+	}
+	
     .carousel-item {
-      width: 2000px; 
+      width: 1500px;
+      height: 500px;
     }
-  	</style>
+    body {
+	    width: 1500px;
+	    margin:auto;
+    }
+    
+    /* 인기서비스 슬라이드 */
+    body {
+	font-family: 'Noto Sans KR', sans-serif;
+	}
+	h2 {
+		color: #000;
+		font-size: 26px;
+		font-weight: 300;
+		text-align: center;
+		text-transform: uppercase;
+		position: relative;
+		margin: 30px 0 60px;
+		font-family: 'Noto Sans KR', sans-serif;
+	}
+	h2::after {
+		content: "";
+		width: 100px;
+		position: absolute;
+		margin: 0 auto;
+		height: 4px;
+		border-radius: 1px;
+		background: #7ac400;
+		left: 0;
+		right: 0;
+		bottom: -20px;
+	}
+	.carousel {
+		margin: 50px auto;
+		padding: 0 70px;
+	}
+	.carousel .item {
+		color: #747d89;
+		min-height: 325px;
+		text-align: center;
+		overflow: hidden;
+	}
+	.carousel .thumb-wrapper {
+		padding: 25px 15px;
+		background: lightgrey;
+		border-radius: 6px;
+		text-align: center;
+		position: relative;
+		box-shadow: 0 2px 3px rgba(0,0,0,0.2);
+	}
+	.carousel .item .img-box {
+		height: 200px;
+		margin-bottom: 20px;
+		width: 100%;
+		position: relative;
+	}
+	.carousel .item img {	
+		max-width: 100%;
+		max-height: 100%;
+		display: inline-block;
+		position: absolute;
+		bottom: 0;
+		margin: 0 auto;
+		left: 0;
+		right: 0;
+	}
+
+	.carousel .item h4 {
+		font-size: 18px;
+	}
+	.carousel .item h4, .carousel .item p, .carousel .item ul {
+		margin-bottom: 5px;
+	}
+	.carousel .thumb-content .btn {
+		color: #7ac400;
+		font-size: 11px;
+		text-transform: uppercase;
+		font-weight: bold;
+		background: none;
+		border: 1px solid #7ac400;
+		padding: 6px 14px;
+		margin-top: 5px;
+		line-height: 16px;
+		border-radius: 20px;
+	}
+	.carousel .thumb-content .btn:hover, .carousel .thumb-content .btn:focus {
+		color: #fff;
+		background: #7ac400;
+		box-shadow: none;
+	}
+	.carousel .thumb-content .btn i {
+		font-size: 14px;
+		font-weight: bold;
+		margin-left: 5px;
+	}
+	.carousel .item-price {
+		font-size: 13px;
+		padding: 2px 0;
+	}
+	.carousel .item-price strike {
+		opacity: 0.7;
+		margin-right: 5px;
+	}
+	.carousel-control-prev, .carousel-control-next {
+		height: 44px;
+		width: 40px;
+		background: none;	
+		margin: auto 0;
+		border-radius: 4px;
+		opacity: 0.8;
+	}
+	.carousel-control-prev:hover, .carousel-control-next:hover {
+		background: #78bf00;
+		opacity: 1;
+	}
+	.carousel-control-prev i, .carousel-control-next i {
+		font-size: 36px;
+		position: absolute;
+		top: 50%;
+		display: inline-block;
+		margin: -19px 0 0 0;
+		z-index: 5;
+		left: 0;
+		right: 0;
+		color: #fff;
+		text-shadow: none;
+		font-weight: bold;
+	}
+	.carousel-control-prev i {
+		margin-left: -2px;
+	}
+	.carousel-control-next i {
+		margin-right: -4px;
+	}		
+	.carousel-indicators {
+		bottom: -50px;
+	}
+	.carousel-indicators li, .carousel-indicators li.active {
+		width: 10px;
+		height: 10px;
+		margin: 4px;
+		border-radius: 50%;
+		border: none;
+	}
+	.carousel-indicators li {	
+		background: rgba(0, 0, 0, 0.2);
+	}
+	.carousel-indicators li.active {	
+		background: rgba(0, 0, 0, 0.6);
+	}
+	.carousel .wish-icon {
+		position: absolute;
+		right: 10px;
+		top: 10px;
+		z-index: 99;
+		cursor: pointer;
+		font-size: 16px;
+		color: #abb0b8;
+	}
+	.carousel .wish-icon .fa-heart {
+		color: #ff6161;
+	}
+	
+	
+	.slide-icon {
+		max-width : 20px;
+	}
+	
+	.col-sm-3 {
+		max-width : 290px;
+		min-width : 290px;
+	}
+	
+	</style>
+
+	<script>
+	$(document).ready(function(){
+		$(".wish-icon i").click(function(){
+			$(this).toggleClass("fa-heart fa-heart-o");
+		});
+	});
+	</script>
 
 </head>
 
 <body>
-	<header>
-		<div style="text-align: right;">
-			<a>로그인</a>/ 
-			<a>회원가입</a>/ 
-			<a>FAQ</a>
-		</div>
-	</header>
-	
+<!-- 로그인/회원가입/FAQ -->
+	<div style="text-align: right; margin-right: 100px; position:relative; top: 20px;">
+		<a href="#">로그인</a>&emsp;/&emsp; 
+		<a href="#">회원가입</a>&emsp;/&emsp; 
+		<a href="#">FAQ</a>
+	</div>
 	
 <!-- nav-bar -->
 	<script type="text/javascript">
 		$('.carousel').carousel()
 	</script>
-	<a class="navbar-brand" href="#">
-      <img src="static/img/logo.png" alt="" height="200" class="d-inline-block align-text-top">
+	<a href="#" style="display: flex; margin-top: -100px;"> 
+      <img src="static/img/logo.png" style=" width:300px; margin-bottom: -100px; " class="d-inline-block">
     </a>
-	<nav class="navbar navbar-expand-lg navbar-light bg-light" style="margin-left: 500px; ">
+	<nav class="navbar navbar-expand-md navbar-light" style="; margin-left : 300px; position: relative; bottom: 60px;" >
 	  <div class="container">
 	    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 	      <span class="navbar-toggler-icon"></span>
@@ -52,7 +253,7 @@
 	      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
 
 	        <li class="nav-item dropdown">
-	          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+	          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="padding-left: 100px;">
 	            카테고리
 	          </a>
 	          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -64,19 +265,19 @@
 	          </ul>
 	        </li>
 	        <li class="nav-item">
-	          <a class="nav-link" href="#">커뮤니티</a>
+	          <a class="nav-link" href="#" style="padding-left:100px;">커뮤니티</a>
 	        </li>
 	      </ul>
 	      <form class="d-flex">
-	        <input class="form-control me-4" type="search" placeholder="내용을 입력해주세요." aria-label="Search">
-	        <button class="btn btn-outline-success" type="submit">검색</button>
+	        <input class="form-control me-4" type="search" placeholder="내용을 입력해주세요." aria-label="Search" style="min-width: 300px;">
+	        <button class="btn btn-outline-success" type="submit" style="width:100px; margin-right: 50px;" id="button">검색</button>
 	      </form>
 	    </div>
 	  </div>
 	</nav>
 	
 	
-	<!-- 배너, carousel -->
+<!-- 배너, carousel -->
 	<div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
 	  <ol class="carousel-indicators">
 	    <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
@@ -85,13 +286,13 @@
 	  </ol>
 	  <div class="carousel-inner">
 	    <div class="carousel-item active">
-	      <img class="d-block w-100" src="static/img/test1.png" alt="First slide">
+	      <img class="d-block w-100" src="static/img/banner/test1.png" alt="First slide">
 	    </div>
 	    <div class="carousel-item">
-	      <img class="d-block w-100" src="static/img/test2.png" alt="Second slide">
+	      <img class="d-block w-100" src="static/img/banner/test2.png" alt="Second slide">
 	    </div>
 	    <div class="carousel-item">
-	      <img class="d-block w-100" src="static/img/test3.png" alt="Third slide">
+	      <img class="d-block w-100" src="static/img/banner/test3.png" alt="Third slide">
 	    </div>
 	  </div>
 	  <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
@@ -103,13 +304,324 @@
 	    <span class="sr-only" style="color: black;">Next</span>
 	  </a>
 	</div>
+	
+<!-- 인기서비스 슬라이드 -->
+	<div class="container-xl">
+		<div class="row">
+			<div class="col-md-12">
+				<h2><b>인기 서비스</b></h2>
+				<div id="myCarousel1" class="carousel slide" data-ride="carousel" data-interval="0" style="height: 350px;">
+				<!-- Carousel indicators -->
+				<ol class="carousel-indicators">
+					<li data-target="#myCarousel1" data-slide-to="0" class="active"></li>
+					<li data-target="#myCarousel1" data-slide-to="1"></li>
+					<li data-target="#myCarousel1" data-slide-to="2"></li>
+				</ol>   
+				<!-- Wrapper for carousel items -->
+				<div class="carousel-inner">
+					<div class="item carousel-item active">
+						<div class="row">
+							<div class="col-sm-3">
+								<div class="thumb-wrapper">
+									<span class="wish-icon"><i class="fa fa-heart-o"></i></span>
+									<div class="img-box">
+										<a href="#"><img src="static/img/hot/hot-test1.png" class="img-fluid " alt=""></a>									
+									</div>
+									<div class="thumb-content">
+										<h4>보컬 레슨</h4>																		
+									</div>						
+								</div>
+							</div>
+							<div class="col-sm-3">
+								<div class="thumb-wrapper">
+									<span class="wish-icon"><i class="fa fa-heart-o"></i></span>
+									<div class="img-box">
+										<a href="#"><img src="static/img/hot/hot-test2.png" class="img-fluid " alt="Headphone"></a>
+									</div>
+									<div class="thumb-content">
+										<h4>인테리어</h4>									
+									</div>						
+								</div>
+							</div>		
+							<div class="col-sm-3">
+								<div class="thumb-wrapper">
+									<span class="wish-icon"><i class="fa fa-heart-o"></i></span>
+									<div class="img-box">
+										<a href="#"><img src="static/img/hot/hot-test3.png" class="img-fluid " alt="Macbook"></a>
+									</div>
+									<div class="thumb-content">
+										<h4>퍼스널 트레이닝(PT)</h4>									
+									</div>						
+								</div>
+							</div>								
+							<div class="col-sm-3">
+								<div class="thumb-wrapper">
+									<span class="wish-icon"><i class="fa fa-heart-o"></i></span>
+									<div class="img-box">
+										<a href="#"><img src="static/img/hot/hot-test4.png" class="img-fluid " alt="Nikon"></a>
+									</div>
+									<div class="thumb-content">
+										<h4>영어 과외</h4>									
+									</div>						
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="item carousel-item">
+						<div class="row">
+							<div class="col-sm-3">
+								<div class="thumb-wrapper">
+									<span class="wish-icon"><i class="fa fa-heart-o"></i></span>
+									<div class="img-box">
+										<a href="#"><img src="static/img/hot/hot-test5.png" class="img-fluid " alt="Play Station"></a>
+									</div>
+									<div class="thumb-content">
+										<h4>카테고리5</h4>
+									</div>						
+								</div>
+							</div>
+							<div class="col-sm-3">
+								<div class="thumb-wrapper">
+									<span class="wish-icon"><i class="fa fa-heart-o"></i></span>
+									<div class="img-box">
+										<a href="#"><img src="static/img/hot/hot-test6.png" class="img-fluid " alt="Macbook"></a>
+									</div>
+									<div class="thumb-content">
+										<h4>카테고리6</h4>	
+									</div>						
+								</div>
+							</div>
+							<div class="col-sm-3">
+								<div class="thumb-wrapper">
+									<span class="wish-icon"><i class="fa fa-heart-o"></i></span>
+									<div class="img-box">
+										<a href="#"><img src="static/img/hot/hot-test7.png" class="img-fluid " alt="Speaker"></a>
+									</div>
+									<div class="thumb-content">
+										<h4>카테고리7</h4>										
+									</div>						
+								</div>
+							</div>
+							<div class="col-sm-3">
+								<div class="thumb-wrapper">
+									<span class="wish-icon"><i class="fa fa-heart-o"></i></span>
+									<div class="img-box">
+										<a href="#"><img src="static/img/hot/hot-test8.png" class="img-fluid " alt="Galaxy"></a>
+									</div>
+									<div class="thumb-content">
+										<h4>카테고리8</h4>
+									</div>						
+								</div>
+							</div>						
+						</div>
+					</div>
+					<div class="item carousel-item">
+						<div class="row">
+							<div class="col-sm-3">
+								<div class="thumb-wrapper">
+									<span class="wish-icon"><i class="fa fa-heart-o"></i></span>
+									<div class="img-box">
+										<a href="#"><img src="static/img/hot/hot-test9.png" class="img-fluid " alt="iPhone"></a>
+									</div>
+									<div class="thumb-content">
+										<h4>카테고리9</h4>
+										<p class="item-price"><strike>$369.00</strike> <span>$349.00</span></p>
+										<a href="#" class="btn btn-primary">Add to Cart</a>
+									</div>						
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- Carousel controls -->
+				<a class="carousel-control-prev" href="#myCarousel1" data-slide="prev">
+					<i class="fa fa-angle-left"></i>
+					<img src="static/img/prev-icon.png" class="slide-icon">
+				</a>
+				<a class="carousel-control-next" href="#myCarousel1" data-slide="next">
+					<i class="fa fa-angle-right"></i>
+					<img src="static/img/next-icon.png" class="slide-icon">
+				</a>
+			</div>
+			</div>
+		</div>
+	</div> 	
+	
+	
+<!-- 인기 전문가 슬라이드 -->
 
+	<div class="container-xl">
+		<div class="row">
+			<div class="col-md-12">
+				<h2><b>인기 전문가</b></h2>
+				<div id="myCarousel2" class="carousel slide" data-ride="carousel" data-interval="0" style="height: 350px;">
+				<!-- Carousel indicators -->
+				<ol class="carousel-indicators">
+					<li data-target="#myCarousel2" data-slide-to="0" class="active"></li>
+					<li data-target="#myCarousel2" data-slide-to="1"></li>
+					<li data-target="#myCarousel2" data-slide-to="2"></li>
+				</ol>   
+				<!-- Wrapper for carousel items -->
+				<div class="carousel-inner">
+					<div class="item carousel-item active">
+						<div class="row">
+							<div class="col-sm-3">
+								<div class="thumb-wrapper">
+									<span class="wish-icon"><i class="fa fa-heart-o"></i></span>
+									<div class="img-box">
+										<a href="#"><img src="static/img/hot/hot-test1.png" class="img-fluid " alt=""></a>									
+									</div>
+									<div class="thumb-content">
+										<h4>전문가1</h4>																		
+									</div>						
+								</div>
+							</div>
+							<div class="col-sm-3">
+								<div class="thumb-wrapper">
+									<span class="wish-icon"><i class="fa fa-heart-o"></i></span>
+									<div class="img-box">
+										<a href="#"><img src="static/img/hot/hot-test2.png" class="img-fluid " alt="Headphone"></a>
+									</div>
+									<div class="thumb-content">
+										<h4>전문가2</h4>																			
+									</div>						
+								</div>
+							</div>		
+							<div class="col-sm-3">
+								<div class="thumb-wrapper">
+									<span class="wish-icon"><i class="fa fa-heart-o"></i></span>
+									<div class="img-box">
+										<a href="#"><img src="static/img/hot/hot-test3.png" class="img-fluid " alt="Macbook"></a>
+									</div>
+									<div class="thumb-content">
+										<h4>전문가3</h4>									
+									</div>						
+								</div>
+							</div>								
+							<div class="col-sm-3">
+								<div class="thumb-wrapper">
+									<span class="wish-icon"><i class="fa fa-heart-o"></i></span>
+									<div class="img-box">
+										<a href="#"><img src="static/img/hot/hot-test4.png" class="img-fluid " alt="Nikon"></a>
+									</div>
+									<div class="thumb-content">
+										<h4>전문가4</h4>									
+									</div>						
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="item carousel-item">
+						<div class="row">
+							<div class="col-sm-3">
+								<div class="thumb-wrapper">
+									<span class="wish-icon"><i class="fa fa-heart-o"></i></span>
+									<div class="img-box">
+										<a href="#"><img src="static/img/hot/hot-test5.png" class="img-fluid " alt="Play Station"></a>
+									</div>
+									<div class="thumb-content">
+										<h4>전문가5</h4>																				
+									</div>						
+								</div>
+							</div>
+							<div class="col-sm-3">
+								<div class="thumb-wrapper">
+									<span class="wish-icon"><i class="fa fa-heart-o"></i></span>
+									<div class="img-box">
+										<a href="#"><img src="static/img/hot/hot-test6.png" class="img-fluid " alt="Macbook"></a>
+									</div>
+									<div class="thumb-content">
+										<h4>전문가6</h4>
+									</div>						
+								</div>
+							</div>
+							<div class="col-sm-3">
+								<div class="thumb-wrapper">
+									<span class="wish-icon"><i class="fa fa-heart-o"></i></span>
+									<div class="img-box">
+										<a href="#"><img src="static/img/hot/hot-test7.png" class="img-fluid " alt="Speaker"></a>
+									</div>
+									<div class="thumb-content">
+										<h4>전문가7</h4>
+									</div>						
+								</div>
+							</div>
+							<div class="col-sm-3">
+								<div class="thumb-wrapper">
+									<span class="wish-icon"><i class="fa fa-heart-o"></i></span>
+									<div class="img-box">
+										<a href="#"><img src="static/img/hot/hot-test8.png" class="img-fluid " alt="Galaxy"></a>
+									</div>
+									<div class="thumb-content">
+										<h4>전문가 8</h4>
+									</div>						
+								</div>
+							</div>						
+						</div>
+					</div>
+					<div class="item carousel-item">
+						<div class="row">
+							<div class="col-sm-3">
+								<div class="thumb-wrapper">
+									<span class="wish-icon"><i class="fa fa-heart-o"></i></span>
+									<div class="img-box">
+										<a href="#"><img src="static/img/hot/hot-test9.png" class="img-fluid " alt="iPhone"></a>
+									</div>
+									<div class="thumb-content">
+										<h4>전문가 9</h4>
+										<p class="item-price"><strike>$369.00</strike> <span>$349.00</span></p>
+										<a href="#" class="btn btn-primary">Add to Cart</a>
+									</div>						
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- Carousel controls -->
+				<a class="carousel-control-prev" href="#myCarousel2" data-slide="prev">
+					<i class="fa fa-angle-left"></i>
+					<img src="static/img/prev-icon.png" class="slide-icon">
+				</a>
+				<a class="carousel-control-next" href="#myCarousel2" data-slide="next">
+					<i class="fa fa-angle-right"></i>
+					<img src="static/img/next-icon.png" class="slide-icon">
+				</a>
+			</div>
+			</div>
+		</div>
+	</div> 
+	
+	<!-- 커뮤니티 HOT -->
+	<div style="width: 1300px; height: 500px; margin: auto; background-color: lightgrey; padding: 20px;">
+		<span style="font-weight: bold; font-size: 20px; margin-left: 50px;" >
+			커뮤니티 HOT 
+			<img src="static/img/fire.png" style="width: 20px; position:relative; bottom: 2px;">
+		</span>
+		<section>
+			<div style="width: 600px; margin-top: 30px; padding-left: 50px; display: inline-block;">
+				<a href="#"><img src="static/img/hot/hot-test1.png" style="max-width: 250px; height: 100%;"></a>
+				<span style="position: relative; bottom: 70px; left: 40px; font-weight: bold;"> 전문가 구해요</span><br>
+				<a href="#"><img src="static/img/hot/hot-test2.png" style="max-width: 250px; height: 100%; margin-top: 20px;"></a>
+				<span style="position: relative; bottom: 70px; left: 40px; font-weight: bold;"> 궁금해요</span><br>
+			</div>
+			<div style="width: 600px; margin-top: 30px; padding-left: 80px; display: inline-block;">
+				<a href="#"><img src="static/img/hot/hot-test3.png" style="max-width: 250px; height: 100%;"></a>
+				<span style="position: relative; bottom: 70px; left: 40px; font-weight: bold;"> 레슨자 구해요</span><br>
+				<a href="#"><img src="static/img/hot/hot-test4.png" style="max-width: 250px; height: 100%; margin-top: 20px;"></a>
+				<span style="position: relative; bottom: 70px; left: 40px; font-weight: bold;"> 일상</span><br>
+			</div>
+		</section>
+	</div>
+	<a href="#" style="position: relative; bottom: 480px; left: 350px;"><button type="button" class="btn btn-outline-success">전체보기</button></a>
+	
 
 	
 	<c:url var="mainurl" value="/main" />
 	
-	<footer style="margin-top : 300px;">
-		이용약관
+	<footer class="footer" style="margin-top : 200px; text-align:center; border-top: 3px solid #dcdcde; ">
+		<div style="width: 400px; height: 200px; background-color: #f6f7f7; margin: auto; margin-bottom: 50px; margin-top: 20px;" padding: 10px;>
+			이용약관
+		</div>
 	</footer>
 </body>
 	
