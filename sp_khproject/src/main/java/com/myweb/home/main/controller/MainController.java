@@ -1,7 +1,5 @@
 package com.myweb.home.main.controller;
 
-import javax.servlet.http.HttpSession;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttribute;
 
-import com.myweb.home.cus.model.CusDTO;
+import com.myweb.home.Accounts.model.AccountsDTO;
 import com.myweb.home.main.service.MainService;
 
 @Controller
@@ -36,8 +34,8 @@ public class MainController {
 	//로그인했을때 dto정보받아오기...
 	@PostMapping(value="")
 	public String main(Model model
-			, @SessionAttribute("loginData") CusDTO cusDto) {
-		logger.info("main({}, {})", model, cusDto);
+			, @SessionAttribute("loginData") AccountsDTO acDto) {
+		logger.info("main({}, {})", model, acDto);
 		
 		return "main/main";
 

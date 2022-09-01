@@ -8,7 +8,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttribute;
 
-import com.myweb.home.cus.model.CusDTO;
+import com.myweb.home.Accounts.model.AccountsDTO;
+
 
 
 
@@ -20,8 +21,8 @@ public class InfoController {
 	
 	@GetMapping(value="")
 	public String main(Model model
-			, @SessionAttribute("loginData") CusDTO cusDto) {
-		logger.info("main({}) cusdata({})", model, cusDto);
+			, @SessionAttribute("loginData") AccountsDTO acDto) {
+		logger.info("main({}) cusdata({})", model, acDto);
 		
 		
 		return "info/info";

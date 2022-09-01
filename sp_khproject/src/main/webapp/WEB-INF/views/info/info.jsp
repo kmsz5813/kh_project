@@ -28,9 +28,9 @@
 			</div>
 			<div class="col">
 				<div class="card">
-					<p class="fw-normal fs-6">이름 : ${loginData.cus_name }</p>
-					<p class="fw-normal fs-6">지역 : ${loginData.cus_field }</p>
-					<p class="fw-normal fs-6">흥미 : ${loginData.cus_interest }</p>
+					<p class="fw-normal fs-6">이름 : ${loginData.ac_name }</p>
+					<p class="fw-normal fs-6">지역 : ${loginData.ac_field }</p>
+					<p class="fw-normal fs-6">흥미 : ${loginData.ac_interest }</p>
 				</div>
 			</div>
 		</div>

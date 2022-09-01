@@ -1,26 +1,27 @@
-package com.myweb.home.cus.model;
+package com.myweb.home.Accounts.model;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class CusDAO {
+public class AccountsDAO {
 	
 	@Autowired
 	private SqlSession session = null;
 	
-	private String mapper = "cusMapper.%s";
-
-	public boolean insertData(CusDTO data) {
+	private String mapper = "acMapper.%s";
+	
+	public boolean insertData(AccountsDTO data) {
 		String mapperId = String.format(mapper, "insertData");
 		int res = session.insert(mapperId, data);
 		return res == 1 ? true : false;
 	}
 
-	public CusDTO selectLogin(CusDTO cusData) {
+	public AccountsDTO selectLogin(AccountsDTO data) {
+		System.out.println(data.getAc_email());
 		String mapperId = String.format(mapper, "selectLogin");
-		CusDTO result = session.selectOne(mapperId, cusData);
+		AccountsDTO result = session.selectOne(mapperId, data);
 		return result;
 	}
 

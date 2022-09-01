@@ -19,7 +19,7 @@
 
 	<section class="container w-25">
 		<div class="mt-5">
-		<c:url var="selSignurl" value="/sel/selsign" />
+		<c:url var="selSignurl" value="/login/selsign" />
 		<form action="${selSignurl}" method="post">
 			<div class="mb-3 center">
 				<p class="fw-normal fs-2 text-center">회원가입</p>

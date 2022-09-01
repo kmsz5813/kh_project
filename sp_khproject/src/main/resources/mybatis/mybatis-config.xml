@@ -7,7 +7,6 @@
 	</settings>
 	
 	<typeAliases>
-		<typeAlias type="com.myweb.home.cus.model.CusDTO" alias="cusDto" />
-		<typeAlias type="com.myweb.home.sel.model.SelDTO" alias="selDto" />
+		<typeAlias type="com.myweb.home.Accounts.model.AccountsDTO" alias="acDto" />
 	</typeAliases>
 </configuration>
