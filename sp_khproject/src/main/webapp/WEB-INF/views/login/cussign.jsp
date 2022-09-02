@@ -247,7 +247,10 @@
 		            	}else if(data.code === "sameid"){
 		            		 $('.id_already').css("display","inline-block");
 		                     $('.id_ok').css("display", "none");
+		 					
+		                     /*이부분 수정해야됨.....*/
 		                     $('#id').focus();
+		                 
 		            	}
 		            },
 		        });
