@@ -37,4 +37,26 @@ public class LoginService {
 		}
 	}
 
+	public AccountsDTO idCheck(String id) {
+		
+		AccountsDTO data = dao.idcheck(id);
+		
+		if(data != null) {
+			return data;
+		}
+		return null;
+	}
+	
+	public AccountsDTO nameCheck(String name) {
+		
+		AccountsDTO data = dao.namecheck(name);
+		
+		if(data != null) {
+			return data;
+		}
+		return null;
+	}
+	
+	
+
 }

@@ -3,6 +3,7 @@ package com.myweb.home.login.controller;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.json.simple.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.myweb.home.Accounts.model.AccountsDTO;
 import com.myweb.home.login.service.LoginService;
@@ -141,6 +144,50 @@ public class LoginController {
 		
 		return "login/selsign";
 	}
+
+		@PostMapping("/cussign/idCheck")
+		@ResponseBody
+		public String idCheck(@RequestParam("id") String id) {
+			
+			System.out.println("로그인컨트롤러 : " + id);
+			
+			JSONObject json = new JSONObject();
+			
+			AccountsDTO data = service.idCheck(id);
+			
+			System.out.println("로그인컨트롤러 : " + data);
+			
+			if(data == null) {
+				json.put("code", "success");
+			}else {
+				json.put("code", "sameid");
+			}
+			
+			return json.toJSONString();
+			
+		}
+		
+		@PostMapping("/cussign/nameCheck")
+		@ResponseBody
+		public String nameCheck(@RequestParam("name") String name) {
+			
+			System.out.println("로그인컨트롤러 : " + name);
+			
+			JSONObject json = new JSONObject();
+			
+			AccountsDTO data = service.nameCheck(name);
+			
+			System.out.println("로그인컨트롤러 : " + data);
+			
+			if(data == null) {
+				json.put("code", "success");
+			}else {
+				json.put("code", "sameid");
+			}
+			
+			return json.toJSONString();
+			
+		}
 	
 	
 }

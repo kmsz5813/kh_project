@@ -12,4 +12,11 @@
 	SELECT * FROM ACCOUNTS WHERE AC_EMAIL = #{ac_email} AND AC_PW = #{ac_pw}
 	</select>
 	
+	<select id="getData" resultType="acDto">
+		SELECT * FROM ACCOUNTS WHERE AC_EMAIL = #{id}
+	</select>
+	
+	<select id="nameData" resultType="acDto">
+		SELECT * FROM ACCOUNTS WHERE AC_name = #{name}
+	</select>
 </mapper>

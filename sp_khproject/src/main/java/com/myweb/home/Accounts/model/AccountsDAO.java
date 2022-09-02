@@ -24,4 +24,19 @@ public class AccountsDAO {
 		return result;
 	}
 
+	public AccountsDTO idcheck(String id) {
+		String mapperId = String.format(mapper, "getData");
+		AccountsDTO result = session.selectOne(mapperId, id);
+		return result;
+	}
+	
+	public AccountsDTO namecheck(String name) {
+		String mapperId = String.format(mapper, "nameData");
+		AccountsDTO result = session.selectOne(mapperId, name);
+		return result;
+	}
+
+
+
+
 }

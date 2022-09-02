@@ -17,6 +17,26 @@
 			bottom: 86px;
 			left: 100px;
 		}
+		
+		.id_ok{
+		color:#008000;
+		display: none;
+		}
+		
+		.id_already{
+		color:red; 
+		display: none;
+		}
+		
+		.name_ok{
+		color:#008000;
+		display: none;
+		}
+		
+		.name_already{
+		color:red; 
+		display: none;
+		}
 	</style>
 </head>
 
@@ -32,10 +52,16 @@
 				</div>
 				<div class="p-1 mb-3 bg-secondary text-white text-center fw-normal">일반회원</div>
 				
+				
+				
 				<div class="mb-3">
 					<label class="fw-normal mb-2">이메일</label>
-					<input type="email" class="form-control" name="cus_email" placeholder="이메일을 입력해주세요." required>
+					<input type="email" id="id" onchange = "checkId()" class="form-control" name="cus_email" placeholder="이메일을 입력해주세요." required>
 					<span class="email-alert"></span>
+					<span class="id_ok">사용 가능한 이메일입니다.</span>
+					<span class="id_already">사용 중인 이메일입니다.</span>
+					
+
 				</div>
 				<div>
 					<span class="message-label"></span>
@@ -44,7 +70,11 @@
 
 				<div class="mb-3">
 					<label class="fw-normal mb-2">닉네임</label>
-					<input class="form-control" type="text" name="cus_name" placeholder="별명을 입력해주세요." required>
+					<input class="form-control" id="name" onchange="checkName()" type="text" name="cus_name" placeholder="별명을 입력해주세요." required>
+					<span class="name_ok">사용 가능한 닉네임입니다.</span>
+					<span class="name_already">사용 중인 닉네임입니다.</span>
+					
+					
 				</div>
 				<div>
 					<span class="message-label"></span> 
@@ -194,6 +224,56 @@
 			  }
 			});			
 			
+			function checkEmail(){
+				 var email = $('#email').val();
+					if(email =='' || email == 'undefined'){
+					alert();
+				}
+			}
+			
+			/* 이메일 중복검사 */
+			function checkId(){
+		        var id = $('#id').val(); //id값이 "id"인 입력란의 값을 저장
+		      
+		        $.ajax({
+		            url:'cussign/idCheck', //Controller에서 요청 받을 주소
+		            type:'post', //POST 방식으로 전달
+		            data:{id: id},
+		            dataType: "json",
+		            success:function(data){ //컨트롤러에서 넘어온 cnt값을 받는다 
+		            	if(data.code === "success"){
+		            	      $('.id_ok').css("display","inline-block"); 
+		                      $('.id_already').css("display", "none");
+		            	}else if(data.code === "sameid"){
+		            		 $('.id_already').css("display","inline-block");
+		                     $('.id_ok').css("display", "none");
+		                     $('#id').focus();
+		            	}
+		            },
+		        });
+		        };
+			/* 닉네임 중복검사 */
+	        function checkName(){
+		        var name = $('#name').val(); //id값이 "id"인 입력란의 값을 저장
+		      
+		        $.ajax({
+		            url:'cussign/nameCheck', //Controller에서 요청 받을 주소
+		            type:'post', //POST 방식으로 전달
+		            data:{name: name},
+		            dataType: "json",
+		            success:function(data){ //컨트롤러에서 넘어온 cnt값을 받는다 
+		            	if(data.code === "success"){
+		            	      $('.name_ok').css("display","inline-block"); 
+		                      $('.name_already').css("display", "none");
+		            	}else if(data.code === "sameid"){
+		            		 $('.name_already').css("display","inline-block");
+		                     $('.name_ok').css("display", "none");
+		                     $('#name').focus();
+		                     
+		            	}
+		            },
+		        });
+		        }; 
 		</script>
 </body>
 </html>
