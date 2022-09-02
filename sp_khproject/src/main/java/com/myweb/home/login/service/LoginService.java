@@ -15,8 +15,6 @@ public class LoginService {
 	private AccountsDAO dao;
 	
 	public boolean add(AccountsDTO data) {
-		System.out.println("dto 테스트1");
-		System.out.println(data.getAc_email());
 		
 		boolean result = dao.insertData(data);
 		

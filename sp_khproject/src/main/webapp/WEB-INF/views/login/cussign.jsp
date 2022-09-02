@@ -27,32 +27,33 @@
 				
 				<div class="mb-3">
 					<label class="fw-normal mb-2">이메일</label>
-					<div class="message-label"></div>
-					<input type="email" class="form-control" name="cus_email" placeholder="이메일을 입력해주세요." required>
-					<div class="email-alert"></div>
+					<label class="message-label"></label>  
+					<input id="emailcheck" type="email" class="form-control" name="cus_email" placeholder="이메일을 입력해주세요." required>
+					<label class="email-alert"></label>
 				</div>
 				<div>
-					<label class="message-label"></label>
+				<label class="message-label"></label>
 				</div>
+
 
 				<div class="mb-3">
 					<label class="fw-normal mb-2">닉네임</label>
-					<label class="message-label"></label><br>
+					<label class="message-label" ></label><br>
 					<input class="form-control" type="text" name="cus_name" placeholder="별명을 입력해주세요." required>
 				</div>
 				<div>
 					<label class="message-label"></label><br> 
 				</div>
-				
+	
 				<div class="mb-3">
 					<label class="mb-2">비밀번호</label>
 					<label class="message-label"></label><br>
 					<input class="form-control pw" type="password" name="cus_pw" placeholder="비밀번호를 입력해 주세요.(6자리 이상)" required>
 					<br>
-					<label class="pw-alert"></label>
+					<label class="pw-alert" ></label>
 				</div>
 				<div>
-					<label class="message-label"></label><br> 
+					<label class="message-label" ></label><br> 
 				</div>		
 						
 				<div class="mb-3">
@@ -105,6 +106,7 @@
 				initEventBinding();
 			}
 			
+			
 			/* 필수 텍스트 항목 로직 */
 			function initEventBinding() {
 				requiredEventBinding();
@@ -125,6 +127,7 @@
 				} else {					
 					messageLabel.style.color = "red";
 					messageLabel.innerText = "* 필수 입력 항목입니다.";
+					
 				}
 			}
 			

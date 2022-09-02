@@ -24,7 +24,6 @@ public class InfoController {
 			, @SessionAttribute("loginData") AccountsDTO acDto) {
 		logger.info("main({}) cusdata({})", model, acDto);
 		
-		
 		return "info/info";
 		
 	}

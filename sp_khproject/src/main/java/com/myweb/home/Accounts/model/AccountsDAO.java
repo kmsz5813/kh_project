@@ -19,7 +19,6 @@ public class AccountsDAO {
 	}
 
 	public AccountsDTO selectLogin(AccountsDTO data) {
-		System.out.println(data.getAc_email());
 		String mapperId = String.format(mapper, "selectLogin");
 		AccountsDTO result = session.selectOne(mapperId, data);
 		return result;
