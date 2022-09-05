@@ -10,11 +10,11 @@ import com.myweb.home.selitem.model.SelItemDTO;
 
 @Service
 public class SelItemService {
-	@Autowired
-	private SelItemDAO dao;
-	
-	public List<SelItemDTO> getAll() {
-		List<SelItemDTO> datas = dao.selectAll();
-		return datas;
-	}
+//	@Autowired
+//	private SelItemDAO dao;
+//	
+//	public List<SelItemDTO> getAll() {
+//		List<SelItemDTO> datas = dao.selectAll();
+//	return datas;
+//	}
 }
