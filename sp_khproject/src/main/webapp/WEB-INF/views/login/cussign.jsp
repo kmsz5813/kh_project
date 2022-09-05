@@ -57,7 +57,7 @@
 				<div class="mb-3">
 					<label class="fw-normal mb-2">이메일</label>
 					<input type="email" id="id" onchange = "checkId()" class="form-control" name="cus_email" placeholder="이메일을 입력해주세요." required>
-					<span class="email-alert"></span>
+					<span id="email-alert" class="email-alert"></span>
 					<span class="id_ok">사용 가능한 이메일입니다.</span>
 					<span class="id_already">사용 중인 이메일입니다.</span>
 					
@@ -171,6 +171,8 @@
 			  var email = $(this).val();
 			  if( email == '' || email == 'undefined') {
 				  $(".email-alert").text('');
+				  
+				  
 				  return;
 			  }
 			  if(! email_check(email) ) {
@@ -234,31 +236,37 @@
 			/* 이메일 중복검사 */
 			function checkId(){
 		        var id = $('#id').val(); //id값이 "id"인 입력란의 값을 저장
-		      
-		        $.ajax({
-		            url:'cussign/idCheck', //Controller에서 요청 받을 주소
-		            type:'post', //POST 방식으로 전달
-		            data:{id: id},
-		            dataType: "json",
-		            success:function(data){ //컨트롤러에서 넘어온 cnt값을 받는다 
-		            	if(data.code === "success"){
-		            	      $('.id_ok').css("display","inline-block"); 
-		                      $('.id_already').css("display", "none");
-		            	}else if(data.code === "sameid"){
-		            		 $('.id_already').css("display","inline-block");
-		                     $('.id_ok').css("display", "none");
-		 					
-		                     /*이부분 수정해야됨.....*/
-		                     $('#id').focus();
-		                 
-		            	}
-		            },
-		        });
+		      	
+		        	$.ajax({
+			            url:'cussign/idCheck', //Controller에서 요청 받을 주소
+			            type:'post', //POST 방식으로 전달
+			            data:{id: id},
+			            dataType: "json",
+			            success:function(data){ //컨트롤러에서 넘어온 cnt값을 받는다 
+			            	if(data.code === "success"){
+			            	      $('.id_ok').css("display","inline-block"); 
+			                      $('.id_already').css("display", "none");
+			            	}else if(data.code === "sameid"){
+			                   
+			            		
+			            		$('#id').focusin(function(){
+			            			alert();
+			            		})
+			            		 $('.id_already').css("display","inline-block");
+			                     $('.id_ok').css("display", "none");
+			 					
+			                     /*이부분 수정해야됨.....*/
+		
+			                 
+			            	}
+			            },
+			        });	
 		        };
 			/* 닉네임 중복검사 */
 	        function checkName(){
 		        var name = $('#name').val(); //id값이 "id"인 입력란의 값을 저장
-		      
+		  
+		        
 		        $.ajax({
 		            url:'cussign/nameCheck', //Controller에서 요청 받을 주소
 		            type:'post', //POST 방식으로 전달

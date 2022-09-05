@@ -37,8 +37,8 @@ public class LoginController {
 
 	@PostMapping(value="")
 	public String login(HttpServletRequest request, 
-						HttpSession session
-						) {
+						HttpSession session,
+						Model model) {
 		
 			String email = request.getParameter("email");
 			String pw = request.getParameter("pw");
@@ -49,10 +49,15 @@ public class LoginController {
 			
 			boolean result = service.getLogin(session, data);
 			
+			System.out.println("logincontroller : "  + result);
+			
 			if(result) {
+				//로그인성공기
 				return "redirect:main";
+			}else {
+				return "login/m_login";
 			}
-			return "login/login";
+			
 			
 
 	}
@@ -145,6 +150,7 @@ public class LoginController {
 		return "login/selsign";
 	}
 
+		//이메일중복체크
 		@PostMapping("/cussign/idCheck")
 		@ResponseBody
 		public String idCheck(@RequestParam("id") String id) {
@@ -167,6 +173,7 @@ public class LoginController {
 			
 		}
 		
+		//닉네임중복체크
 		@PostMapping("/cussign/nameCheck")
 		@ResponseBody
 		public String nameCheck(@RequestParam("name") String name) {

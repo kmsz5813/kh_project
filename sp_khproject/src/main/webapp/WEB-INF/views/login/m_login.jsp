@@ -21,15 +21,18 @@
 			<p class="fw-normal fs-2 text-center">로그인</p>
 		</div>
 		<div class="mb-3">
-			<input class="form-control"  type="text" name="email"  aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg" placeholder="이메일 주소">
+			<input class="form-control"  type="text" name="email"  aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg">
 		</div>
 		<div class="mb-3">
-			<input class="form-control" type="password" name="pw"  aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg" placeholder="비밀번호">
+			<input class="form-control" type="password" name="pw"  aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg">
 		</div>
-		<div class="mb-3 ">
+		<div class="mb-3">
+			<p style="color:red">아이디 또는 비밀번호가 틀렸어요</p>
+		</div>
+		<div class="mb-3">
 			<button type="button" style="border:none; background-color:transparent;">아이디 / 비밀번호찾기</button> 
 		</div>
-		<div class="mb-3">
+		<div class="mb-3 mt-3">
 			<button type="submit" class="form-control p-1 mb-2 bg-secondary  text-center fw-normal" style="--bs-bg-opacity: .5;">로그인</button>
 		</div>
 		<div class="mb-3">

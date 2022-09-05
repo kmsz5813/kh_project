@@ -29,8 +29,19 @@ public class LoginService {
 		
 		AccountsDTO acdata = dao.selectLogin(data);
 		
-		if(data != null) {
+	
+		if(acdata != null) {
 			session.setAttribute("loginData", acdata);
+			return true;
+		}else {
+			return false;
+		}
+	}
+	
+	public boolean getCheck(AccountsDTO data) {
+		AccountsDTO acdata = dao.selectLogin(data);
+		
+		if(acdata != null) {
 			return true;
 		}else {
 			return false;
@@ -56,6 +67,8 @@ public class LoginService {
 		}
 		return null;
 	}
+
+
 	
 	
 
