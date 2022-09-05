@@ -11,7 +11,6 @@
 	<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 
 	<title>전문가 가입페이지</title>
-	<%@ include file="../module/head.jsp" %>
 	<style>
 		.message-label {
 			position: relative;

@@ -9,7 +9,6 @@
 <head>
 	<meta charset="UTF-8">
 	<title>마이페이지</title>
-	<%@ include file="../module/head.jsp" %>
 </head>
 <body>
 	<header></header>

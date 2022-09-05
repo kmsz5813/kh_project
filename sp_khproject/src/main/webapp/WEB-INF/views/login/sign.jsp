@@ -8,7 +8,6 @@
 <head>
 	<meta charset="UTF-8">
 	<title>회원가입 페이지</title>
-	<%@ include file="../module/head.jsp" %>
 </head>
 <body>
 	<header></header>

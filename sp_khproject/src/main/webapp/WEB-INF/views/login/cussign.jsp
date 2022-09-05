@@ -9,7 +9,6 @@
 <head>
 	<meta charset="UTF-8">
 	<title>일반회원 가입페이지</title>
-	<%@ include file="../module/head.jsp" %>
 	<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 	<style>
 		.message-label {
