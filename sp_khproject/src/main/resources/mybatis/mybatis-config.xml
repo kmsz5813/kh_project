@@ -8,5 +8,9 @@
 	
 	<typeAliases>
 		<typeAlias type="com.myweb.home.Accounts.model.AccountsDTO" alias="acDto" />
+		<typeAlias type="com.myweb.home.Accounts.model.CommunityDTO" alias="comDto" />
+		<typeAlias type="com.myweb.home.Accounts.model.SelItemDTO" alias="selItemDto" />
+		<typeAlias type="com.myweb.home.Accounts.model.SelItemCommentDTO" alias="selItemComDto" />
 	</typeAliases>
+	
 </configuration>
