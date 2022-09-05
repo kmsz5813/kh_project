@@ -26,43 +26,43 @@ import com.myweb.home.selitem.service.SelItemService;
 @RequestMapping(value="/selItem")
 public class SelItemController {
 
-	@Autowired
-	private SelItemService service;
-	
-	// 차후 상품등록 추가예정
+//	@Autowired
+//	private SelItemService service;
+//	
+//	 차후 상품등록 추가예정
 //	@Autowired
 //	private ProductUploadService 
-	
-	@RequestMapping(value="", method=RequestMethod.GET)
-	public String getList(Model model, HttpSession session
-			, @RequestParam(defaultValue="1", required=false) int page
-			, @RequestParam(defaultValue="0", required=false) int pageCount) {
-		List datas = service.getAll();
-		
-		if(session.getAttribute("pageCount") == null) {
-			session.setAttribute("pageCount", 5);
-		}
-		
-		if(pageCount > 0) {
-			session.setAttribute("pageCount", pageCount);
-		}
-		
-		pageCount = Integer.parseInt(session.getAttribute("pageCount").toString());
-		Paging paging = new Paging(datas, page, pageCount);
-		
-		model.addAttribute("dataas", paging.getPageData());
-		model.addAttribute("pageData", paging);
-		
-		return "selItem/list";
-	}
-	
-	@GetMapping(value="/detail")
-	public String getDetail(Model model
-			, HttpSession session
-			, @RequestParam int id) {
+//	
+//	@RequestMapping(value="", method=RequestMethod.GET)
+//	public String getList(Model model, HttpSession session
+//			, @RequestParam(defaultValue="1", required=false) int page
+//			, @RequestParam(defaultValue="0", required=false) int pageCount) {
+//		List datas = service.getAll();
+//		
+//		if(session.getAttribute("pageCount") == null) {
+//			session.setAttribute("pageCount", 5);
+//		}
+//		
+//		if(pageCount > 0) {
+//			session.setAttribute("pageCount", pageCount);
+//		}
+//		
+//		pageCount = Integer.parseInt(session.getAttribute("pageCount").toString());
+//		Paging paging = new Paging(datas, page, pageCount);
+//		
+//		model.addAttribute("dataas", paging.getPageData());
+//		model.addAttribute("pageData", paging);
+//		
+//		return "selItem/list";
+//	}
+//	
+//	@GetMapping(value="/detail")
+//	public String getDetail(Model model
+//			, HttpSession session
+//			, @RequestParam int id) {
 //		SelItemDTO data = service.getData(id);
-		
-		return "selItem/detail";
-	}
+//		
+//		return "selItem/detail";
+//	}
 	
 }
