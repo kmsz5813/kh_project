@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="communityMapper">
+	<select id="getNextSeq" resultType="_int">
+		SELECT CUMMUNITY_SEQ.NEXTVAL FROM DUAL
+	</select>
+	<insert id="insertData" parameterType="communityDto">
+		INSERT INTO CUMMUNITY (CUM_ID, AC_NUMBER, CUM_MAIN, CUM_TITLE, CUM_CONTENT, CUM_WRITEEDAY)
+		     VALUES(#{cum_id}, #{ac_number), #{cum_main} #{cum_title}, #{cum_content}, SYSDATE)
+	</insert>
+	<select id="selectData" resultType="communityDto">
+		SELECT C.CUM_ID, C.CUM_TITLE, C.CUM_CONTENT
+		     , C.AC_NUMBER
+		     , A.AC_NAME
+		     , C.WRITEDAY
+		     , C.CUM_VIEW AS cum_view
+		     , C."CUM_LIKE"
+		  FROM CUMMUNITY C
+		  JOIN ACCOUNTS A
+		    ON C.AC_NUMBER = A.AC_NUMBER
+		 WHERE C.CUM_ID = #{cum_id}
+	</select>
+	<update id="updateViewCnt" parameterType="communityDto">
+		UPDATE CUMMUNITY
+		   SET CUM_VIEW = #{cum_view} + 1
+		 WHERE CUM_ID = #{cum_id}
+	</update>
+	<update id="updateLike" parameterType="communityDto">
+		UPDATE CUMMUNITY
+		   SET "CUM_LIKE" = #{cum_like}
+		 WHERE CUM_ID= #{cum_id}
+	</update>
+	<select id="selectStatics" parameterType="communityStaticsDto" resultType="communityStaticsDto">
+		SELECT CUM_ID, AC_NUMBER, CUM_BID
+		     , CUM_VIEWED
+		     , CUM_LATEST_VIEW_DATE AS cum_latestViewDate
+		     , CUM_LIKED
+		  FROM CUMMUNITY_STATICS
+		 WHERE AC_NUMBER = #{ac_number}
+		   AND BID = #{bId}
+	</select>
+	<insert id="insertStatics" parameterType="communityStaticsDto">
+		INSERT INTO CUMMUNITY_STATICS
+		     VALUES(CUMMUNITY_STATICS_SEQ.NEXTVAL
+		          , #{ac_number}, #{bId}, 'Y', SYSDATE, 'N')
+	</insert>
+	<update id="updateStatics" parameterType="communityStaticsDto">
+		UPDATE CUMMUNITY_STATICS
+		   SET CUM_LATEST_VIEW_DATE = SYSDATE
+		 WHERE CUM_ID = #{cum_id}
+	</update>
+	<update id="updateStaticsLike" parameterType="communityStaticsDto">
+		UPDATE CUMMUNITY_STATICS
+		<choose>
+			<when test="liked">
+				SET CUM_LIKED = 'Y'
+			</when>
+			<otherwise>
+				SET CUM_LIKED = 'N'
+			</otherwise>
+		</choose>
+		 WHERE CUM_ID = #{cum_id}
+	</update>
+	<select id="selectAll" resultType="communityDto">
+		SELECT C.CUM_ID, C.CUM_TITLE, C.CUM_CONTENT
+		     , C.AC_NUMBER
+		     , A.AC_NAME
+		     , C.WRITEDAY
+		     , C.CUM_VIEW AS cum_view
+		     , C."CUM_LIKE"
+		  FROM CUMMUNITY C
+		  JOIN ACCOUNTS A
+		    ON C.AC_NUMBER = A.AC_NUMBER
+		 ORDER BY C.CUM_ID DESC
+	</select>
+	<delete id="deleteStaticsData">
+		DELETE FROM CUMMUNITY_STATICS
+		 WHERE CUM_BID = #{cum_bId}
+	</delete>
+	<delete id="deleteData">
+		DELETE FROM CUMMUNITY
+		 WHERE CUM_ID = #{cum_id}
+	</delete>
+	<update id="updateData" parameterType="communityDto">
+		UPDATE CUMMUNITY
+		   SET CUM_TITLE = #{cum_title}
+		     , CUM_CONTENT = #{cum_content}
+		 WHERE CUM_ID = #{cum_id}
+	</update>
+</mapper>

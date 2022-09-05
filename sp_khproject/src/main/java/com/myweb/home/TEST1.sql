@@ -6,17 +6,23 @@ SELECT * FROM COMMUNITY_COMMENT;
 SELECT * FROM COMMUNITY_MAIN;
 SELECT * FROM SEL_ITEM;
 <<<<<<< HEAD
+<<<<<<< HEAD
 SELECT * FROM 
 테스트에요요요요요ㅛ
 ㅁㄴㅇㄻ
 ㄻㄴㅇㄻㄴddㅇ
 =======
+=======
+>>>>>>> branch '정종두' of https://github.com/kmsz5813/kh_project.git
 SELECT * FROM SEL_ITEM_COMMENT;
 SELECT * FROM FILE_UPLOAD;
 SELECT * FROM MESSAGE;
 SELECT * FROM LIKE_ITEM;
 SELECT * FROM REPORT;
+<<<<<<< HEAD
 >>>>>>> refs/remotes/origin/정종두
+=======
+>>>>>>> branch '정종두' of https://github.com/kmsz5813/kh_project.git
 
 
 
