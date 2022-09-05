@@ -91,14 +91,14 @@ public class CommunityController {
 		CommunityDTO data = new CommunityDTO();
 		data.setCum_title(communityVo.getCum_title());
 		data.setCum_content(communityVo.getCum_content());
-		data.setAc_number(accountsDto.getAc_number());
+		data.setCum_name(accountsDto.getAc_name());
 
 		
 		int id = service.add(data);
 		
 		for(MultipartFile file: files) {
 			String location = request.getServletContext().getRealPath("/resources/community/upload");
-			String url = "/static/board/upload";
+			String url = "/static/community/upload";
 			FileUploadDTO fileData = new FileUploadDTO(id, location, url);
 			
 			try {
@@ -130,10 +130,10 @@ public class CommunityController {
 		List<FileUploadDTO> fileDatas = fileUploadService.getDatas(cum_id);
 		
 		if(data != null) {
-			if(data.getAc_number() == accountsDto.getAc_number()) {
+			if(data.getCum_name() == accountsDto.getAc_name()) {
 				model.addAttribute("data", data);
 				model.addAttribute("fileDatas", fileDatas);
-				return "board/modify";
+				return "community/modify";
 			} else {
 				model.addAttribute("error", "해당 작업을 수행할 권한이 없습니다.");
 				return "error/permission";
@@ -151,12 +151,12 @@ public class CommunityController {
 		CommunityDTO data = service.getData(communityVo.getCum_id());
 		
 		if(data != null) {
-			if(data.getAc_number() == accountsDto.getAc_number()) {
+			if(data.getCum_name() == accountsDto.getAc_name()) {
 				data.setCum_title(communityVo.getCum_title());
 				data.setCum_content(communityVo.getCum_content());
 				boolean result = service.modify(data);
 				if(result) {
-					return "redirect:/community/detail?id=" + data.getAc_number();
+					return "redirect:/community/detail?id=" + data.getCum_name();
 				} else {
 					return modify(model, accountsDto, communityVo.getCum_id());
 				}
@@ -183,7 +183,7 @@ public class CommunityController {
 			json.put("code", "notExists");
 			json.put("message", "이미 삭제 된 데이터 입니다.");
 		} else {
-			if(data.getAc_number() == accountsDto.getAc_number()) {
+			if(data.getCum_name() == accountsDto.getAc_name()) {
 				// 작성자, 수정자 동일인
 				boolean result = service.remove(data);
 				if(result) {

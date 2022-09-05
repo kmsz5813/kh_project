@@ -1,9 +1,10 @@
 package com.myweb.home.community.model;
+
 import java.sql.Date;
 
 public class CommunityStaticsDTO {
 	private int cum_id;
-	private int ac_number;
+	private String cum_name;
 	private int cum_bId;
 	private boolean cum_viewed;
 	private Date cum_latestViewDate;
@@ -17,12 +18,12 @@ public class CommunityStaticsDTO {
 		this.cum_id = cum_id;
 	}
 	
-	public int getAc_number() {
-		return ac_number;
+	public String getCum_name() {
+		return cum_name;
 	}
 	
-	public void setAc_number(int ac_number) {
-		this.ac_number = ac_number;
+	public void setCum_name(String cum_name) {
+		this.cum_name = cum_name;
 	}
 	
 	public int getCum_bId() {
@@ -59,7 +60,7 @@ public class CommunityStaticsDTO {
 
 	@Override
 	public String toString() {
-		return "CommunityStaticsDTO [cum_id=" + cum_id + ", ac_number=" + ac_number
+		return "CommunityStaticsDTO [cum_id=" + cum_id + ", cum_name=" + cum_name
 				+ ", cum_bId=" + cum_bId + ", cum_viewed=" + cum_viewed + ", cum_latestViewDate=" + cum_latestViewDate
 				+ ", cum_liked=" + cum_liked + "]";
 	}

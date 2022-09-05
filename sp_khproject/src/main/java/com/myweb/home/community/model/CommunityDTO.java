@@ -5,7 +5,7 @@ import java.sql.Date;
 public class CommunityDTO {
 
 	private int cum_id;
-	private int ac_number;
+	private String cum_name;
 	private String cum_main;
 	private String cum_title;
 	private String cum_content;
@@ -22,12 +22,12 @@ public class CommunityDTO {
 		this.cum_id = cum_id;
 	}
 	
-	public int getAc_number() {
-		return ac_number;
+	public String getCum_name() {
+		return cum_name;
 	}
 	
-	public void setAc_number(int ac_number) {
-		this.ac_number = ac_number;
+	public void setCum_name(String cum_name) {
+		this.cum_name = cum_name;
 	}
 	
 	public String getCum_main() {
@@ -88,7 +88,7 @@ public class CommunityDTO {
 
 	@Override
 	public String toString() {
-		return "CommunityDTO [cum_id=" + cum_id + ", ac_number=" + ac_number
+		return "CommunityDTO [cum_id=" + cum_id + ", cum_name=" + cum_name
 				+ ", cum_main=" + cum_main + ", cum_title=" + cum_title + ", cum_content=" + cum_content
 				+ ", cum_writeday=" + cum_writeday + ", cum_like=" + cum_like + ", cum_view=" + cum_view
 				+ ", cum_report=" + cum_report + "]";
