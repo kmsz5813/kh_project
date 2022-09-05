@@ -10,6 +10,7 @@ SELECT * FROM FILE_UPLOAD;
 SELECT * FROM MESSAGE;
 SELECT * FROM LIKE_ITEM;
 SELECT * FROM REPORT;
+>>>>>>> refs/remotes/origin/정종두
 
 
 
