@@ -233,11 +233,12 @@
 <!-- 로그인/회원가입/FAQ -->
 	<div style="text-align: right; margin-right: 100px; position:relative; top: 20px;">
 		<c:if test="${empty loginData }">
-		<a href="#">로그인</a>&emsp;/&emsp; 
-		<a href="#">회원가입</a>&emsp;/&emsp;
+			<a href="#">로그인</a>&emsp;/&emsp; 
+			<a href="#">회원가입</a>&emsp;/&emsp;
 		</c:if>
 			<c:if test="${not empty loginData }">
-			${loginData.ac_email }님 환영합니다!
+			${loginData.ac_email }님 환영합니다!&emsp;/&emsp;
+			<a href="${pageContext.request.contextPath}/info">마이페이지&emsp;/&emsp;</a>
 		</c:if> 
 		<a href="#">FAQ</a>
 	</div>
