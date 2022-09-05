@@ -75,7 +75,8 @@ public class LoginController {
 	}
 	
 	@PostMapping(value="/cussign")
-	public String cussign(HttpServletRequest request) {
+	public String cussign(HttpServletRequest request,
+						HttpSession session) {
 		String cus_email = request.getParameter("cus_email");
 		String cus_name = request.getParameter("cus_name");
 		String cus_pw = request.getParameter("cus_pw");
@@ -100,12 +101,22 @@ public class LoginController {
 		data.setAc_index(10);
 		data.setAc_sendemail(cus_sendemail);
 		
-		
+
+		if(cus_email == null) {
+			return "login/cussign";
+		}
+			
+	
 		boolean result = service.add(data);
-		
-		
+	
 		if(result) {
-			return "/login/login";
+			
+			data.setAc_email(cus_email);
+			data.setAc_pw(cus_pw);
+			
+			boolean result1 = service.getLogin(session, data);
+
+			return "redirect: /home/main";
 		}
 		
 		return "login/cussign";
@@ -118,7 +129,7 @@ public class LoginController {
 	}
 	
 	@PostMapping(value="/selsign")
-	public String selsign(Model model, HttpServletRequest request) {
+	public String selsign(Model model, HttpServletRequest request, HttpSession session) {
 		String sel_email = request.getParameter("sel_email");
 		String sel_name = request.getParameter("sel_name");
 		String sel_pw = request.getParameter("sel_pw");
@@ -148,7 +159,15 @@ public class LoginController {
 		boolean result = service.add(data);
 		
 		if(result) {
-			return "/login/login";
+
+			data.setAc_email(sel_email);
+			data.setAc_pw(sel_pw);
+			
+			boolean result1 = service.getLogin(session, data);
+
+			return "redirect: /home/main";
+	
+
 		}
 		
 		return "login/selsign";
@@ -159,13 +178,12 @@ public class LoginController {
 		@ResponseBody
 		public String idCheck(@RequestParam("id") String id) {
 			
-			System.out.println("로그인컨트롤러 : " + id);
-			
+		
 			JSONObject json = new JSONObject();
 			
 			AccountsDTO data = service.idCheck(id);
 			
-			System.out.println("로그인컨트롤러 : " + data);
+	
 			
 			if(data == null) {
 				json.put("code", "success");
@@ -182,7 +200,7 @@ public class LoginController {
 		@ResponseBody
 		public String nameCheck(@RequestParam("name") String name) {
 			
-			System.out.println("로그인컨트롤러 : " + name);
+			
 			
 			JSONObject json = new JSONObject();
 			

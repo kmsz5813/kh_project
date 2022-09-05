@@ -24,10 +24,10 @@
 			<p class="fw-normal fs-2 text-center">로그인</p>
 		</div>
 		<div class="mb-3">
-			<input class="form-control"  type="text" name="email"  aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg">
+			<input class="form-control"  type="text" name="email"  aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg"  placeholder="이메일 주소">
 		</div>
 		<div class="mb-3">
-			<input class="form-control" type="password" name="pw"  aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg">
+			<input class="form-control" type="password" name="pw"  aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg" placeholder="비밀번호">
 		</div>
 		<div class="mb-3">
 			<p style="color:red">아이디 또는 비밀번호가 틀렸어요</p>

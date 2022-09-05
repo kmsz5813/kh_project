@@ -55,16 +55,12 @@
 				</div>
 				<div class="p-1 mb-3 bg-secondary text-white text-center fw-normal">일반회원</div>
 				
-				
-				
 				<div class="mb-3">
 					<label class="fw-normal mb-2">이메일</label>
-					<input type="email" id="id" onchange = "checkId()" class="form-control" name="cus_email" placeholder="이메일을 입력해주세요." required>
+					<input type="email" id="id" onchange="checkId()" class="form-control" name="cus_email" placeholder="이메일을 입력해주세요." required>
 					<span id="email-alert" class="email-alert"></span>
 					<span class="id_ok">사용 가능한 이메일입니다.</span>
 					<span class="id_already">사용 중인 이메일입니다.</span>
-					
-
 				</div>
 				<div>
 					<span class="message-label"></span>
@@ -76,8 +72,6 @@
 					<input class="form-control" id="name" onchange="checkName()" type="text" name="cus_name" placeholder="별명을 입력해주세요." required>
 					<span class="name_ok">사용 가능한 닉네임입니다.</span>
 					<span class="name_already">사용 중인 닉네임입니다.</span>
-					
-					
 				</div>
 				<div>
 					<span class="message-label"></span> 
@@ -85,7 +79,7 @@
 	
 				<div class="mb-3">
 					<label class="mb-2">비밀번호</label>
-					<input class="form-control pw" type="password" name="cus_pw" placeholder="비밀번호를 입력해 주세요.(6자리 이상)" required>
+					<input class="form-control pw" type="password" id="cus_pw" name="cus_pw" placeholder="비밀번호를 입력해 주세요.(6자리 이상)" required>
 					<span class="pw-alert"></span>
 				</div>
 				<div>
@@ -94,7 +88,7 @@
 						
 				<div class="mb-3">
 					<label class="mb-2">비밀번호확인</label>
-					<input class="form-control pwpw" type="password" name="correct_pw" placeholder="비밀번호를 한 번 더 입력해 주세요." required>
+					<input class="form-control pwpw" type="password" id="cor_pw" name="correct_pw" placeholder="비밀번호를 한 번 더 입력해 주세요." required>
 					<span class="pwpw-alert"></span>
 				</div>
 				<div>
@@ -131,6 +125,7 @@
 				<div class="mb-3">	
 					<button type="submit"  class="form-control p-1 mb-2 bg-secondary  text-center fw-normal" style="--bs-bg-opacity: .5;">가입완료</button>
 				</div>
+			
 			</form>
 		</div>
 		</section>
@@ -158,21 +153,27 @@
 				if (element.value) {					
 					messageLabel.style.color = "";
 					messageLabel.innerText = "";
+					$('messageLabel').focus();
 				} else {					
 					messageLabel.style.color = "red";
 					messageLabel.innerText = "* 필수 입력 항목입니다.";
-					
+					$('messageLabel').focus();
 				}
 			}
 			
 			/* 이메일 폼 체크 로직*/
+	
+			
+			
 			function email_check( email ) {    
 			    var regex=/([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
 			    return (email != '' && email != 'undefined' && regex.test(email)); 
 			}
 			$("input[type=email]").blur(function(){
 			  var email = $(this).val();
+			  	  
 			  if( email == '' || email == 'undefined') {
+	
 				  $(".email-alert").text('');
 				  
 				  
@@ -185,8 +186,10 @@
 			    return false;
 			  }else {
 				$(".email-alert").text('');
+	
 			  }
 			});
+			
 			
 			/* 비밀번호 6자리 이상 로직 */
 			function pw_check(pw) {
@@ -196,6 +199,8 @@
 			  var pw = $(this).val();
 			  if( pw == '' || pw == 'undefined') {
 				  $(".pw-alert").text('');
+
+				  
 				  return;
 			  }
 			  if(! pw_check(pw) ) {
@@ -205,6 +210,7 @@
 			    return false;
 			  }else {
 				$(".pw-alert").text('');
+				
 			  }
 			});
 			
@@ -237,57 +243,74 @@
 			}
 			
 			/* 이메일 중복검사 */
-			function checkId(){
-		        var id = $('#id').val(); //id값이 "id"인 입력란의 값을 저장
-		      	
+	
+			function checkId(){    
+		      
+				$('#id').blur(function(){
+		        	 var id = $('#id').val(); //id값이 "id"인 입력란의 값을 저장
+		        	 
 		        	$.ajax({
 			            url:'cussign/idCheck', //Controller에서 요청 받을 주소
 			            type:'post', //POST 방식으로 전달
 			            data:{id: id},
 			            dataType: "json",
-			            success:function(data){ //컨트롤러에서 넘어온 cnt값을 받는다 
+			            success:function(data){ //컨트롤러에서 넘어온 data값을 받는다 
 			            	if(data.code === "success"){
 			            	      $('.id_ok').css("display","inline-block"); 
 			                      $('.id_already').css("display", "none");
+			            		  return;
+			                      
 			            	}else if(data.code === "sameid"){
-			                   
-			            		
-			            		$('#id').focusin(function(){
-			            			alert();
-			            		})
+			         		     //같은아이디일때
 			            		 $('.id_already').css("display","inline-block");
 			                     $('.id_ok').css("display", "none");
-			 					
-			                     /*이부분 수정해야됨.....*/
-		
-			                 
+			 					 $('#id').focus();
+			 					 return false;
+			                  
 			            	}
 			            },
 			        });	
+		
+		        })   	        	
 		        };
+		     
 			/* 닉네임 중복검사 */
 	        function checkName(){
-		        var name = $('#name').val(); //id값이 "id"인 입력란의 값을 저장
-		  
-		        
-		        $.ajax({
-		            url:'cussign/nameCheck', //Controller에서 요청 받을 주소
-		            type:'post', //POST 방식으로 전달
-		            data:{name: name},
-		            dataType: "json",
-		            success:function(data){ //컨트롤러에서 넘어온 cnt값을 받는다 
-		            	if(data.code === "success"){
-		            	      $('.name_ok').css("display","inline-block"); 
-		                      $('.name_already').css("display", "none");
-		            	}else if(data.code === "sameid"){
-		            		 $('.name_already').css("display","inline-block");
-		                     $('.name_ok').css("display", "none");
-		                     $('#name').focus();
-		                     
-		            	}
-		            },
-		        });
+				$('#name').blur(function(){
+					 var name = $('#name').val(); //id값이 "id"인 입력란의 값을 저장
+				        $.ajax({
+				            url:'cussign/nameCheck', //Controller에서 요청 받을 주소
+				            type:'post', //POST 방식으로 전달
+				            data:{name: name},
+				            dataType: "json",
+				            success:function(data){ //컨트롤러에서 넘어온 data값을 받는다 
+				            	if(data.code === "success"){
+				            	      $('.name_ok').css("display","inline-block"); 
+				                      $('.name_already').css("display", "none");
+				            		 return;
+				            	}else if(data.code === "sameid"){
+				            		 $('.name_already').css("display","inline-block");
+				                     $('.name_ok').css("display", "none");
+				                     $('#name').focus();
+				                     return false;
+				                     
+				            	}
+				            },
+				        });
+				})
+		 
 		        }; 
+		        
+		        //회원가입버튼눌렀을때ㅑ 비밀번호가 동일하지 않으면 제출 못하게 막기
+		        $('form').on('submit', function(e) {
+		     
+		            if ($('#cus_pw').val() != $("#cor_pw").val()) { 
+		                e.preventDefault(); 
+		            }
+		             
+		        })
+		        
+		       
 		</script>
 </body>
 </html>

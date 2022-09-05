@@ -20,6 +20,25 @@
 			bottom: 86px;
 			left: 100px;
 		}
+		.id_ok{
+		color:#008000;
+		display: none;
+		}
+		
+		.id_already{
+		color:red; 
+		display: none;
+		}
+		
+		.name_ok{
+		color:#008000;
+		display: none;
+		}
+		
+		.name_already{
+		color:red; 
+		display: none;
+		}
 	</style>
 </head>
 <body>
@@ -36,8 +55,10 @@
 			
 			<div class="mb-3">
 				<label class="fw-normal mb-2">이메일</label>
-				<input type="email" class="form-control" name="sel_email" placeholder="이메일을 입력해주세요." required>
-				<span class="email-alert"></span>
+				<input type="email" id="id" onchange="checkId()" class="form-control" name="sel_email" placeholder="이메일을 입력해주세요." required>
+				<span id="email-alert" class="email-alert"></span>
+				<span class="id_ok">사용 가능한 이메일입니다.</span>
+				<span class="id_already">사용 중인 이메일입니다.</span>
 			</div>
 			<div>
 				<span class="message-label"></span>
@@ -45,7 +66,9 @@
 			
 			<div class="mb-3">
 				<label class="fw-normal mb-2">닉네임</label>
-				<input class="form-control" type="text" name="sel_name" placeholder="별명을 입력해주세요." required>
+				<input class="form-control" id="name" onchange="checkName()" type="text" name="sel_name" placeholder="별명을 입력해주세요." required>
+				<span class="name_ok">사용 가능한 닉네임입니다.</span>
+				<span class="name_already">사용 중인 닉네임입니다.</span>
 			</div>
 			<div>
 				<span class="message-label"></span> 
@@ -104,95 +127,181 @@
 		</div>
 
 		<script type="text/javascript">
-			window.onload = function() {
-				initEventBinding();
+		window.onload = function() {
+			initEventBinding();
+		}
+		
+		
+		/* 필수 텍스트 항목 로직 */
+		function initEventBinding() {
+			requiredEventBinding();
+		}
+		function requiredEventBinding() {
+			var requiredElements = document.querySelectorAll("input[required]");
+			for(let element of requiredElements) {
+				element.addEventListener("blur", requriedHandler)
 			}
+		}	
+		function requriedHandler(e) {
+			var element = e.target;
+			var messageControl = element.parentElement.nextElementSibling;
+			var messageLabel = messageControl.getElementsByClassName("message-label")[0];
+			if (element.value) {					
+				messageLabel.style.color = "";
+				messageLabel.innerText = "";
+			} else {					
+				messageLabel.style.color = "red";
+				messageLabel.innerText = "* 필수 입력 항목입니다.";
+				
+			}
+		}
+		
+		/* 이메일 폼 체크 로직*/
+		
+		function email_check( email ) {    
+		    var regex=/([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
+		    return (email != '' && email != 'undefined' && regex.test(email)); 
+		}
+		$("input[type=email]").blur(function(){
+		  var email = $(this).val();
+		  	  
+		  if( email == '' || email == 'undefined') {
+
+			  $(".email-alert").text('');
+			  
+			  
+			  return;
+		  }
+		  if(! email_check(email) ) {
+		  	$(".email-alert").text('* 이메일 형식으로 적어주세요');
+		  	$(".email-alert").css('color', 'red');
+		    $(this).focus();
+		    return false;
+		  }else {
+			$(".email-alert").text('');
+
+		  }
+		});
+		
+		
+		/* 비밀번호 6자리 이상 로직 */
+		function pw_check(pw) {
+			return (pw != '' && pw != 'undefined' && pw.length > 5);
+		}
+		$(".pw").blur(function(){
+		  var pw = $(this).val();
+		  if( pw == '' || pw == 'undefined') {
+			  $(".pw-alert").text('');
+
+			  
+			  return;
+		  }
+		  if(! pw_check(pw) ) {
+		  	$(".pw-alert").text('* 6자리 이상이어야 합니다.');
+		  	$(".pw-alert").css('color', 'red');
+		    $(this).focus();
+		    return false;
+		  }else {
+			$(".pw-alert").text('');
 			
-			/* 필수 텍스트 항목 로직 */
-			function initEventBinding() {
-				requiredEventBinding();
+		  }
+		});
+		
+		/* 비밀번호 동일 로직 */
+		function pwpw_check(pwpw) {
+			var pw = $(".pw").val();
+			return (pwpw != '' && pwpw != 'undefined' && pwpw == pw);
+		}
+		$(".pwpw").blur(function(){
+		  var pwpw = $(this).val();
+		  if( pwpw == '' || pwpw == 'undefined') {
+			  $(".pwpw-alert").text('');
+			  return;
+		  }
+		  if(! pwpw_check(pwpw)) {
+		  	$(".pwpw-alert").text('* 비밀번호가 동일하지 않습니다.');
+		  	$(".pwpw-alert").css('color', 'red');
+		    $(this).focus();
+		    return false;
+		  }else {
+			$(".pwpw-alert").text('');
+		  }
+		});			
+		
+		function checkEmail(){
+			 var email = $('#email').val();
+				if(email =='' || email == 'undefined'){
+				alert();
 			}
-			function requiredEventBinding() {
-				var requiredElements = document.querySelectorAll("input[required]");
-				for(let element of requiredElements) {
-					element.addEventListener("blur", requriedHandler)
-				}
-			}	
-			function requriedHandler(e) {
-				var element = e.target;
-				var messageControl = element.parentElement.nextElementSibling;
-				var messageLabel = messageControl.getElementsByClassName("message-label")[0];	
-				if (element.value) {					
-					messageLabel.style.color = "";
-					messageLabel.innerText = "";
-				} else {					
-					messageLabel.style.color = "red";
-					messageLabel.innerText = "* 필수 입력 항목입니다.";
-				}
-			}
+		}
+		
+		/* 이메일 중복검사 */
+
+		function checkId(){    
+	      
+			$('#id').blur(function(){
+	        	 var id = $('#id').val(); //id값이 "id"인 입력란의 값을 저장
+	        	$.ajax({
+		            url:'cussign/idCheck', //Controller에서 요청 받을 주소
+		            type:'post', //POST 방식으로 전달
+		            data:{id: id},
+		            dataType: "json",
+		            success:function(data){ //컨트롤러에서 넘어온 cnt값을 받는다 
+		            	if(data.code === "success"){
+		            	      $('.id_ok').css("display","inline-block"); 
+		                      $('.id_already').css("display", "none");
+		            		  return;
+		                      
+		            	}else if(data.code === "sameid"){
+		         		     //같은아이디일때
+		            		 $('.id_already').css("display","inline-block");
+		                     $('.id_ok').css("display", "none");
+		 					 $('#id').focus();
+		 					 return false;
+		                  
+		            	}
+		            },
+		        });	
+	
+	        })   	        	
+	        };
+	     
+		/* 닉네임 중복검사 */
+        function checkName(){
+			$('#name').blur(function(){
+				 var name = $('#name').val(); //id값이 "id"인 입력란의 값을 저장
+			        $.ajax({
+			            url:'cussign/nameCheck', //Controller에서 요청 받을 주소
+			            type:'post', //POST 방식으로 전달
+			            data:{name: name},
+			            dataType: "json",
+			            success:function(data){ //컨트롤러에서 넘어온 cnt값을 받는다 
+			            	if(data.code === "success"){
+			            	      $('.name_ok').css("display","inline-block"); 
+			                      $('.name_already').css("display", "none");
+			            		 return;
+			            	}else if(data.code === "sameid"){
+			            		 $('.name_already').css("display","inline-block");
+			                     $('.name_ok').css("display", "none");
+			                     $('#name').focus();
+			                     return false;
+			                     
+			            	}
+			            },
+			        });
+			})
 			
-			/* 이메일 폼 체크 로직*/
-			function email_check( email ) {    
-			    var regex=/([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
-			    return (email != '' && email != 'undefined' && regex.test(email)); 
-			}
-			$("input[type=email]").blur(function(){
-			  var email = $(this).val();
-			  if( email == '' || email == 'undefined') {
-				  $(".email-alert").text('');
-				  return;
-			  }
-			  if(! email_check(email) ) {
-			  	$(".email-alert").text('* 이메일 형식으로 적어주세요');
-			  	$(".email-alert").css('color', 'red');
-			    $(this).focus();
-			    return false;
-			  }else {
-				$(".email-alert").text('');
-			  }
-			});
-			
-			/* 비밀번호 6자리 이상 로직 */
-			function pw_check(pw) {
-				return (pw != '' && pw != 'undefined' && pw.length > 5);
-			}
-			$(".pw").blur(function(){
-			  var pw = $(this).val();
-			  if( pw == '' || pw == 'undefined') {
-				  $(".pw-alert").text('');
-				  return;
-			  }
-			  if(! pw_check(pw) ) {
-			  	$(".pw-alert").text('* 6자리 이상이어야 합니다.');
-			  	$(".pw-alert").css('color', 'red');
-			    $(this).focus();
-			    return false;
-			  }else {
-				$(".pw-alert").text('');
-			  }
-			});
-			
-			/* 비밀번호 동일 로직 */
-			function pwpw_check(pwpw) {
-				var pw = $(".pw").val();
-				return (pwpw != '' && pwpw != 'undefined' && pwpw == pw);
-			}
-			$(".pwpw").blur(function(){
-			  var pwpw = $(this).val();
-			  if( pwpw == '' || pwpw == 'undefined') {
-				  $(".pwpw-alert").text('');
-				  return;
-			  }
-			  if(! pwpw_check(pwpw)) {
-			  	$(".pwpw-alert").text('* 비밀번호가 동일하지 않습니다.');
-			  	$(".pwpw-alert").css('color', 'red');
-			    $(this).focus();
-			    return false;
-			  }else {
-				$(".pwpw-alert").text('');
-			  }
-			});			
-			
+	 
+	        }; 
+	        
+	        //회원가입버튼눌렀을때ㅑ 비밀번호가 동일하지 않으면 제출 못하게 막기
+	        $('form').on('submit', function(e) {
+	     
+	            if ($('#cus_pw').val() != $("#cor_pw").val()) { 
+	                e.preventDefault(); 
+	            }
+	    
+	        })
 		</script>
 	</section>
 </body>
