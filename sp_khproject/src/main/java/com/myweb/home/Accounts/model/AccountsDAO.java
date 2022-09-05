@@ -35,6 +35,13 @@ public class AccountsDAO {
 		AccountsDTO result = session.selectOne(mapperId, name);
 		return result;
 	}
+	
+	public void deleteData(AccountsDTO data) {
+		String mapperId = String.format(mapper, "deleteData");
+		session.delete(mapperId, data);
+		// 참이면 1 리턴
+		
+	}
 
 
 

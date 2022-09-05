@@ -1,6 +1,7 @@
 package com.myweb.home.info.controller;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -63,6 +64,41 @@ public class InfoController {
 			return "info/modify";
 		}else {
 			return "login/m_login";
+		}
+		
+	}
+	
+	@GetMapping(value="/deletecheck")
+	public String deletecheck(Model model
+			, @SessionAttribute("loginData") AccountsDTO acDto ) {
+		
+		
+		return "info/deletecheck";
+	}
+	
+	@PostMapping(value="/deletecheck")
+	public String deletecheck(Model model
+			, @SessionAttribute("loginData") AccountsDTO acDto
+			, HttpServletRequest request, HttpSession session) {
+		
+		String email = request.getParameter("email");
+		String pw = request.getParameter("pw");
+		
+		AccountsDTO data = new AccountsDTO();
+		data.setAc_email(email);
+		data.setAc_pw(pw);
+		
+		boolean result = service.getCheck(data);
+		
+		if(result) { //이메일주소랑 비밀번호 체크 완료시	
+			service.delete(data);
+			System.out.println("삭제 완료");
+			session.invalidate();
+			
+			return "/login/m_login";
+		}else {
+			request.setAttribute("msg", false);
+			return null;
 		}
 		
 	}

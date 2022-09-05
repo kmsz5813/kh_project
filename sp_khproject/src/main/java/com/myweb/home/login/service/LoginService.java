@@ -67,6 +67,10 @@ public class LoginService {
 		}
 		return null;
 	}
+	
+	public void delete(AccountsDTO data) {
+		dao.deleteData(data);	
+	}
 
 
 	

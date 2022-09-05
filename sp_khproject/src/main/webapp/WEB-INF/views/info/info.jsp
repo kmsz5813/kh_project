@@ -21,7 +21,7 @@
 			</div>
 			<div class="col-auto mt-4 ">
 				<button type="button" style="border:none; background-color:transparent;">수정</button> / 
-				<button type="button" style="border:none; background-color:transparent;">탈퇴</button>
+				<a href="${pageContext.request.contextPath}/info/deletecheck"><button type="button" style="border:none; background-color:transparent;">탈퇴</button></a>
 			</div>
 		</div>
 		<div class="row mt-3">	

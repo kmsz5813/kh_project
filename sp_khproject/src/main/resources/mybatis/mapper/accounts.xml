@@ -19,4 +19,10 @@
 	<select id="nameData" resultType="acDto">
 		SELECT * FROM ACCOUNTS WHERE AC_name = #{name}
 	</select>
+	
+	<delete id="deleteData" parameterType="acDto">
+		DELETE FROM ACCOUNTS
+		 WHERE AC_EMAIL = #{ac_email}
+		   AND AC_PW = #{ac_pw}
+	</delete>
 </mapper>
