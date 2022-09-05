@@ -37,8 +37,8 @@
 			<a href="${pageContext.request.contextPath}/login/sign">회원가입</a>&emsp;/&emsp;
 		</c:if>
 			<c:if test="${not empty loginData }">
-			${loginData.ac_email }님 환영합니다!&emsp;/&emsp;
-			<a href="${pageContext.request.contextPath}/main">로그아웃&emsp;/&emsp;</a>
+			${loginData.ac_name }님 환영합니다!&emsp;/&emsp;
+			<a href="main/logout">로그아웃&emsp;/&emsp;</a>
 			<a href="${pageContext.request.contextPath}/info">마이페이지&emsp;/&emsp;</a>
 		</c:if> 
 		<a href="#">FAQ</a>

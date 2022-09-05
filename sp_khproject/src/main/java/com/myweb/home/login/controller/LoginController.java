@@ -52,7 +52,7 @@ public class LoginController {
 			System.out.println("logincontroller : "  + result);
 			
 			if(result) {
-				//로그인성공기
+				//로그인성공시
 				return "redirect:main";
 			}else {
 				return "login/m_login";
@@ -105,7 +105,7 @@ public class LoginController {
 		
 		
 		if(result) {
-			return "login/cussign";
+			return "/login/login";
 		}
 		
 		return "login/cussign";
@@ -146,6 +146,10 @@ public class LoginController {
 		
 		
 		boolean result = service.add(data);
+		
+		if(result) {
+			return "/login/login";
+		}
 		
 		return "login/selsign";
 	}
