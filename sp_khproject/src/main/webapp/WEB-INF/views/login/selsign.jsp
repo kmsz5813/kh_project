@@ -74,7 +74,7 @@
 			
 			<div class="mb-3">
 				<label class="mb-2">비밀번호</label>
-				<input class="form-control pw" type="password" name="sel_pw" placeholder="비밀번호를 입력해 주세요.(6자리 이상)" required>
+				<input class="form-control pw" type="password" id="sel_pw" name="sel_pw" placeholder="비밀번호를 입력해 주세요.(6자리 이상)" required>
 				<span class="pw-alert"></span>
 			</div>
 			<div>
@@ -83,7 +83,7 @@
 			
 			<div class="mb-3">
 				<label class="mb-2">비밀번호확인</label>
-				<input class="form-control pwpw" type="password" name="correct_pw" placeholder="비밀번호를 한 번 더 입력해 주세요." required>
+				<input class="form-control pwpw" type="password" id="cor_pw" name="correct_pw" placeholder="비밀번호를 한 번 더 입력해 주세요." required>
 				<span class="pwpw-alert"></span>
 			</div>
 			<div>
@@ -295,7 +295,7 @@
 	        //회원가입버튼눌렀을때ㅑ 비밀번호가 동일하지 않으면 제출 못하게 막기
 	        $('form').on('submit', function(e) {
 	     
-	            if ($('#cus_pw').val() != $("#cor_pw").val()) { 
+	            if ($('#sel_pw').val() != $("#cor_pw").val()) { 
 	                e.preventDefault(); 
 	            }
 	    
