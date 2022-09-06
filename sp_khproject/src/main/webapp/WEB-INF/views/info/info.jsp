@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-   <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
     
@@ -19,9 +19,9 @@
 			<div class="col-10">
 				<p class="fw-normal fs-2">마이페이지</p>
 			</div>
-			<div class="col-auto mt-4 ">
-				<button type="button" style="border:none; background-color:transparent;">수정</button> / 
-				<button type="button" style="border:none; background-color:transparent;">탈퇴</button>
+			<div class="col-auto mt-4">
+				<a href="${pageContext.request.contextPath}/info/modifycheck"><button type="button" style="border:none; font-weight:bold; background-color:transparent;">수정</button></a> / 
+				<a href="${pageContext.request.contextPath}/info/deletecheck"><button type="button" style="border:none; font-weight:bold; background-color:transparent;">탈퇴</button></a>
 			</div>
 		</div>
 		<div class="row mt-3">	

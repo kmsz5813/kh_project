@@ -3,15 +3,17 @@
    <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
-    
+<c:url var="bs5" value="/static/bs5" />
+<c:url var="jQuery" value="/static/js" />    
 <!DOCTYPE html>
 <html>
 <head>
 	<meta charset="UTF-8">
 	<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
-
+	<link rel="stylesheet" type="text/css" href="${bs5}/css/bootstrap.min.css">
+	<script type="text/javascript" src="${bs5}/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="${jQuery}/jquery-3.6.0.min.js"></script>
 	<title>전문가 가입페이지</title>
-	<%@ include file="../module/head.jsp" %>
 	<style>
 		.message-label {
 			position: relative;

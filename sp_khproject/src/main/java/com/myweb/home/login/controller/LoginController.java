@@ -52,7 +52,7 @@ public class LoginController {
 			System.out.println("logincontroller : "  + result);
 			
 			if(result) {
-				//로그인성공기
+				//로그인성공시
 				return "redirect:main";
 			}else {
 				return "login/m_login";
@@ -101,6 +101,7 @@ public class LoginController {
 		data.setAc_index(10);
 		data.setAc_sendemail(cus_sendemail);
 		
+
 		if(cus_email == null) {
 			return "login/cussign";
 		}
@@ -158,6 +159,7 @@ public class LoginController {
 		boolean result = service.add(data);
 		
 		if(result) {
+
 			data.setAc_email(sel_email);
 			data.setAc_pw(sel_pw);
 			
@@ -165,6 +167,7 @@ public class LoginController {
 
 			return "redirect: /home/main";
 	
+
 		}
 		
 		return "login/selsign";
