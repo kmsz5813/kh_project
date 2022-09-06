@@ -11,8 +11,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+
 import com.myweb.home.message.service.MessageService;
 
 
@@ -23,7 +26,7 @@ public class MessageController {
 	private SimpMessagingTemplate simpMessage;
 
 	@Autowired
-	private ChatRoomService chatRoomService;
+	private MessageService MessageService;
 
 	// 채팅으로 거래하기(productInfo 화면)
 	@RequestMapping(value = "/chatMessage", method = RequestMethod.GET)
@@ -39,24 +42,24 @@ public class MessageController {
 		chatRoom.setBuyerName(buyerName);
 
 		// 이미 chatRoom이 만들어져있는지 확인
-		if (chatRoomService.countByChatId(chatRoom.getPr_id(), chatRoom.getBuyerId()) > 0) {
+		if (MessageService.countByChatId(chatRoom.getPr_id(), chatRoom.getBuyerId()) > 0) {
 			// get ChatRoomInfo
-			ChatRoom chatRoomTemp = chatRoomService.findByChatId(chatRoom.getPr_id(), chatRoom.getBuyerId());
+			ChatRoom chatRoomTemp = MessageService.findByChatId(chatRoom.getPr_id(), chatRoom.getBuyerId());
 			// load existing chat history
-			List<ChatRoom> chatHistory = chatRoomService.readChatHistory(chatRoomTemp);
+			List<ChatRoom> chatHistory = MessageService.readChatHistory(chatRoomTemp);
 			// transfer chatHistory Model to View
 			model.addAttribute("chatHistory", chatHistory);
 
 		} else {
 			// chatRoom 생성
-			chatRoomService.addChatRoom(chatRoom);
+			MessageService.addChatRoom(chatRoom);
 			// text file 생성
-			chatRoomService.createFile(chatRoom.getPr_id(),
-					chatRoomService.getId(chatRoom.getPr_id(), chatRoom.getBuyerId()));
+			MessageService.createFile(chatRoom.getPr_id(),
+					MessageService.getId(chatRoom.getPr_id(), chatRoom.getBuyerId()));
 		}
 
 		// chatRoom Add 시 생성될 chatId
-		chatRoom.setId(chatRoomService.getId(chatRoom.getPr_id(), chatRoom.getBuyerId()));
+		chatRoom.setId(MessageService.getId(chatRoom.getPr_id(), chatRoom.getBuyerId()));
 
 		// chatRoom 객체 Model에 저장해 view로 전달
 		model.addAttribute("chatRoomInfo", chatRoom);
@@ -69,7 +72,7 @@ public class MessageController {
 
 		chatRoom.setSendTime(TimeUtils.getCurrentTimeStamp());
 		// append message to txtFile
-		chatRoomService.appendMessage(chatRoom);
+		MessageService.appendMessage(chatRoom);
 
 		int id = chatRoom.getId();
 		String url = "/user/" + id + "/queue/messages";
@@ -84,9 +87,9 @@ public class MessageController {
 		int id = Integer.parseInt(idStr);
 		String flag = (String) jsn.get("flag");
 		if (flag.equals("sell")) {
-			chatRoomService.updateChatReadSell(id, 1);
+			MessageService.updateChatReadSell(id, 1);
 		} else {
-			chatRoomService.updateChatReadBuy(id, 1);
+			MessageService.updateChatReadBuy(id, 1);
 		}
 
 		// if (!readerId.equals(buyerId)) {
@@ -101,7 +104,7 @@ public class MessageController {
 		JSONObject jsn = new JSONObject(json);
 		String idStr = (String) jsn.get("id");
 		int id = Integer.parseInt(idStr);
-		chatRoomService.updateChatReadBuy(id, 1);
+		MessageService.updateChatReadBuy(id, 1);
 	}
 
 	@RequestMapping(value = "/chatList", method = RequestMethod.GET)
@@ -117,11 +120,11 @@ public class MessageController {
 		int pr_id = Integer.parseInt(requestVar.get("pr_id"));
 
 		// read chatHistory
-		ChatRoom chatRoomRead = chatRoomService.findByChatId(pr_id, buyerId);
-		List<ChatRoom> chatHistory = chatRoomService.readChatHistory(chatRoomRead);
+		ChatRoom chatRoomRead = MessageService.findByChatId(pr_id, buyerId);
+		List<ChatRoom> chatHistory = MessageService.readChatHistory(chatRoomRead);
 		model.addAttribute("chatHistory", chatHistory);
 
-		int id = chatRoomService.getId(pr_id, buyerId);
+		int id = MessageService.getId(pr_id, buyerId);
 		String pr_title = chatRoomRead.getPr_title();
 		String sellerId = chatRoomRead.getSellerId();
 
@@ -140,7 +143,7 @@ public class MessageController {
 
 		JSONObject jsn = new JSONObject(json);
 		String email = (String) jsn.get("email");
-		int messages = chatRoomService.getUnreadMessages(email);
+		int messages = MessageService.getUnreadMessages(email);
 
 		return messages;
 	}
@@ -153,11 +156,11 @@ public class MessageController {
 		// JSON.get([mapped name])으로 value 추출하기
 		String email = (String) jsn.get("email");
 		// email에 해당되는 모든 chatRoom select 받기
-		List<ChatList> chatRoomList = chatRoomService.findByEmail(email);
+		List<ChatList> chatRoomList = MessageService.findByEmail(email);
 		// chatRoom 정보는 JSON Array에 저장됨
 		JSONArray ja = new JSONArray();
 		// email에 해당되는 읽지 않은 chatRoom select 받기
-		List<Integer> unreadChatId = chatRoomService.getUnreadChatRoom(email);
+		List<Integer> unreadChatId = MessageService.getUnreadChatRoom(email);
 
 		for (ChatList chatList : chatRoomList) {
 			// chatRoom 정보를 JSON Object에 put 해줌, chatRoom이 반복문에서 넘어갈 때마다 객체 초기화
@@ -204,7 +207,7 @@ public class MessageController {
 
 		JSONObject jsn = new JSONObject(json);
 		String email = (String) jsn.get("email");
-		List<ChatList> chatRoomList = chatRoomService.findByEmail(email);
+		List<ChatList> chatRoomList = MessageService.findByEmail(email);
 		JSONArray ja = new JSONArray();
 
 		for (ChatList chatList : chatRoomList) {
