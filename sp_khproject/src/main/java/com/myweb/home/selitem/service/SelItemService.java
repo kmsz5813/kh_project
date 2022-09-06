@@ -41,6 +41,6 @@ public class SelItemService {
 	}
 	
 	public boolean remove(SelItemDTO data) {
-		SelItemDTO 
+		SelItemDTO s
 	}
 }
