@@ -94,7 +94,7 @@ public class InfoController {
 			service.delete(data);
 			System.out.println("삭제 완료");
 			session.invalidate();
-			
+			request.setAttribute("msg", true);
 			return "/login/m_login";
 		}else {
 			request.setAttribute("msg", false);
