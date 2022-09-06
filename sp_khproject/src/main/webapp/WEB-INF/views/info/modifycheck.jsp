@@ -38,8 +38,8 @@
 			<input class="form-control" type="password" name="pw"  aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg">
 		</div>
 		<div class="mb-3">
-			<button class="form-control p-1 mb-2 bg-secondary  text-center fw-normal"  type="submit" onclick="location.href='home/info/modify'">확인</button>
-			<button class="form-control p-1 mb-2 bg-secondary" type="button" onclick="/home/info">뒤로가기</button> 
+			<a href="${pageContext.request.contextPath}/info/modify"><button class="form-control p-1 mb-2 bg-secondary  text-center fw-normal"  type="submit">확인</button></a>
+			<button class="form-control p-1 mb-2 bg-secondary" type="button" onclick="location.href='/home/info'">뒤로가기</button> 
 		</div>
 		</form>
 	</section>
