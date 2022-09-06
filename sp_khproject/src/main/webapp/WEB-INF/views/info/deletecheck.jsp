@@ -13,6 +13,7 @@
 	<link rel="stylesheet" type="text/css" href="${bs5}/css/bootstrap.min.css">
 	<script type="text/javascript" src="${bs5}/js/bootstrap.min.js"></script>
 	<script type="text/javascript" src="${jQuery}/jquery-3.6.0.min.js"></script>
+	
 </head>
 <body>
 	<header></header>
@@ -37,11 +38,16 @@
 		</div>
 		<div class="mb-3">
 			<c:if test="${msg== false}">
-				<p style="color:red">아이디 또는 비밀번호가 틀렸어요</p>
+				<p style="color:red">아이디 또는 비밀번호가 틀렸습니다.</p>
 			</c:if>
 			<button class="form-control p-1 mb-2 bg-secondary  text-center fw-normal"  type="submit" onclick="location.href='home/info/delete'">회원탈퇴</button>
-			<button class="form-control p-1 mb-2 bg-secondary" type="button" onclick="/home/info">뒤로가기</button> 
+			<button class="form-control p-1 mb-2 bg-secondary" type="button" onclick="location.href='/home/info'">뒤로가기</button> 
 		</div>
+		<c:if test="${msg== true}">
+			<script type="text/javascript">
+				windows.alert('삭제가 완료되었습니다.')
+			</script>
+		</c:if>
 		</form>
 	</section>
 </body>

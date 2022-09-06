@@ -8,14 +8,11 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Want</title>
-	<!-- bootstrap css 적용 -->
-	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 	<!-- jQuery 적용 -->
 	<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 	<!-- ajax 적용 -->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-	<!-- bootstrap js 적용 -->
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
+	<!-- bootstrap js 적용 (캐러셀 구동에 필요) -->
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 	<!-- 폰트 적용 -->
 	<link rel="preconnect" href="https://fonts.googleapis.com">
@@ -33,14 +30,11 @@
       width: 1500px;
       height: 500px;
     }
-    body {
-	    width: 1500px;
-	    margin:auto;
-    }
+  
     
     /* 인기서비스 슬라이드 */
     body {
-	font-family: 'Noto Sans KR', sans-serif;
+		font-family: 'Noto Sans KR', sans-serif;
 	}
 	h2 {
 		color: #000;
@@ -196,6 +190,7 @@
 	}
 	
 	
+	
 	.slide-icon {
 		max-width : 20px;
 	}
@@ -214,13 +209,15 @@
 		});
 	});
 	</script>
-
+	
+	<script type="text/javascript">
+		$('.carousel').carousel()
+	</script>
 </head>
 
 <body>
 	<!-- 헤더 -->
 	<%@ include file="../module/head.jsp" %>
-	
 	
 <!-- 배너, carousel -->
 	<div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
