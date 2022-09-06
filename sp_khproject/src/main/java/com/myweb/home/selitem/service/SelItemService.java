@@ -2,11 +2,16 @@ package com.myweb.home.selitem.service;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import com.myweb.home.Accounts.model.AccountsDTO;
 import com.myweb.home.selitem.model.SelItemDAO;
 import com.myweb.home.selitem.model.SelItemDTO;
+import com.myweb.home.selitem.model.SelItemStaticsDTO;
 
 @Service
 public class SelItemService {
@@ -41,6 +46,21 @@ public class SelItemService {
 	}
 	
 	public boolean remove(SelItemDTO data) {
-		SelItemDTO s
+		SelItemStaticsDTO staticsData = new SelItemStaticsDTO();
+		staticsData.setbId(data.getSel_id());
+		
+		dao.deleteStaticsData(staticsData);
+		boolean result = dao.deleteData(data);
+		
+		return result;
 	}
+	
+	public void incLike(HttpSession session, SelItemDTO data) {
+		AccountsDTO accData = (AccountsDTO)session.getAttribute("loginData");
+		
+		SelItemStaticsDTO staticsDTO = new SelItemStaticsDTO();
+		staticsData.setbId(data.getSel_id());
+		
+	}
+	
 }

@@ -45,7 +45,7 @@ public class SelItemDAO {
 		return res == 1? true : false;
 	}
 	
-	public boolean deleteStaticsData(SelItemDTO data) {
+	public boolean deleteStaticsData(SelItemStaticsDTO data) {
 		String mapperId = String.format(mapper, "deleteStaticsData");
 		int res = session.delete(mapperId, data);
 		return res >= 0 ? true : false;
@@ -63,4 +63,33 @@ public class SelItemDAO {
 		return res == 1 ? true : false;
 	}
 	
+	public SelItemDTO selectStatics(SelItemStaticsDTO data) {
+		String mapperId = String.format(mapper, "selectStatics");
+		SelItemDTO res = session.selectOne(mapperId, data);
+		return res;
+	}
+	
+	public boolean insertStatics(SelItemStaticsDTO data) {
+		String mapperId = String.format(mapper, "insertStatics");
+		int res = session.insert(mapperId, data);
+		return res == 1 ? true : false;
+	}
+	
+	public boolean updateStatics(SelItemStaticsDTO data) {
+		String mapperId = String.format(mapper, "updateStatics");
+		int res = session.update(mapperId, data);
+		return res == 1 ? true : false;
+	}
+
+	public boolean updateLike(SelItemDTO data) {
+		String mapperId = String.format(mapper, "updateLike");
+		int res = session.update(mapperId, data);
+		return res == 1 ? true : false;
+	}
+	
+	public boolean updateStaticsLike(SelItemStaticsDTO data) {
+		String mapperId = String.format(mapper, "updateStaticsLike");
+		int res = session.update(mapperId, data);
+		return res == 1 ? true : false;
+	}
 }
