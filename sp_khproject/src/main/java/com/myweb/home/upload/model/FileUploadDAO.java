@@ -12,8 +12,8 @@ public class FileUploadDAO {
 	@Autowired
 	private SqlSession session;
 	
-	public int getCount(int bid) {
-		int res = session.selectOne("fileUploadMapper.getCount", bid);
+	public int getCount(int file_bid) {
+		int res = session.selectOne("fileUploadMapper.getCount",file_bid);
 		return res;
 	}
 
@@ -23,8 +23,8 @@ public class FileUploadDAO {
 		return res == 1 ? true : false;
 	}
 
-	public List<FileUploadDTO> selectDatas(int bId) {
-		List<FileUploadDTO> res = session.selectList("fileUploadMapper.selectDatas", bId);
+	public List<FileUploadDTO> selectDatas(int file_bId) {
+		List<FileUploadDTO> res = session.selectList("fileUploadMapper.selectDatas", file_bId);
 		return res;
 	}
 

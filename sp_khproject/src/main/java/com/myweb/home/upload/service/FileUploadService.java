@@ -35,7 +35,7 @@ public class FileUploadService {
 		data.setFileSize((int)file.getSize());
 		data.setContentType(file.getContentType());
 		
-		int count = dao.getCount(data.getbId());
+		int count = dao.getCount(data.getFile_bId());
 		
 		if(count >= 3) {
 			// 업로드 수량 초과.
@@ -56,8 +56,8 @@ public class FileUploadService {
 		}
 	}
 
-	public List<FileUploadDTO> getDatas(int bId) {
-		List<FileUploadDTO> datas = dao.selectDatas(bId);
+	public List<FileUploadDTO> getDatas(int file_bId) {
+		List<FileUploadDTO> datas = dao.selectDatas(file_bId);
 		return datas;
 	}
 }
