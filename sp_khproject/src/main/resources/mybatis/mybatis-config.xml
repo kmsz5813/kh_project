@@ -10,8 +10,9 @@
 		<typeAlias type="com.myweb.home.Accounts.model.AccountsDTO" alias="acDto" />
      	<typeAlias type="com.myweb.home.community.model.CommunityDTO" alias="communityDto" />
     	<typeAlias type="com.myweb.home.community.model.CommunityStaticsDTO" alias="communityStaticsDto" />
-    	<typeAlias type="com.myweb.home.selitem.model.SelItemDTO" alias="selItemDTO" />
-    	<typeAlias type="com.myweb.home.selitem.model.SelItemCommentDTO" alias="selItemComDTO" />
+    	<typeAlias type="com.myweb.home.selitem.model.SelItemDTO" alias="selItemDto" />
+    	<typeAlias type="com.myweb.home.selitem.model.SelItemCommentDTO" alias="selItemComDto" />
+    	<typeAlias type="com.myweb.home.upload.model.FileUploadDTO" alias="fileUploadDto"/>
 	</typeAliases>
 	
 	
