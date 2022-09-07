@@ -11,6 +11,8 @@ import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
 
+import com.myweb.home.Accounts.model.AccountsDTO;
+
 public class ChattingCS extends TextWebSocketHandler {
 	
 	private List<WebSocketSession> sessionList = new ArrayList<WebSocketSession>();
@@ -23,7 +25,7 @@ public class ChattingCS extends TextWebSocketHandler {
 		String name = (String) map.get("HTTP.SESSION.ID");
 		
 		if(map.get("loginData") != null) {
-			name = ((EmpDTO)map.get("loginData")).getEmpName();
+			name = ((AccountsDTO)map.get("loginData")).getEmpName();
 		}
 		
 		for(Entry<String, WebSocketSession> entry: sessionMap.entrySet()) {
@@ -40,7 +42,7 @@ public class ChattingCS extends TextWebSocketHandler {
 		String name = (String) map.get("HTTP.SESSION.ID");
 		
 		if(map.get("loginData") != null) {
-			name = ((EmpDTO)map.get("loginData")).getEmpName();
+			name = ((AccountsDTO)map.get("loginData"))();
 		}
 		
 		for(<String, WebSocketSession> entry: sessionMap.entrySet()) {
