@@ -40,7 +40,7 @@
 			<c:if test="${msg== false}">
 				<p style="color:red">아이디 또는 비밀번호가 틀렸습니다.</p>
 			</c:if>
-			<button class="form-control p-1 mb-2 bg-secondary  text-center fw-normal"  type="submit" onclick="location.href='home/info/delete'">회원탈퇴</button>
+			<a href="${pageContext.request.contextPath}/main"><button class="form-control p-1 mb-2 bg-secondary  text-center fw-normal"  type="submit">회원탈퇴</button></a>
 			<button class="form-control p-1 mb-2 bg-secondary" type="button" onclick="location.href='/home/info'">뒤로가기</button> 
 		</div>
 		<c:if test="${msg== true}">

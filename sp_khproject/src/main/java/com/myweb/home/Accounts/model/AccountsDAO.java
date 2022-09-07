@@ -41,6 +41,12 @@ public class AccountsDAO {
 		session.delete(mapperId, data);
 	}
 
+	public boolean modifyData(AccountsDTO data) {
+		String mapperId = String.format(mapper, "modifyData");
+		int res = session.update(mapperId, data);
+		return res >= 1 ? true : false;
+	}
+
 
 
 

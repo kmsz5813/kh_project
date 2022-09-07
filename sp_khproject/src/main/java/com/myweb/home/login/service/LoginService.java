@@ -72,6 +72,16 @@ public class LoginService {
 		dao.deleteData(data);	
 	}
 
+	public boolean modify(AccountsDTO data) {
+		boolean result = dao.modifyData(data);
+		
+		if(result) {
+			return result;
+		}else {
+			return false;
+		}
+	}
+
 
 	
 	
