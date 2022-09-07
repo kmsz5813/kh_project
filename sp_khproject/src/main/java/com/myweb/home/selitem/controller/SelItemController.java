@@ -60,28 +60,28 @@ public class SelItemController {
 		return "selItem/list";
 	}
 	
-	@GetMapping(value="/detail")
-	public String getDetail(Model model
-			, HttpSession session
-			, @RequestParam int id) {
-		SelItemDTO data = service.getData(id);
-		List<SelItemDTO> filesDatas = FileUploadService.getDatas(id);
-		
-		if(data != null) {
-			service.incViewCnt(session, data);
-			model.addAttribute("data", data);
-			model.addAttribute("filesDatas", filesDatas);
-			return "selItem/detail";
-		} else {
-			model.addAttribute("error", "해당 데이터가 존재하지 않습니다.");
-			return "error/notExists";
-		}
-		
-	}
-	
-	@GetMapping(value="/add")
-	public String add(HttpServletRequest request
-			, @SessionAttribute("loginData") AccountsDTO accDto
-			, @ModelAttribute )
+//	@GetMapping(value="/detail")
+//	public String getDetail(Model model
+//			, HttpSession session
+//			, @RequestParam int id) {
+//		SelItemDTO data = service.getData(id);
+//		List<SelItemDTO> filesDatas = FileUploadService.getDatas(id);
+//		
+//		if(data != null) {
+//			service.incViewCnt(session, data);
+//			model.addAttribute("data", data);
+//			model.addAttribute("filesDatas", filesDatas);
+//			return "selItem/detail";
+//		} else {
+//			model.addAttribute("error", "해당 데이터가 존재하지 않습니다.");
+//			return "error/notExists";
+//		}
+//		
+//	}
+//	
+//	@GetMapping(value="/add")
+//	public String add(HttpServletRequest request
+//			, @SessionAttribute("loginData") AccountsDTO accDto
+//			, @ModelAttribute )
 	
 }

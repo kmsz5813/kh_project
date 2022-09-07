@@ -1,5 +1,6 @@
 package com.myweb.home.selitem.service;
 
+
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -59,7 +60,7 @@ public class SelItemService {
 		AccountsDTO accData = (AccountsDTO)session.getAttribute("loginData");
 		
 		SelItemStaticsDTO staticsDTO = new SelItemStaticsDTO();
-		staticsData.setbId(data.getSel_id());
+//		staticsData.setbId(data.getSel_id());
 		
 	}
 	
