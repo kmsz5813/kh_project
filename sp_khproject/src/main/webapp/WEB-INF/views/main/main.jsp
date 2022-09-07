@@ -202,17 +202,18 @@
 	
 	</style>
 
-	<script>
-	$(document).ready(function(){
-		$(".wish-icon i").click(function(){
-			$(this).toggleClass("fa-heart fa-heart-o");
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$(".wish-icon i").click(function(){
+				$(this).toggleClass("fa-heart fa-heart-o");
+			});
 		});
-	});
 	</script>
 	
 	<script type="text/javascript">
 		$('.carousel').carousel()
 	</script>
+
 </head>
 
 <body>

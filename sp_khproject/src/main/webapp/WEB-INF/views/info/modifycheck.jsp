@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-   <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <c:url var="bs5" value="/static/bs5" />
@@ -37,6 +37,11 @@
 		<div class="mb-3">
 			<input class="form-control" type="password" name="pw"  aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg">
 		</div>
+		<c:if test="${errorMsg==false}">
+			<div>
+				<p style="color:red; margin: auto;">이메일 / 비밀번호를 확인하세요.</p>
+			</div>
+		</c:if>
 		<div class="mb-3">
 			<button class="form-control p-1 mb-2 bg-secondary  text-center fw-normal" onclick="location.href='/home/info/modify'" type="submit">확인</button>
 			<button class="form-control p-1 mb-2 bg-secondary" type="button" onclick="location.href='/home/info'">뒤로가기</button> 

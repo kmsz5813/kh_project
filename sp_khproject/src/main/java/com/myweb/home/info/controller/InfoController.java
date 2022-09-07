@@ -52,6 +52,7 @@ public class InfoController {
 			, @SessionAttribute("loginData") AccountsDTO acDto
 			, HttpServletRequest request) {
 		
+		// 폼에서 입력한 값
 		String email = request.getParameter("email");
 		String pw = request.getParameter("pw");
 		
@@ -59,15 +60,18 @@ public class InfoController {
 		data.setAc_email(email);
 		data.setAc_pw(pw);
 		
-		boolean result = service.getCheck(data);
-
-		if(result) {
-			//이메일주소랑 비밀번호 체크 완료시
-			return "redirect:/info/modify";
-		}else {
-			return null;
-		}
+		String email2 = acDto.getAc_email();
+		String pw2 = acDto.getAc_pw();
 		
+		
+		if(email.equals(email2) && pw.equals(pw2)) {
+	        return "info/modify";
+
+	    } else {
+        	request.setAttribute("errorMsg", false);
+            return null;
+        } 
+
 	}
 	
 
@@ -87,19 +91,22 @@ public class InfoController {
 		String pw = request.getParameter("pw");
 		
 		AccountsDTO data = new AccountsDTO();
+		// 입력한 이메일, 비밀번호
 		data.setAc_email(email);
 		data.setAc_pw(pw);
 		
-		boolean result = service.getCheck(data);
+		// 세션에 저장된 이메일, 비밀번호
+		String email2 = acDto.getAc_email();
+		String pw2 = acDto.getAc_pw();
 		
-		if(result) { //이메일주소랑 비밀번호 체크 완료시	
+		if(email.equals(email2) && pw.equals(pw2)) { //이메일주소랑 비밀번호 체크 완료시	
 			service.delete(data);
 			System.out.println("삭제 완료");
 			session.invalidate();
-			request.setAttribute("msg", true);
+			request.setAttribute("errorMsg", true);
 			return "redirect:/main";
-		}else {
-			request.setAttribute("msg", false);
+		} else {
+			request.setAttribute("errorMsg", false);
 			return null;
 		}
 		
@@ -110,7 +117,6 @@ public class InfoController {
     public String logoutMainGET(HttpServletRequest request) throws Exception{
         
         logger.info("logoutMainGET메서드 진입");
-        
         HttpSession session = request.getSession();
         System.out.println("로그아웃");
         session.invalidate();
