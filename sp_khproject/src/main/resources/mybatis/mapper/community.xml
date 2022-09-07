@@ -13,7 +13,7 @@
 	<select id="selectData" resultType="communityDto">
 		SELECT C.CUM_ID, C.CUM_TITLE, C.CUM_CONTENT
 		     , C.CUM_NAME
-		     , C.WRITEDAY
+		     , C.CUM_WRITEDAY
 		     , C.CUM_VIEW AS cum_view
 		     , C."CUM_LIKE"
 		  FROM COMMUNITY C
@@ -65,10 +65,10 @@
 	<select id="selectAll" resultType="communityDto">
 		SELECT C.CUM_ID, C.CUM_TITLE, C.CUM_CONTENT
 		     , C.CUM_NAME
-		     , C.WRITEDAY
+		     , C.CUM_WRITEDAY
 		     , C.CUM_VIEW AS cum_view
 		     , C."CUM_LIKE"
-		  FROM CUMMUNITY C
+		  FROM COMMUNITY C
 		  JOIN ACCOUNTS A
 		    ON C.CUM_NAME = A.AC_NAME
 		 ORDER BY C.CUM_ID DESC

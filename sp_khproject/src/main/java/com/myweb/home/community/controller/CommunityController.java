@@ -57,7 +57,7 @@ public class CommunityController {
 		model.addAttribute("datas", paging.getPageData());
 		model.addAttribute("pageData", paging);
 		
-		return "community/list";
+		return "community/community";
 	}
 	
 	@GetMapping(value="/detail")
