@@ -146,19 +146,23 @@
 			var element = e.target;
 			var messageControl = element.parentElement.nextElementSibling;
 			var messageLabel = messageControl.getElementsByClassName("message-label")[0];
+			
+
 			if (element.value) {					
 				messageLabel.style.color = "";
 				messageLabel.innerText = "";
+				return;
 			} else {					
 				messageLabel.style.color = "red";
 				messageLabel.innerText = "* 필수 입력 항목입니다.";
-				
+				return false;
 			}
+
 		}
 		
 		/* 이메일 폼 체크 로직*/
 		
-		function email_check( email ) {    
+		function email_check(email) {    
 		    var regex=/([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
 		    return (email != '' && email != 'undefined' && regex.test(email)); 
 		}
@@ -166,10 +170,7 @@
 		  var email = $(this).val();
 		  	  
 		  if( email == '' || email == 'undefined') {
-
 			  $(".email-alert").text('');
-			  
-			  
 			  return;
 		  }
 		  if(! email_check(email) ) {
@@ -236,7 +237,7 @@
 		}
 		
 		/* 이메일 중복검사 */
-
+		
 		function checkId(){    
 	      
 			$('#id').blur(function(){
@@ -247,7 +248,7 @@
 		            data:{id: id},
 		            dataType: "json",
 		            success:function(data){ //컨트롤러에서 넘어온 cnt값을 받는다 
-		            	if(data.code === "success"){
+		            	if(data.code === "success" && email_check(id)){
 		            	      $('.id_ok').css("display","inline-block"); 
 		                      $('.id_already').css("display", "none");
 		            		  return;
@@ -258,7 +259,9 @@
 		                     $('.id_ok').css("display", "none");
 		 					 $('#id').focus();
 		 					 return false;
-		                  
+		            	} else {
+		            		$('.id_already').css("display","none");
+		            		 $('.id_ok').css("display", "none");
 		            	}
 		            },
 		        });	
@@ -270,13 +273,14 @@
         function checkName(){
 			$('#name').blur(function(){
 				 var name = $('#name').val(); //id값이 "id"인 입력란의 값을 저장
+				 var label = document.getElementsByClassName(".message-label");
 			        $.ajax({
 			            url:'cussign/nameCheck', //Controller에서 요청 받을 주소
 			            type:'post', //POST 방식으로 전달
 			            data:{name: name},
 			            dataType: "json",
 			            success:function(data){ //컨트롤러에서 넘어온 cnt값을 받는다 
-			            	if(data.code === "success"){
+			            	if(data.code === "success" && label.text == ''){
 			            	      $('.name_ok').css("display","inline-block"); 
 			                      $('.name_already').css("display", "none");
 			            		 return;
@@ -284,8 +288,10 @@
 			            		 $('.name_already').css("display","inline-block");
 			                     $('.name_ok').css("display", "none");
 			                     $('#name').focus();
-			                     return false;
-			                     
+			                     return false;  
+			            	} else {
+			            		$('.name_already').css("display", "none");
+			            		$('.name_ok').css("display", "none");
 			            	}
 			            },
 			        });
@@ -294,7 +300,7 @@
 	 
 	        }; 
 	        
-	        //회원가입버튼눌렀을때ㅑ 비밀번호가 동일하지 않으면 제출 못하게 막기
+	        //회원가입버튼눌렀을때 비밀번호가 동일하지 않으면 제출 못하게 막기
 	        $('form').on('submit', function(e) {
 	     
 	            if ($('#cus_pw').val() != $("#cor_pw").val()) { 

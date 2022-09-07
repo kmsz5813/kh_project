@@ -255,18 +255,19 @@
 			            data:{id: id},
 			            dataType: "json",
 			            success:function(data){ //컨트롤러에서 넘어온 data값을 받는다 
-			            	if(data.code === "success"){
+			            	if(data.code === "success" && email_check(id)){
 			            	      $('.id_ok').css("display","inline-block"); 
 			                      $('.id_already').css("display", "none");
 			            		  return;
-			                      
 			            	}else if(data.code === "sameid"){
 			         		     //같은아이디일때
 			            		 $('.id_already').css("display","inline-block");
 			                     $('.id_ok').css("display", "none");
 			 					 $('#id').focus();
 			 					 return false;
-			                  
+			            	} else {
+			            		$('.id_already').css("display","none");
+			            		 $('.id_ok').css("display", "none");
 			            	}
 			            },
 			        });	
@@ -278,13 +279,14 @@
 	        function checkName(){
 				$('#name').blur(function(){
 					 var name = $('#name').val(); //id값이 "id"인 입력란의 값을 저장
+					 var label = document.getElementsByClassName(".message-label");
 				        $.ajax({
 				            url:'cussign/nameCheck', //Controller에서 요청 받을 주소
 				            type:'post', //POST 방식으로 전달
 				            data:{name: name},
 				            dataType: "json",
 				            success:function(data){ //컨트롤러에서 넘어온 data값을 받는다 
-				            	if(data.code === "success"){
+				            	if(data.code === "success" && label.text == ''){
 				            	      $('.name_ok').css("display","inline-block"); 
 				                      $('.name_already').css("display", "none");
 				            		 return;
@@ -292,8 +294,10 @@
 				            		 $('.name_already').css("display","inline-block");
 				                     $('.name_ok').css("display", "none");
 				                     $('#name').focus();
-				                     return false;
-				                     
+				                     return false; 
+				            	} else {
+				            		$('.name_already').css("display", "none");
+				            		$('.name_ok').css("display", "none");
 				            	}
 				            },
 				        });
@@ -301,7 +305,7 @@
 		 
 		        }; 
 		        
-		        //회원가입버튼눌렀을때ㅑ 비밀번호가 동일하지 않으면 제출 못하게 막기
+		        //회원가입버튼눌렀을때 비밀번호가 동일하지 않으면 제출 못하게 막기
 		        $('form').on('submit', function(e) {
 		     
 		            if ($('#cus_pw').val() != $("#cor_pw").val()) { 
