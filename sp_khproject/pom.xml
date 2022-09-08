@@ -185,13 +185,6 @@
 			<version>2.11.0</version>
 		</dependency>
 		
-		<!-- WebSocket -->
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-websocket</artifactId>
-			<version>${org.springframework-version}</version>
-		</dependency>
-		
 		<!-- https://mvnrepository.com/artifact/commons-fileupload/commons-fileupload -->
 		<dependency>
 			<groupId>commons-fileupload</groupId>
