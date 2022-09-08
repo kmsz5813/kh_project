@@ -41,4 +41,15 @@
 	<beans:bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
 		<beans:constructor-arg index="0" ref="sqlSessionFactory"></beans:constructor-arg>
 	</beans:bean>
+	
+	<!-- 
+	<beans:bean id="chattingCSHandler" class="com.myweb.home.socket.ChattingCS"></beans:bean>
+	<websocket:handlers>
+		<websocket:mapping handler="chattingCSHandler" path="/chatting/cs">
+			<websocket:handshake-interceptors>
+				<beans:bean class="org.springframework.web.socket.server.support.HttpSessionHandshakeInterceptor"></beans:bean>
+			</websocket:handshake-interceptors>
+		</websocket:mapping>
+	</websocket:handlers>
+	 -->
 </beans:beans>

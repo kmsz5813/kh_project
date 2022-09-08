@@ -50,12 +50,15 @@ public class InfoController {
 			, @SessionAttribute("loginData") AccountsDTO acDto
 			, HttpServletRequest request) {
 		
+		acDto.getAc_email();
 		String email = request.getParameter("email");
 		String pw = request.getParameter("pw");
 		
 		AccountsDTO data = new AccountsDTO();
 		data.setAc_email(email);
 		data.setAc_pw(pw);
+		
+		
 		
 		boolean result = service.getCheck(data);
 

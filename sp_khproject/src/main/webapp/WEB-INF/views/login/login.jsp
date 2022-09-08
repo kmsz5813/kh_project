@@ -18,12 +18,13 @@
 <body>
 	<header></header>
 	<section class="container w-25">
-	<div class="mt-5">
+	<div class="mt-5" >
 	<c:url var="loginurl" value="/login" />
 	<form action="${loginurl}" method="post">
 		<div class="mb-5 center">
 			<p class="fw-normal fs-2 text-center">로그인</p>
 		</div>
+		<div class="mb-3" style="background-color:rgb(250, 250, 250);">
 		<div class="mb-3">
 			<input class="form-control"  type="text" name="email"  aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg" placeholder="이메일 주소">
 		</div>
@@ -42,6 +43,13 @@
 		<div class="mb-3">
 			<button class="form-control p-1 mb-2 bg-secondary  text-center fw-normal"  type="button" onclick="location.href='login/sign'">회원가입</button>
 			<!--회원가입페이지로 연결 -->
+		</div>
+		<div class="mb-3">
+			<button type="button" class="btn" style="background-color: #FEE500;"
+			onclick="location.href='login/kakao'">
+			<img alt="카카오로 시작하기" src="/static/kakao_login_medium_narrow.png">
+			</button>
+		</div>
 		</div>
 	</form>
 	</div>
