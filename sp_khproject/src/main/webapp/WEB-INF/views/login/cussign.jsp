@@ -48,6 +48,7 @@
 
 	<section class="container w-25">
 		<div class="mt-5">
+		
 		<c:url var="cusSignurl" value="/login/cussign" />
 			<form action="${cusSignurl}" method="post">
 				<div class="mb-3 center">
@@ -55,9 +56,18 @@
 				</div>
 				<div class="p-1 mb-3 bg-secondary text-white text-center fw-normal">일반회원</div>
 				
+				
+				<c:if test="${not empty email}">
 				<div class="mb-3">
 					<label class="fw-normal mb-2">이메일</label>
-					<input type="email" id="id" onchange="checkId()" class="form-control" name="cus_email" placeholder="이메일을 입력해주세요." required>
+					<input type="text" class="form-control" value="${email}" name="cus_email" readonly>
+				</div>
+				</c:if>
+				
+				<c:if test="${empty email }">
+				<div class="mb-3">
+					<label class="fw-normal mb-2">이메일</label>
+					<input type="email" id="id"  class="form-control" onchange="checkId()" name="cus_email" placeholder="이메일을 입력해주세요." required>
 					<span id="email-alert" class="email-alert"></span>
 					<span class="id_ok">사용 가능한 이메일입니다.</span>
 					<span class="id_already">사용 중인 이메일입니다.</span>
@@ -65,7 +75,7 @@
 				<div>
 					<span class="message-label"></span>
 				</div>
-
+				</c:if>
 
 				<div class="mb-3">
 					<label class="fw-normal mb-2">닉네임</label>
@@ -73,6 +83,7 @@
 					<span class="name_ok">사용 가능한 닉네임입니다.</span>
 					<span class="name_already">사용 중인 닉네임입니다.</span>
 				</div>
+				 
 				<div>
 					<span class="message-label"></span> 
 				</div>

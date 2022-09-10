@@ -45,6 +45,12 @@
 			<button class="form-control p-1 mb-2 bg-secondary  text-center fw-normal"  type="button" onclick="location.href='login/sign'">회원가입</button>
 			<!--회원가입페이지로 연결 -->
 		</div>
+		<div class="mb-3">
+			<button type="button" class="form-control" style="background-color: #FEE500;"
+			onclick="location.href='login/kakao'">
+			<img alt="카카오로 가입하기" src="https://developers.kakao.com/tool/resource/static/img/button/kakaosync/complete/ko/kakao_login_medium_narrow.png">
+			</button>
+		</div>
 	</form>
 	</div>
 	</section>

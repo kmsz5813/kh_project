@@ -53,6 +53,14 @@
 			</div>
 			<div class="p-1 mb-3 bg-secondary text-white text-center fw-normal">전문가</div>
 			
+			<c:if test="${not empty email}">
+				<div class="mb-3">
+					<label class="fw-normal mb-2">이메일</label>
+					<input type="text" class="form-control" value="${email}" name="sel_email" readonly>
+				</div>
+				</c:if>
+			
+			<c:if test="${empty email }">
 			<div class="mb-3">
 				<label class="fw-normal mb-2">이메일</label>
 				<input type="email" id="id" onchange="checkId()" class="form-control" name="sel_email" placeholder="이메일을 입력해주세요." required>
@@ -63,7 +71,7 @@
 			<div>
 				<span class="message-label"></span>
 			</div>
-			
+			</c:if>
 			<div class="mb-3">
 				<label class="fw-normal mb-2">닉네임</label>
 				<input class="form-control" id="name" onchange="checkName()" type="text" name="sel_name" placeholder="별명을 입력해주세요." required>
