@@ -24,6 +24,7 @@ import com.myweb.home.Accounts.model.AccountsDTO;
 import com.myweb.home.common.Paging;
 import com.myweb.home.selitem.model.SelItemDTO;
 import com.myweb.home.selitem.service.SelItemService;
+import com.myweb.home.upload.model.FileUploadDTO;
 import com.myweb.home.upload.service.FileUploadService;
 
 @Controller
@@ -44,22 +45,59 @@ public class SelItemController {
 		List datas = service.getAll();
 		
 		if(session.getAttribute("pageCount") == null) {
-			session.setAttribute("pageCount", 5);
+			session.setAttribute("pageCount", 8);
 		}
 		
 		if(pageCount > 0) {
 			session.setAttribute("pageCount", pageCount);
 		}
+		else {
+			pageCount = Integer.parseInt(session.getAttribute("pageCount").toString());
+		}
 		
-		pageCount = Integer.parseInt(session.getAttribute("pageCount").toString());
 		Paging paging = new Paging(datas, page, pageCount);
 		
-		model.addAttribute("dataas", paging.getPageData());
+		model.addAttribute("datas", paging.getPageData());
 		model.addAttribute("pageData", paging);
 		
 		return "selItem/list";
 	}
 	
+//	@PostMapping(value="/add")
+//	public String add(HttpServletRequest request
+//			, @SessionAttribute("loginData") AccountsDTO empDto
+//			, @ModelAttribute BoardVO boardVo
+//			, @RequestParam("fileUpload") MultipartFile[] files) {
+//		SelItemDTO data = new SelItemDTO();
+//		data.setTitle(boardVo.getTitle());
+//		data.setContent(boardVo.getContent());
+//		data.setEmpId(empDto.getEmpId());
+//		
+//		int id = service.add(data);
+//		
+//		for(MultipartFile file: files) {
+//			String location = request.getServletContext().getRealPath("/resources/board/upload");
+//			String url = "/static/board/upload";
+//			FileUploadDTO fileData = new FileUploadDTO(id, location, url);
+//			
+//			try {
+//				int fileResult = FileUploadService.upload(file, fileData);
+//				if(fileResult == -1) {
+//					request.setAttribute("error", "파일 업로드 수량을 초과하였습니다.");
+//					return "board/add";
+//				}
+//			} catch(Exception e) {
+//				request.setAttribute("error", "파일 업로드 작업중 예상치 못한 에러가 발생하였습니다.");
+//				return "board/add";
+//			}
+//			
+//		}
+//
+//	@GetMapping
+//	public String items(Model model) {
+//		List<> items = 
+//	}
+//	
 //	@GetMapping(value="/detail")
 //	public String getDetail(Model model
 //			, HttpSession session

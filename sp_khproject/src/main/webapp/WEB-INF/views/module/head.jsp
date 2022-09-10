@@ -62,7 +62,7 @@
 	            카테고리
 	          </a>
 	          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-	            <li><a class="dropdown-item" href="#">카테고리1</a></li>
+	            <li><a class="dropdown-item" href="/selItem?pageCount=1">IT</a></li>
 	            <li><a class="dropdown-item" href="#">카테고리2</a></li>
 	            <li><hr class="dropdown-divider"></li>
 	            <li><a class="dropdown-item" href="#">카테고리3</a></li>
