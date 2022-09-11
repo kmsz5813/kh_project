@@ -56,8 +56,8 @@ public class LoginController {
 	private static final Logger logger = LoggerFactory.getLogger(LoginController.class);
 		
 	String email = ""; //카카오나 네이버로 로그인시 토큰값 저장하기 위한것
-	String access_token = ""; //네이버로그인시 토큰값 저장하기 위해서 만들어둔것
-	StringBuffer res = null;
+//	String access_token = ""; //네이버로그인시 토큰값 저장하기 위해서 만들어둔것
+//	StringBuffer res = null;
 	
 	@Autowired
 	private LoginService service;
@@ -88,7 +88,9 @@ public class LoginController {
 				//로그인성공시
 				return "redirect:main";
 			}else {
-				return "login/m_login";
+				request.setAttribute("error", "error");
+				//로그인 실패시error값 넣어줘서 체크하기...
+				return "/login/login";
 			}
 			
 			
@@ -97,9 +99,10 @@ public class LoginController {
 	
 	@GetMapping(value="/sign")
 	public String sign(Model model, HttpSession session, String accessToken, HttpServletRequest request
-						 ) {
+			, String access_token , StringBuffer res) {
+			System.out.println(res);
+			System.out.println(access_token);
 			
-		
 			//네이버 토큰로그인방식
 			if(res != null) {
 				UriComponents naverAuthUri = UriComponentsBuilder.newInstance()
@@ -139,22 +142,25 @@ public class LoginController {
 					AccountsDTO data = service.idCheck(email);	
 					
 					if(data != null) {
-						//네이버가 아이디가 동일한 아이디일경우
+						// 네이버가 아이디가 동일한 아이디일경우
+						request.setAttribute("email", email);
+
+						// /login/login으로 리턴할시 이미지가 매핑이안됨.
+	
 						return "login/p_login";
 					}
-					
 				}catch (Exception e) {
 					e.printStackTrace();
 				}
-				
+
 				return "login/sign";
 			}
 			
 			
 			//카카오로그인 부분에서 받아온 accessToken값
-			if(accessToken != null) {
+			if(accessToken != null && res == null ) {
 				model.addAttribute(accessToken);
-
+				System.out.println(accessToken);
 				
 				UriComponents kakaoAuthUri = UriComponentsBuilder.newInstance()
 						.scheme("https").host("kapi.kakao.com").path("/v2/user/me").build();
@@ -218,9 +224,8 @@ public class LoginController {
 			}
 			
 				//카카오 네이버 이메일값 받아와서 로그인페이지로 넘기기
-				return "login/sign";
 
-			
+				return "login/sign";
 	
 	}
 	
@@ -228,7 +233,6 @@ public class LoginController {
 	public String cussign(Model model, HttpServletRequest request
 						  ) {
 		request.setAttribute("email", email); //가입페이지에 저장시켜놓기
-		email = "";
 		return "login/cussign";
 	}
 	
@@ -279,7 +283,7 @@ public class LoginController {
 	@GetMapping(value="/selsign")
 	public String selsign(Model model, HttpServletRequest request) {
 		request.setAttribute("email", email); //가입페이지에 저장시켜놓기
-		email = "";
+
 		return "login/selsign";
 	}
 	
@@ -502,12 +506,14 @@ public class LoginController {
 	
 	
 	@RequestMapping(value="/naver/auth_code", method=RequestMethod.GET)
-	public String naverToken(HttpServletRequest request, HttpSession session) {
+	public String naverToken(HttpServletRequest request, HttpSession session, RedirectAttributes re) {
 		   String clientId = "XH6KjNl4hbD9tFu8FxJd";//애플리케이션 클라이언트 아이디값";
 		    String clientSecret = "wFkSHDDyt3";//애플리케이션 클라이언트 시크릿값";
 		    String code = request.getParameter("code");
 		    String state = request.getParameter("state");
 		    String redirectURI = null;
+			String access_token = ""; //네이버로그인시 토큰값 저장하기 위해서 만들어둔것
+			StringBuffer res = null;
 			try {
 				redirectURI = URLEncoder.encode("http://localhost/home/login/naver/auth_code", "UTF-8");
 			} catch (UnsupportedEncodingException e1) {
@@ -523,7 +529,7 @@ public class LoginController {
 		    apiURL += "&state=" + state;
 //		    String access_token = "";
 		    String refresh_token = "";
-		    System.out.println("apiURL="+apiURL);
+		    
 		    try {
 		      URL url = new URL(apiURL);
 		      HttpURLConnection con = (HttpURLConnection)url.openConnection();
@@ -553,7 +559,8 @@ public class LoginController {
 		    		//빈객체만들어서 토큰값저장
 		    		access_token = obj.get("access_token").toString();
 		    		
-		    		
+		    		re.addAttribute("res", res);
+		    		re.addAttribute("access_token", access_token);
 		    	}catch (Exception e){
 		    		e.printStackTrace();
 		    	}

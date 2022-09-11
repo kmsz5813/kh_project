@@ -66,7 +66,7 @@ public class InfoController {
 			//이메일주소랑 비밀번호 체크 완료시
 			return "info/modify";
 		}else {
-			return "login/m_login";
+			return null;
 		}
 		
 	}
