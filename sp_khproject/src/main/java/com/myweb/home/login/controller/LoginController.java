@@ -152,12 +152,25 @@ public class LoginController {
 						request.setAttribute("email", email);
 
 						// /login/login으로 리턴할시 이미지가 매핑이안됨.
-	
+						//----------------토큰 삭제 
+						UriComponents naverDeleteAuthUri = UriComponentsBuilder.newInstance()
+								.scheme("https").host("nid.naver.com").path("/oauth2.0/token?grant_type=delete&client_id=XH6KjNl4hbD9tFu8FxJd&client_secret=wFkSHDDyt3&access_token=" + access_token + "&service_provider=NAVER").build();
+						MultiValueMap<String, String> testparam = new LinkedMultiValueMap<String, String>();
+						HttpEntity<MultiValueMap<String, String>> testentity = new HttpEntity<MultiValueMap<String, String>>(testparam, headers);
+						ResponseEntity<String> testrestResponse = rest.postForEntity(naverDeleteAuthUri.toUriString(), testentity, String.class);
+						
 						return "login/p_login";
 					}
 				}catch (Exception e) {
 					e.printStackTrace();
 				}
+				
+				//----------------토큰 삭제 
+				UriComponents naverDeleteAuthUri = UriComponentsBuilder.newInstance()
+						.scheme("https").host("nid.naver.com").path("/oauth2.0/token?grant_type=delete&client_id=XH6KjNl4hbD9tFu8FxJd&client_secret=wFkSHDDyt3&access_token=" + access_token + "&service_provider=NAVER").build();
+				MultiValueMap<String, String> testparam = new LinkedMultiValueMap<String, String>();
+				HttpEntity<MultiValueMap<String, String>> testentity = new HttpEntity<MultiValueMap<String, String>>(testparam, headers);
+				ResponseEntity<String> testrestResponse = rest.postForEntity(naverDeleteAuthUri.toUriString(), testentity, String.class);
 				
 				return "login/sign";
 			}
@@ -622,5 +635,7 @@ public class LoginController {
 		    }
 		return "redirect: /home/login/sign";
 	}
+	
+	
 	
 }
