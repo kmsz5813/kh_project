@@ -165,7 +165,7 @@ public class LoginController {
 					e.printStackTrace();
 				}
 				
-				//----------------토큰 삭제 
+				//----------------네이버토큰 삭제 
 				UriComponents naverDeleteAuthUri = UriComponentsBuilder.newInstance()
 						.scheme("https").host("nid.naver.com").path("/oauth2.0/token?grant_type=delete&client_id=XH6KjNl4hbD9tFu8FxJd&client_secret=wFkSHDDyt3&access_token=" + access_token + "&service_provider=NAVER").build();
 				MultiValueMap<String, String> testparam = new LinkedMultiValueMap<String, String>();
@@ -227,6 +227,7 @@ public class LoginController {
 					
 					if(data != null) {
 						//카카오아이디가 디비버에 있는 아이디오 동일할 경우
+						
 						return "login/p_login";
 					}
 
@@ -234,11 +235,19 @@ public class LoginController {
 				}catch (Exception e) {
 					e.printStackTrace();
 				}
+				//카카오토큰값 삭제
+				UriComponents kakaoLogoutAuthUri = UriComponentsBuilder.newInstance()
+						.scheme("https").host("kapi.kakao.com").path("/v1/user/logout").build();
+				HttpHeaders testheaders = new HttpHeaders();
+				testheaders.add("Authorization", "Bearer " + accessToken);
 				
+				MultiValueMap<String, String> param1 = new LinkedMultiValueMap<String, String>();
+				HttpEntity<MultiValueMap<String, String>> entity1 = new HttpEntity<MultiValueMap<String, String>>(param1, testheaders);
 				
+				ResponseEntity<String> restResponse1 = rest.postForEntity(kakaoLogoutAuthUri.toUriString(), entity1, String.class);
+		
 				return "login/sign";
 				
-				//카카오에서 받아오는 토큰값 끝.
 			}
 			
 				//카카오 네이버 이메일값 받아와서 로그인페이지로 넘기기
@@ -252,6 +261,7 @@ public class LoginController {
 						  ) {
 		request.setAttribute("email", email); //가입페이지에 저장시켜놓기
 		
+		//이메일 값 초기화
 		email = "";
 		
 		return "login/cussign";
