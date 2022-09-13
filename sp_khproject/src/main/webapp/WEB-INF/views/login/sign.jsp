@@ -18,6 +18,7 @@
 	<header></header>
 	<section class="container w-50">
 	<div class="mt-5">
+		
 		<div class="mb-5 center">
 			<p class="fw-normal fs-2 text-center">회원가입</p>
 		</div>
@@ -27,7 +28,7 @@
 		<div class="row mt-3">
 			<div class="col">
 				<div class="card">
-					<button type="button" class="btn btn-secondary text-black opacity-50" style="height: 3rem;" onclick="location.href='/home/login/selsign'">전문가</button>
+					<button type="button"  class="btn btn-secondary text-black opacity-50" style="height: 3rem;" onclick="location.href='/home/login/selsign'">전문가</button>
 				</div>
 			</div>
 			<div class="col">

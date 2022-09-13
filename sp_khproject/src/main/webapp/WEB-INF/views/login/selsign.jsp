@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-   <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <c:url var="bs5" value="/static/bs5" />
@@ -53,6 +53,14 @@
 			</div>
 			<div class="p-1 mb-3 bg-secondary text-white text-center fw-normal">전문가</div>
 			
+			<c:if test="${not empty email}">
+				<div class="mb-3">
+					<label class="fw-normal mb-2">이메일</label>
+					<input type="text" class="form-control" value="${email}" name="sel_email" readonly>
+				</div>
+				</c:if>
+			
+			<c:if test="${empty email }">
 			<div class="mb-3">
 				<label class="fw-normal mb-2">이메일</label>
 				<input type="email" id="id" onchange="checkId()" class="form-control" name="sel_email" placeholder="이메일을 입력해주세요." required>
@@ -63,7 +71,7 @@
 			<div>
 				<span class="message-label"></span>
 			</div>
-			
+			</c:if>
 			<div class="mb-3">
 				<label class="fw-normal mb-2">닉네임</label>
 				<input class="form-control" id="name" onchange="checkName()" type="text" name="sel_name" placeholder="별명을 입력해주세요." required>
@@ -76,7 +84,7 @@
 			
 			<div class="mb-3">
 				<label class="mb-2">비밀번호</label>
-				<input class="form-control pw" type="password" name="sel_pw" placeholder="비밀번호를 입력해 주세요.(6자리 이상)" required>
+				<input class="form-control pw" type="password" id="sel_pw" name="sel_pw" placeholder="비밀번호를 입력해 주세요.(6자리 이상)" required>
 				<span class="pw-alert"></span>
 			</div>
 			<div>
@@ -85,7 +93,7 @@
 			
 			<div class="mb-3">
 				<label class="mb-2">비밀번호확인</label>
-				<input class="form-control pwpw" type="password" name="correct_pw" placeholder="비밀번호를 한 번 더 입력해 주세요." required>
+				<input class="form-control pwpw" type="password" id="cor_pw" name="correct_pw" placeholder="비밀번호를 한 번 더 입력해 주세요." required>
 				<span class="pwpw-alert"></span>
 			</div>
 			<div>
@@ -360,7 +368,7 @@
 		        // 이메일 수신동의를 하지 않으면 제출 못하게 막기
 		        // 이메일 인증번호를 입력하지 않으면 제출 못하게 막기 ()
 		        $('form').on('submit', function(e) {
-		            if ($('#cus_pw').val() != $("#cor_pw").val()) { 
+		            if ($('#sel_pw').val() != $("#cor_pw").val()) { 
 		                e.preventDefault();
 		                alert("비밀번호가 동일하지 않습니다.");
 		            }
@@ -374,12 +382,7 @@
 		            }
 
 		        });
-		        
-		        
-		        
-		        
-		        
-		       
+
 		</script>
 	</section>
 </body>

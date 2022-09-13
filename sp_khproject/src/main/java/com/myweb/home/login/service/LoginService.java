@@ -22,9 +22,9 @@ public class LoginService {
 	private AccountsDAO dao;
 	
 	public boolean add(AccountsDTO data) {
-		
+
 		boolean result = dao.insertData(data);
-		
+
 		if(result) {
 			return result;
 		}else {

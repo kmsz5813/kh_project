@@ -13,6 +13,7 @@ public class AccountsDAO {
 	private String mapper = "acMapper.%s";
 	
 	public boolean insertData(AccountsDTO data) {
+
 		String mapperId = String.format(mapper, "insertData");
 		int res = session.insert(mapperId, data);
 		return res == 1 ? true : false;

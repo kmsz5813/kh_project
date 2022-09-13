@@ -52,7 +52,8 @@ public class InfoController {
 			, @SessionAttribute("loginData") AccountsDTO acDto
 			, HttpServletRequest request) {
 		
-		// 폼에서 입력한 값
+
+		acDto.getAc_email();
 		String email = request.getParameter("email");
 		String pw = request.getParameter("pw");
 		
@@ -62,8 +63,7 @@ public class InfoController {
 		
 		String email2 = acDto.getAc_email();
 		String pw2 = acDto.getAc_pw();
-		
-		
+
 		if(email.equals(email2) && pw.equals(pw2)) {
 	        return "info/modify";
 
