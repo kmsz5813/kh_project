@@ -152,7 +152,7 @@ public class LoginController {
 				}catch (Exception e) {
 					e.printStackTrace();
 				}
-
+				
 				return "login/sign";
 			}
 			
@@ -233,6 +233,9 @@ public class LoginController {
 	public String cussign(Model model, HttpServletRequest request
 						  ) {
 		request.setAttribute("email", email); //가입페이지에 저장시켜놓기
+		
+		email = "";
+		
 		return "login/cussign";
 	}
 	
@@ -284,6 +287,7 @@ public class LoginController {
 	public String selsign(Model model, HttpServletRequest request) {
 		request.setAttribute("email", email); //가입페이지에 저장시켜놓기
 
+		email = "";
 		return "login/selsign";
 	}
 	
