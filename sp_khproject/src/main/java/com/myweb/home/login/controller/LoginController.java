@@ -272,19 +272,14 @@ public class LoginController {
 		data.setAc_index(10);
 		data.setAc_sendemail(cus_sendemail);
 		
-
-		if(cus_email == null) {		// 이메일 입력 안했을 경우	
-			return "login/cussign";
+		boolean result = service.add(data);		// DB 에 계정 데이터 추가
+		if(result) {					// 계정 데이터가 추가되면
+			data.setAc_email(cus_email);
+			data.setAc_pw(cus_pw);
+			service.getLogin(session, data);
+			return "redirect: /home/main";
 		}
-		if(cus_sendemail.equals("Y")) {		// 이메일 수신 동의를 했을 경우에만
-			boolean result = service.add(data);		// DB 에 계정 데이터 추가
-			if(result) {					// 계정 데이터가 추가되면
-				data.setAc_email(cus_email);
-				data.setAc_pw(cus_pw);
-				service.getLogin(session, data);
-				return "redirect: /home/main";
-			}
-		}
+		
 		
 		return "login/cussign";
 	}
@@ -357,8 +352,7 @@ public class LoginController {
 		}else{
 			sel_sendemail = "N";
 		}
-	
-		
+
 		AccountsDTO data = new AccountsDTO();
 		data.setAc_email(sel_email);
 		data.setAc_name(sel_name);
@@ -369,19 +363,12 @@ public class LoginController {
 		data.setAc_index(20);
 		data.setAc_sendemail(sel_sendemail);
 		
-		
-		boolean result = service.add(data);
-		
+		boolean result = service.add(data);		// DB에 계정 추가
 		if(result) {
-
 			data.setAc_email(sel_email);
 			data.setAc_pw(sel_pw);
-			
-			boolean result1 = service.getLogin(session, data);
-
+			service.getLogin(session, data);
 			return "redirect: /home/main";
-	
-
 		}
 		
 		return "login/selsign";

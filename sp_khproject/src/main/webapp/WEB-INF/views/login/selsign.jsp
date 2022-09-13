@@ -125,7 +125,7 @@
 			</div>
 			
 			<div class="mb-3 form-check">	
-					<label class="mb-2">이메일수신동의</label>
+					<label id="emailCheckbox" class="mb-2">이메일인증받기</label>
 					<label id="emailCheckLabel" class="mb-2" style="display:none; color: red">이메일을 확인하세요.</label>
 					<input type="checkbox" id="emailCheck" class="form-check-input" name="sel_sendemail" disabled>
 				</div>
@@ -147,6 +147,15 @@
 		
 			window.onload = function() {
 				initEventBinding();
+				socialSign();
+			}
+			
+			// 소셜 회원가입이면 이메일 인증 버튼 안뜨게하기
+			function socialSign() {
+				if($("input[name='sel_email']").prop("readonly")) {
+					$('#emailCheck').css("display", "none");
+					$('#emailCheckbox').css("display", "none");
+				}
 			}
 
 			/* 필수 텍스트 항목 로직 */
@@ -268,7 +277,7 @@
 			            	if(data.code === "success" && email_check(id)){
 			            	      $('.id_ok').css("display","inline-block"); 
 			                      $('.id_already').css("display", "none");
-			                      $('#emailCheck').prop("disabled", false);	// 이메일수신동의 disabled 풀기
+			                      $('#emailCheck').prop("disabled", false);	// 이메일인증받기 disabled 풀기
 			            		  return;
 			            	}else if(data.code === "sameid"){
 			         		     //같은아이디일때
@@ -317,7 +326,7 @@
 		        }; 
 		        
 		        
-		        /* 이메일 수신 동의 클릭 시 메일전송 버튼 뜨게 하기 */
+		        /* 이메일 알림받기 클릭 시 메일전송 버튼 뜨게 하기 */
      		    $("#emailCheck").on("click",function(){
      		    	var check = document.getElementById("emailCheck");
 		        	var email = $("#id").val();
@@ -365,20 +374,23 @@
 		        
 		        
 				// 회원가입버튼눌렀을때 비밀번호가 동일하지 않으면 제출 못하게 막기
-		        // 이메일 수신동의를 하지 않으면 제출 못하게 막기
+		        // 이메일 알림받기를 하지 않으면 제출 못하게 막기
 		        // 이메일 인증번호를 입력하지 않으면 제출 못하게 막기 ()
 		        $('form').on('submit', function(e) {
 		            if ($('#sel_pw').val() != $("#cor_pw").val()) { 
 		                e.preventDefault();
 		                alert("비밀번호가 동일하지 않습니다.");
 		            }
-		            if (! $('#emailCheck').prop("checked")) {
-		            	e.preventDefault();
-		            	alert("이메일 수신 동의를 체크해주세요.");
-		            	$('#emailCheck').prop("disabled", false);
-		            } else if ($('#auth-number').val() == '' || authOk == false) {
-		            	e.preventDefault();
-		            	alert("메일 인증번호를 확인하세요.");
+		         	// 소셜 회원가입이 아닐 경우
+		            if(! $("input[name='sel_email']").prop("readonly")) {		            	
+			            if (! $('#emailCheck').prop("checked")) {
+			            	e.preventDefault();
+			            	alert("이메일 알림받기를 체크해주세요.");
+			            	$('#emailCheck').prop("disabled", false);
+			            } else if ($('#auth-number').val() == '' || authOk == false) {
+			            	e.preventDefault();
+			            	alert("메일 인증번호를 확인하세요.");
+			            }
 		            }
 
 		        });
