@@ -28,8 +28,22 @@ import com.myweb.home.upload.model.FileUploadDTO;
 import com.myweb.home.upload.service.FileUploadService;
 
 @Controller
-@RequestMapping(value="/selItem")
+@RequestMapping(value="/sellItem")
 public class SelItemController {
+	
+	@GetMapping(value="/additem")
+	public String additem(Model model) {
+		
+		return "/sellitem/additem";
+	}
+	
+	@PostMapping(value="/additem")
+	public String additem(Model model) {
+		
+		return "sellitem/list";
+	}
+	
+	
 
 	@Autowired
 	private SelItemService service;
@@ -60,7 +74,7 @@ public class SelItemController {
 		model.addAttribute("datas", paging.getPageData());
 		model.addAttribute("pageData", paging);
 		
-		return "selItem/list";
+		return "board/list";
 	}
 	
 //	@PostMapping(value="/add")

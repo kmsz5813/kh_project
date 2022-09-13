@@ -8,9 +8,8 @@
 	</select>
  	<insert id="insertData" parameterType="selItemDto">
 		INSERT INTO SEL_ITEM(SEL_TITLE, SEL_SELNAME, SEL_LOCATION, SEL_CONTENT)
-			VALUES(#{sel_title}, #{sel_name}, #{sel_location}, #{sel_cintent})
+			VALUES(#{sel_title}, #{sel_name}, #{sel_location}, #{sel_content})
 	</insert>
-	<select id=""></select>
 
 
 
