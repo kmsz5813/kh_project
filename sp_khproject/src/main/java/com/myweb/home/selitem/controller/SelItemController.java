@@ -30,7 +30,8 @@ import com.myweb.home.upload.service.FileUploadService;
 @Controller
 @RequestMapping(value="/sellItem")
 public class SelItemController {
-	
+
+	//getmapping을 해야지 페이지가 나온다고 생각하면돼 
 	@GetMapping(value="/additem")
 	public String additem(Model model) {
 		
@@ -38,13 +39,21 @@ public class SelItemController {
 	}
 	
 	@PostMapping(value="/additem")
-	public String additem(Model model) {
+	public String additem(Model model, HttpServletRequest request) {
 		
-		return "sellitem/list";
+		String test = request.getParameter("test");
+		
+		System.out.println(test);
+		
+		
+		//등록 로직 부분을 짜면 됨.
+		
+		return "redirect: /home/sellitem/additem";
 	}
 	
-	
 
+	
+	
 	@Autowired
 	private SelItemService service;
 	

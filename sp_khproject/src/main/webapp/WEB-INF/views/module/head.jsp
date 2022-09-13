@@ -38,7 +38,7 @@
 		</c:if>
 			<c:if test="${not empty loginData }">
 			${loginData.ac_name }님 환영합니다!&emsp;/&emsp;
-			<a href="main/logout">로그아웃&emsp;/&emsp;</a>
+			<a href="${pageContext.request.contextPath}/main/logout">로그아웃&emsp;/&emsp;</a>
 			<a href="${pageContext.request.contextPath}/info">마이페이지&emsp;/&emsp;</a>
 		</c:if> 
 		<a href="#">FAQ</a>
@@ -47,7 +47,7 @@
 <!-- nav-bar -->
 	
 	<a href="${pageContext.request.contextPath}/main" style="display: flex; margin-top: -100px;"> 
-      <img src="static/img/logo.png" style=" width:300px; margin-bottom: -100px; " class="d-inline-block">
+      <img src="${pageContext.request.contextPath}/static/img/logo.png" style="width:300px; margin-bottom: -100px; " class="d-inline-block">
     </a>
 	<nav class="navbar navbar-expand-md navbar-light" style="; margin-left : 300px; position: relative; bottom: 60px; margin-right: 80px;" >
 	  <div class="container">
