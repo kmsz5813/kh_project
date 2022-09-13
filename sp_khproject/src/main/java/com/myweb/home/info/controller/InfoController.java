@@ -52,11 +52,8 @@ public class InfoController {
 			, @SessionAttribute("loginData") AccountsDTO acDto
 			, HttpServletRequest request) {
 		
-<<<<<<< HEAD
+
 		acDto.getAc_email();
-=======
-		// 폼에서 입력한 값
->>>>>>> branch '예진욱' of https://github.com/kmsz5813/kh_project.git
 		String email = request.getParameter("email");
 		String pw = request.getParameter("pw");
 		
@@ -64,23 +61,9 @@ public class InfoController {
 		data.setAc_email(email);
 		data.setAc_pw(pw);
 		
-<<<<<<< HEAD
-		
-		
-		boolean result = service.getCheck(data);
-
-		if(result) {
-			//이메일주소랑 비밀번호 체크 완료시
-			return "info/modify";
-		}else {
-			return null;
-		}
-=======
 		String email2 = acDto.getAc_email();
 		String pw2 = acDto.getAc_pw();
->>>>>>> branch '예진욱' of https://github.com/kmsz5813/kh_project.git
-		
-		
+
 		if(email.equals(email2) && pw.equals(pw2)) {
 	        return "info/modify";
 

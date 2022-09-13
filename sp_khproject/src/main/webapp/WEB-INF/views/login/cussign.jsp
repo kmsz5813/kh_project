@@ -184,7 +184,7 @@
 			/* 이메일 폼 체크 로직*/
 			function email_check( email ) {    
 			    var regex=/([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
-			    return (email != '' && email != 'undefined' && regex.test(email)); 
+			   	return (email != '' && email != 'undefined' && regex.test(email)); 
 			}
 			$("input[type=email]").blur(function(){
 			  var email = $(this).val();

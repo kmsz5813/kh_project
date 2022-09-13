@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-   <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <c:url var="bs5" value="/static/bs5" />
@@ -281,22 +281,6 @@
 			            		 $('.id_ok').css("display", "none");
 			            	}
 			            },
-<<<<<<< HEAD
-			        });
-			})
-			
-	 
-	        }; 
-	        
-	        //회원가입버튼눌렀을때ㅑ 비밀번호가 동일하지 않으면 제출 못하게 막기
-	        $('form').on('submit', function(e) {
-	     
-	            if ($('#sel_pw').val() != $("#cor_pw").val()) { 
-	                e.preventDefault(); 
-	            }
-	    
-	        })
-=======
 			        });	
 		
 		        })   	        	
@@ -384,7 +368,7 @@
 		        // 이메일 수신동의를 하지 않으면 제출 못하게 막기
 		        // 이메일 인증번호를 입력하지 않으면 제출 못하게 막기 ()
 		        $('form').on('submit', function(e) {
-		            if ($('#cus_pw').val() != $("#cor_pw").val()) { 
+		            if ($('#sel_pw').val() != $("#cor_pw").val()) { 
 		                e.preventDefault();
 		                alert("비밀번호가 동일하지 않습니다.");
 		            }
@@ -398,13 +382,7 @@
 		            }
 
 		        });
-		        
-		        
-		        
-		        
-		        
-		       
->>>>>>> branch '예진욱' of https://github.com/kmsz5813/kh_project.git
+
 		</script>
 	</section>
 </body>

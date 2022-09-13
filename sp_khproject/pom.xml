@@ -190,7 +190,24 @@
 			<artifactId>commons-fileupload</artifactId>
 			<version>1.4</version>
 		</dependency>
-<<<<<<< HEAD
+		
+		<!-- Email -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context-support</artifactId>
+			<version>${org.springframework-version}</version>
+		</dependency>
+		<dependency>	<!-- jakarta.mail 은 변경된 버전이지만 굳이 안써도 됨. -->
+			<groupId>jakarta.mail</groupId>
+			<artifactId>jakarta.mail-api</artifactId>
+			<version>2.1.0</version>
+		</dependency>
+		<dependency>
+			<groupId>javax.mail</groupId>
+			<artifactId>mail</artifactId>
+			<version>1.4.7</version>
+		</dependency>
+		
 		<!-- https://mvnrepository.com/artifact/org.apache.httpcomponents.client5/httpclient5 -->
 		
 		<dependency>
@@ -230,27 +247,6 @@
 		    <artifactId>spring-websocket</artifactId>
 		    <version>5.3.22</version>
 		</dependency>
-
-=======
-		
-		<!-- Email -->
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-context-support</artifactId>
-			<version>${org.springframework-version}</version>
-		</dependency>
-		<dependency>	<!-- jakarta.mail 은 변경된 버전이지만 굳이 안써도 됨. -->
-			<groupId>jakarta.mail</groupId>
-			<artifactId>jakarta.mail-api</artifactId>
-			<version>2.1.0</version>
-		</dependency>
-		<dependency>
-			<groupId>javax.mail</groupId>
-			<artifactId>mail</artifactId>
-			<version>1.4.7</version>
-		</dependency>
-		
->>>>>>> branch '예진욱' of https://github.com/kmsz5813/kh_project.git
 	</dependencies>
     <build>
         <plugins>

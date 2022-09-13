@@ -1,6 +1,9 @@
 package com.myweb.home.login.controller;
 
-<<<<<<< HEAD
+
+import java.net.http.HttpRequest;
+import java.util.Properties;
+import java.util.Random;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -11,11 +14,6 @@ import java.net.URL;
 import java.net.URLEncoder;
 import java.security.SecureRandom;
 import java.util.HashMap;
-=======
-import java.net.http.HttpRequest;
-import java.util.Properties;
-import java.util.Random;
->>>>>>> branch '예진욱' of https://github.com/kmsz5813/kh_project.git
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -27,17 +25,16 @@ import org.json.simple.parser.JSONParser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-<<<<<<< HEAD
+
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.JavaMailSenderImpl;
+
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
-=======
-import org.springframework.mail.SimpleMailMessage;
-import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.mail.javamail.JavaMailSenderImpl;
->>>>>>> branch '예진욱' of https://github.com/kmsz5813/kh_project.git
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.LinkedMultiValueMap;
@@ -66,14 +63,12 @@ import com.myweb.home.login.service.LoginService;
 @RequestMapping(value="/login")
 public class LoginController {
 	private static final Logger logger = LoggerFactory.getLogger(LoginController.class);
-<<<<<<< HEAD
-		
+
+	Random rand = new Random();	
+
 	String email = ""; //카카오나 네이버로 로그인시 토큰값 저장하기 위한것
 //	String access_token = ""; //네이버로그인시 토큰값 저장하기 위해서 만들어둔것
 //	StringBuffer res = null;
-=======
-	Random rand = new Random();	
->>>>>>> branch '예진욱' of https://github.com/kmsz5813/kh_project.git
 	
 	@Autowired
 	private LoginService service;
@@ -113,8 +108,6 @@ public class LoginController {
 	@GetMapping(value="/sign")
 	public String sign(Model model, HttpSession session, String accessToken, HttpServletRequest request
 			, String access_token , StringBuffer res) {
-			System.out.println(res);
-			System.out.println(access_token);
 			
 			//네이버 토큰로그인방식
 			if(res != null) {
@@ -173,7 +166,6 @@ public class LoginController {
 			//카카오로그인 부분에서 받아온 accessToken값
 			if(accessToken != null && res == null ) {
 				model.addAttribute(accessToken);
-				System.out.println(accessToken);
 				
 				UriComponents kakaoAuthUri = UriComponentsBuilder.newInstance()
 						.scheme("https").host("kapi.kakao.com").path("/v2/user/me").build();
@@ -254,14 +246,7 @@ public class LoginController {
 	
 	@PostMapping(value="/cussign")
 	public String cussign(HttpServletRequest request,
-<<<<<<< HEAD
 						HttpSession session) {
-=======
-						HttpSession session
-						) {
-		
-		JSONObject json = new JSONObject();
->>>>>>> branch '예진욱' of https://github.com/kmsz5813/kh_project.git
 		
 		String cus_email = request.getParameter("cus_email");
 		String cus_name = request.getParameter("cus_name");
@@ -287,27 +272,15 @@ public class LoginController {
 		data.setAc_index(10);
 		data.setAc_sendemail(cus_sendemail);
 		
-<<<<<<< HEAD
-	
-		boolean result = service.add(data);
 
-		if(result) {
-=======
 		if(cus_email == null) {		// 이메일 입력 안했을 경우	
 			return "login/cussign";
 		}
-		
-		
 		if(cus_sendemail.equals("Y")) {		// 이메일 수신 동의를 했을 경우에만
-			
 			boolean result = service.add(data);		// DB 에 계정 데이터 추가
->>>>>>> branch '예진욱' of https://github.com/kmsz5813/kh_project.git
-			
 			if(result) {					// 계정 데이터가 추가되면
-				
 				data.setAc_email(cus_email);
 				data.setAc_pw(cus_pw);
-				
 				service.getLogin(session, data);
 				return "redirect: /home/main";
 			}
@@ -419,13 +392,10 @@ public class LoginController {
 		@ResponseBody
 		public String idCheck(@RequestParam("id") String id) {
 			
-		
 			JSONObject json = new JSONObject();
 			
 			AccountsDTO data = service.idCheck(id);
-			
-	
-			
+
 			if(data == null) {
 				json.put("code", "success");
 			}else {
@@ -458,7 +428,6 @@ public class LoginController {
 			
 		}
 		
-<<<<<<< HEAD
 		@RequestMapping(value="/kakao", method=RequestMethod.GET)
 		public String kakaoLogin() {
 			UriComponents kakaoAuthUri = UriComponentsBuilder.newInstance()
@@ -552,9 +521,7 @@ public class LoginController {
 				
 				//토큰을 저장해서 login/sing페이지로 넘기기
 				re.addAttribute("accessToken", accessToken);
-				
 
-				
 			}catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -656,16 +623,4 @@ public class LoginController {
 		return "redirect: /home/login/sign";
 	}
 	
-
-	
-=======
-
-		
-		
->>>>>>> branch '예진욱' of https://github.com/kmsz5813/kh_project.git
-	
-		
-		
-		
-		
 }
