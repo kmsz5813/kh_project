@@ -25,4 +25,14 @@
 		 WHERE AC_EMAIL = #{ac_email}
 		   AND AC_PW = #{ac_pw}
 	</delete>
+	
+	<update id="modifyData" parameterType="acDto">
+		UPDATE ACCOUNTS
+		   SET AC_NAME = #{ac_name},
+		   	   AC_PW = #{ac_pw}, 
+		       AC_JOB = #{ac_job}, 
+		       AC_FIELD = #{ac_field}, 
+		       AC_INTEREST = #{ac_interest}
+		 WHERE AC_EMAIL = #{ac_email}
+	</update>
 </mapper>

@@ -13,41 +13,46 @@
 	<link rel="stylesheet" type="text/css" href="${bs5}/css/bootstrap.min.css">
 	<script type="text/javascript" src="${bs5}/js/bootstrap.min.js"></script>
 	<script type="text/javascript" src="${jQuery}/jquery-3.6.0.min.js"></script>
-	
 </head>
 <body>
 	<header></header>
 	<section class="container w-75">
 		<c:url var="deletecheck" value="/info/deletecheck" /> 
-		<form action="${deletecheck}" method="post"> 
-		<div class="mt-5">
-			<div class="row mb-5 center">
-				<div class="col-10">
-					<p class="fw-normal fs-2">마이페이지</p>
+		<form action="${deletecheck}" method="post" id="deleteForm"> 
+			<div class="mt-5">
+				<div class="row mb-5 center">
+					<div class="col-10">
+						<p class="fw-normal fs-2">마이페이지</p>
+					</div>
 				</div>
 			</div>
-		</div>
-		<div class="row mt-3">	
-			${loginData.ac_name } 님의 정보를 안전하게 보호하기 위해 이메일 / 비밀번호를 확인합니다.
-		</div>
-		<div class="mb-3">
-			<input class="form-control"  type="text" name="email"  aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg" placeholder="이메일">
-		</div>
-		<div class="mb-3">
-			<input class="form-control" type="password" name="pw"  aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg" placeholder="비밀번호">
-		</div>
-		<div class="mb-3">
-			<c:if test="${msg== false}">
-				<p style="color:red">아이디 또는 비밀번호가 틀렸습니다.</p>
-			</c:if>
-			<button class="form-control p-1 mb-2 bg-secondary  text-center fw-normal"  type="submit" onclick="location.href='home/info/delete'">회원탈퇴</button>
-			<button class="form-control p-1 mb-2 bg-secondary" type="button" onclick="location.href='/home/info'">뒤로가기</button> 
-		</div>
-		<c:if test="${msg== true}">
+			<div class="row mt-3">	
+				${loginData.ac_name } 님의 정보를 안전하게 보호하기 위해 이메일 / 비밀번호를 확인합니다.
+			</div>
+			<div class="mb-3">
+				<input class="form-control"  type="text" name="email"  aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg" placeholder="이메일">
+			</div>
+			<div class="mb-3">
+				<input class="form-control" type="password" name="pw"  aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg" placeholder="비밀번호">
+			</div>
+			<div class="mb-3">
+				<c:if test="${errorMsg== false}">
+					<div>
+						<p style="color:red; margin: auto;">이메일 / 비밀번호를 확인하세요.</p>
+					</div>
+				</c:if>
+				<button id="delete" class="form-control p-1 mb-2 bg-secondary  text-center fw-normal"  type="button">회원탈퇴</button>
+				<button class="form-control p-1 mb-2 bg-secondary" type="button" onclick="location.href='/home/info'">뒤로가기</button> 
+			</div>
 			<script type="text/javascript">
-				windows.alert('삭제가 완료되었습니다.')
+				$(document).ready(function(){
+					$("#delete").on("click", function() {
+						if(confirm("탈퇴하시겠습니까?")) {
+							$("#deleteForm").submit();
+						}
+					})
+				});
 			</script>
-		</c:if>
 		</form>
 	</section>
 </body>

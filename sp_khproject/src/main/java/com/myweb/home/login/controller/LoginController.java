@@ -1,5 +1,6 @@
 package com.myweb.home.login.controller;
 
+<<<<<<< HEAD
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -10,6 +11,11 @@ import java.net.URL;
 import java.net.URLEncoder;
 import java.security.SecureRandom;
 import java.util.HashMap;
+=======
+import java.net.http.HttpRequest;
+import java.util.Properties;
+import java.util.Random;
+>>>>>>> branch '예진욱' of https://github.com/kmsz5813/kh_project.git
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -21,11 +27,17 @@ import org.json.simple.parser.JSONParser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+<<<<<<< HEAD
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
+=======
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.JavaMailSenderImpl;
+>>>>>>> branch '예진욱' of https://github.com/kmsz5813/kh_project.git
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.LinkedMultiValueMap;
@@ -54,10 +66,14 @@ import com.myweb.home.login.service.LoginService;
 @RequestMapping(value="/login")
 public class LoginController {
 	private static final Logger logger = LoggerFactory.getLogger(LoginController.class);
+<<<<<<< HEAD
 		
 	String email = ""; //카카오나 네이버로 로그인시 토큰값 저장하기 위한것
 //	String access_token = ""; //네이버로그인시 토큰값 저장하기 위해서 만들어둔것
 //	StringBuffer res = null;
+=======
+	Random rand = new Random();	
+>>>>>>> branch '예진욱' of https://github.com/kmsz5813/kh_project.git
 	
 	@Autowired
 	private LoginService service;
@@ -92,9 +108,6 @@ public class LoginController {
 				//로그인 실패시error값 넣어줘서 체크하기...
 				return "/login/login";
 			}
-			
-			
-
 	}
 	
 	@GetMapping(value="/sign")
@@ -241,7 +254,14 @@ public class LoginController {
 	
 	@PostMapping(value="/cussign")
 	public String cussign(HttpServletRequest request,
+<<<<<<< HEAD
 						HttpSession session) {
+=======
+						HttpSession session
+						) {
+		
+		JSONObject json = new JSONObject();
+>>>>>>> branch '예진욱' of https://github.com/kmsz5813/kh_project.git
 		
 		String cus_email = request.getParameter("cus_email");
 		String cus_name = request.getParameter("cus_name");
@@ -267,20 +287,78 @@ public class LoginController {
 		data.setAc_index(10);
 		data.setAc_sendemail(cus_sendemail);
 		
+<<<<<<< HEAD
 	
 		boolean result = service.add(data);
 
 		if(result) {
+=======
+		if(cus_email == null) {		// 이메일 입력 안했을 경우	
+			return "login/cussign";
+		}
+		
+		
+		if(cus_sendemail.equals("Y")) {		// 이메일 수신 동의를 했을 경우에만
 			
-			data.setAc_email(cus_email);
-			data.setAc_pw(cus_pw);
+			boolean result = service.add(data);		// DB 에 계정 데이터 추가
+>>>>>>> branch '예진욱' of https://github.com/kmsz5813/kh_project.git
 			
-			boolean result1 = service.getLogin(session, data);
-
-			return "redirect: /home/main";
+			if(result) {					// 계정 데이터가 추가되면
+				
+				data.setAc_email(cus_email);
+				data.setAc_pw(cus_pw);
+				
+				service.getLogin(session, data);
+				return "redirect: /home/main";
+			}
 		}
 		
 		return "login/cussign";
+	}
+	
+	// 이메일 인증
+	@PostMapping("/sendMail")
+	@ResponseBody
+	public String sendMail(@RequestParam(value="mail") String receiver_mail,
+			HttpServletRequest request,
+			Model model) {
+				
+		JSONObject json = new JSONObject();
+		
+		// 이메일 설정
+		JavaMailSender mailSender = null;
+		JavaMailSenderImpl senderImpl = new JavaMailSenderImpl();
+		senderImpl.setHost("smtp.gmail.com");		// gmail smtp 주소
+		senderImpl.setPort(587);					// smtp port 번호
+		senderImpl.setUsername("findofficial9@gmail.com");	// smtp 메일 계정
+		senderImpl.setPassword("enndjcfcetoipmsj");	// 앱 비밀번호
+		Properties prop = new Properties();
+		prop.put("mail.smtp.auth", true);		// smtp 인증
+		prop.put("mail.smtp.starttls.enable", true);	// 보안 활성화
+		prop.put("mail.smtp.ssl.protocols", "TLSv1.3");	// protocol 종류
+		senderImpl.setJavaMailProperties(prop);
+		mailSender = senderImpl;
+		SimpleMailMessage message = new SimpleMailMessage();
+		
+		String[] to = {receiver_mail};	// 받는 사람 주소
+		message.setTo(to);
+		String[] cc = {};		// 참조 주소 (추가적으로 받는 사람 주소, 여기선 굳이 필요없음)
+		message.setCc(cc);
+		String[] bcc = {};		// 숨은 참조 주소 (수신자에게 참조인이 표시되지 않음, 여기선 굳이 필요없음)
+		message.setBcc(bcc);
+		
+		message.setSubject("[FIND 메일 인증]");	// 제목
+		
+		int randomNumber = rand.nextInt(888888) + 111111;
+		System.out.println("이메일 인증 번호 : " + randomNumber);
+		json.put("randomNumber", randomNumber);
+		message.setText(Integer.toString(randomNumber));	// 내용
+		mailSender.send(message);	// 전송
+		System.out.println(receiver_mail + "으로 이메일 인증번호 전송 완료");
+		
+		
+		return json.toJSONString();
+		
 	}
 	
 	@GetMapping(value="/selsign")
@@ -380,6 +458,7 @@ public class LoginController {
 			
 		}
 		
+<<<<<<< HEAD
 		@RequestMapping(value="/kakao", method=RequestMethod.GET)
 		public String kakaoLogin() {
 			UriComponents kakaoAuthUri = UriComponentsBuilder.newInstance()
@@ -579,6 +658,14 @@ public class LoginController {
 	
 
 	
+=======
+
+		
+		
+>>>>>>> branch '예진욱' of https://github.com/kmsz5813/kh_project.git
 	
-	
+		
+		
+		
+		
 }
