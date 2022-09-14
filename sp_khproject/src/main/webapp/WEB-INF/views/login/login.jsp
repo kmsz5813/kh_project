@@ -47,7 +47,7 @@
 			</div>
 		</c:if>
 		<div class="mb-3 ">
-			<button type="button" style="border:none; background-color:transparent;">아이디 / 비밀번호찾기</button> 
+			<button  type="button" style="border:none; background-color:transparent; float:right; padding-bottom: 1rem;" onclick="location.href='login/seekpw'">비밀번호 찾기</button> 
 		</div>
 		<div class="mb-3">
 			<button type="submit" class="form-control p-1 mb-2 bg-secondary  text-center fw-normal" style="--bs-bg-opacity: .5; height:3rem;">로그인</button>

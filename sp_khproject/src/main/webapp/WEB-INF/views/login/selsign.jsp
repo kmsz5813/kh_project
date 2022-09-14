@@ -378,6 +378,19 @@
 		        // 이메일 알림받기를 하지 않으면 제출 못하게 막기
 		        // 이메일 인증번호를 입력하지 않으면 제출 못하게 막기 ()
 		        $('form').on('submit', function(e) {
+		        	
+		        	
+		        	if($('.id_ok').css('display') == 'none'){
+						e.preventDefault();
+		                alert("이메일이 중복되어 있습니다.");
+					}
+					
+					if($('.name_ok').css('display') == 'none'){
+						e.preventDefault();
+		                alert("닉네임이 중복되어 있습니다.");
+					}
+		        	
+		        	
 		            if ($('#sel_pw').val() != $("#cor_pw").val()) { 
 		                e.preventDefault();
 		                alert("비밀번호가 동일하지 않습니다.");

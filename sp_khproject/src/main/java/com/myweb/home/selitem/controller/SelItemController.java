@@ -23,9 +23,32 @@ import com.myweb.home.selitem.model.SelItemDTO;
 import com.myweb.home.selitem.service.SelItemService;
 
 @Controller
-@RequestMapping(value="/selItem")
+@RequestMapping(value="/sellitem")
 public class SelItemController {
 
+	//getmapping을 해야지 페이지가 나온다고 생각하면돼 
+	@GetMapping(value="/additem")
+	public String additem(Model model) {
+		
+		return "/sellitem/additem";
+	}
+	
+	@PostMapping(value="/additem")
+	public String additem(Model model, HttpServletRequest request) {
+		
+		String test = request.getParameter("test");
+		
+		System.out.println(test);
+		
+		
+		//등록 로직 부분을 짜면 됨.
+		
+		return "redirect: /home/sellitem/additem";
+	}
+	
+
+	
+	
 //	@Autowired
 //	private SelItemService service;
 //	

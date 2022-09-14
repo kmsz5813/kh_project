@@ -136,18 +136,6 @@ public class InfoController {
 	}
 	
 	
-	@RequestMapping(value="logout", method=RequestMethod.GET)
-    public String logoutMainGET(HttpServletRequest request) throws Exception{
-        
-        logger.info("logoutMainGET메서드 진입");
-        HttpSession session = request.getSession();
-        System.out.println("로그아웃");
-        session.invalidate();
-        
-        return "redirect:/main";        
-        
-    }
-	
 	@GetMapping(value="/modify")
 	public String modify(Model model
 			, HttpServletRequest request

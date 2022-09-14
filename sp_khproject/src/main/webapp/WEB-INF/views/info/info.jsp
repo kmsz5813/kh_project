@@ -13,6 +13,7 @@
 	<style>
 		#previewImg {
 			max-width : 250px;
+			border-radius: 70%;
 			height : auto;
 		}
 	</style>

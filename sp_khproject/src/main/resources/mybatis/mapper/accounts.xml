@@ -12,6 +12,10 @@
 	SELECT * FROM ACCOUNTS WHERE AC_EMAIL = #{ac_email} AND AC_PW = #{ac_pw}
 	</select>
 	
+	<select id="getEmail" resultType="acDto">
+	SELECT * FROM ACCOUNTS WHERE AC_EMAIL = #{ac_email}
+	</select>
+	
 	<select id="getData" resultType="acDto">
 		SELECT * FROM ACCOUNTS WHERE AC_EMAIL = #{id}
 	</select>
@@ -35,4 +39,11 @@
 		       AC_INTEREST = #{ac_interest}
 		 WHERE AC_EMAIL = #{ac_email}
 	</update>
+	
+	<update id="modifyPw" parameterType="acDto">
+		UPDATE ACCOUNTS
+		   SET AC_PW = #{ac_pw}
+		 WHERE AC_EMAIL = #{ac_email}
+	</update>
+	
 </mapper>

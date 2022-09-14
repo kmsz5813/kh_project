@@ -45,6 +45,17 @@ public class LoginService {
 		}
 	}
 	
+	public boolean getEmail(AccountsDTO data) {
+		
+		AccountsDTO acdata = dao.getEmail(data);
+		if(acdata != null) {
+			return true;
+		}else {
+			return false;
+		}
+	
+	}
+	
 	public boolean getCheck(AccountsDTO data) {
 		AccountsDTO acdata = dao.selectLogin(data);
 		
@@ -88,6 +99,17 @@ public class LoginService {
 			return false;
 		}
 	}
+	
+	public boolean modifyPw(AccountsDTO data) {
+	boolean result = dao.modifyPw(data);
+		
+		if(result) {
+			return result;
+		}else {
+			return false;
+		}
+	}
+	
 
 	public String joinEmail(String email) {
 		
@@ -125,6 +147,8 @@ public class LoginService {
 		
 		return Integer.toString(randomNumber);
 	}
+
+
 
 
 	

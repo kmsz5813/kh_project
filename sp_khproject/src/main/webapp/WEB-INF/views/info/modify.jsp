@@ -27,6 +27,7 @@
 		
 		#previewImg {
 			margin-bottom : 20px;
+			border-radius: 70%;
 			max-width : 250px;
 			height : auto;
 		}
