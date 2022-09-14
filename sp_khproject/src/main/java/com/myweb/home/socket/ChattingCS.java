@@ -11,6 +11,8 @@ import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
 
+import com.myweb.home.Accounts.model.AccountsDTO;
+
 public class ChattingCS extends TextWebSocketHandler {
 	
 	private List<WebSocketSession> sessionList = new ArrayList<WebSocketSession>();
@@ -23,10 +25,10 @@ public class ChattingCS extends TextWebSocketHandler {
 		String name = (String) map.get("HTTP.SESSION.ID");
 		
 		if(map.get("loginData") != null) {
-			name = ((EmpDTO)map.get("loginData")).getEmpName();
+			name = ((AccountsDTO)map.get("loginData")).getAc_name();
 		}
 		
-		for(Entry<String, WebSocketSession> entry: sessionMap.entrySet()) {
+		for(java.util.Map.Entry<String, WebSocketSession> entry: sessionMap.entrySet()) {
 			entry.getValue().sendMessage(new TextMessage("<p>" + name + " 님이 접속하였습니다.</p>"));
 		}
 		sessionMap.put(name, session);
@@ -40,10 +42,10 @@ public class ChattingCS extends TextWebSocketHandler {
 		String name = (String) map.get("HTTP.SESSION.ID");
 		
 		if(map.get("loginData") != null) {
-			name = ((EmpDTO)map.get("loginData")).getEmpName();
+			name = ((AccountsDTO)map.get("loginData")).getAc_name();
 		}
 		
-		for(<String, WebSocketSession> entry: sessionMap.entrySet()) {
+		for(java.util.Map.Entry<String, WebSocketSession> entry: sessionMap.entrySet()) {
 			WebSocketSession ws = entry.getValue();
 			ws.sendMessage(new TextMessage("<p>" + name + " 님이 보낸 메시지<br>" + message.getPayload() + "</p>"));
 		}
@@ -56,10 +58,10 @@ public class ChattingCS extends TextWebSocketHandler {
 		String name = (String) map.get("HTTP.SESSION.ID");
 		
 		if(map.get("loginData") != null) {
-			name = ((EmpDTO)map.get("loginData")).getEmpName();
+			name = ((AccountsDTO)map.get("loginData")).getAc_name();
 		}
 		
-		for(Entry<String, WebSocketSession> entry: sessionMap.entrySet()) {
+		for(java.util.Map.Entry<String, WebSocketSession> entry: sessionMap.entrySet()) {
 			WebSocketSession ws = entry.getValue();
 			if(ws.isOpen()) {
 				ws.sendMessage(new TextMessage("<p>" + name + " 님이 접속을 종료합니다."));
