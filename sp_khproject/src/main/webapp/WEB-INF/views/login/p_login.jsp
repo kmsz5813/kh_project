@@ -16,6 +16,7 @@
 	<script type="text/javascript">
 		alert("이미 가입하신 아이디입니다.");
 	</script>
+	<%@ include file="../module/head.jsp" %>
 </head>
 <body>
 	<header></header>
