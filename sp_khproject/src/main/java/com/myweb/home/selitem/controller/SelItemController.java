@@ -44,7 +44,7 @@ public class SelItemController {
 		
 		System.out.println(test);
 		
-		int id = service.add(data);
+		int id = service.add(accData);
 		
 		for(MultipartFile file: files) {
 			String location = request.getServletContext().getRealPath("/resources/board/upload");
@@ -70,8 +70,6 @@ public class SelItemController {
 			request.setAttribute("error", "게시글 저장 실패!");
 			return "board/add";
 		}
-		
-		//등록 로직 부분을 짜면 됨.
 		
 		return "sellitem/additem";
 	}
@@ -165,9 +163,5 @@ public class SelItemController {
 //		
 //	}
 //	
-//	@GetMapping(value="/add")
-//	public String add(HttpServletRequest request
-//			, @SessionAttribute("loginData") AccountsDTO accDto
-//			, @ModelAttribute )
 	
 }
