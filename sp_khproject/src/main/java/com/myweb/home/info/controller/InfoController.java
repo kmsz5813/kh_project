@@ -33,8 +33,6 @@ import com.myweb.home.Accounts.model.AccountsDTO;
 import com.myweb.home.login.service.LoginService;
 
 
-
-
 @Controller
 @MultipartConfig
 @RequestMapping(value="/info")
@@ -182,8 +180,8 @@ public class InfoController {
 			// originName = 클라이언트가 전송한 사진파일 이름
 			String originName = Part.getOriginalFilename();
 			System.out.println(originName);
-			// location = 사진이 저장될 서버경로 + Id.png
-			String location = request.getServletContext().getRealPath("/resources/img/profile/") + Id + ".png"; 
+			// location = 사진이 저장될 서버경로 + 이메일.png
+			String location = request.getServletContext().getRealPath("/resources/img/profile/") + acDto.getAc_email() + ".png"; 
 			if(!originName.isEmpty()) {		// 사진파일이 있으면 저장
 				Part.transferTo(new File(location));
 			}
