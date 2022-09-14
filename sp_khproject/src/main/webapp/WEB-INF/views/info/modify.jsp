@@ -143,8 +143,12 @@
 				            		 $('.name_already').css("display","inline-block");
 				                     $('.name_ok').css("display", "none");
 				                     $('#name').focus();
-				                     return false;
 				                     
+				                     $('form').on('submit', function(e) {
+				                    	 e.preventDefault();
+				                    	 alert("닉네임을 확인하세요.")
+				                     });
+				                     return false;
 				            	}
 				            },
 				        });
@@ -193,6 +197,13 @@
 			  }
 			});
 			
+			// 회원가입버튼눌렀을때 비밀번호가 동일하지 않으면 제출 못하게 막기
+			$('form').on('submit', function(e) {
+				if ($('.pw').val() != $(".pwpw").val()) { 
+	                e.preventDefault();
+	                alert("비밀번호가 동일하지 않습니다.");
+	            }
+			});
 			
 		</script>
 	</section>

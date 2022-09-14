@@ -85,7 +85,7 @@ public class InfoController {
 		String pw2 = acDto.getAc_pw();
 
 		if(email.equals(email2) && pw.equals(pw2)) {
-	        return "info/modify";
+	        return "redirect:/info/modify";
 
 	    } else {
         	request.setAttribute("errorMsg", false);
@@ -147,8 +147,9 @@ public class InfoController {
 	
 	@GetMapping(value="/modify")
 	public String modify(Model model
+			, HttpServletRequest request
 			, @SessionAttribute("loginData") AccountsDTO acDto ) {
-		
+		request.setAttribute("profileImage", acDto.getAc_email());
 		return "info/modify";
 	}
 	
@@ -180,14 +181,12 @@ public class InfoController {
 		if(result) {
 			// originName = 클라이언트가 전송한 사진파일 이름
 			String originName = Part.getOriginalFilename();
-			String Id = acDto.getAc_email();
 			System.out.println(originName);
 			// location = 사진이 저장될 서버경로 + Id.png
 			String location = request.getServletContext().getRealPath("/resources/img/profile/") + Id + ".png"; 
 			if(!originName.isEmpty()) {		// 사진파일이 있으면 저장
 				Part.transferTo(new File(location));
 			}
-			request.setAttribute("profileImage", Id);
 			service.getLogin(session, data);
 			return "redirect:/info";
 		} else {
