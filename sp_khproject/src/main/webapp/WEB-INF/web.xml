@@ -9,7 +9,7 @@
 		<param-value>/WEB-INF/spring/root-context.xml</param-value>
 	</context-param>
 	
-	<!-- Creates the Spring Container shared by all Servlets and Filters -->
+	<!-- Creates the Spring sContainer shared by all Servlets and Filters -->
 	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>
@@ -23,6 +23,7 @@
 			<param-value>/WEB-INF/spring/appServlet/servlet-context.xml</param-value>
 		</init-param>
 		<load-on-startup>1</load-on-startup>
+		<async-supported>true</async-supported>
 	</servlet>
 		
 	<servlet-mapping>
@@ -46,6 +47,8 @@
 		<filter-name>EncodingFilter</filter-name>
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
+
+
 	
 	<!-- error-page>
 		<error-code>403</error-code>
