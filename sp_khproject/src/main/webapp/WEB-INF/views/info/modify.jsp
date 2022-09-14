@@ -103,7 +103,7 @@
 				
 				<div class="mb-3">	
 					<button type="submit" class="form-control p-1 mb-2 bg-secondary  text-center fw-normal" style="-bs-bg-opacity: .5;">수정</button>
-					<button type="button" onclick="location.href='/home/info'" class=" form-control p-1 mb-2 bg-secondary  text-center fw-normal" style="-bs-bg-opacity: .5;">뒤로가기</button>
+					<button type="button" onclick="location.href='/home/info'" onsubmit="return submitCheck();" class=" form-control p-1 mb-2 bg-secondary  text-center fw-normal" style="-bs-bg-opacity: .5;">뒤로가기</button>
 				</div>
 			</form>
 		</div>
@@ -115,6 +115,8 @@
 				
 				formFile.addEventListener("change", showImagePreview);
 			}
+			
+			var finalcheck = false;
 			
 			function showImagePreview(e) {
 				var file = e.target.files[0];
@@ -130,6 +132,7 @@
 				        $.ajax({
 				            url:'modify/nameCheck', //Controller에서 요청 받을 주소
 				            type:'post', //POST 방식으로 전달
+				            async:false,	// ajax 내부에서 지정한 변수를 전역변수로 설정
 				            data:{name: name},
 				            dataType: "json",
 				            success:function(data){ //컨트롤러에서 넘어온 cnt값을 받는다
@@ -138,16 +141,13 @@
 				            	if(data.code === "success" || origin_name == name) {
 				            	      $('.name_ok').css("display","inline-block"); 
 				                      $('.name_already').css("display", "none");
+				                      finalcheck = true;
 				            		 return;
-				            	}else if(data.code === "sameid"){
+				            	}else if(data.code === "sameid" || name == ''){
 				            		 $('.name_already').css("display","inline-block");
 				                     $('.name_ok').css("display", "none");
 				                     $('#name').focus();
-				                     
-				                     $('form').on('submit', function(e) {
-				                    	 e.preventDefault();
-				                    	 alert("닉네임을 확인하세요.")
-				                     });
+				                     finalcheck = false;
 				                     return false;
 				            	}
 				            },
@@ -203,8 +203,12 @@
 	                e.preventDefault();
 	                alert("비밀번호가 동일하지 않습니다.");
 	            }
+				if(finalcheck == false) {
+					e.preventDefault();
+					alert("작성 양식을 확인하세요.");
+				}
 			});
-			
+
 		</script>
 	</section>
 </body>

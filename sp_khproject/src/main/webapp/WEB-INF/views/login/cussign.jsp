@@ -142,7 +142,7 @@
 					<label class="mb-2" id="auth-ok-label" style="display:none; color:green;">인증번호가 일치합니다.</label>
 				</div>
 				<div class="mb-3">	
-					<button type="submit"  class="form-control p-1 mb-2 bg-secondary  text-center fw-normal" style="--bs-bg-opacity: .5;">가입완료</button>
+					<button type="submit" class="form-control p-1 mb-2 bg-secondary  text-center fw-normal" style="--bs-bg-opacity: .5;">가입완료</button>
 				</div>
 			</form>
 		</div>
@@ -384,6 +384,7 @@
 		        // 이메일 인증받기를 하지 않으면 제출 못하게 막기
 		        // 이메일 인증번호를 입력하지 않으면 제출 못하게 막기
 		        $('form').on('submit', function(e) {
+		        	
 		            if ($('#cus_pw').val() != $("#cor_pw").val()) { 
 		                e.preventDefault();
 		                alert("비밀번호가 동일하지 않습니다.");
