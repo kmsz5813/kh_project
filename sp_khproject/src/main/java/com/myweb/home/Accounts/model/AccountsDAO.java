@@ -13,6 +13,7 @@ public class AccountsDAO {
 	private String mapper = "acMapper.%s";
 	
 	public boolean insertData(AccountsDTO data) {
+
 		String mapperId = String.format(mapper, "insertData");
 		int res = session.insert(mapperId, data);
 		return res == 1 ? true : false;
@@ -39,6 +40,12 @@ public class AccountsDAO {
 	public void deleteData(AccountsDTO data) {
 		String mapperId = String.format(mapper, "deleteData");
 		session.delete(mapperId, data);
+	}
+
+	public boolean modifyData(AccountsDTO data) {
+		String mapperId = String.format(mapper, "modifyData");
+		int res = session.update(mapperId, data);
+		return res >= 1 ? true : false;
 	}
 
 

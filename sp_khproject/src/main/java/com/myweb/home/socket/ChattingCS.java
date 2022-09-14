@@ -1,5 +1,6 @@
 package com.myweb.home.socket;
 
+<<<<<<< HEAD
 import java.security.KeyStore.Entry;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -72,5 +73,8 @@ public class ChattingCS extends TextWebSocketHandler {
 		
 		super.afterConnectionClosed(session, status);
 	}
+=======
+public class ChattingCS {
+>>>>>>> branch '김민성' of https://github.com/kmsz5813/kh_project.git
 
 }

@@ -202,17 +202,18 @@
 	
 	</style>
 
-	<script>
-	$(document).ready(function(){
-		$(".wish-icon i").click(function(){
-			$(this).toggleClass("fa-heart fa-heart-o");
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$(".wish-icon i").click(function(){
+				$(this).toggleClass("fa-heart fa-heart-o");
+			});
 		});
-	});
 	</script>
 	
 	<script type="text/javascript">
 		$('.carousel').carousel()
 	</script>
+
 </head>
 
 <body>
@@ -220,6 +221,7 @@
 	<%@ include file="../module/head.jsp" %>
 	
 <!-- 배너, carousel -->
+	
 	<div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
 	  <ol class="carousel-indicators">
 	    <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
