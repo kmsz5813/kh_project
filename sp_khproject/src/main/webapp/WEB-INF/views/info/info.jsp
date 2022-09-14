@@ -10,6 +10,12 @@
 	<meta charset="UTF-8">
 	<title>마이페이지</title>
 	<%@ include file="../module/head.jsp" %>
+	<style>
+		#previewImg {
+			max-width : 250px;
+			height : auto;
+		}
+	</style>
 </head>
 <body>
 	<header></header>
@@ -27,7 +33,12 @@
 		<div class="row mt-3">	
 			<div class="col-3">
 				<div>
-					<button type="button" style="height:9rem; width:9rem; background-color:rgb(224, 224, 224);" onclick="location.href='/home/sel/selsign'">전문가</button>
+					<div class="image-form left">
+						<!-- onerror 속성은 src 에 해당하는 파일이 없으면 대체(null을 설정하는 이유는 그마저도 없으면 안되기때문) -->
+						<img id="previewImg" class="image-360" alt="여기에는 증명 사진이 배치됩니다." src="./static/img/profile/${profileImage }.png" 
+						onerror="this.onerror=null; this.src='./static/img/profile/basic.png'">
+						<br>
+					</div>
 				</div>
 			</div>
 			<div class="col-4">

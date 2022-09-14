@@ -9,37 +9,56 @@
 <head>
 	<meta charset="UTF-8">
 	<title>회원정보 수정</title>
-	<%@ include file="../module/head.jsp" %>
+	<%@ include file="../module/head.jsp" %>	
 	<style>
 		.name_ok{
-		color:#008000;
-		display: none;
+			color:#008000;
+			display: none;
 		}
 		
 		.name_already{
-		color:red; 
-		display: none;
+			color:red; 
+			display: none;
 		}
+		
+		.image-form {
+			text-align : center;
+		}
+		
+		#previewImg {
+			margin-bottom : 20px;
+			max-width : 250px;
+			height : auto;
+		}
+
 	</style>
 </head>
 <body>
 	<section class="container w-25">
 		<div class="mt-5">
 		<c:url var="modifyurl" value="/info/modify" />
-			<form action="${modifyurl}" method="post">
+			<form action="${modifyurl}" method="post" enctype="multipart/form-data">
 				<div class="mb-3 center">
 					<p class="fw-normal fs-2 text-center">회원정보 수정</p>
 				</div>
 				<c:if test="${loginData.ac_index == 10}">
 					<div class="mb-3 center">
-					<div class="p-1 mb-3 bg-secondary text-white text-center fw-normal">일반회원</div>
-				</div>
+						<div class="p-1 mb-3 bg-secondary text-white text-center fw-normal">일반회원</div>
+					</div>
 				</c:if>
 				<c:if test="${loginData.ac_index == 20}">
 					<div class="mb-3 center">
-					<div class="p-1 mb-3 bg-secondary text-white text-center fw-normal">전문가</div>
+						<div class="p-1 mb-3 bg-secondary text-white text-center fw-normal">전문가</div>
 					</div>
 				</c:if>
+				<div class="image-form mb-3">
+					<!-- 여기 url은 home/ 뒤에 바로 modify 가 아니라 info/ 가 붙으므로 contextPaht 경로를 앞에 붙여야 한다. -->
+					<img id="previewImg" class="image-360" alt="프로필 이미지." src="${pageContext.request.contextPath}/static/img/profile/${profileImage}.png"
+					onerror="this.onerror=null; this.src='${pageContext.request.contextPath}/static/img/profile/basic.png'">
+					<div class="mb-3">
+						<input id="formFile" type="file" name="uploadImg" class="form-control" value="이미지 선택" accept="image/png">
+					</div>
+				</div>
 				<div class="mb-3">
 					<label class="fw-normal mb-2">이메일</label>
 					<input type="email" name="mod_email" value="${loginData.ac_email}" class="form-control" placeholder ="${loginData.ac_email}" readonly ></input>
@@ -89,7 +108,21 @@
 			</form>
 		</div>
 		<script type="text/javascript">
+			window.onload = function() {
+				previewImg.addEventListener("click", function(e) {
+					formFile.click();
+				});
+				
+				formFile.addEventListener("change", showImagePreview);
+			}
 			
+			function showImagePreview(e) {
+				var file = e.target.files[0];
+				var imgUrl = URL.createObjectURL(file);
+				previewImg.src = imgUrl;
+			}
+			
+				
 			/* 닉네임 중복검사 */
 	        function checkName(){
 				$('#name').blur(function(){
@@ -158,7 +191,9 @@
 			  }else {
 				$(".pwpw-alert").text('');
 			  }
-			});	
+			});
+			
+			
 		</script>
 	</section>
 </body>

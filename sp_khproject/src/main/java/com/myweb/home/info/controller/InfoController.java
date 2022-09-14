@@ -1,7 +1,16 @@
 package com.myweb.home.info.controller;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.Iterator;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
+import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.servlet.http.Part;
 
 import org.json.simple.JSONObject;
 import org.slf4j.Logger;
@@ -16,6 +25,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.multipart.MultipartRequest;
 
 import com.myweb.home.Accounts.model.AccountsDTO;
 import com.myweb.home.login.service.LoginService;
@@ -24,6 +36,7 @@ import com.myweb.home.login.service.LoginService;
 
 
 @Controller
+@MultipartConfig
 @RequestMapping(value="/info")
 public class InfoController {
 	private static final Logger logger = LoggerFactory.getLogger(InfoController.class);
@@ -34,10 +47,17 @@ public class InfoController {
 	
 	@GetMapping(value="")
 	public String main(Model model
-			, @SessionAttribute("loginData") AccountsDTO acDto) {
+			, @SessionAttribute("loginData") AccountsDTO acDto
+			, HttpServletRequest request) {
+		
 		logger.info("main({}) cusdata({})", model, acDto);
 		
+		// 프로필 이미지 이름은 서버에 이메일로 저장되므로
+		request.setAttribute("profileImage", acDto.getAc_email());
+		
+		
 		return "info/info";
+		
 	}
 	
 	@GetMapping(value="/modifycheck")
@@ -136,7 +156,8 @@ public class InfoController {
 	public String modify(Model model
 				, @SessionAttribute("loginData") AccountsDTO acDto
 				, HttpServletRequest request
-				, HttpSession session) {
+				, HttpSession session
+				, @RequestParam("uploadImg") MultipartFile Part) throws IOException, ServletException {
 		
 		String mod_email = request.getParameter("mod_email");
 		String mod_name = request.getParameter("mod_name");
@@ -157,18 +178,26 @@ public class InfoController {
 		boolean result = service.modify(data);
 
 		if(result) {
+			// originName = 클라이언트가 전송한 사진파일 이름
+			String originName = Part.getOriginalFilename();
+			String Id = acDto.getAc_email();
+			System.out.println(originName);
+			// location = 사진이 저장될 서버경로 + Id.png
+			String location = request.getServletContext().getRealPath("/resources/img/profile/") + Id + ".png"; 
+			if(!originName.isEmpty()) {		// 사진파일이 있으면 저장
+				Part.transferTo(new File(location));
+			}
+			request.setAttribute("profileImage", Id);
 			service.getLogin(session, data);
 			return "redirect:/info";
 		} else {
 			return "info/modify";
 		}
 		
-		// 세션에 비밀번호 바뀐거 제대로 적용됐는지도 체크해야 함.
-		
 	}
 	
 	// 수정 페이지 닉네임중복체크
-	@PostMapping("modify/nameCheck")
+	@PostMapping(value="modify/nameCheck")
 	@ResponseBody
 	public String nameCheck(@RequestParam("name") String name) {
 
@@ -188,8 +217,6 @@ public class InfoController {
 		
 	}
 	
-	
-	
-	
+
 
 }
