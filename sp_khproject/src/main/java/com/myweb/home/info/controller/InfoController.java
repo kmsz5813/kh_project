@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Iterator;
 
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServlet;
@@ -116,9 +117,13 @@ public class InfoController {
 		// 세션에 저장된 이메일, 비밀번호
 		String email2 = acDto.getAc_email();
 		String pw2 = acDto.getAc_pw();
+		// 서버에 저장된 프로필 이미지파일 경로
+		String path = request.getServletContext().getRealPath("/resources/img/profile/");
+		File file = new File(path + "\\" + acDto.getAc_email() + ".png");
 		
 		if(email.equals(email2) && pw.equals(pw2)) { //이메일주소랑 비밀번호 체크 완료시	
 			service.delete(data);
+			file.delete();
 			System.out.println("삭제 완료");
 			session.invalidate();
 			request.setAttribute("errorMsg", true);
