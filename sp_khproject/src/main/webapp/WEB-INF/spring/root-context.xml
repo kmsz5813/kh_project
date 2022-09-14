@@ -6,7 +6,7 @@
 	 http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 	
 	<!-- Root Context: defines shared resources visible to all other web components -->
-<<<<<<< HEAD
+
 	
 	<context:property-placeholder location="classpath:/"></context:property-placeholder>
 	<bean id="emailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
@@ -16,7 +16,5 @@
 		<property name="password" value="mxzdohlhfyxcxcxp"></property>
 	</bean>	
 </beans>
-=======
-		
-</beans>
->>>>>>> branch '채민선' of https://github.com/kmsz5813/kh_project.git
+
+
