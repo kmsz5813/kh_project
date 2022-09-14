@@ -256,6 +256,70 @@ public class LoginController {
 	
 	}
 	
+	@GetMapping(value="/seekpw")
+	public String seekpw(Model model) {
+		return "login/seekpw";
+	}
+	
+	@PostMapping(value="/seekpw")
+	public String seekpw(Model model, HttpServletRequest request) {
+		
+		String test = request.getParameter("test");
+		String pw = request.getParameter("cus_pw");
+		
+		if(pw != null) {
+			String email = request.getParameter("email");
+			email = email.trim();
+				
+			//비밀번호 수정
+			AccountsDTO data = new AccountsDTO();
+			
+			data.setAc_email(email);
+			data.setAc_pw(pw);
+			
+			boolean result = service.modifyPw(data);
+			
+			if(result) {
+				//비밀번호 수정완료
+				return "redirect: /home/login";
+			}else {
+				
+				return null;
+			}
+			
+		}
+		
+		
+		if(test == null) {
+			
+			String email = request.getParameter("email");
+			AccountsDTO data = new AccountsDTO();
+			data.setAc_email(email);
+			
+			
+			boolean result = service.getEmail(data);
+			
+			if(result) {
+				//이메일로 보내기
+				request.setAttribute("success", "success");
+				request.setAttribute("email", email);
+				return null;
+			}else {
+				//이메일 없을시에
+				request.setAttribute("error", "error");
+				return null;
+			}
+		}else {
+			String email = request.getParameter("email");
+			String emailtest = request.getParameter("test1");
+			request.setAttribute("emailtest", "emailtest");
+			request.setAttribute("email", email);
+			
+			return null;
+		}
+	}
+	
+	
 	@GetMapping(value="/cussign")
 	public String cussign(Model model, HttpServletRequest request
 						  ) {

@@ -47,6 +47,20 @@ public class AccountsDAO {
 		int res = session.update(mapperId, data);
 		return res >= 1 ? true : false;
 	}
+	
+	public boolean modifyPw(AccountsDTO data) {
+		String mapperId = String.format(mapper, "modifyPw");
+		int res = session.update(mapperId, data);
+		return res >= 1 ? true : false;
+	}
+
+	public AccountsDTO getEmail(AccountsDTO data) {
+		String mapperId = String.format(mapper, "getEmail");
+		AccountsDTO result = session.selectOne(mapperId, data);
+		return result;
+	}
+
+
 
 
 
