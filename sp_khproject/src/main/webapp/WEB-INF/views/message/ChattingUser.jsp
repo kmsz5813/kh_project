@@ -8,12 +8,8 @@
 <head>
 <meta charset="UTF-8">
 <title>1:1 문의</title>
-<%-- <%@ include file="./module/head.jsp" %>  --%>
 </head>
 <body>
- <%-- <header class="mb-3">
-		<%@ include file="./module/navigation.jsp" %>
-	</header> --%>
 	<!-- 헤더 -->
 	<%@ include file="../module/head.jsp" %>
 	<section class="container">
