@@ -2,11 +2,15 @@ package com.myweb.home.selitem.controller;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttribute;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.myweb.home.Accounts.model.AccountsDTO;
 import com.myweb.home.common.Paging;
@@ -18,6 +22,12 @@ import com.myweb.home.upload.service.FileUploadService;
 @Controller
 @RequestMapping(value="/sellitem")
 public class SelItemController {
+	
+	@Autowired
+	private SelItemService service;
+	
+	@Autowired
+	private FileUploadService fileUploadService;
 
 	@GetMapping(value="/additem")
 	public String additem(Model model) {
@@ -26,12 +36,40 @@ public class SelItemController {
 	}
 	
 	@PostMapping(value="/additem")
-	public String additem(Model model, HttpServletRequest request) {
+	public String additem(Model model, HttpServletRequest request
+			, @SessionAttribute("loginData") AccountsDTO accDto 
+			, @RequestParam("fileUpload") MultipartFile[] files) {
 		
-		String test = request.getParameter("test");
+		String test = request.getParameter("addurl");
 		
 		System.out.println(test);
 		
+		int id = service.add(data);
+		
+		for(MultipartFile file: files) {
+			String location = request.getServletContext().getRealPath("/resources/board/upload");
+			String url = "/static/board/upload";
+			FileUploadDTO fileData = new FileUploadDTO(id, location, url);
+			
+			try {
+				int fileResult = fileUploadService.upload(file, fileData);
+				if(fileResult == -1) {
+					request.setAttribute("error", "파일 업로드 수량을 초과하였습니다.");
+					return "board/add";
+				}
+			} catch(Exception e) {
+				request.setAttribute("error", "파일 업로드 작업중 예상치 못한 에러가 발생하였습니다.");
+				return "board/add";
+			}
+			
+		}
+		
+		if(id != -1) {
+			return "redirect:/board/detail?id=" + id;			
+		} else {
+			request.setAttribute("error", "게시글 저장 실패!");
+			return "board/add";
+		}
 		
 		//등록 로직 부분을 짜면 됨.
 		
