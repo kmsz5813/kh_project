@@ -36,7 +36,7 @@
 				<div>
 					<div class="image-form left">
 						<!-- onerror 속성은 src 에 해당하는 파일이 없으면 대체(null을 설정하는 이유는 그마저도 없으면 안되기때문) -->
-						<img id="previewImg" class="image-360" alt="여기에는 증명 사진이 배치됩니다." src="./static/img/profile/${profileImage}.png" 
+						<img id="previewImg" class="image-360" alt="프로필 이미지." src="./static/img/profile/${profileImage}.png" 
 						onerror="this.onerror=null; this.src='./static/img/profile/basic.png'">
 						<br>
 					</div>
