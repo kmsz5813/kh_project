@@ -45,6 +45,7 @@
 			  </button>
 			  <!------------------- 반복문 만들어서 집어넣기---------------------------->
 			  <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+			  	<li><a class="dropdown-item" href="sellitem">전체</a></li>
 			    <li><a class="dropdown-item" href="sellitem?select=축구">축구</a></li>
 			    <li><a class="dropdown-item" href="sellitem?select=바보">바보</a></li>
 			    <li><a class="dropdown-item" href="#">프로그래밍</a></li>
@@ -63,7 +64,7 @@
 			 </div>
 			  <!-- ---------------------------------------------------------------- -->
 			  
-			  
+			  <!-- 인기순 조회순 만들기 -->
 			 <div class="dropdown col-2">
 			  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" style="width: 12rem; margin-left: 0.5rem; background-color: white; color:black;"  data-bs-toggle="dropdown" aria-expanded="false">
 			    인기순
@@ -75,6 +76,7 @@
 			  </ul>
 			 </div>
 			  
+			  <!-- 인풋타입에 적어서 보낼수있는것 -->
 			 <div class="col-auto">
 				<div class="input-group">
 					<input class="form-control" type="text" name="search">
