@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.myweb.home.Accounts.model.AccountsDTO;
+import com.myweb.home.admin.model.BlackDTO;
 import com.myweb.home.admin.service.AdminService;
 import com.myweb.home.login.controller.LoginController;
 import com.myweb.home.login.service.LoginService;
@@ -29,6 +30,9 @@ public class AdminController {
 	
 	@Autowired
 	private LoginService service;
+	@Autowired
+	private AdminService adminService;
+	
 	
 	@GetMapping(value="")
 	public String admin(Model model) {
@@ -62,7 +66,18 @@ public class AdminController {
 		File file = new File(path + "\\" + id + ".png");
 		file.delete();
 		
+		// 블랙리스트에 추가
+		BlackDTO black = new BlackDTO();
+		String ip = service.getIp(id);
+		black.setBlack_email(id);
+		black.setIp_address(ip);
+		black.setBanned("Y");
+		// DB 에 아이디 및 정보 삭제
 		boolean result = service.addBlacklist(id);
+		// BLACKLIST 테이블에 해당 회원 정보 추가
+		boolean result2 = adminService.addBlacklist(black);
+		
+		
 
 		return "redirect:/admin";
 	}

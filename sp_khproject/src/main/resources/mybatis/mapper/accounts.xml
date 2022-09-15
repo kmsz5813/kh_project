@@ -16,8 +16,8 @@
 	</select>
 
 	<insert id="insertData" parameterType="acDto">
-	INSERT INTO ACCOUNTS(AC_NUMBER, AC_EMAIL, AC_NAME, AC_PW, AC_JOB, AC_FIELD, AC_INTEREST, AC_INDEX, AC_SENDEMAIL)
-	VALUES(ACCOUNTS_SEQ.NEXTVAL, #{ac_email}, #{ac_name}, #{ac_pw}, #{ac_job}, #{ac_field}, #{ac_interest}, #{ac_index}, #{ac_sendemail} ) 
+	INSERT INTO ACCOUNTS(AC_NUMBER, AC_EMAIL, AC_NAME, AC_PW, AC_JOB, AC_FIELD, AC_INTEREST, AC_INDEX, AC_SENDEMAIL, AC_IP)
+	VALUES(ACCOUNTS_SEQ.NEXTVAL, #{ac_email}, #{ac_name}, #{ac_pw}, #{ac_job}, #{ac_field}, #{ac_interest}, #{ac_index}, #{ac_sendemail}, #{ac_ip}) 
 	</insert>
 	
 	<select id="selectLogin" resultType="acDto">
@@ -62,5 +62,11 @@
 		DELETE FROM ACCOUNTS
 		 WHERE AC_EMAIL = #{id}
 	</delete>
+	
+	<select id="getIp" resultType="string">
+		SELECT AC_IP
+		  FROM ACCOUNTS
+		 WHERE AC_EMAIL = #{id}
+	</select>
 	
 </mapper>

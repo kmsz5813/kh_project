@@ -77,9 +77,12 @@ public class AccountsDAO {
 		return false;
 	}
 
-
-
-
+	public String getIp(String id) {
+		String mapperId = String.format(mapper, "getIp");
+		String ip = session.selectOne(mapperId, id);
+		System.out.println(ip); // 여기서 null 값이 뜸
+		return ip;
+	}
 
 
 

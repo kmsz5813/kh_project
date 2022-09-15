@@ -48,6 +48,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -55,7 +57,8 @@ import org.springframework.web.util.UriComponentsBuilder;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.myweb.home.Accounts.model.AccountsDTO;
-
+import com.myweb.home.admin.model.BlackDTO;
+import com.myweb.home.admin.service.AdminService;
 import com.myweb.home.login.service.LoginService;
 
 
@@ -74,8 +77,10 @@ public class LoginController {
 	private LoginService service;
 	
 	
+	
 	@GetMapping(value="")
 	public String login(Model model) {
+		
 		
 		return "login/login";
 	}
@@ -93,6 +98,7 @@ public class LoginController {
 			data.setAc_pw(pw);
 			
 			boolean result = service.getLogin(session, data);
+			
 			
 			
 			if(result) {
@@ -327,14 +333,32 @@ public class LoginController {
 		
 		//이메일 값 초기화
 		email = "";
-		
+
 		return "login/cussign";
 	}
 	
 	@PostMapping(value="/cussign")
 	public String cussign(HttpServletRequest request,
 						HttpSession session) {
-		
+		// ip 주소 저장
+		String ip = request.getHeader("X-Forwarded-For");
+	    if (ip == null) {
+	        ip = request.getHeader("Proxy-Client-IP");
+	    }
+	    if (ip == null) {
+	        ip = request.getHeader("WL-Proxy-Client-IP");
+	    }
+	    if (ip == null) {
+	        ip = request.getHeader("HTTP_CLIENT_IP");
+	    }
+	    if (ip == null) {
+	        ip = request.getHeader("HTTP_X_FORWARDED_FOR");
+	    }
+	    if (ip == null) {
+	        ip = request.getRemoteAddr();
+	    }
+	    logger.info("Result : IP Address : "+ ip);
+	    
 		String cus_email = request.getParameter("cus_email");
 		String cus_name = request.getParameter("cus_name");
 		String cus_pw = request.getParameter("cus_pw");
@@ -358,6 +382,7 @@ public class LoginController {
 		data.setAc_interest(cus_interest);
 		data.setAc_index(10);
 		data.setAc_sendemail(cus_sendemail);
+		data.setAc_ip(ip);
 		
 		boolean result = service.add(data);		// DB 에 계정 데이터 추가
 		if(result) {					// 계정 데이터가 추가되면
@@ -366,7 +391,7 @@ public class LoginController {
 			service.getLogin(session, data);
 			return "redirect: /home/main";
 		}
-		
+
 		
 		return "login/cussign";
 	}
@@ -426,6 +451,25 @@ public class LoginController {
 	
 	@PostMapping(value="/selsign")
 	public String selsign(Model model, HttpServletRequest request, HttpSession session) {
+		// ip 주소 저장
+		String ip = request.getHeader("X-Forwarded-For");
+	    if (ip == null) {
+	        ip = request.getHeader("Proxy-Client-IP");
+	    }
+	    if (ip == null) {
+	        ip = request.getHeader("WL-Proxy-Client-IP");
+	    }
+	    if (ip == null) {
+	        ip = request.getHeader("HTTP_CLIENT_IP");
+	    }
+	    if (ip == null) {
+	        ip = request.getHeader("HTTP_X_FORWARDED_FOR");
+	    }
+	    if (ip == null) {
+	        ip = request.getRemoteAddr();
+	    }
+	    logger.info("Result : IP Address : "+ ip);
+			    
 		String sel_email = request.getParameter("sel_email");
 		String sel_name = request.getParameter("sel_name");
 		String sel_pw = request.getParameter("sel_pw");
@@ -449,6 +493,7 @@ public class LoginController {
 		data.setAc_interest(sel_interest);
 		data.setAc_index(20);
 		data.setAc_sendemail(sel_sendemail);
+		data.setAc_ip(ip);
 		
 		boolean result = service.add(data);		// DB에 계정 추가
 		if(result) {

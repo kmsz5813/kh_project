@@ -164,6 +164,11 @@ public class LoginService {
 		}
 	}
 
+	public String getIp(String id) {
+		String ip_address = dao.getIp(id);
+		return ip_address;
+	}
+
 
 
 }
