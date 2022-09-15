@@ -14,6 +14,7 @@ import java.net.URL;
 import java.net.URLEncoder;
 import java.security.SecureRandom;
 import java.util.HashMap;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -57,6 +58,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.myweb.home.Accounts.model.AccountsDTO;
+import com.myweb.home.admin.model.AdminDAO;
 import com.myweb.home.admin.model.BlackDTO;
 import com.myweb.home.admin.service.AdminService;
 import com.myweb.home.login.service.LoginService;
@@ -75,12 +77,12 @@ public class LoginController {
 	
 	@Autowired
 	private LoginService service;
-	
+	@Autowired 
+	private AdminService adminService;
 	
 	
 	@GetMapping(value="")
 	public String login(Model model) {
-		
 		
 		return "login/login";
 	}
@@ -98,9 +100,7 @@ public class LoginController {
 			data.setAc_pw(pw);
 			
 			boolean result = service.getLogin(session, data);
-			
-			
-			
+
 			if(result) {
 				//로그인성공시
 				return "redirect:main";
@@ -110,6 +110,7 @@ public class LoginController {
 				return "/login/login";
 			}
 	}
+	
 	
 	@GetMapping(value="/sign")
 	public String sign(Model model, HttpSession session, String accessToken, HttpServletRequest request
@@ -264,6 +265,9 @@ public class LoginController {
 	
 	@GetMapping(value="/seekpw")
 	public String seekpw(Model model) {
+		
+		
+		
 		return "login/seekpw";
 	}
 	

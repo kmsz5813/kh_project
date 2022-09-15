@@ -2,6 +2,7 @@
 <beans:beans xmlns="http://www.springframework.org/schema/mvc"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:beans="http://www.springframework.org/schema/beans"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"	
 	xmlns:context="http://www.springframework.org/schema/context"
 	xsi:schemaLocation="http://www.springframework.org/schema/mvc https://www.springframework.org/schema/mvc/spring-mvc.xsd
 		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
@@ -29,6 +30,14 @@
 	</beans:bean>
 	
 	<context:component-scan base-package="com.myweb.home" />
+
+	<!-- IP 접근제한 Interceptor, 상단에 xmlns:mvc="http://www.springframework.org/schema/mvc" 추가함.-->
+	<mvc:interceptors>
+		<mvc:interceptor>
+			<mvc:mapping path="/login/**"/>
+			<beans:bean class="com.myweb.home.filter.IPCheckInterceptor"/>
+		</mvc:interceptor>
+	</mvc:interceptors>
 	
 	<!-- 데이터베이스 설정 -->
 	<beans:bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
@@ -48,7 +57,6 @@
 	<beans:bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
 		<beans:constructor-arg index="0" ref="sqlSessionFactory"></beans:constructor-arg>
 	</beans:bean>
-	
 	<!-- 
 	<beans:bean id="chattingCSHandler" class="com.myweb.home.socket.ChattingCS"></beans:bean>
 	<websocket:handlers>

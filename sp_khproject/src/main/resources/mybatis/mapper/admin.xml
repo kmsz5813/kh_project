@@ -8,4 +8,9 @@
 		VALUES(#{black_email}, #{ip_address}, #{banned})
 	</select>
 	
+	<select id="getBannedIP" resultType="blackDto">
+		SELECT IP_ADDRESS as ip_address
+		FROM BLACKLIST
+	</select>
+	
 </mapper>
