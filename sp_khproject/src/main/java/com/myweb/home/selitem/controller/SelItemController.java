@@ -1,31 +1,29 @@
 package com.myweb.home.selitem.controller;
 
-import java.io.File;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
 
-import com.myweb.home.common.Paging;
+import com.myweb.home.common.util.Paging;
 import com.myweb.home.selitem.model.SelItemDTO;
 import com.myweb.home.selitem.service.SelItemService;
 
 @Controller
 @RequestMapping(value="/sellitem")
 public class SelItemController {
-
+	
+	@Autowired
+	private SelItemService service;
+	
 	//getmapping을 해야지 페이지가 나온다고 생각하면돼 
 	@GetMapping(value="/additem")
 	public String additem(Model model) {
@@ -45,6 +43,49 @@ public class SelItemController {
 		
 		return "redirect: /home/sellitem/additem";
 	}
+	
+	@GetMapping(value="")
+	public String list(Model model, HttpServletRequest request
+			, HttpSession session
+			, @RequestParam(defaultValue="1", required=false) int page
+			, @RequestParam(defaultValue="0", required=false) int pageCount) {
+		Paging paging = null;
+		
+		//저장되어 있는 모든 데이터 값 가져오기...	
+		SelItemDTO data = new SelItemDTO();
+		List result = service.getData(data);
+		
+		//특정되어있는 값 가져오기
+		String selectData = request.getParameter("select"); // <<<<<<< 주소값
+		List seletResult = service.getSelect(selectData);
+		
+	
+		
+		if(session.getAttribute("pageCount") == null) {
+			session.setAttribute("pageCount", 8);
+		}
+		
+		if(pageCount > 0) {
+			session.setAttribute("pageCount", pageCount);
+		}
+	
+		pageCount = Integer.parseInt(session.getAttribute("pageCount").toString());
+		
+		if(selectData != null) {
+			paging = new Paging(seletResult, page, pageCount);
+			model.addAttribute("selectData", "select=" + selectData);
+			
+		}else {
+			paging = new Paging(result, page, pageCount);
+		}
+		
+		model.addAttribute("result", paging.getPageData());
+		model.addAttribute("pageData", paging);
+		
+		
+		return "/sellitem/list";
+	}
+
 	
 
 	
