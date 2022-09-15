@@ -1,5 +1,5 @@
 package com.myweb.home.selitem.controller;
-
+import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -73,6 +73,49 @@ public class SelItemController {
 		
 		return "sellitem/additem";
 	}
+	
+	@GetMapping(value="")
+	public String list(Model model, HttpServletRequest request
+			, HttpSession session
+			, @RequestParam(defaultValue="1", required=false) int page
+			, @RequestParam(defaultValue="0", required=false) int pageCount) {
+		Paging paging = null;
+		
+		//저장되어 있는 모든 데이터 값 가져오기...	
+		SelItemDTO data = new SelItemDTO();
+		List result = service.getData(data);
+		
+		//특정되어있는 값 가져오기
+		String selectData = request.getParameter("select"); // <<<<<<< 주소값
+		List seletResult = service.getSelect(selectData);
+		
+	
+		
+		if(session.getAttribute("pageCount") == null) {
+			session.setAttribute("pageCount", 8);
+		}
+		
+		if(pageCount > 0) {
+			session.setAttribute("pageCount", pageCount);
+		}
+	
+		pageCount = Integer.parseInt(session.getAttribute("pageCount").toString());
+		
+		if(selectData != null) {
+			paging = new Paging(seletResult, page, pageCount);
+			model.addAttribute("selectData", "select=" + selectData);
+			
+		}else {
+			paging = new Paging(result, page, pageCount);
+		}
+		
+		model.addAttribute("result", paging.getPageData());
+		model.addAttribute("pageData", paging);
+		
+		
+		return "/sellitem/list";
+	}
+
 	
 
 //	

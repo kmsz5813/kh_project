@@ -13,7 +13,21 @@ public class SelItemDAO {
 	@Autowired
 	private SqlSession session;
 	
-	private String mapper = "selitemMapper.%s";
+	private String mapper = "selItemMapper.%s";
+
+	public List<Object> getData(SelItemDTO data) {
+		
+		String mapperId = String.format(mapper, "getData");
+		List<Object> result = session.selectList(mapperId, data);
+		return result;
+	}
+
+	public List selectData(String selectData) {
+		String mapperId = String.format(mapper, "selectData");
+		List<Object> result = session.selectList(mapperId, selectData);
+		return result;
+	}
+	
 	
 	public List<SelItemDTO> selectAll() {
 		String mapperId = String.format(mapper, "selectAll");
