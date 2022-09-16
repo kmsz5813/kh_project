@@ -8,11 +8,10 @@
 <head>
 	<meta charset="UTF-8">
 	<title>관리자 페이지</title>
-	<%@ include file="../module/head.jsp" %>
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 	<style>
-		
 		.container1 {
+			width: 1500px;
 			display : block;
 		}
 		
@@ -28,11 +27,16 @@
 			margin-right : 10px;
 		}
 		
+		.sort-icon {
+			max-width : 20px;
+		}
+		
 
 	</style>
 </head>
 <body>
-	<div style = "text-align: center;">
+	<%@ include file="../module/head.jsp" %>
+	<div class="mt-3 mb-3" style = "text-align: center;">
 		<input type="radio" class="btn-check radio-value" value = "1" name="options-outlined" id="success-outlined" autocomplete="off" checked>
 		<label class="btn btn-outline-success" for="success-outlined">회원목록 조회</label>
 		
@@ -44,27 +48,27 @@
 	</div>
 
 	<section class="container container1">
-		<table class="table wide vertical-hidden table-hover ">
+		<table class="table wide vertical-hidden table-hover" id="table1">
 			<colgroup>
-				<col class="col-120">
-				<col class="col-240">
-				<col class="col-120">
-				<col class="col-120">
-				<col class="col-120">
-				<col class="col-120">
-				<col class="col-120">
-				<col class="col-120">
+				<col class="col-auto">
+				<col class="col-auto">
+				<col class="col-auto">
+				<col class="col-auto">
+				<col class="col-auto">
+				<col class="col-auto">
+				<col class="col-auto">
+				<col class="col-auto">
 			</colgroup>
 			<thead class="thead-light">
 				<tr>
-					<th>회원 번호</th>
-					<th>회원 이메일</th>
-					<th>회원 닉네임</th>
-					<th>회원 직업</th>
-					<th>회원 비즈니스 분야</th>
-					<th>회원 관심사</th>
-					<th>회원 분류</th>
-					<th>가입일</th>
+					<th>회원 번호 <img style="cursor:pointer" class="sort-icon" src="./static/img/sort-icon.png"></th>
+					<th>이메일 <img style="cursor:pointer" class="sort-icon" src="./static/img/sort-icon.png"></th>
+					<th>닉네임 <img style="cursor:pointer" class="sort-icon" src="./static/img/sort-icon.png"></th>
+					<th>직업 <img style="cursor:pointer" class="sort-icon" src="./static/img/sort-icon.png"></th>
+					<th>비즈니스 분야 <img style="cursor:pointer" class="sort-icon" src="./static/img/sort-icon.png"></th>
+					<th>관심사 <img style="cursor:pointer" class="sort-icon" src="./static/img/sort-icon.png"></th>
+					<th>분류 <img style="cursor:pointer" class="sort-icon" src="./static/img/sort-icon.png"></th>
+					<th>가입일 <img style="cursor:pointer" class="sort-icon" src="./static/img/sort-icon.png"></th>
 					<th> </th>
 				</tr>
 			</thead>
@@ -86,7 +90,7 @@
 								<td>판매자</td>
 							</c:if>
 							<td>${datas.ac_signday}</td>
-							<td>
+							<td class="border-hidden-right" onclick="event.cancelBubble=true">
 								<button type="button" class="btn btn-danger" onclick="location.href='./admin/addBlacklist?id=${datas.ac_email}'">블랙리스트 지정</button>
 							</td>
 						</tr>
@@ -124,6 +128,38 @@
 				$('.container3').css("display", "block");
 			}
 		});
+		
+		// 테이블1 sort 
+		$(document).ready(function(){
+			  $('#table1 th').each(function (column) {
+			    $(this).click(function() {
+			      if($(this).is('.asc')) {
+			        $(this).removeClass('asc');
+			        $(this).addClass('desc');
+			        sortdir=-1;
+
+			      } else {
+			        $(this).addClass('asc');
+			        $(this).removeClass('desc'); sortdir=1;
+			      }
+
+			      $(this).siblings().removeClass('asc');
+			      $(this).siblings().removeClass('desc');
+
+			      var rec = $('#table1').find('tbody>tr').get();
+
+			      rec.sort(function (a, b) {
+			        var val1 = $(a).children('td').eq(column).text().toUpperCase();
+			        var val2 = $(b).children('td').eq(column).text().toUpperCase();
+			        return (val1 < val2)?-sortdir:(val1>val2)?sortdir:0;
+			      });
+
+			      $.each(rec, function(index, row) {
+			          $('#table1 tbody').append(row);
+			      });
+			    });
+			 });
+			});
 		
 	</script>
 </body>

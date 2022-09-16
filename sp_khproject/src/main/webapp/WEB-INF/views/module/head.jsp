@@ -52,7 +52,8 @@
 <!-- nav-bar -->
 	
 	<a href="${pageContext.request.contextPath}/main" style="display: flex; margin-top: -100px;"> 
-      <img src="${pageContext.request.contextPath}/static/img/logo.png" style="width:300px; margin-bottom: -100px; " class="d-inline-block">
+      <img src="${pageContext.request.contextPath}/static/img/logo.png" 
+      	style="width:300px; margin-bottom: -100px; " class="d-inline-block">
     </a>
 	<nav class="navbar navbar-expand-md navbar-light" style="; margin-left : 300px; position: relative; bottom: 60px; margin-right: 80px;" >
 	  <div class="container">
