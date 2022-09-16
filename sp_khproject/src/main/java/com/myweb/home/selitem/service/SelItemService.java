@@ -2,19 +2,15 @@ package com.myweb.home.selitem.service;
 
 import java.util.List;
 
-import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
-import com.myweb.home.Accounts.model.AccountsDTO;
 import com.myweb.home.selitem.model.SelItemDAO;
 import com.myweb.home.selitem.model.SelItemDTO;
-import com.myweb.home.selitem.model.SelItemStaticsDTO;
 
 @Service
 public class SelItemService {
+<<<<<<< HEAD
 	@Autowired
 	private SelItemDAO dao;
 	
@@ -88,4 +84,13 @@ public class SelItemService {
 		
 	}
 	
+=======
+//	@Autowired
+//	private SelItemDAO dao;
+//	
+//	public List<SelItemDTO> getAll() {
+//		List<SelItemDTO> datas = dao.selectAll();
+//	return datas;
+//	}
+>>>>>>> branch '예진욱' of https://github.com/kmsz5813/kh_project.git
 }

@@ -296,7 +296,7 @@
 			            		$('.id_already').css("display","none");
 			            		 $('.id_ok').css("display", "none");
 			            	}
-			            }
+			            },
 			        });	
 		
 		        })   	        	

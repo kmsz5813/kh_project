@@ -14,13 +14,16 @@ public class AccountsDTO {
 	private int ac_index;
 	private Date ac_signday;
 	private String ac_sendemail;
+	private String ac_ip;
 	
 	@Override
 	public String toString() {
 		return "AccountsDTO [ac_number=" + ac_number + ", ac_email=" + ac_email + ", ac_name=" + ac_name + ", ac_pw="
 				+ ac_pw + ", ac_job=" + ac_job + ", ac_field=" + ac_field + ", ac_interest=" + ac_interest
-				+ ", ac_index=" + ac_index + ", ac_signday=" + ac_signday + ", ac_sendemail=" + ac_sendemail + "]";
+				+ ", ac_index=" + ac_index + ", ac_signday=" + ac_signday + ", ac_sendemail=" + ac_sendemail
+				+ ", ac_ip=" + ac_ip + "]";
 	}
+	
 	public int getAc_number() {
 		return ac_number;
 	}
@@ -80,6 +83,12 @@ public class AccountsDTO {
 	}
 	public void setAc_sendemail(String ac_sendemail) {
 		this.ac_sendemail = ac_sendemail;
+	}
+	public String getAc_ip() {
+		return ac_ip;
+	}
+	public void setAc_ip(String ac_ip) {
+		this.ac_ip = ac_ip;
 	}
 
 }

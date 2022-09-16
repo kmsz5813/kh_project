@@ -1,5 +1,7 @@
 package com.myweb.home.Accounts.model;
 
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -11,6 +13,15 @@ public class AccountsDAO {
 	private SqlSession session = null;
 	
 	private String mapper = "acMapper.%s";
+	
+	public List<AccountsDTO> selectAll() {
+		String mapperId = String.format(mapper, "selectAll");
+		
+		List<AccountsDTO> datas = session.selectList(mapperId);
+		
+		
+		return datas;
+	}
 	
 	public boolean insertData(AccountsDTO data) {
 
@@ -60,8 +71,18 @@ public class AccountsDAO {
 		return result;
 	}
 
+	public boolean addBlacklist(String id) {
+		String mapperId = String.format(mapper, "addBlacklist");
+		session.delete(mapperId, id);
+		return false;
+	}
 
-
+	public String getIp(String id) {
+		String mapperId = String.format(mapper, "getIp");
+		String ip = session.selectOne(mapperId, id);
+		System.out.println(ip); // 여기서 null 값이 뜸
+		return ip;
+	}
 
 
 

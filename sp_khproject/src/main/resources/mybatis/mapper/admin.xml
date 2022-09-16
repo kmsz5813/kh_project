@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+	<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	  
+<mapper namespace="adminMapper">
+	<select id="addBlacklist">
+		INSERT INTO BLACKLIST(BLACK_EMAIL, IP_ADDRESS, BANNED)
+		VALUES(#{black_email}, #{ip_address}, #{banned})
+	</select>
+	
+	<select id="getBannedIP" resultType="blackDto">
+		SELECT IP_ADDRESS as ip_address
+		FROM BLACKLIST
+	</select>
+	
+</mapper>

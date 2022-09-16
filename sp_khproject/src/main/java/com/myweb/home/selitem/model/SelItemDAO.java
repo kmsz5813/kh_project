@@ -1,7 +1,5 @@
 package com.myweb.home.selitem.model;
 
-import java.util.List;
-
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -13,6 +11,7 @@ public class SelItemDAO {
 	@Autowired
 	private SqlSession session;
 	
+<<<<<<< HEAD
 	private String mapper = "selItemMapper.%s";
 
 	public List<Object> getData(SelItemDTO data) {
@@ -106,4 +105,7 @@ public class SelItemDAO {
 		int res = session.update(mapperId, data);
 		return res == 1 ? true : false;
 	}
+=======
+//	private String mapper = ""
+>>>>>>> branch '예진욱' of https://github.com/kmsz5813/kh_project.git
 }

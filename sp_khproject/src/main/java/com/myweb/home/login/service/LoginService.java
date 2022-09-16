@@ -1,5 +1,6 @@
 package com.myweb.home.login.service;
 
+import java.util.List;
 import java.util.Properties;
 import java.util.Random;
 
@@ -20,6 +21,12 @@ public class LoginService {
 	
 	@Autowired
 	private AccountsDAO dao;
+	
+	public List<AccountsDTO> selectAll() {
+		List<AccountsDTO> datas = dao.selectAll();
+
+		return datas;
+	}
 	
 	public boolean add(AccountsDTO data) {
 
@@ -148,10 +155,20 @@ public class LoginService {
 		return Integer.toString(randomNumber);
 	}
 
+	public boolean addBlacklist(String id) {
+		boolean result = dao.addBlacklist(id);
+		if(result) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	public String getIp(String id) {
+		String ip_address = dao.getIp(id);
+		return ip_address;
+	}
 
 
-
-	
-	
 
 }

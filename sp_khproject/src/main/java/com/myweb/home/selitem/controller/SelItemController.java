@@ -7,20 +7,25 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+<<<<<<< HEAD
 import org.springframework.web.bind.annotation.SessionAttribute;
+=======
+import org.springframework.web.bind.annotation.ResponseBody;
+>>>>>>> branch '예진욱' of https://github.com/kmsz5813/kh_project.git
 import org.springframework.web.multipart.MultipartFile;
 
-import com.myweb.home.Accounts.model.AccountsDTO;
 import com.myweb.home.common.Paging;
 import com.myweb.home.selitem.model.SelItemDTO;
 import com.myweb.home.selitem.service.SelItemService;
+<<<<<<< HEAD
 import com.myweb.home.selitem.vo.BoardVO;
 import com.myweb.home.upload.model.FileUploadDTO;
 import com.myweb.home.upload.service.FileUploadService;
+=======
+>>>>>>> branch '예진욱' of https://github.com/kmsz5813/kh_project.git
 
 @Controller
 @RequestMapping(value="/sellitem")
@@ -32,6 +37,10 @@ public class SelItemController {
 	@Autowired
 	private FileUploadService fileUploadService;
 
+<<<<<<< HEAD
+=======
+	//getmapping을 해야지 페이지가 나온다고 생각하면돼 
+>>>>>>> branch '예진욱' of https://github.com/kmsz5813/kh_project.git
 	@GetMapping(value="/additem")
 	public String additem(Model model) {
 		
@@ -78,6 +87,7 @@ public class SelItemController {
 		}
 	}
 	
+<<<<<<< HEAD
 	@GetMapping(value="")
 	public String list(Model model, HttpServletRequest request
 			, HttpSession session
@@ -119,5 +129,48 @@ public class SelItemController {
 		
 		return "/sellitem/list";
 	}
+=======
+
+	
+	
+//	@Autowired
+//	private SelItemService service;
+//	
+//	 차후 상품등록 추가예정
+//	@Autowired
+//	private ProductUploadService 
+//	
+//	@RequestMapping(value="", method=RequestMethod.GET)
+//	public String getList(Model model, HttpSession session
+//			, @RequestParam(defaultValue="1", required=false) int page
+//			, @RequestParam(defaultValue="0", required=false) int pageCount) {
+//		List datas = service.getAll();
+//		
+//		if(session.getAttribute("pageCount") == null) {
+//			session.setAttribute("pageCount", 5);
+//		}
+//		
+//		if(pageCount > 0) {
+//			session.setAttribute("pageCount", pageCount);
+//		}
+//		
+//		pageCount = Integer.parseInt(session.getAttribute("pageCount").toString());
+//		Paging paging = new Paging(datas, page, pageCount);
+//		
+//		model.addAttribute("dataas", paging.getPageData());
+//		model.addAttribute("pageData", paging);
+//		
+//		return "selItem/list";
+//	}
+//	
+//	@GetMapping(value="/detail")
+//	public String getDetail(Model model
+//			, HttpSession session
+//			, @RequestParam int id) {
+//		SelItemDTO data = service.getData(id);
+//		
+//		return "selItem/detail";
+//	}
+>>>>>>> branch '예진욱' of https://github.com/kmsz5813/kh_project.git
 	
 }
