@@ -9,8 +9,20 @@
 <!-- <insert id="insertData" parameterType="boardDto">
 		INSERT INTO SEL_ITEM(SEL_ID, SEL_SELNAME, SEL_INTEREST, SEL_LOCATION)
 	</insert> -->
-
-
+	<!-- 오름차순으로 정렬 -->
+	<select id="getData" resultType="selItemDto">
+		SELECT * FROM SEL_ITEM ORDER BY SEL_ID DESC
+	</select>
+	
+	<select id="selectData" resultType="selItemDto">
+		SELECT * FROM SEL_ITEM WHERE SEL_INTEREST = #{selectData} ORDER BY SEL_ID DESC
+	</select>
+	
+	
+	<select id="searchData" resultType="selItemDto">
+		SELECT * FROM SEL_ITEM WHERE SEL_INTEREST LIKE '%'||#{search}||'%' ORDER BY SEL_ID DESC
+	</select>
+	 
 
 
 

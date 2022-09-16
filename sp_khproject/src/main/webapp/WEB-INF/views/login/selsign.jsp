@@ -351,7 +351,8 @@
 				        ,data : {"mail" : $("input[name='sel_email']").val()}
 				        ,dataType: "Json"
 				        ,success: function(data){
-				           alert("메일이 전송되었습니다. 인증번호를 입력하세요.");
+				           
+				           swal('인증메일 전송!', "메일 인증번호를 확인하세요.", 'warning');
 				           $('#auth-number').blur(function() {
 				           		var inputCode = document.getElementById("auth-number").value;
 				           		if(inputCode == data.randomNumber && inputCode != "") {
@@ -381,29 +382,29 @@
 		        	
 		        	
 		        	if($('.id_ok').css('display') == 'none'){
-						e.preventDefault();
-		                alert("이메일이 중복되어 있습니다.");
+						e.preventDefault();	         
+		                swal('이메일 중복!', "이메일을 확인하세요.", 'warning');
 					}
 					
 					if($('.name_ok').css('display') == 'none'){
 						e.preventDefault();
-		                alert("닉네임이 중복되어 있습니다.");
+		                swal('닉네임 중복!', "닉네임 확인하세요.", 'warning');
 					}
 		        	
 		        	
 		            if ($('#sel_pw').val() != $("#cor_pw").val()) { 
-		                e.preventDefault();
-		                alert("비밀번호가 동일하지 않습니다.");
+		                e.preventDefault();		           
+		                swal('비밀번호 오류!', "비밀번호가 동일하지 않습니다.", 'warning');
 		            }
 		         	// 소셜 회원가입이 아닐 경우
 		            if(! $("input[name='sel_email']").prop("readonly")) {		            	
 			            if (! $('#emailCheck').prop("checked")) {
 			            	e.preventDefault();
-			            	alert("이메일 알림받기를 체크해주세요.");
+			            	swal('이메일 알림받기 오류!', "이메일 알림받기를 체크해주세요.", 'warning');
 			            	$('#emailCheck').prop("disabled", false);
 			            } else if ($('#auth-number').val() == '' || authOk == false) {
-			            	e.preventDefault();
-			            	alert("메일 인증번호를 확인하세요.");
+			            	e.preventDefault();  
+			            	swal('인증번호 확인 실패!', "메일 인증번호를 확인하세요.", 'warning');
 			            }
 		            }
 

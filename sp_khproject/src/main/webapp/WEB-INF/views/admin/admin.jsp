@@ -47,7 +47,10 @@
 		<label class="btn btn-outline-success" for="success-outlined3">섹션3</label>
 	</div>
 
-	<section class="container container1">
+	<section class="container-fluid container1">
+		<div id="input-form" class="right mb-3">
+			<input type="text" id="keyword">
+		</div>
 		<table class="table wide vertical-hidden table-hover" id="table1">
 			<colgroup>
 				<col class="col-auto">

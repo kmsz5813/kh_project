@@ -166,6 +166,7 @@ public class LoginController {
 						HttpEntity<MultiValueMap<String, String>> testentity = new HttpEntity<MultiValueMap<String, String>>(testparam, headers);
 						ResponseEntity<String> testrestResponse = rest.postForEntity(naverDeleteAuthUri.toUriString(), testentity, String.class);
 						
+						email = "";
 						return "login/p_login";
 					}
 				}catch (Exception e) {
@@ -234,7 +235,7 @@ public class LoginController {
 					
 					if(data != null) {
 						//카카오아이디가 디비버에 있는 아이디오 동일할 경우
-						
+						email = "";
 						return "login/p_login";
 					}
 

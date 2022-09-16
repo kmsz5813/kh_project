@@ -10,11 +10,43 @@ import com.myweb.home.selitem.model.SelItemDTO;
 
 @Service
 public class SelItemService {
-//	@Autowired
-//	private SelItemDAO dao;
-//	
-//	public List<SelItemDTO> getAll() {
-//		List<SelItemDTO> datas = dao.selectAll();
-//	return datas;
-//	}
+
+	@Autowired
+	private SelItemDAO dao;
+	
+	public List<Object> getData(SelItemDTO data) {
+		
+		List<Object> datas = dao.getData(data);
+		
+		//데이터 가져오기
+		if(datas != null) {
+	
+			return datas;
+		}
+		
+		return null;
+	}
+
+
+	public List getSelect(String selectData) {
+		List datas = dao.selectData(selectData);
+		
+		if(datas != null) {
+			return datas;
+		}
+		
+		return null;
+	}
+
+
+	public List getSearch(String search) {
+		List datas = dao.searchData(search);
+		
+		System.out.println(datas);
+		if(datas != null) {
+			return datas;
+		}
+		
+		return null;
+	}
 }

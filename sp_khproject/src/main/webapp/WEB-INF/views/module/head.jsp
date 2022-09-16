@@ -11,6 +11,8 @@
 <script type="text/javascript" src="${bs5}/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="${jQuery}/jquery-3.6.0.min.js"></script>
 <script type="text/javascript" src="${jQuery}/datatables.min.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
 
 <style>
 	a:link {
