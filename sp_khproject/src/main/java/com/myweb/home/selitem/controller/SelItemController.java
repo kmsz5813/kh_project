@@ -50,7 +50,7 @@ public class SelItemController {
 		int id = service.add(data);
 		
 		// jsp에서 값을 받아오는
-		String service = request.getParameter("service");
+		request.getParameter("service");
 		request.getParameter("location");
 		
 		
