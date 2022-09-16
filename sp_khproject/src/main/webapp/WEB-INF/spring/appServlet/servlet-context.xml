@@ -59,25 +59,6 @@
 	<beans:bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
 		<beans:constructor-arg index="0" ref="sqlSessionFactory"></beans:constructor-arg>
 	</beans:bean>
-<<<<<<< HEAD
-	
 
-	<!-- beans:bean id="chattingCSHandler" class="com.myweb.home.socket.ChattingCS" />
-=======
-	<!-- 
-	<beans:bean id="chattingCSHandler" class="com.myweb.home.socket.ChattingCS"></beans:bean>
->>>>>>> branch '예진욱' of https://github.com/kmsz5813/kh_project.git
-	<websocket:handlers>
-			<websocket:mapping handler="chattingCSHandler" path="/chatting/cs" />
-			<websocket:handshake-interceptors>
-				<beans:bean class="org.springframework.web.socket.server.support.HttpSessionHandshakeInterceptor"/>
-			</websocket:handshake-interceptors>
-<<<<<<< HEAD
-	</websocket:handlers -->
+	
 </beans:beans>
-=======
-		</websocket:mapping>
-	</websocket:handlers>
-	 -->
-</beans:beans>
->>>>>>> branch '예진욱' of https://github.com/kmsz5813/kh_project.git

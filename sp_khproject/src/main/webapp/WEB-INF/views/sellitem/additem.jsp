@@ -74,7 +74,7 @@
 		    <div class="form-group">
 		       <label class="col-sm-2 control-label">서비스</label>
 		       <div class="col-sm-10">
-		       <select class="form-control" name="findStuSubject" id="findStuSubject">
+		       <select class="form-control" name="service">
 					<option selected value="무관">-선택-</option>
 					<option value="IT">IT</option>
 					<option value="레슨">레슨</option>
@@ -87,7 +87,7 @@
 		    <div class="form-group">
 		        <label class="col-sm-2 control-label">지역</label>
 		        <div class="col-sm-10">
-			        <select class="form-control" name="findStuLoc" id="findStuLoc">
+			        <select class="form-control" name="location">
 							<option selected value="무관">-선택-</option>
 							<option value="서울">서울</option>
 							<option value="경기">경기</option>
