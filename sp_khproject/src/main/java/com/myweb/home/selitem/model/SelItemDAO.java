@@ -27,6 +27,13 @@ public class SelItemDAO {
 		List<Object> result = session.selectList(mapperId, selectData);
 		return result;
 	}
+
+	public List searchData(String search) {
+		System.out.println(search);
+		String mapperId = String.format(mapper, "searchData");
+		List<Object> result = session.selectList(mapperId, search);
+		return result;
+	}
 	
 	
 	public List<SelItemDTO> selectAll() {

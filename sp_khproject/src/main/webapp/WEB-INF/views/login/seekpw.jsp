@@ -4,6 +4,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
+
 <!--  -->
 <%@ page import="java.net.URLEncoder" %>
 <%@ page import="java.security.SecureRandom" %>
@@ -11,16 +12,12 @@
 
 
 
-<c:url var="bs5" value="/static/bs5" />
-<c:url var="jQuery" value="/static/js" />
 <!DOCTYPE html>
 <html>
 <head>
 	<meta charset="UTF-8">
 	<title>비밀번호찾기</title>
-	<link rel="stylesheet" type="text/css" href="${bs5}/css/bootstrap.min.css">
-	<script type="text/javascript" src="${bs5}/js/bootstrap.min.js"></script>
-	<script type="text/javascript" src="${jQuery}/jquery-3.6.0.min.js"></script>  
+	<%@ include file="../module/head.jsp" %>
 
 </head>
 <body>
@@ -44,8 +41,9 @@
 			<input class="form-control" style="height:3rem" type="text" value="	${email}" name="email" readonly>
 		</div>
 		<div id="sendmail_button" class="mb-3">
-			<input type="text" id="auth-number" name="test" class="form-control" placeholder="이메일 인증번호 입력">
+			
 			<button type="button" id="mailAuth" class="form-control p-1 mb-2">메일 전송</button>
+			<input type="text" id="auth-number" name="test" class="form-control" style="display:none" placeholder="이메일 인증번호 입력">
 			<label class="mb-2" id="auth-warn-label" style="display:none; color:red;">인증번호가 일치하지 않습니다.</label>
 			<label class="mb-2" id="auth-ok-label" style="display:none; color:green;">인증번호가 일치합니다.</label>
 			<input type="hidden" id="auth-hidden" name="test1" value=""> 
@@ -90,6 +88,8 @@
 		 <button type="submit" class="form-control p-1 mb-2 bg-secondary  text-center fw-normal" style="--bs-bg-opacity: .5; height:3rem;"> 확인</button>
 		</div>
 
+
+
 	</form>
 	</div>
 	</section>
@@ -97,7 +97,7 @@
 	<script>
 	 /* 메일 전송 클릭 시 이메일 전송 및 인증 확인 */
 	$("#mailAuth").on("click",function(){
-		
+		$('#auth-number').css("display", "inline-block");
 		
 	    $.ajax({
 	        url : "<c:url value='sendMail' />"
@@ -182,9 +182,11 @@
 		 if($('#auth-number').val() !== undefined){
 			 if ($('#auth-number').val() == '' || authOk == false) {
 		         	e.preventDefault();
-		         	alert("메일 인증번호를 확인하세요.");
-		         }	 
+		         
+		         	swal('인증번호 확인 실패!', "메일 인증번호를 확인하세요.", 'warning');
+			 }	 
 		 }
+	
 		 
 
 		 //비밀번호 비밀번호확인 값이 다를시에 prevent
@@ -192,7 +194,8 @@
 		if($('#cus_pw').val() !== 0 ){
 			if ($('#cus_pw').val() != $("#cor_pw").val()) { 
 	              e.preventDefault();
-	              alert("비밀번호가 동일하지 않습니다.");
+	         
+	              swal('비밀번호 확인 실패!', "비밀번호를 확인하세요.", 'warning');
 	          }	
 		}
 		 

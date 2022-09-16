@@ -22,9 +22,11 @@
 		INSERT INTO SEL_ITEM(SEL_ID, SEL_NAME, SEL_INTEREST, SEL_LOCATION, SEL_TITLE, SEL_CONTENT) 
 	VALUES (SEL_ITEM_SEQ.NEXTVAL,#{sel_name},#{sel_interest}, #{sel_location}, 'test', #{sel_content})
 	</insert>
-
-
-
+	
+	<select id="searchData" resultType="selItemDto">
+		SELECT * FROM SEL_ITEM WHERE SEL_INTEREST LIKE '%'||#{search}||'%' ORDER BY SEL_ID DESC
+	</select>
+	
 
 
 </mapper>

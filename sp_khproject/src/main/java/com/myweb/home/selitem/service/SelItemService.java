@@ -42,7 +42,6 @@ public class SelItemService {
 		return null;
 	}
 	
-	
 	public List<SelItemDTO> getAll() {
 		List<SelItemDTO> datas = dao.selectAll();
 	return datas;
@@ -86,4 +85,14 @@ public class SelItemService {
 		
 	}
 
+	public List getSearch(String search) {
+		List datas = dao.searchData(search);
+		
+		System.out.println(datas);
+		if(datas != null) {
+			return datas;
+		}
+		
+		return null;
+	}
 }

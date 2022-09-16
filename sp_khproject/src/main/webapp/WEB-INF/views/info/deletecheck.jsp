@@ -63,9 +63,22 @@
 			<script type="text/javascript">
 				$(document).ready(function(){
 					$("#delete").on("click", function() {
-						if(confirm("탈퇴하시겠습니까?")) {
-							$("#deleteForm").submit();
-						}
+						swal({
+							  title: "탈퇴하시겠습니까?",
+							  text: "탈퇴 시 업로드한 게시글, 파일이 전부 삭제됩니다.",
+							  icon: "warning",
+							  buttons: true,
+							  dangerMode: true,
+							})
+							.then((willDelete) => {
+							  if (willDelete) {
+							    swal("Poof! Your imaginary file has been deleted!", {
+							      icon: "success",
+							    });
+							  } else {
+							    swal("탈퇴하지 않았습니다.");
+							  }
+							});
 					})
 				});
 			</script>

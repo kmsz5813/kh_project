@@ -110,12 +110,18 @@ public class SelItemController {
 			, @RequestParam(defaultValue="0", required=false) int pageCount) {
 		Paging paging = null;
 		
+		//검색으로 조회
+		String search = request.getParameter("search");
+		List serachData = service.getSearch(search);
+
+		
 		//저장되어 있는 모든 데이터 값 가져오기...	
 		SelItemDTO data = new SelItemDTO();
 		List result = service.getData(data);
 		
 		//특정되어있는 값 가져오기
 		String selectData = request.getParameter("select"); // <<<<<<< 주소값
+		
 		List seletResult = service.getSelect(selectData);
 		
 	
@@ -134,7 +140,12 @@ public class SelItemController {
 			paging = new Paging(seletResult, page, pageCount);
 			model.addAttribute("selectData", "select=" + selectData);
 			
-		}else {
+		}else if(search != null){
+			//검색으로 조회
+			paging = new Paging(serachData, page, pageCount);
+			model.addAttribute("selectData", "search=" + search);
+		}
+		else {
 			paging = new Paging(result, page, pageCount);
 		}
 		
