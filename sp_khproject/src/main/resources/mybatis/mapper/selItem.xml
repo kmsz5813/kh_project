@@ -18,6 +18,10 @@
 		SELECT * FROM SEL_ITEM WHERE SEL_INTEREST = #{selectData} ORDER BY SEL_ID DESC
 	</select>
 
+	<insert id="insertData" parameterType="selItemDto">
+		INSERT INTO SEL_ITEM(SEL_ID, SEL_NAME, SEL_INTEREST, SEL_LOCATION, SEL_TITLE, SEL_CONTENT) 
+	VALUES (SEL_ITEM_SEQ.NEXTVAL,#{sel_name},#{sel_interest}, #{sel_location}, 'test', #{sel_content})
+	</insert>
 
 
 

@@ -17,6 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.myweb.home.Accounts.model.AccountsDTO;
 import com.myweb.home.common.Paging;
+import com.myweb.home.login.service.LoginService;
 import com.myweb.home.selitem.model.SelItemDTO;
 import com.myweb.home.selitem.service.SelItemService;
 import com.myweb.home.selitem.vo.BoardVO;
@@ -30,56 +31,76 @@ public class SelItemController {
 	@Autowired
 	private SelItemService service;
 	
-	@Autowired
-	private FileUploadService fileUploadService;
+//	@Autowired
+//	private FileUploadService fileUploadService;
 	@GetMapping(value="/additem")
-	public String additem(Model model) {
+	public String additem(Model model, @SessionAttribute("loginData") AccountsDTO acdata) {
+		System.out.println(acdata);
 		
 		return "/sellitem/additem";
 	}
 	
 	@PostMapping(value="/additem")
 	public String additem(Model model, HttpServletRequest request
-			, @SessionAttribute("loginData") AccountsDTO acDto
-			, @ModelAttribute BoardVO boardVo
-			, @RequestParam("fileUpload") MultipartFile[] files) {
+			, @SessionAttribute("loginData") AccountsDTO acdata
+			) {
 		SelItemDTO data = new SelItemDTO();
-		data.setSel_title(boardVo.getTitle());
-		data.setSel_content(boardVo.getContent());
-		
-		int id = service.add(data);
+//		
+//		
+//		
+//		int id = service.add(data);
 		
 		// jsp에서 값을 받아오는
-		request.getParameter("service");
-		request.getParameter("location");
-		
-		
-		if(files != null) {
-			for(MultipartFile file: files) {
-				String location = request.getServletContext().getRealPath("/resources/board/upload");
-				String url = "/static/board/upload";
-				FileUploadDTO fileData = new FileUploadDTO(id, location, url);
-				
-				try {
-					int fileResult = fileUploadService.upload(file, fileData);
-					if(fileResult == -1) {
-						request.setAttribute("error", "파일 업로드 수량을 초과하였습니다.");
-						return "sellitem/additem";
-					}
-				} catch(Exception e) {
-					request.setAttribute("error", "파일 업로드 작업중 예상치 못한 에러가 발생하였습니다.");
-					return "sellitem/additem";
-				}
-				
-			}
-		}
-		
-		if(id != -1) {
-			return "redirect:/sellitem/detail?id=" + id;			
-		} else {
-			request.setAttribute("error", "게시글 저장 실패!");
-			return "sellitem/additem";
-		}
+	   String service1 = request.getParameter("service");
+	   String location = request.getParameter("location");
+	   String description = request.getParameter("description");
+	System.out.println(service);	
+	System.out.println(location);
+	System.out.println(description);
+	data.setSel_interest(service1);
+	data.setSel_location(location);
+	data.setSel_content(description);
+	data.setSel_name("민성");
+
+	System.out.println(data.getSel_interest());
+	System.out.println(data.getSel_name());
+	System.out.println(data);
+	
+	boolean result = service.add(data);
+	
+	if(result) {
+		return "sellitem/list";
+	}else {
+		return "sellitem/additem";
+	}
+//		
+//		if(files != null) {
+//			for(MultipartFile file: files) {
+//				String location = request.getServletContext().getRealPath("/resources/board/upload");
+//				String url = "/static/board/upload";
+//				FileUploadDTO fileData = new FileUploadDTO(id, location, url);
+//				
+//				try {
+//					int fileResult = fileUploadService.upload(file, fileData);
+//					if(fileResult == -1) {
+//						request.setAttribute("error", "파일 업로드 수량을 초과하였습니다.");
+//						return "sellitem/additem";
+//					}
+//				} catch(Exception e) {
+//					request.setAttribute("error", "파일 업로드 작업중 예상치 못한 에러가 발생하였습니다.");
+//					return "sellitem/additem";
+//				}
+//				
+//			}
+//		}
+//		
+//		if(id != -1) {
+//			return "redirect:/sellitem/detail?id=" + id;			
+//		} else {
+//			request.setAttribute("error", "게시글 저장 실패!");
+//			return "sellitem/additem";
+//		}
+	
 	}
 
 	@GetMapping(value="")

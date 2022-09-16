@@ -499,6 +499,7 @@ public class LoginController {
 		data.setAc_sendemail(sel_sendemail);
 		data.setAc_ip(ip);
 		
+		
 		boolean result = service.add(data);		// DB에 계정 추가
 		if(result) {
 			data.setAc_email(sel_email);

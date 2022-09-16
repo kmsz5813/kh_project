@@ -53,6 +53,8 @@ public class SelItemDAO {
 		return res == 1? true : false;
 	}
 	
+	
+	
 	public boolean updateData(SelItemDTO data) {
 		String mpapperId = String.format(mapper, "updateData");
 		int res = session.update(mpapperId, data);

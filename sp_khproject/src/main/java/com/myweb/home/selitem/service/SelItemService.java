@@ -14,6 +14,7 @@ import com.myweb.home.selitem.model.SelItemStaticsDTO;
 
 @Service
 public class SelItemService {
+	
 	@Autowired
 	private SelItemDAO dao;
 	
@@ -52,16 +53,14 @@ public class SelItemService {
 		return data;
 	}
 	
-	public int add(SelItemDTO data) {
-		int seq = dao.getNextSeq();
-		data.setSel_id(seq);
+	public boolean add(SelItemDTO data) {
 		
 		boolean result = dao.insertData(data);
 		
 		if(result) {
-			return data.getSel_id();
+			return result;
 		}
-		return -1;
+		return false;
 	}
 	
 	public boolean modify(SelItemDTO data) {

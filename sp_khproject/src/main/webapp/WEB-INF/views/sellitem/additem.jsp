@@ -71,6 +71,7 @@
 	<div class="mt-5" >
 	<c:url var="addurl" value="/sellitem/additem" />
 	<form action="${addurl}" method="post">
+			<input type="hidden" value="">
 		    <div class="form-group">
 		       <label class="col-sm-2 control-label">서비스</label>
 		       <div class="col-sm-10">
@@ -109,9 +110,6 @@
 			        </select>
 		     	</div>
 		     </div>
-		<div class="form-group row">
-		내용추가 / 삭제
-		</div>
 		<div class="form-group row">
 		상품상세설명
 		<div>
