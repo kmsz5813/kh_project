@@ -45,9 +45,10 @@
 			  </button>
 			  <!------------------- 반복문 만들어서 집어넣기---------------------------->
 			  <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-			    <li><a class="dropdown-item" href="sellitem?select=축구">축구</a></li>
-			    <li><a class="dropdown-item" href="sellitem?select=바보">바보</a></li>
-			    <li><a class="dropdown-item" href="#">프로그래밍</a></li>
+			    <li><a class="dropdown-item" href="sellitem?select=IT">IT</a></li>
+			    <li><a class="dropdown-item" href="sellitem?select=운동">운동</a></li>
+			    <li><a class="dropdown-item" href="sellitem?select=음악">음악</a></li>
+			    <li><a class="dropdown-item" href="#">기타</a></li>
 			  </ul>
 			 </div>
 			  

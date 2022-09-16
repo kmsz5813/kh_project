@@ -97,7 +97,7 @@ public class SelItemDTO {
 
 	@Override
 	public String toString() {
-		return "SelItemDTO [sel_id=" + sel_id + ", sel_name=" + sel_name + ", sel_interest=" + sel_interest
+		return "AccountsDTO [sel_id=" + sel_id + ", sel_name=" + sel_name + ", sel_interest=" + sel_interest
 				+ ", sel_location=" + sel_location + ", sel_title=" + sel_title + ", sel_content=" + sel_content
 				+ ", sel_writeday=" + sel_writeday + ", sel_view=" + sel_view + ", sel_like=" + sel_like
 				+ ", sel_report=" + sel_report + "]";
