@@ -48,9 +48,11 @@
 	</div>
 
 	<section class="container-fluid container1">
-		<div id="input-form" class="right mb-3">
-			<input type="text" id="keyword">
+	
+		<div id="input-form" class="mb-3" style="margin-left : 1200px;">
+			<input type="text" class="form-control form-right" id="keyword" placeholder="회원정보 검색">
 		</div>
+		
 		<table class="table wide vertical-hidden table-hover" id="table1">
 			<colgroup>
 				<col class="col-auto">
@@ -76,7 +78,7 @@
 				</tr>
 			</thead>
 			
-			<tbody>
+			<tbody id="searching">
 				<c:forEach items="${datas}" var="datas">
 					<c:if test="${datas.ac_index == 10 || datas.ac_index == 20}">
 						<tr onclick="location.href='./detail?search=${datas.ac_name}'" style="cursor:pointer;">
@@ -105,6 +107,13 @@
 	
 	<section class="container container2">
 		<p>섹션2</p>
+		
+		<input type="text" id="craw_id" name="craw_id" class="form-control" placeholder="카테고리번호입력" style="width: 300px;">
+		<input type="button" id="craw_submit" name="craw_submit" class="btn btn-warning" value="조회"/>
+		
+		<div class="content_craw">
+		</div>
+		
 	</section>
 	
 	<section class="container container3">
@@ -132,7 +141,7 @@
 			}
 		});
 		
-		// 테이블1 sort 
+		// 회원목록 sort 
 		$(document).ready(function(){
 			  $('#table1 th').each(function (column) {
 			    $(this).click(function() {
@@ -163,6 +172,43 @@
 			    });
 			 });
 			});
+		
+		// 회원목록 검색(키를 누를때마다)
+		$(document).ready(function(){
+		
+		  $("#keyword").on("keyup", function() { 
+		
+		    var value = $(this).val().toLowerCase();
+		
+		    $("#searching tr").filter(function() {
+		
+		      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1) 
+		
+		    });
+		
+		  });
+		
+		});	
+		
+		// 웹 크롤링(크몽)
+		$("#craw_submit").click(function(){
+         $.ajax({
+             url :"admin/crawling",
+             data :{
+                 content : $("#craw_id").val(),
+             },
+             dataType : "json",
+             type : "post",
+             success:function(data){
+                console.log(data.NameResult);
+                console.log(data.ReviewCount);
+                     $(".content_craw").append("<tr><th>"+data.NameResult+"</th><th>"+data.ReviewCount+"</th></tr>");    
+                 
+             }
+         })
+     })
+		
+		
 		
 	</script>
 </body>
