@@ -77,12 +77,18 @@
 			 </div>
 			  
 			  <!-- 인풋타입에 적어서 보낼수있는것 -->
+			 
+			 
 			 <div class="col-auto">
+			 <form action="${itemUrl}" method="get">
 				<div class="input-group">
 					<input class="form-control" type="text" name="search">
 					<button class="btn btn-secondary" type="submit" style="background-color: white; color:black;">조회</button>
 				</div>
+			</form>
 			</div>
+			
+			
 		</div>
 		
 		<!-- 메인 내용 페이지 !!!!!!!!!!!!!!!!!!!!!!!!!! -->

@@ -17,8 +17,12 @@
 	<select id="selectData" resultType="selItemDto">
 		SELECT * FROM SEL_ITEM WHERE SEL_INTEREST = #{selectData} ORDER BY SEL_ID DESC
 	</select>
-
-
+	
+	
+	<select id="searchData" resultType="selItemDto">
+		SELECT * FROM SEL_ITEM WHERE SEL_INTEREST LIKE '%'||#{search}||'%' ORDER BY SEL_ID DESC
+	</select>
+	 
 
 
 

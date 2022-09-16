@@ -37,4 +37,16 @@ public class SelItemService {
 		
 		return null;
 	}
+
+
+	public List getSearch(String search) {
+		List datas = dao.searchData(search);
+		
+		System.out.println(datas);
+		if(datas != null) {
+			return datas;
+		}
+		
+		return null;
+	}
 }
