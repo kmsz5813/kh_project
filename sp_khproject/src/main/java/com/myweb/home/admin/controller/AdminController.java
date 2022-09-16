@@ -35,10 +35,12 @@ public class AdminController {
 	
 	
 	@GetMapping(value="")
-	public String admin(Model model) {
+	public String admin(Model model,
+			HttpServletRequest request) {
 		
 		List<AccountsDTO> datas = service.selectAll();
-		model.addAttribute("datas", datas);
+		request.setAttribute("datas", datas);
+		
 		
 		return "admin/admin";
 	}

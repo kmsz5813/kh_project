@@ -25,6 +25,8 @@ public class IPCheckInterceptor implements HandlerInterceptor{
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
+		
+		// 네트워크 환경에 따른 프록시가 다르므로 전부 적용
 		String ip = request.getHeader("X-Forwarded-For");
 	    if (ip == null) {
 	        ip = request.getHeader("Proxy-Client-IP");
