@@ -29,7 +29,7 @@ public class SelItemDAO {
 	}
 
 	public List searchData(String search) {
-		System.out.println(search);
+		
 		String mapperId = String.format(mapper, "searchData");
 		List<Object> result = session.selectList(mapperId, search);
 		return result;
