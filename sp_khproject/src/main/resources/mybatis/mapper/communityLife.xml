@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="communityLifeMapper">
+	<select id="getNextSeq" resultType="_int">
+		SELECT LIFE_SEQ.NEXTVAL FROM DUAL
+	</select>
+	<insert id="insertData" parameterType="communityLifeDto">
+		INSERT INTO LIFE (LIFE_ID, USER_NAME, LIFE_TITLE, LIFE_CONTENT, LIFE_DATE)
+		     VALUES(#{life_id}, #{user_name}, #{life_title}, #{life_content}, SYSDATE)
+	</insert>
+	
+	<select id="selectQuestion" resultType="communityLifeDto">
+		SELECT L.LIFE_ID, L.LIFE_TITLE, L.LIFE_CONTENT
+		     , L.USER_NAME
+		     , L.LIFE_DATE
+		     , L.LIFE_VIEW AS life_view
+		     , L."LIFE_LIKE"
+		  FROM LIFE L
+		  JOIN ACCOUNTS A
+		    ON L.USER_NAME = A.AC_NAME
+		 WHERE L.LIFE_ID = #{life_id}
+	</select>
+	
+	<select id="selectData" resultType="communityLifeDto">
+		SELECT L.LIFE_ID, L.LIFE_TITLE, L.LIFE_CONTENT
+		     , L.USER_NAME
+		     , L.LIFE_DATE
+		     , L.LIFE_VIEW AS findpro_view
+		     , L."LIFE_LIKE"
+		  FROM LIFE L
+		  JOIN ACCOUNTS A
+		    ON L.USER_NAME = A.AC_NAME
+		 WHERE L.LIFE_ID = #{life_id}
+	</select>
+	<update id="updateViewCnt" parameterType="communityLifeDto">
+		UPDATE LIFE
+		   SET LIFE_VIEW = #{life_view} + 1
+		 WHERE LIFE_ID = #{life_id}
+	</update>
+	<update id="updateLike" parameterType="communityLifeDto">
+		UPDATE LIFE
+		   SET "LIFE_LIKE" = #{life_like}
+		 WHERE LIFE_ID= #{life_id}
+	</update>
+	<select id="selectStatics" parameterType="communityLifeStaticsDto" resultType="communityLifeStaticsDto">
+		SELECT LIFE_ID, USER_NAME, LIFE_BID
+		     , LIFE_VIEWED
+		     , LIFE_LATEST_VIEW_DATE AS life_latestViewDate
+		     , LIFE_LIKED
+		  FROM LIFE_STATICS
+		 WHERE USER_NAME = #{user_name}
+		   AND LIFE_BID = #{life_bId}
+	</select>
+	<insert id="insertStatics" parameterType="communityLifeStaticsDto">
+		INSERT INTO LIFE_STATICS
+		     VALUES(LIFE_STATICS_SEQ.NEXTVAL
+		          , #{user_name}, #{life_bId}, 'Y', SYSDATE, 'N')
+	</insert>
+	<update id="updateStatics" parameterType="communityLifeStaticsDto">
+		UPDATE LIFE_STATICS
+		   SET LIFE_LATEST_VIEW_DATE = SYSDATE
+		 WHERE LIFE_ID = #{life_id}
+	</update>
+	<update id="updateStaticsLike" parameterType="communityLifeStaticsDto">
+		UPDATE LIFE_STATICS
+		<choose>
+			<when test="liked">
+				SET LIFE_LIKED = 'Y'
+			</when>
+			<otherwise>
+				SET LIFE_LIKED = 'N'
+			</otherwise>
+		</choose>
+		 WHERE LIFE_ID = #{life_id}
+	</update>
+	<select id="selectAll" resultType="communityLifeDto">
+		SELECT L.LIFE_ID, L.LIFE_TITLE, L.LIFE_CONTENT
+		     , L.USER_NAME
+		     , L.LIFE_DATE
+		     , L.LIFE_VIEW AS life_view
+		     , L."LIFE_LIKE"
+		  FROM LIFE L
+		  JOIN ACCOUNTS A
+		    ON L.USER_NAME = A.AC_NAME
+		 ORDER BY L.LIFE_ID DESC
+	</select>
+	<delete id="deleteStaticsData">
+		DELETE FROM LIFE_STATICS
+		 WHERE LIFE_BID = #{life_bId}
+	</delete>
+	<delete id="deleteData">
+		DELETE FROM LIFE
+		 WHERE LIFE_ID = #{life_id}
+	</delete>
+	<update id="updateData" parameterType="communityLifeDto">
+		UPDATE LIFE
+		   SET LIFE_TITLE = #{life_title}
+		     , LIFE_CONTENT = #{life_content}
+		 WHERE LIFE_ID = #{life_id}
+	</update>
+</mapper>
