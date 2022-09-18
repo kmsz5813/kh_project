@@ -8,12 +8,20 @@
 	
 	<typeAliases>
 		<typeAlias type="com.myweb.home.Accounts.model.AccountsDTO" alias="acDto" />
-     	<typeAlias type="com.myweb.home.community.model.CommunityDTO" alias="communityDto" />
-    	<typeAlias type="com.myweb.home.community.model.CommunityStaticsDTO" alias="communityStaticsDto" />
+     	<!-- <typeAlias type="com.myweb.home.community.model.CommunityDTO" alias="communityDto" />
+    	<typeAlias type="com.myweb.home.community.model.CommunityStaticsDTO" alias="communityStaticsDto" />  -->
+    	<typeAlias type="com.myweb.home.community.model.CommunityNoticeDTO" alias="communityNoticeDto" />
+    	<typeAlias type="com.myweb.home.community.model.CommunityQuestionDTO" alias="communityQuestionDto" />
+    	<typeAlias type="com.myweb.home.community.model.CommunityQuestionStaticsDTO" alias="communityQuestionStaticsDto" />
+    	<typeAlias type="com.myweb.home.community.model.CommunityFindStuDTO" alias="communityFindStuDto" />
+    	<typeAlias type="com.myweb.home.community.model.CommunityFindStuStaticsDTO" alias="communityFindStuStaticsDto" />
+    	<typeAlias type="com.myweb.home.community.model.CommunityFindProDTO" alias="communityFindProDto" />
+    	<typeAlias type="com.myweb.home.community.model.CommunityFindProStaticsDTO" alias="communityFindProStaticsDto" />
+    	<typeAlias type="com.myweb.home.community.model.CommunityLifeDTO" alias="communityLifeDto" />
+    	<typeAlias type="com.myweb.home.community.model.CommunityLifeStaticsDTO" alias="communityLifeStaticsDto" />
     	<typeAlias type="com.myweb.home.selitem.model.SelItemDTO" alias="selItemDto" />
     	<typeAlias type="com.myweb.home.selitem.model.SelItemCommentDTO" alias="selItemComDto" />
     	<typeAlias type="com.myweb.home.upload.model.FileUploadDTO" alias="fileUploadDto"/>
 	</typeAliases>
-	
 	
 </configuration>
