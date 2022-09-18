@@ -33,10 +33,22 @@ public class CommunityMainController {
 			List<Map<String, Object>> notice = communityMainService.selectNotice();
 			
 			//질문게시판
-			//List<Map<String, Object>> question = communityMainService.selectQuestion();			
+			List<Map<String, Object>> question = communityMainService.selectQuestion();		
+			
+			//레슨자 찾아요
+			List<Map<String, Object>> findStu = communityMainService.selectFindStu();	
+			
+			//전문가 찾아요
+			List<Map<String, Object>> findPro = communityMainService.selectFindPro();	
+			
+			//일상
+			List<Map<String, Object>> life = communityMainService.selectLife();	
 			
 			model.addAttribute("notice", notice);
-			//model.addAttribute("question", question);
+			model.addAttribute("question", question);
+			model.addAttribute("findStu", findStu);
+			model.addAttribute("findPro", findPro);
+			model.addAttribute("life", life);
 			
 			return "community/main";
 		

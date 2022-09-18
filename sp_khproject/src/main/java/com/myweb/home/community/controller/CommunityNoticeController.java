@@ -49,7 +49,7 @@ public class CommunityNoticeController {
 			model.addAttribute("paging", paging);
 			
 			
-			return "/user/notice/noticeList";
+			return "community/notice";
 
 			
 		} else { //로그인이 되어있지 않으면 메인페이지로 리다이렉트
@@ -79,7 +79,7 @@ public class CommunityNoticeController {
 			
 			model.addAttribute("notice", noticeDetail);
 			
-			return "user/notice/noticeDetail";
+			return "/notice/Detail";
 
 			
 		} else { //로그인이 되어있지 않으면 메인페이지로 리다이렉트
@@ -133,7 +133,7 @@ public class CommunityNoticeController {
 			model.addAttribute("paging", paging);
 			
 			
-			return "/user/notice/noticeSearchList";
+			return "/notice/SearchList";
 
 			
 		} else { //로그인이 되어있지 않으면 메인페이지로 리다이렉트

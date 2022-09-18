@@ -9,21 +9,42 @@
 
 	<select id="selectNotice" resultType="Map">
 	
-	
 		SELECT R.* 
 		FROM (SELECT notice_no, notice_title FROM notice ORDER BY notice_no DESC) R
 		WHERE rownum BETWEEN 1 AND 3
 	
 	</select>
 	
-	<!--
 	<select id="selectQuestion" resultType="Map">
 	
 		SELECT R.* 
-		FROM (SELECT question_no, question_title FROM question ORDER BY question_no DESC) R
+		FROM (SELECT question_id, question_title FROM question ORDER BY question_id DESC) R
 		WHERE rownum BETWEEN 1 AND 3
 	
 	</select>
-	-->
+	
+	<select id="selectFindStu" resultType="Map">
+	
+		SELECT R.* 
+		FROM (SELECT findstu_id, findstu_title FROM findstu ORDER BY findstu_id DESC) R
+		WHERE rownum BETWEEN 1 AND 3
+	
+	</select>
+	
+	<select id="selectFindPro" resultType="Map">
+	
+		SELECT R.* 
+		FROM (SELECT findpro_id, findpro_title FROM findpro ORDER BY findpro_id DESC) R
+		WHERE rownum BETWEEN 1 AND 3
+	
+	</select>
+	
+	<select id="selectLife" resultType="Map">
+	
+		SELECT R.* 
+		FROM (SELECT life_id, life_title FROM life ORDER BY life_id DESC) R
+		WHERE rownum BETWEEN 1 AND 3
+	
+	</select>
 
 </mapper>
