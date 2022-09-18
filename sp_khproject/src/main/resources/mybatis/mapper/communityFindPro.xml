@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="communityFindProMapper">
+	<select id="getNextSeq" resultType="_int">
+		SELECT FINDPRO_SEQ.NEXTVAL FROM DUAL
+	</select>
+	<insert id="insertData" parameterType="communityFindProDto">
+		INSERT INTO FINDPRO (FINDPRO_ID, USER_NAME, FINDPRO_TITLE, FINDPRO_CONTENT, FINDPRO_DATE)
+		     VALUES(#{findpro_id}, #{user_name}, #{findpro_title}, #{findpro_content}, SYSDATE)
+	</insert>
+	
+	<select id="selectQuestion" resultType="communityFindProDto">
+		SELECT F.FINDPRO_ID, F.FINDPRO_TITLE, F.FINDPRO_CONTENT
+		     , F.USER_NAME
+		     , F.FINDPRO_DATE
+		     , F.FINDPRO_VIEW AS findpro_view
+		     , F."FINDPRO_LIKE"
+		  FROM FINDPRO F
+		  JOIN ACCOUNTS A
+		    ON F.USER_NAME = A.AC_NAME
+		 WHERE F.FINDPRO_ID = #{findpro_id}
+	</select>
+	
+	<select id="selectData" resultType="communityFindProDto">
+		SELECT F.FINDPRO_ID, F.FINDPRO_TITLE, F.FINDPRO_CONTENT
+		     , F.USER_NAME
+		     , F.FINDPRO_DATE
+		     , F.FINDPRO_VIEW AS findpro_view
+		     , F."FINDPRO_LIKE"
+		  FROM FINDPRO F
+		  JOIN ACCOUNTS A
+		    ON F.USER_NAME = A.AC_NAME
+		 WHERE F.FINDPRO_ID = #{findpro_id}
+	</select>
+	<update id="updateViewCnt" parameterType="communityFindProDto">
+		UPDATE FINDPRO
+		   SET FINDPRO_VIEW = #{findpro_view} + 1
+		 WHERE FINDPRO_ID = #{findpro_id}
+	</update>
+	<update id="updateLike" parameterType="communityFindProDto">
+		UPDATE FINDPRO
+		   SET "FINDPRO_LIKE" = #{findpro_like}
+		 WHERE FINDPRO_ID= #{findpro_id}
+	</update>
+	<select id="selectStatics" parameterType="communityFindProStaticsDto" resultType="communityFindProStaticsDto">
+		SELECT FINDPRO_ID, USER_NAME, FINDPRO_BID
+		     , FINDPRO_VIEWED
+		     , FINDPRO_LATEST_VIEW_DATE AS findpro_latestViewDate
+		     , FINDPRO_LIKED
+		  FROM FINDPRO_STATICS
+		 WHERE USER_NAME = #{user_name}
+		   AND FINDPRO_BID = #{findpro_bId}
+	</select>
+	<insert id="insertStatics" parameterType="communityFindProStaticsDto">
+		INSERT INTO FINDPRO_STATICS
+		     VALUES(FINDPRO_STATICS_SEQ.NEXTVAL
+		          , #{user_name}, #{findpro_bId}, 'Y', SYSDATE, 'N')
+	</insert>
+	<update id="updateStatics" parameterType="communityFindProStaticsDto">
+		UPDATE FINDPRO_STATICS
+		   SET FINDPRO_LATEST_VIEW_DATE = SYSDATE
+		 WHERE FINDPRO_ID = #{findpro_id}
+	</update>
+	<update id="updateStaticsLike" parameterType="communityFindProStaticsDto">
+		UPDATE FINDPRO_STATICS
+		<choose>
+			<when test="liked">
+				SET FINDPRO_LIKED = 'Y'
+			</when>
+			<otherwise>
+				SET FINDPRO_LIKED = 'N'
+			</otherwise>
+		</choose>
+		 WHERE FINDPRO_ID = #{findpro_id}
+	</update>
+	<select id="selectAll" resultType="communityFindProDto">
+		SELECT F.FINDPRO_ID, F.FINDPRO_TITLE, F.FINDPRO_CONTENT
+		     , F.USER_NAME
+		     , F.FINDPRO_DATE
+		     , F.FINDPRO_VIEW AS findpro_view
+		     , F."FINDPRO_LIKE"
+		  FROM FINDPRO F
+		  JOIN ACCOUNTS A
+		    ON F.USER_NAME = A.AC_NAME
+		 ORDER BY F.FINDPRO_ID DESC
+	</select>
+	<delete id="deleteStaticsData">
+		DELETE FROM FINDPRO_STATICS
+		 WHERE FINDPRO_BID = #{findpro_bId}
+	</delete>
+	<delete id="deleteData">
+		DELETE FROM FINDPRO
+		 WHERE FINDPRO_ID = #{findpro_id}
+	</delete>
+	<update id="updateData" parameterType="communityFindProDto">
+		UPDATE FINDPRO
+		   SET FINDPRO_TITLE = #{findpro_title}
+		     , FINDPRO_CONTENT = #{findpro_content}
+		 WHERE FINDPRO_ID = #{findpro_id}
+	</update>
+</mapper>
