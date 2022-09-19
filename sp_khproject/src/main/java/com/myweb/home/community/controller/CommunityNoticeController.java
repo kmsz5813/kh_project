@@ -66,7 +66,7 @@ public class CommunityNoticeController {
 		
 		AccountsDTO ac = (AccountsDTO) session.getAttribute("loginData");
 		
-		if(ac != null) {//로그인이 되어있을때만 실행
+//		if(ac != null) {//로그인이 되어있을때만 실행
 			
 			
 //			System.out.println("공지사항 상세");
@@ -82,11 +82,11 @@ public class CommunityNoticeController {
 			return "/notice/Detail";
 
 			
-		} else { //로그인이 되어있지 않으면 메인페이지로 리다이렉트
+//		} else { //로그인이 되어있지 않으면 메인페이지로 리다이렉트
 			
-			return "redirect:/home/login";
+//			return "redirect:/home/login";
 			
-		}
+//		}
 		
 	}
 		
@@ -98,7 +98,7 @@ public class CommunityNoticeController {
 		
 		AccountsDTO ac = (AccountsDTO) session.getAttribute("loginData");
 		
-		if(ac != null) {//로그인이 되어있을때만 실행
+//		if(ac != null) {//로그인이 되어있을때만 실행
 			
 			System.out.println("공지사항 검색");
 			System.out.println(keyword);
@@ -136,11 +136,11 @@ public class CommunityNoticeController {
 			return "/notice/SearchList";
 
 			
-		} else { //로그인이 되어있지 않으면 메인페이지로 리다이렉트
+//		} else { //로그인이 되어있지 않으면 메인페이지로 리다이렉트
 			
-			return "redirect:/home/login";
+//			return "redirect:/home/login";
 			
-		}
+//		}
 		
 	}
 }
