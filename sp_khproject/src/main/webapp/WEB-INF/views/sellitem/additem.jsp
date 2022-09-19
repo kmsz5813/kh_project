@@ -57,6 +57,14 @@
 	}
 </script>
 <body>
+  <input type="file" class="real-upload" accept="image/*" required multiple style="display: none;">
+  <div class="upload"></div>
+  <script>
+    const realUpload = document.querySelector('.real-upload');
+    const upload = document.querySelector('.upload');
+
+    upload.addEventListener('click', () => realUpload.click());
+  </script>
 
 	<div class="jumbotron">
 		<div class="container">
@@ -71,7 +79,7 @@
 	<div class="mt-5" >
 	<c:url var="addurl" value="/sellitem/additem" />
 	<form action="${addurl}" method="post">
-			<input type="hidden" value="">
+			
 		    <div class="form-group">
 		       <label class="col-sm-2 control-label">서비스</label>
 		       <div class="col-sm-10">
@@ -117,10 +125,10 @@
 		</div>
 		</div>
 		<div class="form-group row">
-		사진첨부
+		<input type="file" class="real-upload" accept="image/*" >
 		</div>
 		<div class="form-group row">
-		<button type="submit"  class="form-control">등록</button>
+		<button type="submit"  class="form-control" onclick="imageUpload()">등록</button>
 		</div>
 	</form>
 	</div>

@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>회원정보</title>
+<title>상품 상세</title>
 <style>
 #previewImg {
 	max-width: 250px;
@@ -37,7 +37,7 @@
 		<div class="mt-5">
 			<div class="row mb-5 center">
 				<div class="col-10 mb-3">
-					<p class="fw-bold fs-2">회원정보</p>
+					<p class="fw-bold fs-2">상품 상세</p>
 				</div>
 			</div>
 			<div class="row mt-3">
@@ -46,15 +46,9 @@
 				</div>
 				<div class="col-4 mt-4">
 					<p>이름</p>
-					<p>직업</p>
-					<c:if test="${data.ac_index == 10}">
-						<p>비즈니스 분야</p>
-						<p>관심분야</p>
-					</c:if>
-					<c:if test="${data.ac_index == 20}">
-						<p>전문분야</p>
-						<p>관심분야</p>
-					</c:if>
+					<p>지역</p>
+					<p>전문분야</p>
+					<p>소개</p>
 				</div>
 				<div class="col-4 mt-4">
 					<p>${data.ac_name }</p>

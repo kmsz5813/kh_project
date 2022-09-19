@@ -31,77 +31,49 @@ public class SelItemController {
 	@Autowired
 	private SelItemService service;
 	
+	@Autowired
+	private LoginService service2;
+	
 //	@Autowired
 //	private FileUploadService fileUploadService;
 	@GetMapping(value="/additem")
-	public String additem(Model model, @SessionAttribute("loginData") AccountsDTO acdata) {
-		System.out.println(acdata);
-		
+	public String additem(Model model, @SessionAttribute("loginData") AccountsDTO acData) {
+		System.out.println(acData);
+		System.out.println(acData.getAc_name());
 		return "/sellitem/additem";
 	}
 	
 	@PostMapping(value="/additem")
 	public String additem(Model model, HttpServletRequest request
-			, @SessionAttribute("loginData") AccountsDTO acdata
+			,@SessionAttribute("loginData") AccountsDTO acData
 			) {
 		SelItemDTO data = new SelItemDTO();
-//		
-//		
-//		
-//		int id = service.add(data);
 		
 		// jsp에서 값을 받아오는
-	   String service1 = request.getParameter("service");
+	   String service1 = request.getParameter("service1");
 	   String location = request.getParameter("location");
 	   String description = request.getParameter("description");
-	System.out.println(service);	
-	System.out.println(location);
-	System.out.println(description);
-	data.setSel_interest(service1);
-	data.setSel_location(location);
-	data.setSel_content(description);
-	data.setSel_name("민성");
+		System.out.println(service1);
+		System.out.println(location);
+		System.out.println(description);
+		data.setSel_interest(service1);
+		data.setSel_location(location);
+		data.setSel_content(description);
+		data.setSel_name(acData.getAc_name());
+	
+		System.out.println(data.getSel_interest());
+		System.out.println(data.getSel_name());
+		System.out.println(data);
+		
+		boolean result = service.add(data);
+		
+		if(result) {
+			return "sellitem/list";
+		}else {
+			return "sellitem/additem";
+		}
+	}
 
-	System.out.println(data.getSel_interest());
-	System.out.println(data.getSel_name());
-	System.out.println(data);
-	
-	boolean result = service.add(data);
-	
-	if(result) {
-		return "sellitem/list";
-	}else {
-		return "sellitem/additem";
-	}
-//		
-//		if(files != null) {
-//			for(MultipartFile file: files) {
-//				String location = request.getServletContext().getRealPath("/resources/board/upload");
-//				String url = "/static/board/upload";
-//				FileUploadDTO fileData = new FileUploadDTO(id, location, url);
-//				
-//				try {
-//					int fileResult = fileUploadService.upload(file, fileData);
-//					if(fileResult == -1) {
-//						request.setAttribute("error", "파일 업로드 수량을 초과하였습니다.");
-//						return "sellitem/additem";
-//					}
-//				} catch(Exception e) {
-//					request.setAttribute("error", "파일 업로드 작업중 예상치 못한 에러가 발생하였습니다.");
-//					return "sellitem/additem";
-//				}
-//				
-//			}
-//		}
-//		
-//		if(id != -1) {
-//			return "redirect:/sellitem/detail?id=" + id;			
-//		} else {
-//			request.setAttribute("error", "게시글 저장 실패!");
-//			return "sellitem/additem";
-//		}
-	
-	}
 
 	@GetMapping(value="")
 	public String list(Model model, HttpServletRequest request
@@ -123,8 +95,6 @@ public class SelItemController {
 		String selectData = request.getParameter("select"); // <<<<<<< 주소값
 		
 		List seletResult = service.getSelect(selectData);
-		
-	
 		
 		if(session.getAttribute("pageCount") == null) {
 			session.setAttribute("pageCount", 8);
@@ -156,5 +126,13 @@ public class SelItemController {
 		return "/sellitem/list";
 	}
 	
+	@GetMapping(value="/gosudetail")
+	public String detail(Model model, HttpServletRequest request) {
+		String name = request.getParameter("search");
+		AccountsDTO data = service2.nameCheck(name);
+		request.setAttribute("data", data);
+		
+		return "detail/detail";
+	}
 	
 }
