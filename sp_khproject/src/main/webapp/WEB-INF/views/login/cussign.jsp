@@ -137,7 +137,7 @@
 				</div>
 				<div id="sendmail_button" class="mb-3" style="display:none;">
 					<input type="text" id="auth-number" class="form-control" placeholder="이메일 인증번호 입력">
-					<button type="button" id="mailAuth" class="form-control p-1 mb-2">메일 전송</button>
+					<button type="button" id="mailAuth" onclick="myFunction();" class="form-control p-1 mb-2">메일 전송</button>
 					<label class="mb-2" id="auth-warn-label" style="display:none; color:red;">인증번호가 일치하지 않습니다.</label>
 					<label class="mb-2" id="auth-ok-label" style="display:none; color:green;">인증번호가 일치합니다.</label>
 				</div>
@@ -156,6 +156,9 @@
 				initEventBinding();
 				socialSign();
 			}
+			
+			
+			var authOk = 0;
 			
 			// 소셜 회원가입이면 이메일 인증 버튼 안뜨게하기
 			function socialSign() {
@@ -349,27 +352,29 @@
 		        });
 		        
 		        
+
+		        
 		        /* 메일 전송 클릭 시 이메일 전송 및 인증 확인 */
 				$("#mailAuth").on("click",function(){
-					
 				    $.ajax({
 				        url : "<c:url value='sendMail' />"
 				        ,type:'post'
+				        ,async:false
 				        ,data : {"mail" : $("input[name='cus_email']").val()}
 				        ,dataType: "Json"
 				        ,success: function(data){
-				        	 swal('인증메일 전송!', "메일 인증번호를 확인하세요.", 'warning');
+				        	 swal('인증메일 전송완료!', "메일 인증번호를 확인하세요.", 'success');
 				           $('#auth-number').blur(function() {
 				           		var inputCode = document.getElementById("auth-number").value;
 				           		if(inputCode == data.randomNumber && inputCode != "") {
 				           			$('#auth-warn-label').css("display", "none");
 				           			$('#auth-ok-label').css("display", "inline-block");
-				           			authOk = true;
+				           			authOk = 1;
 				           			return;
 				           		} else if(inputCode != data.randomNumber){
 				           			$('#auth-warn-label').css("display", "inline-block");
 				           			$('#auth-ok-label').css("display", "none");
-				           			authOk = false;
+				           			authOk = 0;
 				           			return false;
 				           		}
 				           });
@@ -379,7 +384,7 @@
 				        }
 				    });
 				});
-		        
+				
 		        
 				// 회원가입버튼눌렀을때 비밀번호가 동일하지 않으면 제출 못하게 막기
 		        // 이메일 인증받기를 하지 않으면 제출 못하게 막기
@@ -407,7 +412,10 @@
 			            	swal('이메일 알림받기 오류!', "이메일 알림받기를 체크해주세요.", 'warning');
 			            	$('#emailCheck').prop("disabled", false);
 			            	// 인증번호 입력란이 비워져 있거나 인증을 받지 않은 경우
-			            } else if ($('#auth-number').val() == '' || authOk == false) {
+			            } else if ($('#auth-number').val() == '' || authOk == 0) {
+			            	e.preventDefault();
+			            	swal('인증번호 확인 실패!', "메일 인증번호를 확인하세요.", 'warning');
+			            } else if(checkOK == 0) {
 			            	e.preventDefault();
 			            	swal('인증번호 확인 실패!', "메일 인증번호를 확인하세요.", 'warning');
 			            }

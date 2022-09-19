@@ -106,18 +106,37 @@
 	</section>
 	
 	<section class="container container2">
-		<p>섹션2</p>
-		
+		<p>
+			웹크롤링 테스트(jsoup, 크몽) --> jsoup은 동적 페이지를 인식하지 못해 안되는 것으로 추정<br>
+			다른 정적 페이지는 잘 됨. jsoup의 장점은 웹을 직접 열지 않고도 html만 따올 수 있음.<br>
+			웹 크롤링 목표 : 사용자 닉네임 입력시 작성한 댓글 모아서 보여주기 (이건 DB에서 가져와서 굳이 필요한가??)<br>
+		</p>
 		<input type="text" id="craw_id" name="craw_id" class="form-control" placeholder="카테고리번호입력" style="width: 300px;">
 		<input type="button" id="craw_submit" name="craw_submit" class="btn btn-warning" value="조회"/>
 		
 		<div class="content_craw">
-		</div>
-		
+			<!-- 여기엔 검색 결과물이 출력됨.(json 방식) -->
+		</div>	
 	</section>
 	
 	<section class="container container3">
-		<p>섹션3</p>
+		<p>웹 크롤링 테스트(Selenium) -> Chrome 에서만 동작,
+		크롬 브라우저 -> 메뉴 -> 설정 -> 도움말 -> 본인 크롬 버전 확인 후 최신 업데이트 
+		구글에 chromedriver 검색, 해당 버전에 맞는 chromedriver 를 다운로드
+		chromedriver.exe 파일을 D드라이브에 넣어놓은 후 실행
+		</p>
+		
+		<c:url var="crawling_kmong" value="/admin/crawling_kmong" />
+		<form action="${crawling_kmong }" method="get">
+			<input type="text" id="craw_content">
+			<button type="button" id="craw_kmong">검색하기</button>
+		</form>
+		
+		<div class="content_craw2">
+			<!-- 여기엔 검색 결과물이 출력됨.(json 방식) -->
+		</div>
+		
+		
 	</section>
 	
 	<script type="text/javascript">
@@ -190,7 +209,7 @@
 		
 		});	
 		
-		// 웹 크롤링(크몽)
+		// jSoup 웹 크롤링(크몽)
 		$("#craw_submit").click(function(){
          $.ajax({
              url :"admin/crawling",
@@ -204,11 +223,24 @@
                 console.log(data.ReviewCount);
                      $(".content_craw").append("<tr><th>"+data.NameResult+"</th><th>"+data.ReviewCount+"</th></tr>");    
                  
-             }
-         })
-     })
-		
-		
+            	 }
+        	 })
+     	})
+     	
+     	// Selenium 크롤링
+     	$("#craw_kmong").click(function(){
+			$.ajax({
+				url:"admin/crawling_kmong",
+				data:{
+					content : $("#craw_content").val(),
+				},
+				dataType : "json",
+				type : "get",
+				success:function(data){
+					// 로직 작성해야함
+				}
+			})
+     	});
 		
 	</script>
 </body>

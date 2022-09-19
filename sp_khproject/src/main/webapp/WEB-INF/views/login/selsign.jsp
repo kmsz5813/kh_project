@@ -151,6 +151,8 @@
 				socialSign();
 			}
 			
+			var authOk = 0;
+			
 			// 소셜 회원가입이면 이메일 인증 버튼 안뜨게하기
 			function socialSign() {
 				if($("input[name='sel_email']").prop("readonly")) {
@@ -162,7 +164,6 @@
 			/* 필수 텍스트 항목 로직 */
 			function initEventBinding() {
 				requiredEventBinding();
-				var authOk = false;
 			}
 			function requiredEventBinding() {
 				var requiredElements = document.querySelectorAll("input[required]");
@@ -352,18 +353,18 @@
 				        ,dataType: "Json"
 				        ,success: function(data){
 				           
-				           swal('인증메일 전송!', "메일 인증번호를 확인하세요.", 'warning');
+				           swal('인증메일 전송!', "메일 인증번호를 확인하세요.", 'success');
 				           $('#auth-number').blur(function() {
 				           		var inputCode = document.getElementById("auth-number").value;
 				           		if(inputCode == data.randomNumber && inputCode != "") {
 				           			$('#auth-warn-label').css("display", "none");
 				           			$('#auth-ok-label').css("display", "inline-block");
-				           			authOk = true;
+				           			authOk = 1;
 				           			return;
 				           		} else if(inputCode != data.randomNumber){
 				           			$('#auth-warn-label').css("display", "inline-block");
 				           			$('#auth-ok-label').css("display", "none");
-				           			authOk = false;
+				           			authOk = 0;
 				           			return false;
 				           		}
 				           });
@@ -402,7 +403,7 @@
 			            	e.preventDefault();
 			            	swal('이메일 알림받기 오류!', "이메일 알림받기를 체크해주세요.", 'warning');
 			            	$('#emailCheck').prop("disabled", false);
-			            } else if ($('#auth-number').val() == '' || authOk == false) {
+			            } else if ($('#auth-number').val() == '' || authOk == 0) {
 			            	e.preventDefault();  
 			            	swal('인증번호 확인 실패!', "메일 인증번호를 확인하세요.", 'warning');
 			            }

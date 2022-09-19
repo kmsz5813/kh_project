@@ -24,7 +24,7 @@
 	</insert>
 	
 	<select id="searchData" resultType="selItemDto">
-		SELECT * FROM SEL_ITEM WHERE SEL_INTEREST LIKE '%'||#{search}||'%' ORDER BY SEL_ID DESC
+		SELECT * FROM SEL_ITEM WHERE SEL_TITLE LIKE '%'||#{search}||'%' ORDER BY SEL_ID DESC
 	</select>
 	
 

@@ -38,7 +38,7 @@
 	<section class="container w-25">
 		<div class="mt-5">
 		<c:url var="modifyurl" value="/info/modify" />
-			<form action="${modifyurl}" method="post" enctype="multipart/form-data">
+			<form id="modifyForm" action="${modifyurl}" method="post" enctype="multipart/form-data">
 				<div class="mb-3 center">
 					<p class="fw-normal fs-2 text-center">회원정보 수정</p>
 				</div>
@@ -106,6 +106,7 @@
 					<button type="submit" class="form-control p-1 mb-2 bg-secondary  text-center fw-normal" style="-bs-bg-opacity: .5;">수정</button>
 					<button type="button" onclick="location.href='/home/info'" onsubmit="return submitCheck();" class=" form-control p-1 mb-2 bg-secondary  text-center fw-normal" style="-bs-bg-opacity: .5;">뒤로가기</button>
 				</div>
+				<input type="hidden" value="${loginData.ac_name}" id="origin_name">
 			</form>
 		</div>
 		<script type="text/javascript">
@@ -129,26 +130,24 @@
 			/* 닉네임 중복검사 */
 	        function checkName(){
 				$('#name').blur(function(){
+					 var origin_name = document.getElementById("origin_name").value;
 					 var name = $('#name').val(); //id값이 "id"인 입력란의 값을 저장
 				        $.ajax({
 				            url:'modify/nameCheck', //Controller에서 요청 받을 주소
 				            type:'post', //POST 방식으로 전달
-				            async:false,	// ajax 내부에서 지정한 변수를 전역변수로 설정
+				            	// ajax 내부에서 지정한 변수를 전역변수로 설정
 				            data:{name: name},
 				            dataType: "json",
 				            success:function(data){ //컨트롤러에서 넘어온 cnt값을 받는다
 				            	var name = $('#name').val();
-				            	var origin_name = ${loginData.ac_name};
 				            	if(data.code === "success" || origin_name == name) {
 				            	      $('.name_ok').css("display","inline-block"); 
 				                      $('.name_already').css("display", "none");
-				                      finalcheck = true;
 				            		 return;
 				            	}else if(data.code === "sameid" || name == ''){
 				            		 $('.name_already').css("display","inline-block");
 				                     $('.name_ok').css("display", "none");
 				                     $('#name').focus();
-				                     finalcheck = false;
 				                     return false;
 				            	}
 				            },
@@ -199,16 +198,39 @@
 			});
 			
 			// 회원가입버튼눌렀을때 비밀번호가 동일하지 않으면 제출 못하게 막기
-			$('form').on('submit', function(e) {
+			$('#modifyForm').on('submit', function(e) {
 				if ($('.pw').val() != $(".pwpw").val()) { 
 	                e.preventDefault();
 	                alert("비밀번호가 동일하지 않습니다.");
-	            }
-				if(finalcheck == false) {
-					e.preventDefault();
-					alert("작성 양식을 확인하세요.");
-				}
+	            } else {
+	            	document.querySelector('#modifyForm').addEventListener('submit', function(e) {
+	    				var form = this;
+	    				e.preventDefault();
+	    				swal({
+	    					  title: "수정하시겠습니까?",
+	    					  icon: "info",
+	    					  buttons: true,
+	    					})
+	    					.then((willDelete) => {
+	    					  if (willDelete) {
+	    					    swal({
+	    					      	title: "수정이 완료되었습니다.",
+	    					    	icon: "success",
+	    					    }).then(function() {
+	    					    	form.submit();
+	    					    });
+	    					  } else {
+	    					    swal({
+	    					    	title: "수정이 취소되었습니다.",
+	    					    	icon: "info",
+	    					    });
+	    					  }
+	    					});
+	    			})
+	            }			
+
 			});
+
 
 		</script>
 	</section>
