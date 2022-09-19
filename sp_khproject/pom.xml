@@ -251,7 +251,13 @@
 		    <artifactId>gson</artifactId>
 		    <version>2.9.1</version>
 		</dependency>
-
+		
+		<!-- 웹 크롤링 jsop 라이브러리 -->		
+		<dependency>
+			<groupId>org.jsoup</groupId>
+			<artifactId>jsoup</artifactId>
+			<version>1.11.2</version>
+		</dependency>
 
 		
 		<!-- https://mvnrepository.com/artifact/org.springframework/spring-websocket -->

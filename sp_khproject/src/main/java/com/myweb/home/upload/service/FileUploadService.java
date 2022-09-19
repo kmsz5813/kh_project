@@ -37,7 +37,7 @@ public class FileUploadService {
 		
 		int count = dao.getCount(data.getbId());
 		
-		if(count >= 3) {
+		if(count >= 5) {
 			// 업로드 수량 초과.
 			return -1;
 		}

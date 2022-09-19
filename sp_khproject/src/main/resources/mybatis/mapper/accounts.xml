@@ -3,13 +3,29 @@
 	  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 	  
 <mapper namespace="acMapper">
+	<select id="selectAll" resultType="acDto">
+		SELECT AC_NUMBER AS ac_number
+			 , AC_EMAIL AS ac_email
+			 , AC_NAME AS ac_name
+			 , AC_JOB AS ac_job
+			 , AC_FIELD AS ac_field
+			 , AC_INTEREST AS ac_interest
+			 , AC_INDEX AS ac_index
+			 , AC_SIGNDAY AS ac_signday
+		FROM ACCOUNTS 
+	</select>
+
 	<insert id="insertData" parameterType="acDto">
-	INSERT INTO ACCOUNTS(AC_NUMBER, AC_EMAIL, AC_NAME, AC_PW, AC_JOB, AC_FIELD, AC_INTEREST, AC_INDEX, AC_SENDEMAIL)
-	VALUES(ACCOUNTS_SEQ.NEXTVAL, #{ac_email}, #{ac_name}, #{ac_pw}, #{ac_job}, #{ac_field}, #{ac_interest}, #{ac_index}, #{ac_sendemail} ) 
+	INSERT INTO ACCOUNTS(AC_NUMBER, AC_EMAIL, AC_NAME, AC_PW, AC_JOB, AC_FIELD, AC_INTEREST, AC_INDEX, AC_SENDEMAIL, AC_IP)
+	VALUES(ACCOUNTS_SEQ.NEXTVAL, #{ac_email}, #{ac_name}, #{ac_pw}, #{ac_job}, #{ac_field}, #{ac_interest}, #{ac_index}, #{ac_sendemail}, #{ac_ip}) 
 	</insert>
 	
 	<select id="selectLogin" resultType="acDto">
 	SELECT * FROM ACCOUNTS WHERE AC_EMAIL = #{ac_email} AND AC_PW = #{ac_pw}
+	</select>
+	
+	<select id="getEmail" resultType="acDto">
+	SELECT * FROM ACCOUNTS WHERE AC_EMAIL = #{ac_email}
 	</select>
 	
 	<select id="getData" resultType="acDto">
@@ -35,4 +51,22 @@
 		       AC_INTEREST = #{ac_interest}
 		 WHERE AC_EMAIL = #{ac_email}
 	</update>
+	
+	<update id="modifyPw" parameterType="acDto">
+		UPDATE ACCOUNTS
+		   SET AC_PW = #{ac_pw}
+		 WHERE AC_EMAIL = #{ac_email}
+	</update>
+	
+	<delete id="addBlacklist" parameterType="acDto">
+		DELETE FROM ACCOUNTS
+		 WHERE AC_EMAIL = #{id}
+	</delete>
+	
+	<select id="getIp" resultType="string">
+		SELECT AC_IP
+		  FROM ACCOUNTS
+		 WHERE AC_EMAIL = #{id}
+	</select>
+	
 </mapper>
