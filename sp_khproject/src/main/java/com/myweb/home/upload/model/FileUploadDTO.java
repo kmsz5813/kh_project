@@ -2,8 +2,8 @@ package com.myweb.home.upload.model;
 
 public class FileUploadDTO {
 	
-	private int id;
-	private int bId;
+	private int file_id;
+	private int file_bId;
 	private String fileName;
 	private String uuidName;
 	private String location;
@@ -13,18 +13,26 @@ public class FileUploadDTO {
 	
 	public FileUploadDTO() {}
 	
-	public FileUploadDTO(int bId, String location, String url) {
-		this.bId = bId;
+	public FileUploadDTO(int file_bId, String location, String url) {
+		this.file_bId = file_bId;
 		this.location = location;
 		this.url = url;
 	}
 	
-	public int getId() {
-		return id;
+	public int getFile_Id() {
+		return file_id;
 	}
 	
-	public void setId(int id) {
-		this.id = id;
+	public void setFile_Id(int file_id) {
+		this.file_id = file_id;
+	}
+	
+	public int getFile_bId() {
+		return file_bId;
+	}
+	
+	public void setFile_bId(int file_bId) {
+		this.file_bId = file_bId;
 	}
 	
 	public String getFileName() {
@@ -77,17 +85,10 @@ public class FileUploadDTO {
 	
 	@Override
 	public String toString() {
-		return "FileUploadDTO [id=" + id + ", bId=" + bId + ", fileName=" + fileName + ", uuidName=" + uuidName
+		return "FileUploadDTO [file_id=" + file_id + ", file_bId=" + file_bId + ", fileName=" + fileName + ", uuidName=" + uuidName
 				+ ", location=" + location + ", url=" + url + ", fileSize=" + fileSize + ", contentType=" + contentType
 				+ "]";
 	}
 
-	public int getbId() {
-		return bId;
-	}
-
-	public void setbId(int bId) {
-		this.bId = bId;
-	}
 }
 

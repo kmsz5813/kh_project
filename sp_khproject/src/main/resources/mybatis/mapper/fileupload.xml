@@ -4,13 +4,13 @@
   
 <mapper namespace="fileUploadMapper">
 	<select id="getCount" resultType="_int">
-		SELECT COUNT(*) FROM FILEUPLOAD
-		 WHERE BID = #{bId}
+		SELECT COUNT(*) FROM FILE_UPLOAD
+		 WHERE FILE_BID = #{file_bId}
 	</select>
 	
 	<insert id="insertData" parameterType="fileUploadDto">
-		INSERT INTO FILEUPLOAD
-		     VALUES(FILEUPLOAD_SEQ.NEXTVAL, #{bId}
+		INSERT INTO FILE_UPLOAD
+		     VALUES(FILE_UPLOAD_SEQ.NEXTVAL, #{file_bId}
 		          , #{fileName}, #{uuidName}
 		          , #{location}, #{url}
 		          , #{fileSize}, #{contentType})
@@ -19,6 +19,6 @@
 	<select id="selectDatas" resultType="fileUploadDto">
 		SELECT *
 		  FROM FILEUPLOAD
-		 WHERE BID = #{bId}
+		 WHERE FILE_BID = #{file_bId}
 	</select>
 </mapper>
