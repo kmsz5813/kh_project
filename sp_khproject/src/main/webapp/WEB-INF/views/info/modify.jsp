@@ -38,7 +38,7 @@
 	<section class="container w-25">
 		<div class="mt-5">
 		<c:url var="modifyurl" value="/info/modify" />
-			<form action="${modifyurl}" method="post" enctype="multipart/form-data">
+			<form id="modifyForm" action="${modifyurl}" method="post" enctype="multipart/form-data">
 				<div class="mb-3 center">
 					<p class="fw-normal fs-2 text-center">회원정보 수정</p>
 				</div>
@@ -209,6 +209,31 @@
 					alert("작성 양식을 확인하세요.");
 				}
 			});
+			
+			document.querySelector('#modifyForm').addEventListener('submit', function(e) {
+				var form = this;
+				e.preventDefault();
+				swal({
+					  title: "수정하시겠습니까?",
+					  icon: "info",
+					  buttons: true,
+					})
+					.then((willDelete) => {
+					  if (willDelete) {
+					    swal({
+					      	title: "수정이 완료되었습니다.",
+					    	icon: "success",
+					    }).then(function() {
+					    	form.submit();
+					    });
+					  } else {
+					    swal({
+					    	title: "수정이 취소되었습니다.",
+					    	icon: "info",
+					    });
+					  }
+					});
+			})
 
 		</script>
 	</section>

@@ -126,6 +126,22 @@
 		background: #78bf00;
 		opacity: 1;
 	}
+	
+	.carousel-control-prev .slide-icon {
+		max-width : 20px;
+		margin-left : 10px;
+	}
+	
+	.carousel-control-next .slide-icon {
+		max-width : 20px;
+		margin-right : 10px;
+	}
+	
+	.control2 {
+		max-width : 40px;	
+		height : 150px;
+	}
+	
 	.carousel-control-prev i, .carousel-control-next i {
 		font-size: 36px;
 		position: absolute;
@@ -156,15 +172,6 @@
 		background: rgba(0, 0, 0, 0.6);
 	}
 
-	.carousel-control-prev .slide-icon {
-		max-width : 20px;
-		margin-right : 50px;
-	}
-	
-	.carousel-control-next .slide-icon {
-		max-width : 20px;
-		margin-left : 50px;
-	}
 	
 	.col-sm-3 {
 		max-width : 290px;
@@ -363,10 +370,10 @@
 				</div>
 			</div>
 			<!-- Carousel controls -->
-			<a class="carousel-control-prev" href="#myCarousel1" data-slide="prev">
+			<a class="carousel-control-prev control2" href="#myCarousel1" data-slide="prev">
 				<img src="static/img/prev-icon.png" class="slide-icon">
 			</a>
-			<a class="carousel-control-next" href="#myCarousel1" data-slide="next">
+			<a class="carousel-control-next control2" href="#myCarousel1" data-slide="next">
 				<img src="static/img/next-icon.png" class="slide-icon">
 			</a>
 		</div>
@@ -499,11 +506,11 @@
 				</div>
 			</div>
 			<!-- Carousel controls -->
-			<a class="carousel-control-prev" href="#myCarousel2" data-slide="prev">
+			<a class="carousel-control-prev control2" href="#myCarousel2" data-slide="prev">
 				<i class="fa fa-angle-left"></i>
 				<img src="static/img/prev-icon.png" class="slide-icon">
 			</a>
-			<a class="carousel-control-next" href="#myCarousel2" data-slide="next">
+			<a class="carousel-control-next control2" href="#myCarousel2" data-slide="next">
 				<i class="fa fa-angle-right"></i>
 				<img src="static/img/next-icon.png" class="slide-icon">
 			</a>
@@ -513,11 +520,12 @@
 
 	
 	<!-- 커뮤니티 HOT -->
-	<section style="background-color:#F2F3F7; padding-top:30px; padding-bottom:50px; border-radius:30px;">
+	<article style="background-color:#F2F3F7; margin-top: 80px; padding-top:30px; padding-bottom:50px; border-radius:30px;">
 		<div style="margin-bottom:30px;">
 			<span style="font-weight: bold; font-size: 25px; margin-left: 112px;">커뮤니티 HOT</span>
 			<img src="static/img/fire.png" style="width: 30px; position:relative; bottom: 2px;">
-			<button type="button" class="btn btn-outline-success" style="margin-left : 50px;">전체보기</button>
+			<button onclick="location.href='${pageContext.request.contextPath}/main'" class="btn btn-outline-success" 
+			style="margin-left:50px; width:100px;">전체보기</button>
 		</div>
 		<div class="row mt-3 mb-3" style="margin-left:100px; color: #747D89;">
 			<div class="col img-hover-zoom" onclick="location.href='${pageContext.request.contextPath}/main'" style="cursor:pointer;">			
@@ -539,11 +547,9 @@
 				<span style="font-size:1rem; font-weight:bold; margin-left:3rem;">일상</span>
 			</div>
 		</div>
-	</section>
+	</article>
 	
-
 	
-	<c:url var="mainurl" value="/main" />
 	
 	<footer class="footer" style="margin-top : 200px; text-align:center; border-top: 3px solid #dcdcde; ">
 		<div style="width: 400px; height: 200px; background-color: #f6f7f7; margin: auto; margin-bottom: 50px; margin-top: 20px; padding: 10px;" >

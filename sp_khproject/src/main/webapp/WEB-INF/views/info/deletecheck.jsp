@@ -57,12 +57,14 @@
 				</div>
 			</c:if>
 			<div class="mb-3 find-btn">
-				<button id="delete" class="btn btn-primary find-btn1"  type="button">회원탈퇴</button>
+				<button id="delete" class="btn btn-primary find-btn1"  type="submit">회원탈퇴</button>
 				<button class="btn btn-secondary find-btn1" type="button" onclick="location.href='/home/info'">뒤로가기</button> 
 			</div>
 			<script type="text/javascript">
 				$(document).ready(function(){
-					$("#delete").on("click", function() {
+					document.querySelector('#deleteForm').addEventListener('submit', function(e) {
+						var form = this;
+						e.preventDefault();
 						swal({
 							  title: "탈퇴하시겠습니까?",
 							  text: "탈퇴 시 업로드한 게시글, 파일이 전부 삭제됩니다.",
@@ -72,11 +74,17 @@
 							})
 							.then((willDelete) => {
 							  if (willDelete) {
-							    swal("Poof! Your imaginary file has been deleted!", {
-							      icon: "success",
+							    swal({
+							      	title: "탈퇴가 완료되었습니다.",
+							    	icon: "info",
+							    }).then(function() {
+							    	form.submit();
 							    });
 							  } else {
-							    swal("탈퇴하지 않았습니다.");
+							    swal({
+							    	title: "탈퇴가 취소되었습니다.",
+							    	icon: "info",
+							    });
 							  }
 							});
 					})
