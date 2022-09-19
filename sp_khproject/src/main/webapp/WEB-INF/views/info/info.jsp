@@ -7,9 +7,10 @@
 <!DOCTYPE html>
 <html>
 <head>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 	<meta charset="UTF-8">
 	<title>마이페이지</title>
-	<%@ include file="../module/head.jsp" %>
+	
 	<style>
 		#previewImg {
 			max-width : 250px;
@@ -36,6 +37,7 @@
 	</style>
 </head>
 <body>
+	<%@ include file="../module/head.jsp" %>
 	<header></header>
 	<section class="container w-75">
 		<div class="mt-5">
@@ -44,8 +46,8 @@
 					<p class="fw-bold fs-2">마이페이지</p>
 				</div>
 				<div class="col-auto mt-4">
-					<a href="${pageContext.request.contextPath}/info/modifycheck"><button type="button" style="border:none; font-weight:bold; background-color:transparent;">수정</button></a> / 
-					<a href="${pageContext.request.contextPath}/info/deletecheck"><button type="button" style="border:none; font-weight:bold; background-color:transparent;">탈퇴</button></a>
+					<button onclick="location.href='${pageContext.request.contextPath}/info/modifycheck'" type="button" class="btn btn-outline-secondary btn-lg">수정</button>
+					<button onclick="location.href='${pageContext.request.contextPath}/info/deletecheck'" type="button" class="btn btn-outline-secondary btn-lg">탈퇴</button>
 				</div>
 			</div>
 			<div class="row mt-3">	
