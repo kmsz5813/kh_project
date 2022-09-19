@@ -57,7 +57,6 @@
 		<beans:property name="mapperLocations" value="classpath:/mybatis/mapper/*.xml"></beans:property>
 	</beans:bean>
 	<beans:bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
-<<<<<<< HEAD
 		<beans:constructor-arg index="0" ref="sqlSessionFactory"></beans:constructor-arg>
 	</beans:bean>
 
@@ -68,9 +67,5 @@
 				<beans:bean class="org.springframework.web.socket.server.support.HttpSessionHandshakeInterceptor"/>
 			</websocket:handshake-interceptors>
 	</websocket:handlers>
-	
-=======
-      <beans:constructor-arg index="0" ref="sqlSessionFactory"></beans:constructor-arg>
-   </beans:bean>
->>>>>>> refs/remotes/origin/이윤지
+
 </beans:beans>
