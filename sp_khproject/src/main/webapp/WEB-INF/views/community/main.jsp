@@ -480,12 +480,6 @@ feed-item .feed-content {
 					<button type="button" class="btn btn-outline-success"
 						style="width: 130px; height: 50px;">공지사항</button>
 				</a>
-				<c:forEach items="${notice }" var="l">
-					<p id="conts">
-						<i class="fa fa-caret-right fa-1x mar-top"></i>&nbsp;
-						${l.NOTICE_TITLE}
-					</p>
-				</c:forEach>
 			</div>
 		</aside>
 

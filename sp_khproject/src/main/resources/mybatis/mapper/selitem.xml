@@ -6,7 +6,7 @@
 	<select id="getNextSeq" resultType="_int">
 		SELECT SEL_ITEM_SEQ.NEXTVAL FROM DUAL
 	</select>
- 	<insert id="insertData" parameterType="boardDto">
+ 	<insert id="insertData" parameterType="selItemDto">
 		INSERT INTO SEL_ITEM(SEL_ID, SEL_SELNAME, SEL_INTEREST, SEL_LOCATION)
 	</insert> 
 

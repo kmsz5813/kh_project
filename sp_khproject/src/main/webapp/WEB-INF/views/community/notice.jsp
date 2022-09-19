@@ -326,12 +326,6 @@ feed-item .feed-content {
 					<button type="button" class="btn btn-outline-success"
 						style="width: 130px; height: 50px;">공지사항</button>
 				</a>
-				<c:forEach items="${notice }" var="l">
-					<p id="conts">
-						<i class="fa fa-caret-right fa-1x mar-top"></i>&nbsp;
-						${l.NOTICE_TITLE}
-					</p>
-				</c:forEach>
 			</div>
 		</aside>
 
@@ -367,9 +361,8 @@ feed-item .feed-content {
 		<article>
 			<div id="jb-content">
 				<ul class="feed-list">
-					<li class="feed-item"><a href="#"
+				<li class="feed-item"><a href="#"
 						data-testid="soomgo-life-feed-item"> <span>게시글 1</span>
-							<div class="feed-content">
 								<div>
 									<section>
 										<h3>게시글 1</h3>
@@ -381,7 +374,6 @@ feed-item .feed-content {
 										<li>게시글 1</li>
 									</ul>
 								</div>
-							</div>
 							<div>
 								<div>
 									<span class="like">0</span> <span class="comment">0</span>
@@ -389,6 +381,27 @@ feed-item .feed-content {
 								<span class="sg-text-description">6분 전</span>
 							</div>
 					</a></li>
+					<div class="table-responsive">
+					
+                        <table class="table table-hover mb-0">
+                            <tbody>
+                            	<c:if test="${empty notice}">
+                          			<tr>
+                          				<td></td><td style="text-align: center;">공지사항이 없습니다</td><td></td>
+                          			</tr>
+                            	</c:if>
+                            	<c:if test="${not empty notice}">
+                            		<c:forEach items="${notice }" var="n">
+	                          			<tr>
+	                          				<td>${n.notice_No }</td>
+	                          				<td><a href="${pageContext.request.contextPath}/community/notice/detail?no=${n.notice_No }">${n.notice_Title }</a></td>
+	                          				<td>${n.notice_Date }</td>
+	                          			</tr>
+                          			</c:forEach>
+                            	</c:if>
+                            </tbody>
+                        </table>
+                    </div>
 
 					<li class="feed-item"><a href="#"
 						data-testid="soomgo-life-feed-item"> <span>게시글 1</span>
