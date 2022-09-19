@@ -27,6 +27,8 @@
 		SELECT * FROM SEL_ITEM WHERE SEL_INTEREST LIKE '%'||#{search}||'%' ORDER BY SEL_ID DESC
 	</select>
 	
+	
+	
 
 
 </mapper>
