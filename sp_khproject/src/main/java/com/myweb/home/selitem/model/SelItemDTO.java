@@ -5,8 +5,7 @@ import java.sql.Date;
 public class SelItemDTO {
 
 	private int sel_id;
-	private String sel_cusname;
-	private String sel_selname;
+	private String sel_name;
 	private String sel_interest;
 	private String sel_location;
 	private String sel_title;
@@ -24,20 +23,12 @@ public class SelItemDTO {
 		this.sel_id = sel_id;
 	}
 
-	public String getSel_cusname() {
-		return sel_cusname;
+	public String getSel_name() {
+		return sel_name;
 	}
 
-	public void setSel_cusname(String sel_cusname) {
-		this.sel_cusname = sel_cusname;
-	}
-
-	public String getSel_selname() {
-		return sel_selname;
-	}
-
-	public void setSel_selname(String sel_selname) {
-		this.sel_selname = sel_selname;
+	public void setSel_name(String sel_name) {
+		this.sel_name = sel_name;
 	}
 
 	public String getSel_interest() {
@@ -106,11 +97,11 @@ public class SelItemDTO {
 
 	@Override
 	public String toString() {
-		return "SelItemDTO [sel_id=" + sel_id + ", sel_cusname=" + sel_cusname + ", sel_selname=" + sel_selname
-				+ ", sel_interest=" + sel_interest + ", sel_location=" + sel_location + ", sel_title=" + sel_title
-				+ ", sel_content=" + sel_content + ", sel_writeday=" + sel_writeday + ", sel_view=" + sel_view
-				+ ", sel_like=" + sel_like + ", sel_report=" + sel_report + "]";
+		return "AccountsDTO [sel_id=" + sel_id + ", sel_name=" + sel_name + ", sel_interest=" + sel_interest
+				+ ", sel_location=" + sel_location + ", sel_title=" + sel_title + ", sel_content=" + sel_content
+				+ ", sel_writeday=" + sel_writeday + ", sel_view=" + sel_view + ", sel_like=" + sel_like
+				+ ", sel_report=" + sel_report + "]";
 	}
-	
-	
+
+
 }

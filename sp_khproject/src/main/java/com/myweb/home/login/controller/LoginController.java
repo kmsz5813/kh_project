@@ -14,6 +14,7 @@ import java.net.URL;
 import java.net.URLEncoder;
 import java.security.SecureRandom;
 import java.util.HashMap;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -48,6 +49,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -55,7 +58,9 @@ import org.springframework.web.util.UriComponentsBuilder;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.myweb.home.Accounts.model.AccountsDTO;
-
+import com.myweb.home.admin.model.AdminDAO;
+import com.myweb.home.admin.model.BlackDTO;
+import com.myweb.home.admin.service.AdminService;
 import com.myweb.home.login.service.LoginService;
 
 
@@ -72,6 +77,8 @@ public class LoginController {
 	
 	@Autowired
 	private LoginService service;
+	@Autowired 
+	private AdminService adminService;
 	
 	
 	@GetMapping(value="")
@@ -93,8 +100,7 @@ public class LoginController {
 			data.setAc_pw(pw);
 			
 			boolean result = service.getLogin(session, data);
-			
-			
+
 			if(result) {
 				//로그인성공시
 				return "redirect:main";
@@ -104,6 +110,7 @@ public class LoginController {
 				return "/login/login";
 			}
 	}
+	
 	
 	@GetMapping(value="/sign")
 	public String sign(Model model, HttpSession session, String accessToken, HttpServletRequest request
@@ -159,13 +166,14 @@ public class LoginController {
 						HttpEntity<MultiValueMap<String, String>> testentity = new HttpEntity<MultiValueMap<String, String>>(testparam, headers);
 						ResponseEntity<String> testrestResponse = rest.postForEntity(naverDeleteAuthUri.toUriString(), testentity, String.class);
 						
+						email = "";
 						return "login/p_login";
 					}
 				}catch (Exception e) {
 					e.printStackTrace();
 				}
 				
-				//----------------토큰 삭제 
+				//----------------네이버토큰 삭제 
 				UriComponents naverDeleteAuthUri = UriComponentsBuilder.newInstance()
 						.scheme("https").host("nid.naver.com").path("/oauth2.0/token?grant_type=delete&client_id=XH6KjNl4hbD9tFu8FxJd&client_secret=wFkSHDDyt3&access_token=" + access_token + "&service_provider=NAVER").build();
 				MultiValueMap<String, String> testparam = new LinkedMultiValueMap<String, String>();
@@ -227,6 +235,7 @@ public class LoginController {
 					
 					if(data != null) {
 						//카카오아이디가 디비버에 있는 아이디오 동일할 경우
+						email = "";
 						return "login/p_login";
 					}
 
@@ -234,11 +243,19 @@ public class LoginController {
 				}catch (Exception e) {
 					e.printStackTrace();
 				}
+				//카카오토큰값 삭제
+				UriComponents kakaoLogoutAuthUri = UriComponentsBuilder.newInstance()
+						.scheme("https").host("kapi.kakao.com").path("/v1/user/logout").build();
+				HttpHeaders testheaders = new HttpHeaders();
+				testheaders.add("Authorization", "Bearer " + accessToken);
 				
+				MultiValueMap<String, String> param1 = new LinkedMultiValueMap<String, String>();
+				HttpEntity<MultiValueMap<String, String>> entity1 = new HttpEntity<MultiValueMap<String, String>>(param1, testheaders);
 				
+				ResponseEntity<String> restResponse1 = rest.postForEntity(kakaoLogoutAuthUri.toUriString(), entity1, String.class);
+		
 				return "login/sign";
 				
-				//카카오에서 받아오는 토큰값 끝.
 			}
 			
 				//카카오 네이버 이메일값 받아와서 로그인페이지로 넘기기
@@ -247,20 +264,106 @@ public class LoginController {
 	
 	}
 	
+	@GetMapping(value="/seekpw")
+	public String seekpw(Model model) {
+		
+		
+		
+		return "login/seekpw";
+	}
+	
+	@PostMapping(value="/seekpw")
+	public String seekpw(Model model, HttpServletRequest request) {
+		
+		String test = request.getParameter("test");
+		String pw = request.getParameter("cus_pw");
+		
+		if(pw != null) {
+			String email = request.getParameter("email");
+			email = email.trim();
+				
+			//비밀번호 수정
+			AccountsDTO data = new AccountsDTO();
+			
+			data.setAc_email(email);
+			data.setAc_pw(pw);
+			
+			boolean result = service.modifyPw(data);
+			
+			if(result) {
+				//비밀번호 수정완료
+				return "redirect: /home/login";
+			}else {
+				
+				return null;
+			}
+			
+		}
+		
+		
+		if(test == null) {
+			
+			String email = request.getParameter("email");
+			AccountsDTO data = new AccountsDTO();
+			data.setAc_email(email);
+			
+			
+			boolean result = service.getEmail(data);
+			
+			if(result) {
+				//이메일로 보내기
+				request.setAttribute("success", "success");
+				request.setAttribute("email", email);
+				return null;
+			}else {
+				//이메일 없을시에
+				request.setAttribute("error", "error");
+				return null;
+			}
+		}else {
+			String email = request.getParameter("email");
+			String emailtest = request.getParameter("test1");
+			request.setAttribute("emailtest", "emailtest");
+			request.setAttribute("email", email);
+			
+			return null;
+		}
+	}
+	
+	
 	@GetMapping(value="/cussign")
 	public String cussign(Model model, HttpServletRequest request
 						  ) {
 		request.setAttribute("email", email); //가입페이지에 저장시켜놓기
 		
+		//이메일 값 초기화
 		email = "";
-		
+
 		return "login/cussign";
 	}
 	
 	@PostMapping(value="/cussign")
 	public String cussign(HttpServletRequest request,
 						HttpSession session) {
-		
+		// ip 주소 저장
+		String ip = request.getHeader("X-Forwarded-For");
+	    if (ip == null) {
+	        ip = request.getHeader("Proxy-Client-IP");
+	    }
+	    if (ip == null) {
+	        ip = request.getHeader("WL-Proxy-Client-IP");
+	    }
+	    if (ip == null) {
+	        ip = request.getHeader("HTTP_CLIENT_IP");
+	    }
+	    if (ip == null) {
+	        ip = request.getHeader("HTTP_X_FORWARDED_FOR");
+	    }
+	    if (ip == null) {
+	        ip = request.getRemoteAddr();
+	    }
+	    logger.info("Result : IP Address : "+ ip);
+	    
 		String cus_email = request.getParameter("cus_email");
 		String cus_name = request.getParameter("cus_name");
 		String cus_pw = request.getParameter("cus_pw");
@@ -284,20 +387,16 @@ public class LoginController {
 		data.setAc_interest(cus_interest);
 		data.setAc_index(10);
 		data.setAc_sendemail(cus_sendemail);
+		data.setAc_ip(ip);
 		
+		boolean result = service.add(data);		// DB 에 계정 데이터 추가
+		if(result) {					// 계정 데이터가 추가되면
+			data.setAc_email(cus_email);
+			data.setAc_pw(cus_pw);
+			service.getLogin(session, data);
+			return "redirect: /home/main";
+		}
 
-		if(cus_email == null) {		// 이메일 입력 안했을 경우	
-			return "login/cussign";
-		}
-		if(cus_sendemail.equals("Y")) {		// 이메일 수신 동의를 했을 경우에만
-			boolean result = service.add(data);		// DB 에 계정 데이터 추가
-			if(result) {					// 계정 데이터가 추가되면
-				data.setAc_email(cus_email);
-				data.setAc_pw(cus_pw);
-				service.getLogin(session, data);
-				return "redirect: /home/main";
-			}
-		}
 		
 		return "login/cussign";
 	}
@@ -357,6 +456,25 @@ public class LoginController {
 	
 	@PostMapping(value="/selsign")
 	public String selsign(Model model, HttpServletRequest request, HttpSession session) {
+		// ip 주소 저장
+		String ip = request.getHeader("X-Forwarded-For");
+	    if (ip == null) {
+	        ip = request.getHeader("Proxy-Client-IP");
+	    }
+	    if (ip == null) {
+	        ip = request.getHeader("WL-Proxy-Client-IP");
+	    }
+	    if (ip == null) {
+	        ip = request.getHeader("HTTP_CLIENT_IP");
+	    }
+	    if (ip == null) {
+	        ip = request.getHeader("HTTP_X_FORWARDED_FOR");
+	    }
+	    if (ip == null) {
+	        ip = request.getRemoteAddr();
+	    }
+	    logger.info("Result : IP Address : "+ ip);
+			    
 		String sel_email = request.getParameter("sel_email");
 		String sel_name = request.getParameter("sel_name");
 		String sel_pw = request.getParameter("sel_pw");
@@ -370,8 +488,7 @@ public class LoginController {
 		}else{
 			sel_sendemail = "N";
 		}
-	
-		
+
 		AccountsDTO data = new AccountsDTO();
 		data.setAc_email(sel_email);
 		data.setAc_name(sel_name);
@@ -381,20 +498,15 @@ public class LoginController {
 		data.setAc_interest(sel_interest);
 		data.setAc_index(20);
 		data.setAc_sendemail(sel_sendemail);
+		data.setAc_ip(ip);
 		
 		
-		boolean result = service.add(data);
-		
+		boolean result = service.add(data);		// DB에 계정 추가
 		if(result) {
-
 			data.setAc_email(sel_email);
 			data.setAc_pw(sel_pw);
-			
-			boolean result1 = service.getLogin(session, data);
-
+			service.getLogin(session, data);
 			return "redirect: /home/main";
-	
-
 		}
 		
 		return "login/selsign";

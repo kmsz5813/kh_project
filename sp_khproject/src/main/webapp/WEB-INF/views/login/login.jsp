@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-   <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ page import="java.net.URLEncoder" %>
@@ -19,7 +19,7 @@
 	<link rel="stylesheet" type="text/css" href="${bs5}/css/bootstrap.min.css">
 	<script type="text/javascript" src="${bs5}/js/bootstrap.min.js"></script>
 	<script type="text/javascript" src="${jQuery}/jquery-3.6.0.min.js"></script>  
-
+	<%@ include file="../module/head.jsp" %>
 </head>
 <body>
 	<header></header>
@@ -47,7 +47,7 @@
 			</div>
 		</c:if>
 		<div class="mb-3 ">
-			<button type="button" style="border:none; background-color:transparent;">아이디 / 비밀번호찾기</button> 
+			<button  type="button" style="border:none; background-color:transparent; float:right; padding-bottom: 1rem;" onclick="location.href='login/seekpw'">비밀번호 찾기</button> 
 		</div>
 		<div class="mb-3">
 			<button type="submit" class="form-control p-1 mb-2 bg-secondary  text-center fw-normal" style="--bs-bg-opacity: .5; height:3rem;">로그인</button>

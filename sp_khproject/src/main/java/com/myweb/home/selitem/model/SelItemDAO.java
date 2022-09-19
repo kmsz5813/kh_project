@@ -13,7 +13,28 @@ public class SelItemDAO {
 	@Autowired
 	private SqlSession session;
 	
-	private String mapper = "selitemMapper.%s";
+	private String mapper = "selItemMapper.%s";
+
+	public List<Object> getData(SelItemDTO data) {
+		
+		String mapperId = String.format(mapper, "getData");
+		List<Object> result = session.selectList(mapperId, data);
+		return result;
+	}
+
+	public List selectData(String selectData) {
+		String mapperId = String.format(mapper, "selectData");
+		List<Object> result = session.selectList(mapperId, selectData);
+		return result;
+	}
+
+	public List searchData(String search) {
+		
+		String mapperId = String.format(mapper, "searchData");
+		List<Object> result = session.selectList(mapperId, search);
+		return result;
+	}
+	
 	
 	public List<SelItemDTO> selectAll() {
 		String mapperId = String.format(mapper, "selectAll");
@@ -38,6 +59,8 @@ public class SelItemDAO {
 		int res = session.insert(mapperId, data);
 		return res == 1? true : false;
 	}
+	
+	
 	
 	public boolean updateData(SelItemDTO data) {
 		String mpapperId = String.format(mapper, "updateData");

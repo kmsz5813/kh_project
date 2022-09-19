@@ -13,6 +13,7 @@
 	<link rel="stylesheet" type="text/css" href="${bs5}/css/bootstrap.min.css">
 	<script type="text/javascript" src="${bs5}/js/bootstrap.min.js"></script>
 	<script type="text/javascript" src="${jQuery}/jquery-3.6.0.min.js"></script>
+	<%@ include file="../module/head.jsp" %>
 	<title>전문가 가입페이지</title>
 	<style>
 		.message-label {
@@ -125,7 +126,7 @@
 			</div>
 			
 			<div class="mb-3 form-check">	
-					<label class="mb-2">이메일수신동의</label>
+					<label id="emailCheckbox" class="mb-2">이메일인증받기</label>
 					<label id="emailCheckLabel" class="mb-2" style="display:none; color: red">이메일을 확인하세요.</label>
 					<input type="checkbox" id="emailCheck" class="form-check-input" name="sel_sendemail" disabled>
 				</div>
@@ -147,12 +148,22 @@
 		
 			window.onload = function() {
 				initEventBinding();
+				socialSign();
+			}
+			
+			var authOk = 0;
+			
+			// 소셜 회원가입이면 이메일 인증 버튼 안뜨게하기
+			function socialSign() {
+				if($("input[name='sel_email']").prop("readonly")) {
+					$('#emailCheck').css("display", "none");
+					$('#emailCheckbox').css("display", "none");
+				}
 			}
 
 			/* 필수 텍스트 항목 로직 */
 			function initEventBinding() {
 				requiredEventBinding();
-				var authOk = false;
 			}
 			function requiredEventBinding() {
 				var requiredElements = document.querySelectorAll("input[required]");
@@ -268,7 +279,7 @@
 			            	if(data.code === "success" && email_check(id)){
 			            	      $('.id_ok').css("display","inline-block"); 
 			                      $('.id_already').css("display", "none");
-			                      $('#emailCheck').prop("disabled", false);	// 이메일수신동의 disabled 풀기
+			                      $('#emailCheck').prop("disabled", false);	// 이메일인증받기 disabled 풀기
 			            		  return;
 			            	}else if(data.code === "sameid"){
 			         		     //같은아이디일때
@@ -317,7 +328,7 @@
 		        }; 
 		        
 		        
-		        /* 이메일 수신 동의 클릭 시 메일전송 버튼 뜨게 하기 */
+		        /* 이메일 알림받기 클릭 시 메일전송 버튼 뜨게 하기 */
      		    $("#emailCheck").on("click",function(){
      		    	var check = document.getElementById("emailCheck");
 		        	var email = $("#id").val();
@@ -341,18 +352,19 @@
 				        ,data : {"mail" : $("input[name='sel_email']").val()}
 				        ,dataType: "Json"
 				        ,success: function(data){
-				           alert("메일이 전송되었습니다. 인증번호를 입력하세요.");
+				           
+				           swal('인증메일 전송!', "메일 인증번호를 확인하세요.", 'success');
 				           $('#auth-number').blur(function() {
 				           		var inputCode = document.getElementById("auth-number").value;
 				           		if(inputCode == data.randomNumber && inputCode != "") {
 				           			$('#auth-warn-label').css("display", "none");
 				           			$('#auth-ok-label').css("display", "inline-block");
-				           			authOk = true;
+				           			authOk = 1;
 				           			return;
 				           		} else if(inputCode != data.randomNumber){
 				           			$('#auth-warn-label').css("display", "inline-block");
 				           			$('#auth-ok-label').css("display", "none");
-				           			authOk = false;
+				           			authOk = 0;
 				           			return false;
 				           		}
 				           });
@@ -365,20 +377,36 @@
 		        
 		        
 				// 회원가입버튼눌렀을때 비밀번호가 동일하지 않으면 제출 못하게 막기
-		        // 이메일 수신동의를 하지 않으면 제출 못하게 막기
+		        // 이메일 알림받기를 하지 않으면 제출 못하게 막기
 		        // 이메일 인증번호를 입력하지 않으면 제출 못하게 막기 ()
 		        $('form').on('submit', function(e) {
+		        	
+		        	
+		        	if($('.id_ok').css('display') == 'none'){
+						e.preventDefault();	         
+		                swal('이메일 중복!', "이메일을 확인하세요.", 'warning');
+					}
+					
+					if($('.name_ok').css('display') == 'none'){
+						e.preventDefault();
+		                swal('닉네임 중복!', "닉네임 확인하세요.", 'warning');
+					}
+		        	
+		        	
 		            if ($('#sel_pw').val() != $("#cor_pw").val()) { 
-		                e.preventDefault();
-		                alert("비밀번호가 동일하지 않습니다.");
+		                e.preventDefault();		           
+		                swal('비밀번호 오류!', "비밀번호가 동일하지 않습니다.", 'warning');
 		            }
-		            if (! $('#emailCheck').prop("checked")) {
-		            	e.preventDefault();
-		            	alert("이메일 수신 동의를 체크해주세요.");
-		            	$('#emailCheck').prop("disabled", false);
-		            } else if ($('#auth-number').val() == '' || authOk == false) {
-		            	e.preventDefault();
-		            	alert("메일 인증번호를 확인하세요.");
+		         	// 소셜 회원가입이 아닐 경우
+		            if(! $("input[name='sel_email']").prop("readonly")) {		            	
+			            if (! $('#emailCheck').prop("checked")) {
+			            	e.preventDefault();
+			            	swal('이메일 알림받기 오류!', "이메일 알림받기를 체크해주세요.", 'warning');
+			            	$('#emailCheck').prop("disabled", false);
+			            } else if ($('#auth-number').val() == '' || authOk == 0) {
+			            	e.preventDefault();  
+			            	swal('인증번호 확인 실패!', "메일 인증번호를 확인하세요.", 'warning');
+			            }
 		            }
 
 		        });

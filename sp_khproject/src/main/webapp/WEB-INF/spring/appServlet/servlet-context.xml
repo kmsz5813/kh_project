@@ -2,6 +2,7 @@
 <beans:beans xmlns="http://www.springframework.org/schema/mvc"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:beans="http://www.springframework.org/schema/beans"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"	
 	xmlns:context="http://www.springframework.org/schema/context"
 	xmlns:websocket="http://www.springframework.org/schema/websocket"
 	xsi:schemaLocation="http://www.springframework.org/schema/mvc https://www.springframework.org/schema/mvc/spring-mvc.xsd
@@ -24,7 +25,21 @@
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
 	
+	<beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+  		<beans:property name="maxUploadSize" value="-1"></beans:property>
+  		<beans:property name="maxUploadSizePerFile" value="5242880"></beans:property>
+		<beans:property name="maxInMemorySize" value="15728640"></beans:property>
+	</beans:bean>
+	
 	<context:component-scan base-package="com.myweb.home" />
+
+	<!-- IP 접근제한 Interceptor, 상단에 xmlns:mvc="http://www.springframework.org/schema/mvc" 추가함.-->
+	<mvc:interceptors>
+		<mvc:interceptor>
+			<mvc:mapping path="/login/**"/>
+			<beans:bean class="com.myweb.home.filter.IPCheckInterceptor"/>
+		</mvc:interceptor>
+	</mvc:interceptors>
 	
 	<!-- 데이터베이스 설정 -->
 	<beans:bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
@@ -44,7 +59,6 @@
 	<beans:bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
 		<beans:constructor-arg index="0" ref="sqlSessionFactory"></beans:constructor-arg>
 	</beans:bean>
-	
 
 	<beans:bean id="chattingCSHandler" class="com.myweb.home.socket.ChattingCS" />
 	<websocket:handlers>
@@ -53,4 +67,5 @@
 				<beans:bean class="org.springframework.web.socket.server.support.HttpSessionHandshakeInterceptor"/>
 			</websocket:handshake-interceptors>
 	</websocket:handlers>
+
 </beans:beans>
