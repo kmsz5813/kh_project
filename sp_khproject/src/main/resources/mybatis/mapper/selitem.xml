@@ -9,7 +9,7 @@
  	<insert id="insertData" parameterType="selItemDto">
 		INSERT INTO SEL_ITEM(SEL_ID, SEL_SELNAME, SEL_INTEREST, SEL_LOCATION)
 	</insert> 
-
+	
 
 
 
