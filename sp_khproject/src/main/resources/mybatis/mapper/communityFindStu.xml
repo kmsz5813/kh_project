@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="communityFindStuMapper">
+	<select id="getNextSeq" resultType="_int">
+		SELECT FINDSTU_SEQ.NEXTVAL FROM DUAL
+	</select>
+	<insert id="insertData" parameterType="communityFindStuDto">
+		INSERT INTO FINDSTU (FINDSTU_ID, USER_NAME, FINDSTU_TITLE, FINDSTU_CONTENT, FINDSTU_DATE)
+		     VALUES(#{findstu_id}, #{user_name}, #{findstu_title}, #{findstu_content}, SYSDATE)
+	</insert>
+	
+	<select id="selectQuestion" resultType="communityFindStuDto">
+		SELECT F.FINDSTU_ID, F.FINDSTU_TITLE, F.FINDSTU_CONTENT
+		     , F.USER_NAME
+		     , F.FINDSTU_DATE
+		     , F.FINDSTU_VIEW AS findstu_view
+		     , F."FINDSTU_LIKE"
+		  FROM FINDSTU F
+		  JOIN ACCOUNTS A
+		    ON F.USER_NAME = A.AC_NAME
+		 WHERE F.FINDSTU_ID = #{findstu_id}
+	</select>
+	
+	<select id="selectData" resultType="communityFindStuDto">
+		SELECT F.FINDSTU_ID, F.FINDSTU_TITLE, F.FINDSTU_CONTENT
+		     , F.USER_NAME
+		     , F.FINDSTU_DATE
+		     , F.FINDSTU_VIEW AS findstu_view
+		     , F."FINDSTU_LIKE"
+		  FROM FINDSTU F
+		  JOIN ACCOUNTS A
+		    ON F.USER_NAME = A.AC_NAME
+		 WHERE F.FINDSTU_ID = #{findstu_id}
+	</select>
+	<update id="updateViewCnt" parameterType="communityFindStuDto">
+		UPDATE FINDSTU
+		   SET FINDSTU_VIEW = #{findstu_view} + 1
+		 WHERE FINDSTU_ID = #{findstu_id}
+	</update>
+	<update id="updateLike" parameterType="communityFindStuDto">
+		UPDATE FINDSTU
+		   SET "FINDSTU_LIKE" = #{findstu_like}
+		 WHERE FINDSTU_ID= #{findstu_id}
+	</update>
+	<select id="selectStatics" parameterType="communityFindStuStaticsDto" resultType="communityFindStuStaticsDto">
+		SELECT FINDSTU_ID, USER_NAME, FINDSTU_BID
+		     , FINDSTU_VIEWED
+		     , FINDSTU_LATEST_VIEW_DATE AS findstu_latestViewDate
+		     , FINDSTU_LIKED
+		  FROM FINDSTU_STATICS
+		 WHERE USER_NAME = #{user_name}
+		   AND FINDSTU_BID = #{findstu_bId}
+	</select>
+	<insert id="insertStatics" parameterType="communityFindStuStaticsDto">
+		INSERT INTO FINDSTU_STATICS
+		     VALUES(FINDSTU_STATICS_SEQ.NEXTVAL
+		          , #{user_name}, #{findstu_bId}, 'Y', SYSDATE, 'N')
+	</insert>
+	<update id="updateStatics" parameterType="communityFindStuStaticsDto">
+		UPDATE FINDSTU_STATICS
+		   SET FINDSTU_LATEST_VIEW_DATE = SYSDATE
+		 WHERE FINDSTU_ID = #{findstu_id}
+	</update>
+	<update id="updateStaticsLike" parameterType="communityFindStuStaticsDto">
+		UPDATE FINDSTU_STATICS
+		<choose>
+			<when test="liked">
+				SET FINDSTU_LIKED = 'Y'
+			</when>
+			<otherwise>
+				SET FINDSTU_LIKED = 'N'
+			</otherwise>
+		</choose>
+		 WHERE FINDSTU_ID = #{findstu_id}
+	</update>
+	<select id="selectAll" resultType="communityFindStuDto">
+		SELECT F.FINDSTU_ID, F.FINDSTU_TITLE, F.FINDSTU_CONTENT
+		     , F.USER_NAME
+		     , F.FINDSTU_DATE
+		     , F.FINDSTU_VIEW AS findstu_view
+		     , F."FINDSTU_LIKE"
+		  FROM FINDSTU F
+		  JOIN ACCOUNTS A
+		    ON F.USER_NAME = A.AC_NAME
+		 ORDER BY F.FINDSTU_ID DESC
+	</select>
+	<delete id="deleteStaticsData">
+		DELETE FROM FINDSTU_STATICS
+		 WHERE FINDSTU_BID = #{findstu_bId}
+	</delete>
+	<delete id="deleteData">
+		DELETE FROM FINDSTU
+		 WHERE FINDSTU_ID = #{findstu_id}
+	</delete>
+	<update id="updateData" parameterType="communityFindStuDto">
+		UPDATE FINDSTU
+		   SET FINDSTU_TITLE = #{findstu_title}
+		     , FINDSTU_CONTENT = #{findstu_content}
+		 WHERE FINDSTU_ID = #{findstu_id}
+	</update>
+</mapper>

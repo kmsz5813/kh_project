@@ -7,22 +7,22 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class CommunityDAO {
+public class CommunityFindStuDAO {
 	
 	@Autowired
 	private SqlSession session;
 	
-	private String mapper = "communityMapper.%s";
+	private String mapper = "communityFindStuMapper.%s";
 	
-	public List<CommunityDTO> selectAll() {
+	public List<CommunityFindStuDTO> selectAll() {
 		String mapperId = String.format(mapper, "selectAll");
-		List<CommunityDTO> res = session.selectList(mapperId);
+		List<CommunityFindStuDTO> res = session.selectList(mapperId);
 		return res;
 	}
 	
-	public CommunityDTO selectData(int cum_id) {
+	public CommunityFindStuDTO selectData(int id) {
 		String mapperId = String.format(mapper, "selectData");
-		CommunityDTO res = session.selectOne(mapperId, cum_id);
+		CommunityFindStuDTO res = session.selectOne(mapperId, id);
 		return res;
 	}
 	
@@ -32,61 +32,61 @@ public class CommunityDAO {
 		return seq;
 	}
 	
-	public boolean insertData(CommunityDTO data) {
+	public boolean insertData(CommunityFindStuDTO data) {
 		String mapperId = String.format(mapper, "insertData");
 		int res = session.insert(mapperId, data);
 		return res == 1 ? true : false;
 	}
 	
-	public boolean updateData(CommunityDTO data) {
+	public boolean updateData(CommunityFindStuDTO data) {
 		String mapperId = String.format(mapper, "updateData");
 		int res = session.update(mapperId, data);
 		return res == 1 ? true : false;
 	}
 	
-	public boolean deleteStaticsData(CommunityStaticsDTO data) {
+	public boolean deleteStaticsData(CommunityFindStuStaticsDTO data) {
 		String mapperId = String.format(mapper, "deleteStaticsData");
 		int res = session.delete(mapperId, data);
 		return res >= 0 ? true : false;
 	}
 	
-	public boolean deleteData(CommunityDTO data) {
+	public boolean deleteData(CommunityFindStuDTO data) {
 		String mapperId = String.format(mapper, "deleteData");
 		int res = session.delete(mapperId, data);
 		return res == 1 ? true : false;
 	}
 	
-	public boolean updateViewCnt(CommunityDTO data) {
+	public boolean updateViewCnt(CommunityFindStuDTO data) {
 		String mapperId = String.format(mapper, "updateViewCnt");
 		int res = session.update(mapperId, data);
 		return res == 1 ? true : false;
 	}
 	
-	public CommunityStaticsDTO selectStatics(CommunityStaticsDTO data) {
+	public CommunityFindStuStaticsDTO selectStatics(CommunityFindStuStaticsDTO data) {
 		String mapperId = String.format(mapper, "selectStatics");
-		CommunityStaticsDTO res = session.selectOne(mapperId, data);
+		CommunityFindStuStaticsDTO res = session.selectOne(mapperId, data);
 		return res;
 	}
 	
-	public boolean insertStatics(CommunityStaticsDTO data) {
+	public boolean insertStatics(CommunityFindStuStaticsDTO data) {
 		String mapperId = String.format(mapper, "insertStatics");
 		int res = session.insert(mapperId, data);
 		return res == 1 ? true : false;
 	}
 	
-	public boolean updateStatics(CommunityStaticsDTO data) {
+	public boolean updateStatics(CommunityFindStuStaticsDTO data) {
 		String mapperId = String.format(mapper, "updateStatics");
 		int res = session.update(mapperId, data);
 		return res == 1 ? true : false;
 	}
 
-	public boolean updateLike(CommunityDTO data) {
+	public boolean updateLike(CommunityFindStuDTO data) {
 		String mapperId = String.format(mapper, "updateLike");
 		int res = session.update(mapperId, data);
 		return res == 1 ? true : false;
 	}
 	
-	public boolean updateStaticsLike(CommunityStaticsDTO data) {
+	public boolean updateStaticsLike(CommunityFindStuStaticsDTO data) {
 		String mapperId = String.format(mapper, "updateStaticsLike");
 		int res = session.update(mapperId, data);
 		return res == 1 ? true : false;
