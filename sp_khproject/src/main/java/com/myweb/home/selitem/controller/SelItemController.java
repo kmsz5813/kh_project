@@ -92,7 +92,10 @@ public class SelItemController {
 		List result = service.getData(data);
 		
 		//특정되어있는 값 가져오기
-		String selectData = request.getParameter("select"); // <<<<<<< 주소값
+		String selectData = null;
+		if(selectData != null) {			
+			selectData = request.getParameter("select"); // <<<<<<< 주소값
+		}
 		
 		List seletResult = service.getSelect(selectData);
 		
