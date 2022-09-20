@@ -84,7 +84,7 @@
 			</div>
 			<div class="mt-5">
 				<input type="radio" class="btn-check radio-value" value = "1" name="options-outlined" id="success-outlined" autocomplete="off" checked>
-				<label class="btn btn-outline-success" for="success-outlined">구매내역</label>
+				<label class="btn btn-outline-success" for="success-outlined">판매 게시글</label>
 				
 				<input type="radio" class="btn-check radio-value" value = "2" name="options-outlined" id="success-outlined2" autocomplete="off">
 				<label class="btn btn-outline-success" for="success-outlined2">관심상품</label>
@@ -96,17 +96,26 @@
 					<div class="mt-5">
 						<table class="table table-hover">
 							<colgroup>
-								<col class="col-2">
-								<col class="col-auto">
-								<col class="col-5">
+								<col class="col">
+								<col class="col">
+								<col class="col">
 							</colgroup>
-							<thead style="background-color: rgb(224, 224, 224)">
+							<thead style="background-color: rgb(224, 224, 224)">							
 								<tr>
 									<th class="text-center">test</th>
 									<th class="text-center">test</th>
 									<th class="text-center">test</th>
 								</tr>
 							</thead>
+							<tbody>
+								<c:forEach items="${items}" var="items">
+									<tr>
+										<td class="text-center">${items.sel_id}<td>
+										<td class="text-center">${items.sel_title}<td>
+										<td class="text-center">${items.sel_writeday}<td>
+									</tr>
+								</c:forEach>
+							</tbody>
 						</table>
 					</div>
 				</section>

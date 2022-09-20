@@ -78,19 +78,24 @@
 	<section class="container w-75">
 	<div class="mt-5" >
 	<c:url var="addurl" value="/sellitem/additem" />
-	<form action="${addurl}" method="post">
-			
+	<form id="fileForm" action="${addurl}" method="post" enctype="multipart/form-data">
+			<div class="form-group">
+				<label class="col-sm-2 control-label">제목</label>
+				<div class="col-sm-10">
+					<input class="form-control" type="text" name="title" placeholder="제목을 입력하세요.">
+				</div>
+			</div>
 		    <div class="form-group">
 		       <label class="col-sm-2 control-label">서비스</label>
 		       <div class="col-sm-10">
-		       <select class="form-control" name="service">
-					<option selected value="무관">-선택-</option>
-					<option value="IT">IT</option>
-					<option value="레슨">레슨</option>
-					<option value="미용">미용</option>
-					<option value="국영수">국영수</option>
-					<option value="기타">기타</option>
-		       	</select>
+			       <select class="form-control" name="field">
+						<option selected value="무관">-선택-</option>
+						<option value="IT">IT</option>
+						<option value="레슨">레슨</option>
+						<option value="미용">미용</option>
+						<option value="국영수">국영수</option>
+						<option value="기타">기타</option>
+			       	</select>
 		       </div>
 		    </div>
 		    <div class="form-group">
@@ -118,29 +123,24 @@
 			        </select>
 		     	</div>
 		     </div>
-		<div class="form-group row">
-		상품상세설명
-		<div>
-			<textarea name="description" cols="50" placeholder="내용을 입력해주세요." rows="5" class="form-control"></textarea>
-		</div>
-		</div>
-		<div class="form-group row">
-		<input type="file" class="real-upload" accept="image/*" >
-		</div>
-		<div class="form-group row">
-		<button type="submit"  class="form-control" onclick="imageUpload()">등록</button>
-		</div>
-	</form>
+			<div class="form-group row">
+				상품상세설명
+				<div>
+					<textarea name="description" cols="50" placeholder="내용을 입력해주세요." rows="5" class="form-control"></textarea>
+				</div>
+			</div>
+			<div class="form-group row">
+				<input name="file" type="file" class="real-upload" accept="image/png" multiple>
+			</div>
+			<div class="form-group row">
+				<button type="submit" class="form-control" onclick="imageUpload()">등록</button>
+			</div>
+		</form>
 	</div>
 	</section>
-	
+
 	<footer></footer>
 	<c:url var="upload" value="/upload/image" />
-	<script type="text/javascript">
-		CKEDITOR.replace("content", {
-			filebrowserUploadUrl: "${upload}?type=image"
-		})
-	</script>
 	<c:if test="${not empty error}">
 		<script type="text/javascript">
 			alert("${error}");

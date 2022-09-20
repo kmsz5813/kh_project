@@ -3,6 +3,7 @@ package com.myweb.home.info.controller;
 import java.io.File;
 import java.io.IOException;
 import java.util.Iterator;
+import java.util.List;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -32,6 +33,8 @@ import org.springframework.web.multipart.MultipartRequest;
 
 import com.myweb.home.Accounts.model.AccountsDTO;
 import com.myweb.home.login.service.LoginService;
+import com.myweb.home.selitem.model.SelItemDTO;
+import com.myweb.home.selitem.service.SelItemService;
 
 
 @Controller
@@ -42,7 +45,8 @@ public class InfoController {
 	
 	@Autowired
 	private LoginService service;
-	
+	@Autowired
+	private SelItemService selService;
 	
 	@GetMapping(value="")
 	public String main(Model model
@@ -53,7 +57,8 @@ public class InfoController {
 		
 		// 프로필 이미지 이름은 서버에 이메일로 저장되므로
 		request.setAttribute("profileImage", acDto.getAc_email());
-		
+		List<SelItemDTO> items = selService.getName(acDto.getAc_name());
+		request.setAttribute("items", items);
 		
 		return "info/info";
 		

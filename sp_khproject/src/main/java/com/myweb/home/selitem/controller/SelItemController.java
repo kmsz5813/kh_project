@@ -1,4 +1,6 @@
 package com.myweb.home.selitem.controller;
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.myweb.home.Accounts.model.AccountsDTO;
 import com.myweb.home.common.Paging;
@@ -32,7 +35,7 @@ public class SelItemController {
 	private SelItemService service;
 	
 	@Autowired
-	private LoginService service2;
+	private LoginService loginService;
 	
 //	@Autowired
 //	private FileUploadService fileUploadService;
@@ -46,29 +49,51 @@ public class SelItemController {
 	@PostMapping(value="/additem")
 	public String additem(Model model, HttpServletRequest request
 			,@SessionAttribute("loginData") AccountsDTO acData
-			) {
+			, MultipartHttpServletRequest mtfRequest) {
 		SelItemDTO data = new SelItemDTO();
 		
 		// jsp에서 값을 받아오는
-	   String service1 = request.getParameter("service1");
-	   String location = request.getParameter("location");
-	   String description = request.getParameter("description");
+		String title = request.getParameter("title");
+	    String service1 = request.getParameter("field");
+	    String location = request.getParameter("location");
+	    String content = request.getParameter("description");
 		System.out.println(service1);
+		System.out.println(title);
 		System.out.println(location);
-		System.out.println(description);
-		data.setSel_interest(service1);
+		System.out.println(content);
+		data.setSel_title(title);
+		data.setSel_field(service1);
 		data.setSel_location(location);
-		data.setSel_content(description);
+		data.setSel_content(content);
 		data.setSel_name(acData.getAc_name());
 	
-		System.out.println(data.getSel_interest());
+		System.out.println(data.getSel_field());
 		System.out.println(data.getSel_name());
 		System.out.println(data);
+		
+		// 이미지 다수 업로드
+		List<MultipartFile> fileList = mtfRequest.getFiles("file");
+		String path = request.getServletContext().getRealPath("/resources/img/item/") + acData.getAc_name() + ".png";
+		
+		for (MultipartFile mf : fileList) {
+            String originFileName = mf.getOriginalFilename(); // 원본 파일 명
+            long fileSize = mf.getSize(); // 파일 사이즈
+            System.out.println("originFileName : " + originFileName);
+            System.out.println("fileSize : " + fileSize);
+            String safeFile = path + System.currentTimeMillis() + originFileName;
+            try {
+                mf.transferTo(new File(safeFile));
+            } catch (IllegalStateException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
 		
 		boolean result = service.add(data);
 		
 		if(result) {
-			return "sellitem/list";
+			return "redirect:/sellitem";
 		}else {
 			return "sellitem/additem";
 		}
@@ -129,13 +154,20 @@ public class SelItemController {
 		return "/sellitem/list";
 	}
 	
-	@GetMapping(value="/gosudetail")
-	public String detail(Model model, HttpServletRequest request) {
+	@GetMapping(value="/itemdetail")
+	public String detail(Model model, HttpServletRequest request
+			, @SessionAttribute("loginData") AccountsDTO acData) {
+		// 판매자 닉네임 가져오기
 		String name = request.getParameter("search");
-		AccountsDTO data = service2.nameCheck(name);
-		request.setAttribute("data", data);
+		AccountsDTO data = loginService.nameCheck(name);
+		//아이템 번호도 가져와야됨
+		int itemid = Integer.parseInt(request.getParameter("itemid"));
+		SelItemDTO itemdata = service.getData(itemid);
 		
-		return "detail/detail";
+		request.setAttribute("data", data);
+		request.setAttribute("itemdata", itemdata);
+		request.setAttribute("loginData", acData);
+		return "sellitem/itemdetail";
 	}
 	
 }
