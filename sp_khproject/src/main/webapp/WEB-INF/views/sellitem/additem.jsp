@@ -11,10 +11,6 @@
 	<c:url var="bs5" value="/static/bs5" />
 	<c:url var="jQuery" value="/static/js" />
 	<link rel="stylesheet" type="text/css" href="${bs5}/css/bootstrap.min.css">
-	<%@ include file="../module/head.jsp" %>
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-	
-	
 </head>
 <script type="text/javascript">
 	function formCheck(form) {
@@ -57,6 +53,7 @@
 	}
 </script>
 <body>
+	<%@ include file="../module/head.jsp" %>
   <input type="file" class="real-upload" accept="image/*" required multiple style="display: none;">
   <div class="upload"></div>
   <script>

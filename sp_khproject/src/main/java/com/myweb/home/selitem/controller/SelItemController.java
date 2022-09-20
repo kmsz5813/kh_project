@@ -1,7 +1,10 @@
 package com.myweb.home.selitem.controller;
 import java.io.File;
 import java.io.IOException;
+
+
 import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -23,14 +26,12 @@ import com.myweb.home.common.Paging;
 import com.myweb.home.login.service.LoginService;
 import com.myweb.home.selitem.model.SelItemDTO;
 import com.myweb.home.selitem.service.SelItemService;
-import com.myweb.home.selitem.vo.BoardVO;
-import com.myweb.home.upload.model.FileUploadDTO;
-import com.myweb.home.upload.service.FileUploadService;
 
 @Controller
 @RequestMapping(value="/sellitem")
 public class SelItemController {
 	
+			
 	@Autowired
 	private SelItemService service;
 	
@@ -49,7 +50,7 @@ public class SelItemController {
 	@PostMapping(value="/additem")
 	public String additem(Model model, HttpServletRequest request
 			,@SessionAttribute("loginData") AccountsDTO acData
-			, MultipartHttpServletRequest mtfRequest) {
+			, MultipartHttpServletRequest mtfRequest) throws Exception {
 		SelItemDTO data = new SelItemDTO();
 		
 		// jsp에서 값을 받아오는
@@ -57,24 +58,15 @@ public class SelItemController {
 	    String service1 = request.getParameter("field");
 	    String location = request.getParameter("location");
 	    String content = request.getParameter("description");
-		System.out.println(service1);
-		System.out.println(title);
-		System.out.println(location);
-		System.out.println(content);
 		data.setSel_title(title);
 		data.setSel_field(service1);
 		data.setSel_location(location);
 		data.setSel_content(content);
 		data.setSel_name(acData.getAc_name());
-	
-		System.out.println(data.getSel_field());
-		System.out.println(data.getSel_name());
-		System.out.println(data);
 		
 		// 이미지 다수 업로드
 		List<MultipartFile> fileList = mtfRequest.getFiles("file");
-		String path = request.getServletContext().getRealPath("/resources/img/item/") + acData.getAc_name() + ".png";
-		
+		String path = request.getServletContext().getRealPath("/resources/img/item/");
 		for (MultipartFile mf : fileList) {
             String originFileName = mf.getOriginalFilename(); // 원본 파일 명
             long fileSize = mf.getSize(); // 파일 사이즈
@@ -90,6 +82,8 @@ public class SelItemController {
             }
         }
 		
+
+        
 		boolean result = service.add(data);
 		
 		if(result) {
@@ -98,6 +92,7 @@ public class SelItemController {
 			return "sellitem/additem";
 		}
 	}
+	
 
 
 	@GetMapping(value="")

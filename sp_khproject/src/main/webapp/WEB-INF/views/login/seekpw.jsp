@@ -10,8 +10,6 @@
 <%@ page import="java.security.SecureRandom" %>
 <%@ page import="java.math.BigInteger" %>
 
-
-
 <!DOCTYPE html>
 <html>
 <head>
