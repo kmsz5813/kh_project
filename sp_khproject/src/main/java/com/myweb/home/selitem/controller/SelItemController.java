@@ -1,5 +1,8 @@
 package com.myweb.home.selitem.controller;
+import java.io.IOException;
 import java.util.List;
+
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -31,32 +34,39 @@ public class SelItemController {
 	@Autowired
 	private SelItemService service;
 	
+	
+	
 	@Autowired
 	private LoginService service2;
 	
 //	@Autowired
 //	private FileUploadService fileUploadService;
 	@GetMapping(value="/additem")
-	public String additem(Model model, @SessionAttribute("loginData") AccountsDTO acData) {
+	public String additem(Model model
+		, @SessionAttribute("loginData") AccountsDTO acData) {
 		System.out.println(acData);
 		System.out.println(acData.getAc_name());
+		String test = "김민성";
+		model.addAttribute("test", test);
 		return "/sellitem/additem";
 	}
 	
 	@PostMapping(value="/additem")
 	public String additem(Model model, HttpServletRequest request
-			,@SessionAttribute("loginData") AccountsDTO acData
-			) {
+			, @SessionAttribute("loginData") AccountsDTO acData
+			, @RequestParam("uplocadImg") MultipartFile Part) throws IOException, ServletException
+			 {
 		SelItemDTO data = new SelItemDTO();
-		
+		 
 		// jsp에서 값을 받아오는
-	   String service1 = request.getParameter("service1");
+	   String interest = request.getParameter("interest");
 	   String location = request.getParameter("location");
 	   String description = request.getParameter("description");
-		System.out.println(service1);
+		System.out.println(interest);
 		System.out.println(location);
 		System.out.println(description);
-		data.setSel_interest(service1);
+		
+		data.setSel_interest(interest);
 		data.setSel_location(location);
 		data.setSel_content(description);
 		data.setSel_name(acData.getAc_name());
@@ -68,7 +78,7 @@ public class SelItemController {
 		boolean result = service.add(data);
 		
 		if(result) {
-			return "sellitem/list";
+			return "redirect: ";
 		}else {
 			return "sellitem/additem";
 		}
@@ -86,16 +96,17 @@ public class SelItemController {
 		String search = request.getParameter("search");
 		List serachData = service.getSearch(search);
 
-		
+		System.out.println("search값 :" + search);
 		//저장되어 있는 모든 데이터 값 가져오기...	
 		SelItemDTO data = new SelItemDTO();
 		List result = service.getData(data);
 		
 		//특정되어있는 값 가져오기
-		String selectData = null;
-		if(selectData != null) {			
-			selectData = request.getParameter("select"); // <<<<<<< 주소값
-		}
+		
+	
+		String	selectData = request.getParameter("select"); // <<<<<<< 주소값
+			System.out.println(selectData);
+
 		
 		List seletResult = service.getSelect(selectData);
 		
@@ -130,12 +141,20 @@ public class SelItemController {
 	}
 	
 	@GetMapping(value="/gosudetail")
-	public String detail(Model model, HttpServletRequest request) {
+	public String detail(Model model, HttpServletRequest request
+			, @SessionAttribute("loginData") AccountsDTO acDto) {
+		request.setAttribute("profileImage", acDto.getAc_email());
 		String name = request.getParameter("search");
-		AccountsDTO data = service2.nameCheck(name);
-		request.setAttribute("data", data);
+		String selId = request.getParameter("selId");
 		
-		return "detail/detail";
+//		--dao부분 셀렉트원 셀렉트 조회할때는 그냥 where 절로 만들
+//		selectOne()
+//		select()
+		
+		
+//		request.setAttribute("data", data);
+		
+		return "sellitem/gosudetail";
 	}
 	
 }

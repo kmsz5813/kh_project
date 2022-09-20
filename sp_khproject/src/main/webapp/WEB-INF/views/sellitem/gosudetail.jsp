@@ -40,9 +40,13 @@
 					<p class="fw-bold fs-2">상품 상세</p>
 				</div>
 			</div>
-			<div class="row mt-3">
-				<div class="col-3 image-form left">
-					<img id="previewImg" class="image-360" alt="프로필 이미지" src="./static/img/profile/${data.ac_email}.png" onerror="this.onerror=null; this.src='./static/img/profile/basic.png'">
+			<div class="row mt-3">	
+				<div class="col-3">
+					<div class="image-form left">
+						<img id="previewImg" class="image-360" alt="프로필 이미지." src="./static/img/profile/${profileImage}.png" 
+						onerror="this.onerror=null; this.src='./static/img/profile/basic.png'">
+						<br>
+					</div>
 				</div>
 				<div class="col-4 mt-4">
 					<p>이름</p>
@@ -52,91 +56,90 @@
 				</div>
 				<div class="col-4 mt-4">
 					<p>${data.ac_name }</p>
-					<p>${data.ac_job }</p>
+					<p>${data.ac_location }</p>
 					<p>${data.ac_field }</p>
 					<p>${data.ac_interest }</p>
 				</div>
-				<div class="mt-5">
-					<input type="radio" class="btn-check radio-value" value="1" name="options-outlined" id="success-outlined" autocomplete="off" checked> <label class="btn btn-outline-success" for="success-outlined">구매내역</label> <input type="radio" class="btn-check radio-value" value="2" name="options-outlined" id="success-outlined2" autocomplete="off"> <label class="btn btn-outline-success" for="success-outlined2">관심상품</label> <input type="radio" class="btn-check radio-value" value="3" name="options-outlined" id="success-outlined3" autocomplete="off"> <label class="btn btn-outline-success" for="success-outlined3">메시지</label>
+			</div>
+			<div class="mt-5" >
+			상세 설명
+				<div class="mt-3">
+					생의 찬미를 
 				</div>
-				<section class="container container1">
-					<div class="mt-5">
-						<table class="table table-hover">
-							<colgroup>
-								<col class="col-2">
-								<col class="col-auto">
-								<col class="col-5">
-							</colgroup>
-							<thead style="background-color: rgb(224, 224, 224)">
-								<tr>
-									<th class="text-center">test</th>
-									<th class="text-center">test</th>
-									<th class="text-center">test</th>
-								</tr>
-							</thead>
-						</table>
-					</div>
-				</section>
-				<section class="container container2">
-					<div class="mt-5">
-						<table class="table table-hover">
-							<colgroup>
-								<col class="col-2">
-								<col class="col-auto">
-								<col class="col-5">
-							</colgroup>
-							<thead style="background-color: rgb(224, 224, 224)">
-								<tr>
-									<th class="text-center">test2</th>
-									<th class="text-center">test2</th>
-									<th class="text-center">test2</th>
-								</tr>
-							</thead>
-						</table>
-					</div>
-				</section>
-				<section class="container container3">
-					<div class="mt-5">
-						<table class="table table-hover">
-							<colgroup>
-								<col class="col-2">
-								<col class="col-auto">
-								<col class="col-5">
-							</colgroup>
-							<thead style="background-color: rgb(224, 224, 224)">
-								<tr>
-									<th class="text-center">test3</th>
-									<th class="text-center">test3</th>
-									<th class="text-center">test3</th>
-								</tr>
-							</thead>
-						</table>
-					</div>
-				</section>
+				<div class="mt-3">
+					열매를 맺어 우리인생을 풍부하게하는 것
+				</div>
+			</div>
+			<div class="mt-5">
+			경력
+				<table class="table table-bordered">
+				  <thead>
+				    <tr>
+				      <th scope="col"></th>
+				      <th scope="col"></th>
+				      <th scope="col"></th>
+				
+				    </tr>
+				  </thead>
+				  <tbody>
+				    <tr>
+				      <th scope="row"></th>
+				      <td></td>
+				      <td></td>
+				     
+				    </tr>
+				    <tr>
+				      <th scope="row"></th>
+				      <td></td>
+				      <td></td>
+				    
+				    </tr>
+				    <tr>
+				      <th scope="row"></th>
+				      <td></td>
+				 	  <td></td>
+				    </tr>
+				  </tbody>
+				</table>
+			</div>
+			<div class="mt-5 mb-5">
+			리뷰
+			<table class="table table-bordered">
+				  <thead>
+				    <tr>
+				      <th scope="col">No.</th>
+				      <th scope="col">First</th>
+				      <th scope="col">Last</th>
+				
+				    </tr>
+				  </thead>
+				  <tbody>
+				    <tr>
+				      <th scope="row">1</th>
+				      <td>Mark</td>
+				      <td>Otto</td>
+				     
+				    </tr>
+				    <tr>
+				      <th scope="row">2</th>
+				      <td>Jacob</td>
+				      <td>Thornton</td>
+				    
+				    </tr>
+				    <tr>
+				      <th scope="row">3</th>
+				      <td>Larry the Bird</td>
+				 	  <td>Larry the Bird</td>
+				    </tr>
+				  </tbody>
+				</table>
+			</div>
+			<div class="mt-5 btn-group" role="group" aria-label="Basic example">
+				<button type="button" class="form-control mb-5 w-25" style="background-color:rgb(39,174,96); text:white; margin-left:4rem">견적 요청하기</button>
+				<button  type="button"  class="form-control mb-5 w-25" style="background-color:rgb(224,224,224); text:white;" onclick="location.href='message/ChattingUser'">견적 요청하기</button>
+				<button  type="button"  class="form-control mb-5 w-50" style="background-color:rgb(39,174,96); text:white;">견적 요청하기</button>
 			</div>
 		</div>
 	</section>
-
-	<script type="text/javascript">
-		// radio active 버튼
-		$('.radio-value').on('click', function() {
-			var chkValue = $('.radio-value:checked').val();
-			if (chkValue == 1) {
-				$('.container1').css("display", "block");
-				$('.container2').css("display", "none");
-				$('.container3').css("display", "none");
-			}
-			if (chkValue == 2) {
-				$('.container1').css("display", "none");
-				$('.container2').css("display", "block");
-				$('.container3').css("display", "none");
-			}
-			if (chkValue == 3) {
-				$('.container1').css("display", "none");
-				$('.container2').css("display", "none");
-				$('.container3').css("display", "block");
-			}
-		});
-	</script>
 </body>
 </html>

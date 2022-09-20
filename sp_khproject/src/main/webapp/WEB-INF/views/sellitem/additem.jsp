@@ -83,7 +83,7 @@
 		    <div class="form-group">
 		       <label class="col-sm-2 control-label">서비스</label>
 		       <div class="col-sm-10">
-		       <select class="form-control" name="service">
+		       <select class="form-control" name="interest">
 					<option selected value="무관">-선택-</option>
 					<option value="IT">IT</option>
 					<option value="레슨">레슨</option>
@@ -120,12 +120,15 @@
 		     </div>
 		<div class="form-group row">
 		상품상세설명
+		${test}
+		
 		<div>
 			<textarea name="description" cols="50" placeholder="내용을 입력해주세요." rows="5" class="form-control"></textarea>
 		</div>
 		</div>
 		<div class="form-group row">
-		<input type="file" class="real-upload" accept="image/*" >
+			<input id="imageBtn" type="file" accept="image/jpeg,image/png">
+		 	<button type="button" onclick="imageBtn.click();" class="form-control p-1 mb-2 bg-secondary" style="-bs-opacity: .5;">사진 첨부</button>
 		</div>
 		<div class="form-group row">
 		<button type="submit"  class="form-control" onclick="imageUpload()">등록</button>
