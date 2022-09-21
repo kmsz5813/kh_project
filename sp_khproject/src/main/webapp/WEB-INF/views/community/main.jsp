@@ -39,14 +39,17 @@
 
 <!-- style, css -->
 <style>
-.carousel-item {
-	width: 1500px;
-	height: 500px;
+a:link {
+	text-decoration: none;
+	color: black;
+	font-weight: bold;
+	font-family: 'Noto Sans KR', sans-serif;
 }
 
 body {
 	width: 1500px;
 	margin: auto;
+	font-family: 'Noto Sans KR', sans-serif;
 }
 
 #jb-container {
@@ -57,7 +60,6 @@ body {
 #jb-header {
 	padding: 20px;
 	margin-bottom: 20px;
-	border: 1px solid #bcbcbc;
 }
 
 #jb-content-head {
@@ -66,7 +68,6 @@ body {
 	padding: 20px;
 	margin-bottom: 20px;
 	float: left;
-	border: 1px solid #bcbcbc;
 }
 
 #jb-sidebar {
@@ -75,7 +76,6 @@ body {
 	padding: 20px;
 	margin-bottom: 20px;
 	float: left;
-	border: 1px solid #bcbcbc;
 	padding: 20px;
 }
 
@@ -84,16 +84,14 @@ body {
 	padding: 20px;
 	margin-bottom: 20px;
 	float: left;
-	border: 1px solid #bcbcbc;
 }
 
 #jb-footer {
 	width: 1500px;
 	clear: both;
-	padding: 20px;
+	padding: 10px;
 	margin-top: 1200px;
 	text-align: center;
-	border-top: 3px solid #dcdcde;
 	font-family: 'Noto Sans KR', sans-serif;
 	clear: both;
 }
@@ -143,16 +141,24 @@ li {
 @media ( max-width : 991.98px) .feed-item[data-v-05dbd958] {
 	padding
 	
+	
 		
+	
 	
 	:
 	
+	
 	 
+	
 	
 	1
 	
 	
+	
+	
 	.25rem
+	
+	
 	
 	
 	;
@@ -213,7 +219,7 @@ feed-item .feed-content {
 		<header>
 			<!-- 로그인/회원가입/FAQ -->
 			<div id="jb-header"
-				style="text-align: right; margin-right: 30px; position: relative; top: 20px;">
+				style="text-align: right; margin-right: -30px; position: relative; top: 20px;">
 				<c:if test="${empty loginData }">
 					<a href="${pageContext.request.contextPath}/login">로그인</a>&emsp;/&emsp; 
 			<a href="${pageContext.request.contextPath}/login/sign">회원가입</a>
@@ -221,132 +227,12 @@ feed-item .feed-content {
 				</c:if>
 				<c:if test="${not empty loginData }">
 			${loginData.ac_name }님 환영합니다!&emsp;/&emsp;
-			<a href="main/logout">로그아웃&emsp;/&emsp;</a>
+			<a href="${pageContext.request.contextPath}/main/logout">로그아웃&emsp;/&emsp;</a>
 					<a href="${pageContext.request.contextPath}/info">마이페이지&emsp;&emsp;</a>
 				</c:if>
 			</div>
 
-			<!-- nav-bar -->
-			<script type="text/javascript">
-				$('.carousel').carousel()
 
-				function changeEdit(element) {
-					element.innerText = "확인";
-					element.nextElementSibling.remove();
-
-					var value = element.parentElement.previousElementSibling.innerText;
-					var textarea = document.createElement("textarea");
-					textarea.setAttribute("class", "form-control");
-					textarea.value = value;
-
-					element.parentElement.previousElementSibling.innerText = "";
-					element.parentElement.previousElementSibling
-							.append(textarea);
-
-					element.setAttribute("onclick", "communityUpdate(this);");
-				}
-
-				function changeText(element) {
-					element.innerText = "수정";
-					var cum_com_id = element.parentElement.parentElement.children[0].value;
-					var value = element.parentElement.previousElementSibling.children[0].value;
-					element.parentElement.previousElementSibling.children[0]
-							.remove();
-					element.parentElement.previousElementSibling.innerText = value;
-
-					var btnDelete = document.createElement("button");
-					btnDelete.innerText = "삭제";
-					btnDelete.setAttribute("class",
-							"btn btn-sm btn-outline-dark");
-					btnDelete
-							.setAttribute("onclick",
-									"communitycommentDelete(this, "
-											+ cum_com_id + ");");
-
-					element.parentElement.append(btnDelete);
-					element.setAttribute("onclick", "changeEdit(this);");
-				}
-
-				function communitycommentUpdate(element) {
-					var ccum_com_id = element.parentElement.parentElement.children[0].value;
-					var value = element.parentElement.previousElementSibling.children[0].value;
-
-					$
-							.ajax({
-								url : "/community/comment/modify",
-								type : "post",
-								data : {
-									id : cum_com_id,
-									content : value
-								},
-								success : function(data) {
-									element.parentElement.previousElementSibling.children[0].value = data.value
-									changeText(element);
-								}
-							});
-				}
-
-				function communitycommentDelete(element, com_com_id) {
-					$
-							.ajax({
-								url : "/community/comment/delete",
-								type : "post",
-								data : {
-									id : cum_com_id
-								},
-								success : function(data) {
-									if (data.code === "success") {
-										element.parentElement.parentElement.parentElement.parentElement
-												.remove();
-									}
-								}
-							});
-				}
-				function formCheck(form) {
-					if (form.content.value.trim() === "") {
-						alert("댓글 내용을 입력하세요.");
-					} else {
-						form.submit();
-					}
-				}
-				function deleteBoard(cum_Id) {
-					$.ajax({
-						url : "${communityUrl}/delete",
-						type : "post",
-						data : {
-							id : cum_Id
-						},
-						dataType : "json",
-						success : function(data) {
-							if (data.code === "success") {
-								alert("삭제 완료");
-								location.href = "${communityUrl}";
-							} else if (data.code === "permissionError") {
-								alert("권한이 오류");
-							} else if (data.code === "notExists") {
-								alert("이미 삭제되었습니다.")
-							}
-						}
-					});
-				}
-				function ajaxLike(element, cum_id) {
-					$.ajax({
-						type : "post",
-						url : "${communityUrl}/like",
-						data : {
-							id : cum_id
-						},
-						success : function(data) {
-							if (data.code === "success") {
-								element.innerText = data.like;
-							} else if (data.code === "noData") {
-								alert(data.message);
-								location.href = "${communityUrl}";
-							}
-						}
-					});
-				}
-			</script>
 
 			<div style="text-align: center;">
 				<a href="#" style="display: table; margin-top: -100px;"> <img
@@ -398,14 +284,6 @@ feed-item .feed-content {
 					aria-label="Toggle navigation">
 					<span class="navbar-toggler-icon"></span>
 				</button>
-
-				<div class="collapse navbar-collapse" id="navbarSupportedContent">
-					<form action="${communityUrl}/home/community/add" method="post">
-						<input type="hidden" name="cid" value="${data.cum_id}">
-						<button class="btn btn-outline-success" type="submit"
-							style="width: 150px;" id="button" onclick="formCheck(this.form);">글쓰기</button>
-					</form>
-				</div>
 			</div>
 		</nav>
 
@@ -417,62 +295,38 @@ feed-item .feed-content {
 		<aside id="jb-sidebar">
 			<div>
 				<a href="${pageContext.request.contextPath}/community/main"
-				 style="position: relative; top: 120px; left: 60px;">
+					style="position: relative; top: 120px; left: 60px;">
 					<button type="button" class="btn btn-outline-success"
 						style="width: 130px; height: 50px;">전체</button>
-				</a>
+		                                                                                                                		</a>
 			</div>
 			<div>
 				<a href="${pageContext.request.contextPath}/community/findPro"
-				 style="position: relative; top: 180px; left: 60px;">
+					style="position: relative; top: 180px; left: 60px;">
 					<button type="button" class="btn btn-outline-success"
 						style="width: 130px; height: 50px;">전문가 찾아요</button>
 				</a>
-				<c:forEach items="${findpro }" var="l">
-					<p id="conts">
-						<i class="fa fa-caret-right fa-1x mar-top"></i>&nbsp;
-						${l.FINDPRO_TITLE}
-					</p>
-				</c:forEach>
 			</div>
 			<div>
 				<a href="${pageContext.request.contextPath}/community/findStu"
-				 style="position: relative; top: 240px; left: 60px;">
+					style="position: relative; top: 240px; left: 60px;">
 					<button type="button" class="btn btn-outline-success"
 						style="width: 130px; height: 50px;">레슨자 찾아요</button>
 				</a>
-				<c:forEach items="${findstu }" var="l">
-					<p id="conts">
-						<i class="fa fa-caret-right fa-1x mar-top"></i>&nbsp;
-						${l.FINDSTU_TITLE}
-					</p>
-				</c:forEach>
 			</div>
 			<div>
-				<a href="${pageContext.request.contextPath}/community/question"
-				 style="position: relative; top: 300px; left: 60px;">
+				<a href="${pageContext.request.contextPath}/community/question/list"
+					style="position: relative; top: 300px; left: 60px;">
 					<button type="button" class="btn btn-outline-success"
 						style="width: 130px; height: 50px;">궁금해요</button>
 				</a>
-				<c:forEach items="${question }" var="l">
-					<p id="conts">
-						<i class="fa fa-caret-right fa-1x mar-top"></i>&nbsp;
-						${l.QUESTION_TITLE}
-					</p>
-				</c:forEach>
 			</div>
 			<div>
 				<a href="${pageContext.request.contextPath}/community/life"
-				 style="position: relative; top: 360px; left: 60px;">
+					style="position: relative; top: 360px; left: 60px;">
 					<button type="button" class="btn btn-outline-success"
 						style="width: 130px; height: 50px;">일상</button>
 				</a>
-				<c:forEach items="${life }" var="l">
-					<p id="conts">
-						<i class="fa fa-caret-right fa-1x mar-top"></i>&nbsp;
-						${l.LIFE_TITLE}
-					</p>
-				</c:forEach>
 			</div>
 			<div>
 				<a href="${pageContext.request.contextPath}/community/notice"
@@ -514,7 +368,8 @@ feed-item .feed-content {
 					<h2>커뮤니티 HOT🔥</h2>
 				</div>
 				<div>
-					<a href="${pageContext.request.contextPath}/community/notice" data-testid="curation-item" tabIndex="-1"
+					<a href="${pageContext.request.contextPath}/community/notice"
+						data-testid="curation-item" tabIndex="-1"
 						style="width: 100%; display: block;"> <span
 						style="position: relative; top: 120px; left: 50px;">
 							<button type="button" class="btn btn-outline-success"
