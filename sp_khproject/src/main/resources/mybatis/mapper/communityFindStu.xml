@@ -8,60 +8,60 @@
 	</select>
 	<insert id="insertData" parameterType="communityFindStuDto">
 		INSERT INTO FINDSTU (FINDSTU_ID, USER_NAME, FINDSTU_TITLE, FINDSTU_CONTENT, FINDSTU_DATE)
-		     VALUES(#{findstu_id}, #{user_name}, #{findstu_title}, #{findstu_content}, SYSDATE)
+		     VALUES(#{findStu_Id}, #{user_Name}, #{findStu_Title}, #{findStu_Content}, SYSDATE)
 	</insert>
 	
 	<select id="selectQuestion" resultType="communityFindStuDto">
 		SELECT F.FINDSTU_ID, F.FINDSTU_TITLE, F.FINDSTU_CONTENT
 		     , F.USER_NAME
 		     , F.FINDSTU_DATE
-		     , F.FINDSTU_VIEW AS findstu_view
+		     , F.FINDSTU_VIEW AS findStu_view
 		     , F."FINDSTU_LIKE"
 		  FROM FINDSTU F
 		  JOIN ACCOUNTS A
 		    ON F.USER_NAME = A.AC_NAME
-		 WHERE F.FINDSTU_ID = #{findstu_id}
+		 WHERE F.FINDSTU_ID = #{findStu_Id}
 	</select>
 	
 	<select id="selectData" resultType="communityFindStuDto">
 		SELECT F.FINDSTU_ID, F.FINDSTU_TITLE, F.FINDSTU_CONTENT
 		     , F.USER_NAME
 		     , F.FINDSTU_DATE
-		     , F.FINDSTU_VIEW AS findstu_view
+		     , F.FINDSTU_VIEW AS findStu_view
 		     , F."FINDSTU_LIKE"
 		  FROM FINDSTU F
 		  JOIN ACCOUNTS A
 		    ON F.USER_NAME = A.AC_NAME
-		 WHERE F.FINDSTU_ID = #{findstu_id}
+		 WHERE F.FINDSTU_ID = #{findStu_Id}
 	</select>
 	<update id="updateViewCnt" parameterType="communityFindStuDto">
 		UPDATE FINDSTU
-		   SET FINDSTU_VIEW = #{findstu_view} + 1
-		 WHERE FINDSTU_ID = #{findstu_id}
+		   SET FINDSTU_VIEW = #{findStu_view} + 1
+		 WHERE FINDSTU_ID = #{findStu_Id}
 	</update>
 	<update id="updateLike" parameterType="communityFindStuDto">
 		UPDATE FINDSTU
-		   SET "FINDSTU_LIKE" = #{findstu_like}
-		 WHERE FINDSTU_ID= #{findstu_id}
+		   SET "FINDSTU_LIKE" = #{findStu_like}
+		 WHERE FINDSTU_ID= #{findStu_Id}
 	</update>
 	<select id="selectStatics" parameterType="communityFindStuStaticsDto" resultType="communityFindStuStaticsDto">
 		SELECT FINDSTU_ID, USER_NAME, FINDSTU_BID
 		     , FINDSTU_VIEWED
-		     , FINDSTU_LATEST_VIEW_DATE AS findstu_latestViewDate
+		     , FINDSTU_LATEST_VIEW_DATE AS findStu_latestViewDate
 		     , FINDSTU_LIKED
 		  FROM FINDSTU_STATICS
-		 WHERE USER_NAME = #{user_name}
-		   AND FINDSTU_BID = #{findstu_bId}
+		 WHERE USER_NAME = #{user_Name}
+		   AND FINDSTU_BID = #{findStu_bId}
 	</select>
 	<insert id="insertStatics" parameterType="communityFindStuStaticsDto">
 		INSERT INTO FINDSTU_STATICS
 		     VALUES(FINDSTU_STATICS_SEQ.NEXTVAL
-		          , #{user_name}, #{findstu_bId}, 'Y', SYSDATE, 'N')
+		          , #{user_Name}, #{findStu_bId}, 'Y', SYSDATE, 'N')
 	</insert>
 	<update id="updateStatics" parameterType="communityFindStuStaticsDto">
 		UPDATE FINDSTU_STATICS
 		   SET FINDSTU_LATEST_VIEW_DATE = SYSDATE
-		 WHERE FINDSTU_ID = #{findstu_id}
+		 WHERE FINDSTU_ID = #{findStu_Id}
 	</update>
 	<update id="updateStaticsLike" parameterType="communityFindStuStaticsDto">
 		UPDATE FINDSTU_STATICS
@@ -73,13 +73,13 @@
 				SET FINDSTU_LIKED = 'N'
 			</otherwise>
 		</choose>
-		 WHERE FINDSTU_ID = #{findstu_id}
+		 WHERE FINDSTU_ID = #{findStu_Id}
 	</update>
 	<select id="selectAll" resultType="communityFindStuDto">
 		SELECT F.FINDSTU_ID, F.FINDSTU_TITLE, F.FINDSTU_CONTENT
 		     , F.USER_NAME
 		     , F.FINDSTU_DATE
-		     , F.FINDSTU_VIEW AS findstu_view
+		     , F.FINDSTU_VIEW AS findStu_view
 		     , F."FINDSTU_LIKE"
 		  FROM FINDSTU F
 		  JOIN ACCOUNTS A
@@ -88,16 +88,16 @@
 	</select>
 	<delete id="deleteStaticsData">
 		DELETE FROM FINDSTU_STATICS
-		 WHERE FINDSTU_BID = #{findstu_bId}
+		 WHERE FINDSTU_BID = #{findStu_bId}
 	</delete>
 	<delete id="deleteData">
 		DELETE FROM FINDSTU
-		 WHERE FINDSTU_ID = #{findstu_id}
+		 WHERE FINDSTU_ID = #{findStu_Id}
 	</delete>
 	<update id="updateData" parameterType="communityFindStuDto">
 		UPDATE FINDSTU
-		   SET FINDSTU_TITLE = #{findstu_title}
-		     , FINDSTU_CONTENT = #{findstu_content}
-		 WHERE FINDSTU_ID = #{findstu_id}
+		   SET FINDSTU_TITLE = #{findStu_Title}
+		     , FINDSTU_CONTENT = #{findStu_Content}
+		 WHERE FINDSTU_ID = #{findStu_Id}
 	</update>
 </mapper>
