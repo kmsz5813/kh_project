@@ -1,4 +1,3 @@
-<!-- 200908 이서연 -->
 <!-- 메인 > 상단메뉴 > 커뮤니티 > 공지사항 (검색된목록) -->
 
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>

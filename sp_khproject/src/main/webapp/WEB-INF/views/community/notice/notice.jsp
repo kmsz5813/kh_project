@@ -39,14 +39,17 @@
 
 <!-- style, css -->
 <style>
-.carousel-item {
-	width: 1500px;
-	height: 500px;
+a:link {
+	text-decoration: none;
+	color: black;
+	font-weight: bold;
+	font-family: 'Noto Sans KR', sans-serif;
 }
 
 body {
 	width: 1500px;
 	margin: auto;
+	font-family: 'Noto Sans KR', sans-serif;
 }
 
 #jb-container {
@@ -57,7 +60,6 @@ body {
 #jb-header {
 	padding: 20px;
 	margin-bottom: 20px;
-	border: 1px solid #bcbcbc;
 }
 
 #jb-content-head {
@@ -66,7 +68,6 @@ body {
 	padding: 20px;
 	margin-bottom: 20px;
 	float: left;
-	border: 1px solid #bcbcbc;
 }
 
 #jb-sidebar {
@@ -75,7 +76,6 @@ body {
 	padding: 20px;
 	margin-bottom: 20px;
 	float: left;
-	border: 1px solid #bcbcbc;
 	padding: 20px;
 }
 
@@ -84,16 +84,14 @@ body {
 	padding: 20px;
 	margin-bottom: 20px;
 	float: left;
-	border: 1px solid #bcbcbc;
 }
 
 #jb-footer {
 	width: 1500px;
 	clear: both;
-	padding: 20px;
+	padding: 10px;
 	margin-top: 1200px;
 	text-align: center;
-	border-top: 3px solid #dcdcde;
 	font-family: 'Noto Sans KR', sans-serif;
 	clear: both;
 }
@@ -143,16 +141,56 @@ li {
 @media ( max-width : 991.98px) .feed-item[data-v-05dbd958] {
 	padding
 	
+	
+	
+	
+	
+	
 		
+	
+	
+	
+	
+	
 	
 	:
 	
+	
+	
+	
+	
+	
 	 
+	
+	
+	
+	
+	
 	
 	1
 	
 	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	.25rem
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	;
@@ -205,6 +243,57 @@ feed-item .feed-content {
 *, :after, :before {
 	box-sizing: border-box;
 }
+
+.table th {
+    font-weight: 500;
+    color: #777777;
+    font-weight: bold;
+}
+
+.table thead { background-color: #fff; }
+
+.table thead th:first-child { padding: 0 30px 8px; }
+
+.table tbody tr td:first-child { padding: 0 30px; }
+
+.table>tbody>tr>td, .table>thead>tr>td {
+    padding: 14px 12px;
+    vertical-align: middle;
+}
+
+.table tr td {
+    color: #555555;
+}
+
+.table tbody td a {	
+	color: #555555; 
+    padding: 13px 0;
+}
+
+.table tbody td a:hover { color: #17B794; }
+
+.pagingstyle{
+ 	width: 50%; 
+ 	margin: 0 auto;
+}
+
+#searchbox{
+    float: right;
+    width: 270px;
+    margin: 0 auto;
+}
+
+#row {
+    position: relative;
+    margin-top: 10px;
+}
+
+#form-control {
+	width: 150px;
+    position: absolute;
+    right: 18%;
+    height: 30px;
+}
 </style>
 </head>
 
@@ -213,7 +302,7 @@ feed-item .feed-content {
 		<header>
 			<!-- 로그인/회원가입/FAQ -->
 			<div id="jb-header"
-				style="text-align: right; margin-right: 30px; position: relative; top: 20px;">
+				style="text-align: right; margin-right: -30px; position: relative; top: 20px;">
 				<c:if test="${empty loginData }">
 					<a href="${pageContext.request.contextPath}/login">로그인</a>&emsp;/&emsp; 
 			<a href="${pageContext.request.contextPath}/login/sign">회원가입</a>
@@ -221,12 +310,13 @@ feed-item .feed-content {
 				</c:if>
 				<c:if test="${not empty loginData }">
 			${loginData.ac_name }님 환영합니다!&emsp;/&emsp;
-			<a href="main/logout">로그아웃&emsp;/&emsp;</a>
+			<a href="${pageContext.request.contextPath}/main/logout">로그아웃&emsp;/&emsp;</a>
 					<a href="${pageContext.request.contextPath}/info">마이페이지&emsp;&emsp;</a>
 				</c:if>
 			</div>
-			
-			
+
+
+
 			<div style="text-align: center;">
 				<a href="#" style="display: table; margin-top: -100px;"> <img
 					src="../static/img/logo.png"
@@ -255,6 +345,31 @@ feed-item .feed-content {
 			</nav>
 		</header>
 
+		<div class="container-xl">
+			<div class="row">
+				<div class="col-md-12" style="position: relative; top: 100px;">
+					<h2>
+						<b>커뮤니티</b>
+					</h2>
+				</div>
+			</div>
+		</div>
+
+		<script type="text/javascript">
+			$('.carousel').carousel()
+		</script>
+		<nav class="navbar navbar-expand-md navbar-light"
+			style="margin-left: 1273px; position: relative; top: 50px;">
+			<div class="container">
+				<button class="navbar-toggler" type="button"
+					data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+					aria-controls="navbarSupportedContent" aria-expanded="false"
+					aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+			</div>
+		</nav>
+
 		<script type="text/javascript">
 			$('.carousel').carousel()
 		</script>
@@ -263,14 +378,14 @@ feed-item .feed-content {
 		<aside id="jb-sidebar">
 			<div>
 				<a href="${pageContext.request.contextPath}/community/main"
-				 style="position: relative; top: 120px; left: 60px;">
+					style="position: relative; top: 120px; left: 60px;">
 					<button type="button" class="btn btn-outline-success"
 						style="width: 130px; height: 50px;">전체</button>
 				</a>
 			</div>
 			<div>
 				<a href="${pageContext.request.contextPath}/community/findPro"
-				 style="position: relative; top: 180px; left: 60px;">
+					style="position: relative; top: 180px; left: 60px;">
 					<button type="button" class="btn btn-outline-success"
 						style="width: 130px; height: 50px;">전문가 찾아요</button>
 				</a>
@@ -283,7 +398,7 @@ feed-item .feed-content {
 			</div>
 			<div>
 				<a href="${pageContext.request.contextPath}/community/findStu"
-				 style="position: relative; top: 240px; left: 60px;">
+					style="position: relative; top: 240px; left: 60px;">
 					<button type="button" class="btn btn-outline-success"
 						style="width: 130px; height: 50px;">레슨자 찾아요</button>
 				</a>
@@ -296,7 +411,7 @@ feed-item .feed-content {
 			</div>
 			<div>
 				<a href="${pageContext.request.contextPath}/community/question"
-				 style="position: relative; top: 300px; left: 60px;">
+					style="position: relative; top: 300px; left: 60px;">
 					<button type="button" class="btn btn-outline-success"
 						style="width: 130px; height: 50px;">궁금해요</button>
 				</a>
@@ -309,7 +424,7 @@ feed-item .feed-content {
 			</div>
 			<div>
 				<a href="${pageContext.request.contextPath}/community/life"
-				 style="position: relative; top: 360px; left: 60px;">
+					style="position: relative; top: 360px; left: 60px;">
 					<button type="button" class="btn btn-outline-success"
 						style="width: 130px; height: 50px;">일상</button>
 				</a>
@@ -328,7 +443,6 @@ feed-item .feed-content {
 				</a>
 			</div>
 		</aside>
-
 
 		<section>
 
@@ -356,146 +470,70 @@ feed-item .feed-content {
 				</nav>
 
 
-		<!-- 커뮤니티 메인 새글 -->
+				<!-- 커뮤니티 메인 새글 -->
 
-		<article>
-			<div id="jb-content">
-				<ul class="feed-list">
-				<li class="feed-item"><a href="#"
-						data-testid="soomgo-life-feed-item"> <span>게시글 1</span>
-								<div>
-									<section>
-										<h3>게시글 1</h3>
-										<p>게시글 1</p>
-									</section>
-									<ul class="tag-list">
-										<li>게시글 1</li>
-										<li>게시글 1</li>
-										<li>게시글 1</li>
-									</ul>
-								</div>
-							<div>
-								<div>
-									<span class="like">0</span> <span class="comment">0</span>
-								</div>
-								<span class="sg-text-description">6분 전</span>
-							</div>
-					</a></li>
-					<div class="table-responsive">
-					
-                        <table class="table table-hover mb-0">
-                            <tbody>
-                            	<c:if test="${empty notice}">
-                          			<tr>
-                          				<td></td><td style="text-align: center;">공지사항이 없습니다</td><td></td>
-                          			</tr>
-                            	</c:if>
-                            	<c:if test="${not empty notice}">
-                            		<c:forEach items="${notice }" var="n">
-	                          			<tr>
-	                          				<td>${n.notice_No }</td>
-	                          				<td><a href="${pageContext.request.contextPath}/community/notice/detail?no=${n.notice_No }">${n.notice_Title }</a></td>
-	                          				<td>${n.notice_Date }</td>
-	                          			</tr>
-                          			</c:forEach>
-                            	</c:if>
-                            </tbody>
-                        </table>
-                    </div>
+				<article>
+					<div id="jb-content">
+						<ul class="feed-list">
+							<!-- 본문 -->
+							<li class="feed-item"><a href="#"
+								data-testid="soomgo-life-feed-item"> <span>공지사항</span></a>
+								<div class="feed-content">
+									<div>
+										<section>
 
-					<li class="feed-item"><a href="#"
-						data-testid="soomgo-life-feed-item"> <span>게시글 1</span>
-							<div class="feed-content">
-								<div>
-									<section>
-										<h3>게시글 1</h3>
-										<p>게시글 1</p>
-									</section>
-									<ul class="tag-list">
-										<li>게시글 1</li>
-										<li>게시글 1</li>
-										<li>게시글 1</li>
-									</ul>
-								</div>
-							</div>
-							<div>
-								<div>
-									<span class="like">0</span> <span class="comment">0</span>
-								</div>
-								<span class="sg-text-description">6분 전</span>
-							</div>
-					</a></li>
+											<table class="table table-hover mb-0">
+												<thead>
+													<tr class="align-self-center">
+														<th style="width: 25%;">No.</th>
+														<th style="width: 60%;">Title.</th>
+														<th style="width: 15%;">Date.</th>
+													</tr>
+												</thead>
+												<tbody>
+													<c:if test="${empty notice}">
+														<tr>
+															<td></td>
+															<td style="text-align: center;">공지사항이 없습니다</td>
+															<td></td>
+														</tr>
+													</c:if>
+													<c:if test="${not empty notice}">
+														<c:forEach items="${notice }" var="n">
+															<tr>
+																<td>${n.notice_no }</td>
+																<td><a
+																	href="${pageContext.request.contextPath}/community/notice/detail?no=${n.notice_no }">${n.notice_title }</a></td>
+																<td>${n.notice_date }</td>
+															</tr>
+														</c:forEach>
+													</c:if>
+												</tbody>
+											</table>
+										</section>
+									</div>
+								</div> <!--end table-responsive-->
+							</li>
+						</ul>
+					</div>
+				</article>
 
-					<li class="feed-item"><a href="#"
-						data-testid="soomgo-life-feed-item"> <span>게시글 1</span>
-							<div class="feed-content">
-								<div>
-									<section>
-										<h3>게시글 1</h3>
-										<p>게시글 1</p>
-									</section>
-									<ul class="tag-list">
-										<li>게시글 1</li>
-										<li>게시글 1</li>
-										<li>게시글 1</li>
-									</ul>
-								</div>
-							</div>
-							<div>
-								<div>
-									<span class="like">0</span> <span class="comment">0</span>
-								</div>
-								<span class="sg-text-description">6분 전</span>
-							</div>
-					</a></li>
 
-					<li class="feed-item"><a href="#"
-						data-testid="soomgo-life-feed-item"> <span>게시글 1</span>
-							<div class="feed-content">
-								<div>
-									<section>
-										<h3>게시글 1</h3>
-										<p>게시글 1</p>
-									</section>
-									<ul class="tag-list">
-										<li>게시글 1</li>
-										<li>게시글 1</li>
-										<li>게시글 1</li>
-									</ul>
-								</div>
-							</div>
-							<div>
-								<div>
-									<span class="like">0</span> <span class="comment">0</span>
-								</div>
-								<span class="sg-text-description">6분 전</span>
-							</div>
-					</a></li>
 
-				</ul>
+
+
+
+
+				<c:url var="mainurl" value="/main" />
+
+
+				<footer id="jb-footer">
+					<div
+						style="width: 1500px; height: 200px; background-color: #f6f7f7; margin: auto; padding: 10px;">
+						이용약관</div>
+				</footer>
+				<!-- go to top -->
+				<a class="btn-top" href="#"><i class="xi-angle-up-thin"></i></a>
 			</div>
-		</article>
-
-
-
-
-
-
-
-		<c:url var="mainurl" value="/main" />
-
-
-		<footer id="jb-footer">
-			<div
-				style="width: 1500px; height: 200px; background-color: #f6f7f7; margin: auto; padding: 10px;">
-				이용약관</div>
-		</footer>
-		<!-- go to top -->
-		<a class="btn-top" href="#"><i class="xi-angle-up-thin"></i></a>
-	</div>
-
-
-
-
 </body>
 </html>
