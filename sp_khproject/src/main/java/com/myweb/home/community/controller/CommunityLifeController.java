@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
-import org.springframework.web.multipart.MultipartFile;
 
 import com.myweb.home.Accounts.model.AccountsDTO;
 import com.myweb.home.common.util.Paging;
@@ -35,18 +34,14 @@ public class CommunityLifeController {
 	@Autowired
 	private CommunityLifeService service;
 	
-	@Autowired
-	private FileUploadService fileUploadService;
 	
-	@RequestMapping(value="", method=RequestMethod.GET)
+	@RequestMapping(value="/list", method=RequestMethod.GET)
 	public String getList(Model model, HttpSession session
 			, @RequestParam(defaultValue="1", required=false) int page
 			, @RequestParam(defaultValue="0", required=false) int pageCount) {
 		List datas = service.getAll();
 		
-		if(session.getAttribute("pageCount") == null) {
-			session.setAttribute("pageCount", 5);
-		}
+		session.setAttribute("pageCount", 10); //10개씩 보여주기 위하게 만든것.
 		
 		if(pageCount > 0) {
 			session.setAttribute("pageCount", pageCount);
@@ -58,7 +53,7 @@ public class CommunityLifeController {
 		model.addAttribute("datas", paging.getPageData());
 		model.addAttribute("pageData", paging);
 		
-		return "community/life";
+		return "community/life/list";
 	}
 	
 	@GetMapping(value="/detail")
@@ -66,13 +61,11 @@ public class CommunityLifeController {
 			, HttpSession session
 			, @RequestParam int id) {
 		CommunityLifeDTO data = service.getData(id);
-		List<FileUploadDTO> fileDatas = fileUploadService.getDatas(id);
 		
 		if(data != null) {
 			service.incViewCnt(session, data);
 			model.addAttribute("data", data);
-			model.addAttribute("fileDatas", fileDatas);
-			return "life/detail";
+			return "community/life/detail";
 		} else {
 			model.addAttribute("error", "해당 데이터가 존재하지 않습니다.");
 			return "error/notExists";
@@ -81,38 +74,19 @@ public class CommunityLifeController {
 	
 	@GetMapping(value="/add")
 	public String add() {
-		return "life/add";
+		return "community/life/add";
 	}
 	
 	@PostMapping(value="/add")
 	public String add(HttpServletRequest request
 			, @SessionAttribute("loginData") AccountsDTO acDto
-			, @ModelAttribute CommunityLifeVO communityLifeVo
-			, @RequestParam("fileUpload") MultipartFile[] files) {
+			, @ModelAttribute CommunityLifeVO communityLifeVo) {
 		CommunityLifeDTO data = new CommunityLifeDTO();
 		data.setLife_Title(communityLifeVo.getLife_title());
 		data.setLife_Content(communityLifeVo.getLife_content());
 		data.setUser_Name(acDto.getAc_name());
 		
 		int id = service.add(data);
-		
-		for(MultipartFile file: files) {
-			String location = request.getServletContext().getRealPath("/resources/community/life/upload");
-			String url = "/static/community/life/upload";
-			FileUploadDTO fileData = new FileUploadDTO(id, location, url);
-			
-			try {
-				int fileResult = fileUploadService.upload(file, fileData);
-				if(fileResult == -1) {
-					request.setAttribute("error", "파일 업로드 수량을 초과하였습니다.");
-					return "community/life/add";
-				}
-			} catch(Exception e) {
-				request.setAttribute("error", "파일 업로드 작업중 예상치 못한 에러가 발생하였습니다.");
-				return "community/life/add";
-			}
-			
-		}
 		
 		if(id != -1) {
 			return "redirect:/community/life/detail?id=" + id;			
@@ -127,12 +101,10 @@ public class CommunityLifeController {
 			, @SessionAttribute("loginData") AccountsDTO acDto
 			, @RequestParam int id) {
 		CommunityLifeDTO data = service.getData(id);
-		List<FileUploadDTO> fileDatas = fileUploadService.getDatas(id);
 		
 		if(data != null) {
-			if(data.getUser_Name() == acDto.getAc_name()) {
+			if(data.getUser_Name().equals(acDto.getAc_name())) {
 				model.addAttribute("data", data);
-				model.addAttribute("fileDatas", fileDatas);
 				return "community/life/modify";
 			} else {
 				model.addAttribute("error", "해당 작업을 수행할 권한이 없습니다.");
@@ -140,7 +112,7 @@ public class CommunityLifeController {
 			}
 		} else {
 			model.addAttribute("error", "해당 데이터가 존재하지 않습니다.");
-			return "error/noExists";
+			return "error/notExists";
 		}
 	}
 	
@@ -151,12 +123,12 @@ public class CommunityLifeController {
 		CommunityLifeDTO data = service.getData(communityLifeVo.getLife_id());
 		
 		if(data != null) {
-			if(data.getUser_Name() == acDto.getAc_name()) {
+			if(data.getUser_Name().equals(acDto.getAc_name())) {
 				data.setLife_Title(communityLifeVo.getLife_title());
 				data.setLife_Content(communityLifeVo.getLife_content());
 				boolean result = service.modify(data);
 				if(result) {
-					return "redirect:/community/life/detail?id=" + data.getUser_Name();
+					return "redirect:/community/life/detail?id=" + data.getLife_Id();
 				} else {
 					return modify(model, acDto, communityLifeVo.getLife_id());
 				}
@@ -166,7 +138,7 @@ public class CommunityLifeController {
 			}
 		} else {
 			model.addAttribute("error", "해당 데이터가 존재하지 않습니다.");
-			return "error/noExists";
+			return "error/notExists";
 		}
 	}
 	
@@ -183,7 +155,7 @@ public class CommunityLifeController {
 			json.put("code", "notExists");
 			json.put("message", "이미 삭제 된 데이터 입니다.");
 		} else {
-			if(data.getUser_Name() == acDto.getAc_name()) {
+			if(data.getUser_Name().equals(acDto.getAc_name())) {
 				// 작성자, 수정자 동일인
 				boolean result = service.remove(data);
 				if(result) {

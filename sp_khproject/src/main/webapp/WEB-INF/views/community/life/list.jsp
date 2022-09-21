@@ -143,7 +143,9 @@ li {
 	
 	
 	
+	
 		
+	
 	
 	
 	
@@ -151,7 +153,9 @@ li {
 	
 	
 	
+	
 	 
+	
 	
 	
 	
@@ -162,7 +166,11 @@ li {
 	
 	
 	
+	
+	
 	.25rem
+	
+	
 	
 	
 	
@@ -244,7 +252,7 @@ feed-item .feed-content {
 
 			<div style="text-align: center;">
 				<a href="#" style="display: table; margin-top: -100px;"> <img
-					src="../static/img/logo.png"
+					src="../../static/img/logo.png"
 					style="width: 300px; margin-bottom: -100px;" class="d-inline-block">
 				</a>
 			</div>
@@ -274,7 +282,7 @@ feed-item .feed-content {
 			<div class="row">
 				<div class="col-md-12" style="position: relative; top: 100px;">
 					<h2>
-						<b>커뮤니티</b>
+						<b>일상</b>
 					</h2>
 				</div>
 			</div>
@@ -294,8 +302,8 @@ feed-item .feed-content {
 				</button>
 
 				<div class="collapse navbar-collapse" id="navbarSupportedContent">
-					<form action="${communityUrl}/home/community/add" method="post">
-						<input type="hidden" name="cid" value="${data.cum_id}">
+					<form action="${lifeUrl}/home/community/life/add">
+						<input type="hidden" name="qid" value="${data.life_id}">
 						<button class="btn btn-outline-success" type="submit"
 							style="width: 150px;" id="button" onclick="formCheck(this.form);">글쓰기</button>
 					</form>
@@ -317,56 +325,32 @@ feed-item .feed-content {
 				</a>
 			</div>
 			<div>
-				<a href="${pageContext.request.contextPath}/community/findPro"
+				<a href="${pageContext.request.contextPath}/community/findPro/list"
 					style="position: relative; top: 180px; left: 60px;">
 					<button type="button" class="btn btn-outline-success"
 						style="width: 130px; height: 50px;">전문가 찾아요</button>
 				</a>
-				<c:forEach items="${findpro }" var="l">
-					<p id="conts">
-						<i class="fa fa-caret-right fa-1x mar-top"></i>&nbsp;
-						${l.FINDPRO_TITLE}
-					</p>
-				</c:forEach>
 			</div>
 			<div>
-				<a href="${pageContext.request.contextPath}/community/findStu"
+				<a href="${pageContext.request.contextPath}/community/findStu/list"
 					style="position: relative; top: 240px; left: 60px;">
 					<button type="button" class="btn btn-outline-success"
 						style="width: 130px; height: 50px;">레슨자 찾아요</button>
 				</a>
-				<c:forEach items="${findstu }" var="l">
-					<p id="conts">
-						<i class="fa fa-caret-right fa-1x mar-top"></i>&nbsp;
-						${l.FINDSTU_TITLE}
-					</p>
-				</c:forEach>
 			</div>
 			<div>
-				<a href="${pageContext.request.contextPath}/community/question"
+				<a href="${pageContext.request.contextPath}/community/question/list"
 					style="position: relative; top: 300px; left: 60px;">
 					<button type="button" class="btn btn-outline-success"
 						style="width: 130px; height: 50px;">궁금해요</button>
 				</a>
-				<c:forEach items="${question }" var="l">
-					<p id="conts">
-						<i class="fa fa-caret-right fa-1x mar-top"></i>&nbsp;
-						${l.QUESTION_TITLE}
-					</p>
-				</c:forEach>
 			</div>
 			<div>
-				<a href="${pageContext.request.contextPath}/community/life"
+				<a href="${pageContext.request.contextPath}/community/life/list"
 					style="position: relative; top: 360px; left: 60px;">
 					<button type="button" class="btn btn-outline-success"
 						style="width: 130px; height: 50px;">일상</button>
 				</a>
-				<c:forEach items="${life }" var="l">
-					<p id="conts">
-						<i class="fa fa-caret-right fa-1x mar-top"></i>&nbsp;
-						${l.LIFE_TITLE}
-					</p>
-				</c:forEach>
 			</div>
 			<div>
 				<a href="${pageContext.request.contextPath}/community/notice"
@@ -384,7 +368,7 @@ feed-item .feed-content {
 				<!-- 커뮤니티 키워드 검색 -->
 				<nav class="navbar navbar-expand-md navbar-light">
 					<div class="container"
-						style="position: relative; top: 40px; left: 40px;">
+						style="position: relative; top: 40px; left: 5px;">
 						<button class="navbar-toggler" type="button"
 							data-bs-toggle="collapse"
 							data-bs-target="#navbarSupportedContent"
@@ -397,117 +381,82 @@ feed-item .feed-content {
 								<input class="form-control me-4" type="search"
 									placeholder="키워드를 입력해주세요!" aria-label="Search"
 									style="min-width: 800px;">
+								<div class="col-3">
+									<div class="input-group">
+										<button class="btn btn-secondary" type="submit">조회</button>
+									</div>
+								</div>
 							</form>
+
 						</div>
 					</div>
 				</nav>
 
+					<table class="table table-hover mb-0">
+						<colgroup>
+							<col class="col-1">
+							<col class="col-auto">
+							<col class="col-2">
+							<col class="col-1">
+							<col class="col-1">
+							<col class="col-2">
+						</colgroup>
+						<thead>
+							<tr>
+								<th>번호</th>
+								<th>제목</th>
+								<th>작성자</th>
+								<th>조회수</th>
+								<th>추천수</th>
+								<th>작성일</th>
+							</tr>
+						</thead>
+						<tbody>
+							<c:if test="${not empty datas}">
+								<c:forEach items="${datas}" var="data">
+									<c:url var="lifeDetailUrl"
+										value="/community/life/detail">
+										<c:param name="id">${data.life_Id}</c:param>
+									</c:url>
+									<tr onclick="location.href='${lifeDetailUrl}'">
+										<td>${data.life_Id}</td>
+										<td>${data.life_Title}</td>
+										<td>${data.user_Name}</td>
+										<td>${data.life_view}</td>
+										<td>${data.life_like}</td>
+										<td>${data.life_Date}</td>
+									</tr>
+								</c:forEach>
+							</c:if>
+						</tbody>
+					</table>
+					<nav>
+						<div>
+							<ul class="pagination justify-content-center">
+								<c:if test="${pageData.hasPrevPage()}">
+									<li class="page-item"><a class="page-link"
+										href="${lifeUrl}?page=${pageData.prevPageNumber}">Prev</a>
+									</li>
+								</c:if>
+								<c:forEach
+									items="${pageData.getPageNumberList(pageData.currentPageNumber - 2, pageData.currentPageNumber + 2)}"
+									var="num">
+									<li
+										class="page-item ${pageData.currentPageNumber eq num ? 'active' : ''}">
+										<a class="page-link" href="${lifeUrl}?page=${num}">${num}</a>
+									</li>
+								</c:forEach>
+								<c:if test="${pageData.hasNextPage()}">
+									<li class="page-item"><a class="page-link"
+										href="${lifeUrl}?page=${pageData.nextPageNumber}">Next</a>
+									</li>
+								</c:if>
+							</ul>
+						</div>
+					</nav>
+				</section>
 
-		<!-- 커뮤니티 메인 새글 -->
-
-		<article>
-			<div id="jb-content">
-				<ul class="feed-list">
-					<li class="feed-item"><a href="#"
-						data-testid="soomgo-life-feed-item"> <span>게시글 1</span>
-							<div class="feed-content">
-								<div>
-									<section>
-										<h3>게시글 1</h3>
-										<p>게시글 1</p>
-									</section>
-									<ul class="tag-list">
-										<li>게시글 1</li>
-										<li>게시글 1</li>
-										<li>게시글 1</li>
-									</ul>
-								</div>
-							</div>
-							<div>
-								<div>
-									<span class="like">0</span> <span class="comment">0</span>
-								</div>
-								<span class="sg-text-description">6분 전</span>
-							</div>
-					</a></li>
-
-					<li class="feed-item"><a href="#"
-						data-testid="soomgo-life-feed-item"> <span>게시글 1</span>
-							<div class="feed-content">
-								<div>
-									<section>
-										<h3>게시글 1</h3>
-										<p>게시글 1</p>
-									</section>
-									<ul class="tag-list">
-										<li>게시글 1</li>
-										<li>게시글 1</li>
-										<li>게시글 1</li>
-									</ul>
-								</div>
-							</div>
-							<div>
-								<div>
-									<span class="like">0</span> <span class="comment">0</span>
-								</div>
-								<span class="sg-text-description">6분 전</span>
-							</div>
-					</a></li>
-
-					<li class="feed-item"><a href="#"
-						data-testid="soomgo-life-feed-item"> <span>게시글 1</span>
-							<div class="feed-content">
-								<div>
-									<section>
-										<h3>게시글 1</h3>
-										<p>게시글 1</p>
-									</section>
-									<ul class="tag-list">
-										<li>게시글 1</li>
-										<li>게시글 1</li>
-										<li>게시글 1</li>
-									</ul>
-								</div>
-							</div>
-							<div>
-								<div>
-									<span class="like">0</span> <span class="comment">0</span>
-								</div>
-								<span class="sg-text-description">6분 전</span>
-							</div>
-					</a></li>
-
-					<li class="feed-item"><a href="#"
-						data-testid="soomgo-life-feed-item"> <span>게시글 1</span>
-							<div class="feed-content">
-								<div>
-									<section>
-										<h3>게시글 1</h3>
-										<p>게시글 1</p>
-									</section>
-									<ul class="tag-list">
-										<li>게시글 1</li>
-										<li>게시글 1</li>
-										<li>게시글 1</li>
-									</ul>
-								</div>
-							</div>
-							<div>
-								<div>
-									<span class="like">0</span> <span class="comment">0</span>
-								</div>
-								<span class="sg-text-description">6분 전</span>
-							</div>
-					</a></li>
-
-				</ul>
-			</div>
-		</article>
-
-
-
-
-
+				
 
 
 				<c:url var="mainurl" value="/main" />
@@ -515,7 +464,8 @@ feed-item .feed-content {
 
 				<footer id="jb-footer">
 					<div
-						style="width: 1500px; height: 200px; background-color: #f6f7f7; margin: auto; padding: 10px;">
+						style="width: 1500px; height: 200px; background-color: #f6f7f7; margin: auto; padding: 10px;
+						">
 						이용약관</div>
 				</footer>
 				<!-- go to top -->

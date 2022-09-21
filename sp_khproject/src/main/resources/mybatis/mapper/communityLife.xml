@@ -8,7 +8,7 @@
 	</select>
 	<insert id="insertData" parameterType="communityLifeDto">
 		INSERT INTO LIFE (LIFE_ID, USER_NAME, LIFE_TITLE, LIFE_CONTENT, LIFE_DATE)
-		     VALUES(#{life_id}, #{user_name}, #{life_title}, #{life_content}, SYSDATE)
+		     VALUES(#{life_Id}, #{user_Name}, #{life_Title}, #{life_Content}, SYSDATE)
 	</insert>
 	
 	<select id="selectQuestion" resultType="communityLifeDto">
@@ -20,29 +20,29 @@
 		  FROM LIFE L
 		  JOIN ACCOUNTS A
 		    ON L.USER_NAME = A.AC_NAME
-		 WHERE L.LIFE_ID = #{life_id}
+		 WHERE L.LIFE_ID = #{life_Id}
 	</select>
 	
 	<select id="selectData" resultType="communityLifeDto">
 		SELECT L.LIFE_ID, L.LIFE_TITLE, L.LIFE_CONTENT
 		     , L.USER_NAME
 		     , L.LIFE_DATE
-		     , L.LIFE_VIEW AS findpro_view
+		     , L.LIFE_VIEW AS life_view
 		     , L."LIFE_LIKE"
 		  FROM LIFE L
 		  JOIN ACCOUNTS A
 		    ON L.USER_NAME = A.AC_NAME
-		 WHERE L.LIFE_ID = #{life_id}
+		 WHERE L.LIFE_ID = #{life_Id}
 	</select>
 	<update id="updateViewCnt" parameterType="communityLifeDto">
 		UPDATE LIFE
 		   SET LIFE_VIEW = #{life_view} + 1
-		 WHERE LIFE_ID = #{life_id}
+		 WHERE LIFE_ID = #{life_Id}
 	</update>
 	<update id="updateLike" parameterType="communityLifeDto">
 		UPDATE LIFE
 		   SET "LIFE_LIKE" = #{life_like}
-		 WHERE LIFE_ID= #{life_id}
+		 WHERE LIFE_ID= #{life_Id}
 	</update>
 	<select id="selectStatics" parameterType="communityLifeStaticsDto" resultType="communityLifeStaticsDto">
 		SELECT LIFE_ID, USER_NAME, LIFE_BID
@@ -50,18 +50,18 @@
 		     , LIFE_LATEST_VIEW_DATE AS life_latestViewDate
 		     , LIFE_LIKED
 		  FROM LIFE_STATICS
-		 WHERE USER_NAME = #{user_name}
+		 WHERE USER_NAME = #{user_Name}
 		   AND LIFE_BID = #{life_bId}
 	</select>
 	<insert id="insertStatics" parameterType="communityLifeStaticsDto">
 		INSERT INTO LIFE_STATICS
 		     VALUES(LIFE_STATICS_SEQ.NEXTVAL
-		          , #{user_name}, #{life_bId}, 'Y', SYSDATE, 'N')
+		          , #{user_Name}, #{life_bId}, 'Y', SYSDATE, 'N')
 	</insert>
 	<update id="updateStatics" parameterType="communityLifeStaticsDto">
 		UPDATE LIFE_STATICS
 		   SET LIFE_LATEST_VIEW_DATE = SYSDATE
-		 WHERE LIFE_ID = #{life_id}
+		 WHERE LIFE_ID = #{life_Id}
 	</update>
 	<update id="updateStaticsLike" parameterType="communityLifeStaticsDto">
 		UPDATE LIFE_STATICS
@@ -73,7 +73,7 @@
 				SET LIFE_LIKED = 'N'
 			</otherwise>
 		</choose>
-		 WHERE LIFE_ID = #{life_id}
+		 WHERE LIFE_ID = #{life_Id}
 	</update>
 	<select id="selectAll" resultType="communityLifeDto">
 		SELECT L.LIFE_ID, L.LIFE_TITLE, L.LIFE_CONTENT
@@ -92,12 +92,12 @@
 	</delete>
 	<delete id="deleteData">
 		DELETE FROM LIFE
-		 WHERE LIFE_ID = #{life_id}
+		 WHERE LIFE_ID = #{life_Id}
 	</delete>
 	<update id="updateData" parameterType="communityLifeDto">
 		UPDATE LIFE
-		   SET LIFE_TITLE = #{life_title}
-		     , LIFE_CONTENT = #{life_content}
-		 WHERE LIFE_ID = #{life_id}
+		   SET LIFE_TITLE = #{life_Title}
+		     , LIFE_CONTENT = #{life_Content}
+		 WHERE LIFE_ID = #{life_Id}
 	</update>
 </mapper>
