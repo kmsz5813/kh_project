@@ -6,12 +6,13 @@ public class SelItemDTO {
 
 	private int sel_id;
 	private String sel_name;
-	private String sel_field;
+	private String sel_field;	// 분야
 	private String sel_location;
 	private String sel_title;
 	private String sel_content;
 	private int sel_price;
 	private Date sel_writeday;
+	private int sel_number;	// 판매횟수
 	private int sel_view;
 	private int sel_like;
 	private int sel_report;
@@ -77,6 +78,14 @@ public class SelItemDTO {
 
 	public void setSel_writeday(Date sel_writeday) {
 		this.sel_writeday = sel_writeday;
+	}
+	
+	public int getSel_number() {
+		return sel_number;
+	}
+
+	public void setSel_number(int sel_number) {
+		this.sel_view = sel_number;
 	}
 
 	public int getSel_view() {

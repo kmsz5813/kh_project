@@ -7,7 +7,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+	
 	<meta charset="UTF-8">
 	<title>마이페이지</title>
 	
@@ -105,32 +105,27 @@
 				<label class="btn btn-outline-success" for="success-outlined3">메시지</label>
 			</div>
 			<c:if test="${loginData.ac_index == 10}">
-				<section class="container1">
-					<div class="mt-5 col-md-12">
-						<table class="table table-hover">
-							<colgroup>
-								<col class="col-2 row">
-								<col class="col-auto row">
-								<col class="col-5 row">
-							</colgroup>
-							<thead style="background-color: rgb(224, 224, 224)">							
-								<tr>
-									<th class="text-center">쿠폰명</th>
-									<th class="text-center">상세설명</th>
-									<th class="text-center">사용기한</th>
+				<section class="container1 mt-3">				
+					<table class="table wide vertical-hidden table-hover">
+						<thead style="background-color: rgb(224, 224, 224)">							
+							<tr>
+								<th scope="col" class="text-center">구매번호</th>
+								<th scope="col" class="text-center">상품명</th>
+								<th scope="col" class="text-center">구매일자</th>
+								<th scope="col" class="text-center">상품가격</th>
+							</tr>
+						</thead>
+						<tbody>
+							<c:forEach items="${purchaseData}" var="purchaseData">
+								<tr onclick="location.href='./sellitem/itemdetail?search=${item.sel_name}&itemid=${item.sel_id}'" style="cursor:pointer;">
+									<td scope="row" class="text-center">${purchaseData.buy_number}<td>
+									<td class="text-center">${purchaseData.buy_buyer}<td>
+									<td class="text-center">${purchaseData.buy_buyday}<td>
+									<td class="text-center"><fmt:formatNumber type="number" maxFractionDigits="3" value="${purchaseData.buy_price}"/><td>
 								</tr>
-							</thead>
-							<tbody>
-								<c:forEach items="${items}" var="items">
-									<tr>
-										<td class="text-center">${items.sel_id}<td>
-										<td class="text-center">${items.sel_title}<td>
-										<td class="text-center">${items.sel_writeday}<td>
-									</tr>
-								</c:forEach>
-							</tbody>
-						</table>
-					</div>
+							</c:forEach>
+						</tbody>
+					</table>
 				</section>
 			</c:if>
 			<c:if test="${loginData.ac_index == 20}">
@@ -141,6 +136,7 @@
 								<tr>
 									<th class="text-center">제목</th>
 									<th class="text-center">작성일자</th>
+									<th class="text-center">판매횟수</th>
 									<th class="text-center">추천수</th>
 								</tr>
 							</thead>
@@ -149,6 +145,7 @@
 									<tr onclick="location.href='./sellitem/itemdetail?search=${item.sel_name}&itemid=${item.sel_id}'" style="cursor:pointer;">
 										<td class="text-center">${item.sel_title}<td>
 										<td class="text-center">${item.sel_writeday}<td>
+										<td class="text-center">${item.sel_number}<td>
 										<td class="text-center">${item.sel_like}<td>
 									</tr>
 								</c:forEach>
@@ -181,18 +178,24 @@
 				<section class="container2">
 					<div class="mt-5">
 						<table class="table table-hover">
-							<colgroup>
-								<col class="col-2">
-								<col class="col-auto">
-								<col class="col-5">
-							</colgroup>
 							<thead style="background-color: rgb(224, 224, 224)">
 								<tr>
-									<th class="text-center">test2</th>
-									<th class="text-center">test2</th>
-									<th class="text-center">test2</th>
+									<th class="text-center">판매번호</th>
+									<th class="text-center">구매자</th>
+									<th class="text-center">판매일자</th>
+									<th class="text-center">판매가격</th>
 								</tr>
 							</thead>
+							<tbody>
+								<c:forEach items="${sellData}" var="sellData">
+									<tr>
+										<td class="text-center">${sellData.buy_number}<td>
+										<td class="text-center">${sellData.buy_buyer}<td>
+										<td class="text-center">${sellData.buy_buyday}<td>
+										<td class="text-center"><fmt:formatNumber type="number" maxFractionDigits="3" value="${sellData.buy_price}"/><td>
+									</tr>
+								</c:forEach>
+							</tbody>	
 						</table>
 					</div>
 				</section>

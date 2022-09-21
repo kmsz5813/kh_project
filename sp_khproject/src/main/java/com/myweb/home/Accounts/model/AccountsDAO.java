@@ -84,6 +84,14 @@ public class AccountsDAO {
 		return ip;
 	}
 
+	public String getNameFromEmail(String sellerEmail) {
+		String mapperId = String.format(mapper, "getNameFromEmail");
+		String name = session.selectOne(mapperId, sellerEmail); 
+		return name;
+	}
+
+
+
 
 
 }

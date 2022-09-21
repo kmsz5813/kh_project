@@ -49,16 +49,14 @@ public class PurchaseController {
 		int itemid = Integer.parseInt(request.getParameter("itemid"));
 		SelItemDTO itemdata = ItemService.getData(itemid);	// 상품번호로 
 		String selName = itemdata.getSel_name();		// 판매자 닉네임 불러오기
-		AccountsDTO selData = loginService.nameCheck(selName);	// 판매자 닉네임으로
-		String selEmail = selData.getAc_email();		// 판매자 이메일 가져오기
 		PurchaseDTO purchase = new PurchaseDTO();
 		purchase.setBuy_itemNumber(itemid);				// 상품번호 저장
-		purchase.setBuy_buyer(acData.getAc_email());	// 구매자 이메일 저장
-		purchase.setBuy_seller(selEmail);				// 판매자 이메일 저장
+		purchase.setBuy_buyer(acData.getAc_name());		// 구매자 닉네임 저장
+		purchase.setBuy_seller(selName);				// 판매자 닉네임 저장
 		purchase.setBuy_price(itemdata.getSel_price());	// 가격 저장(쿠폰 사용한 경우 변경해야됨)
 		System.out.println(purchase);
-		service.insertData(purchase);
-		
+		service.insertData(purchase);		// ISBUY 테이블에 삽입
+		ItemService.plusCount(itemid);		// 구매횟수 + 1
 		
 		return "redirect:/sellitem";
 	}

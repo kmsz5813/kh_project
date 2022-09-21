@@ -169,6 +169,12 @@ public class LoginService {
 		return ip_address;
 	}
 
+	public String getNameFromEmail(String sellerEmail) {
+		String name = dao.getNameFromEmail(sellerEmail);
+		return name;
+	}
+
+
 
 
 }

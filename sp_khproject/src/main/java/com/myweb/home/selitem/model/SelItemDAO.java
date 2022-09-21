@@ -121,4 +121,10 @@ public class SelItemDAO {
 		List<SelItemDTO> datas = session.selectList(mapperId, ac_name);
 		return datas;
 	}
+
+	public boolean plusCount(int itemid) {
+		String mapperId = String.format(mapper, "plusCount");
+		int res = session.update(mapperId, itemid);
+		return res == 1 ? true : false;
+	}
 }

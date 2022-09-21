@@ -1,8 +1,11 @@
 package com.myweb.home.purchase.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.myweb.home.purchase.model.CouponDTO;
 import com.myweb.home.purchase.model.PurchaseDAO;
 import com.myweb.home.purchase.model.PurchaseDTO;
 
@@ -20,5 +23,36 @@ public class PurchaseService {
 			return false;
 		}
 	}
+	
+	public List<PurchaseDTO> selectAll() {
+		List<PurchaseDTO> datas = dao.selectAll();
+		return datas;
+	}
+	
+	public List<PurchaseDTO> getFromBuyerName(String ac_name) {
+		List<PurchaseDTO> datas = dao.getFromBuyerName(ac_name);
+		
+		return datas;
+	}
+
+	public List<PurchaseDTO> getFromSellerName(String ac_name) {
+		List<PurchaseDTO> datas = dao.getFromSellerName(ac_name);
+		return datas;
+	}
+
+	public List<Integer> getCouponNumberList() {
+		List<Integer> numbers = dao.getCouponNumberList();
+		return numbers;
+	}
+
+	public boolean addSignCoupon(CouponDTO coupon) {
+		boolean result = dao.addSignCoupon(coupon);
+		return result;
+	}
+
+
+
+
+
 	
 }

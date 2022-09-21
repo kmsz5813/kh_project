@@ -24,6 +24,7 @@
     	<typeAlias type="com.myweb.home.selitem.model.SelItemCommentDTO" alias="selItemComDto" />
     	<typeAlias type="com.myweb.home.upload.model.FileUploadDTO" alias="fileUploadDto"/>
     	<typeAlias type="com.myweb.home.purchase.model.PurchaseDTO" alias="purchaseDto" />
+    	<typeAlias type="com.myweb.home.purchase.model.CouponDTO" alias="CouponDto" />
 	</typeAliases>
 	
 </configuration>

@@ -104,6 +104,16 @@ public class SelItemService {
 		return null;
 	}
 
+	// 구매시 구매횟수 + 1
+	public boolean plusCount(int itemid) {
+		boolean result = dao.plusCount(itemid);
+		if(result) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
 
 	
 }

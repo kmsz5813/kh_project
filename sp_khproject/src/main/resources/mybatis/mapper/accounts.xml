@@ -69,4 +69,10 @@
 		 WHERE AC_EMAIL = #{id}
 	</select>
 	
+	<select id="getNameFromEmail" resultType="string">
+		SELECT AC_NAME
+		  FROM ACCOUNTS
+		 WHERE AC_EMAIL = #{sellerEmail}
+	</select>
+	
 </mapper>

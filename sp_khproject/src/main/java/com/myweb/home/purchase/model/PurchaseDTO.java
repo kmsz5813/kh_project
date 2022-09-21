@@ -5,8 +5,8 @@ import java.sql.Date;
 public class PurchaseDTO {
 	private int buy_number;			// 구매번호(PK)
 	private int buy_itemNumber;		// 상품번호
-	private String buy_buyer;		// 구매자(이메일)
-	private String buy_seller;		// 판매자(이메일)
+	private String buy_buyer;		// 구매자(닉네임)
+	private String buy_seller;		// 판매자(닉네임)
 	private Date buy_buyday;		// 구매일자
 	private int buy_price;			// 구매가격
 	

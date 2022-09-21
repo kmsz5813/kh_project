@@ -34,7 +34,11 @@
 	<select id="searchName" resultType="selItemDto">
 		SELECT * FROM SEL_ITEM WHERE SEL_NAME = #{sel_name}
 	</select>
-
+	
+	<update id="plusCount">
+		UPDATE SEL_ITEM SET SEL_NUMBER = SEL_NUMBER + 1
+		 WHERE SEL_ID = #{itemid}
+	</update>
 
 
 

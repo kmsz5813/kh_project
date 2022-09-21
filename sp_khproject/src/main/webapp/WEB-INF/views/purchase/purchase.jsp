@@ -53,8 +53,12 @@
 					<div style="height: 350px;">
 						<h4 class="mt-3 mb-5" style="margin-left: 450px;">최종 결제 금액</h4>
 						<div class="mt-5 mb-5" style="margin-left: 450px;">
-							<h1 id="price" style="font-weight:700; color:red;">${itemdata.sel_price } 원</h1>
+							<h1 id="price" style="font-weight:700; color:red;"><fmt:formatNumber type="number" maxFractionDigits="3" value="${itemdata.sel_price}"/> 원</h1>
 						</div>
+						
+						
+						
+						
 						<div class="mb-3" style="margin-left: 100px;">
 							<input type="checkbox" id="check" style="width:20px;height:20px;" class="form-check-input" name="">							
 							<label id="" style="font-size:20px; margin-left:20px;">결제 정보를 확인하였으며, 구매진행에 동의합니다.</label>
