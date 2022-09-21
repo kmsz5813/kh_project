@@ -202,4 +202,11 @@ public class SelItemController {
 		return "sellitem/itemdetail";
 	}
 	
+//	@GetMapping(value="/itemmodify")
+//	public String itemmodify(Model model
+//			, HttpServletRequest request
+//			, @SessionAttribute("loginData") AccountsDTO acDto) {
+//		request.setAttribute("", acDto)
+//	}
+	
 }

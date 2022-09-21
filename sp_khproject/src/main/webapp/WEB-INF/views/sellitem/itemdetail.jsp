@@ -69,7 +69,8 @@
 			</div>
 			<c:if test="${data.ac_name == loginData.ac_name}">
 				<div>
-					<button type="button">수정</button>
+					<button type="button" onclick="location.href='${pageContext.request.contextPath}/itemmodify'"
+						class="btn btn-outline-success">수정</button>
 					<button type="button">삭제</button>
 					<p>제목 : ${itemdata.sel_title}</p>
 					<p>내용 : ${itemdata.sel_content}</p>
