@@ -144,7 +144,9 @@ li {
 	
 	
 	
+	
 		
+	
 	
 	
 	
@@ -154,7 +156,9 @@ li {
 	
 	
 	
+	
 	 
+	
 	
 	
 	
@@ -168,7 +172,11 @@ li {
 	
 	
 	
+	
+	
 	.25rem
+	
+	
 	
 	
 	
@@ -391,85 +399,88 @@ feed-item .feed-content {
 						</div>
 					</div>
 				</nav>
-
-					<table class="table table-hover mb-0">
-						<colgroup>
-							<col class="col-1">
-							<col class="col-auto">
-							<col class="col-2">
-							<col class="col-1">
-							<col class="col-1">
-							<col class="col-2">
-						</colgroup>
-						<thead>
-							<tr>
-								<th>번호</th>
-								<th>제목</th>
-								<th>작성자</th>
-								<th>조회수</th>
-								<th>추천수</th>
-								<th>작성일</th>
-							</tr>
-						</thead>
-						<tbody>
-							<c:if test="${not empty datas}">
-								<c:forEach items="${datas}" var="data">
-									<c:url var="findProDetailUrl"
-										value="/community/findPro/detail">
-										<c:param name="id">${data.findPro_Id}</c:param>
-									</c:url>
-									<tr onclick="location.href='${findProDetailUrl}'">
-										<td>${data.findPro_Id}</td>
-										<td>${data.findPro_Title}</td>
-										<td>${data.user_Name}</td>
-										<td>${data.findPro_view}</td>
-										<td>${data.findPro_like}</td>
-										<td>${data.findPro_Date}</td>
-									</tr>
-								</c:forEach>
-							</c:if>
-						</tbody>
-					</table>
-					<nav>
-						<div>
-							<ul class="pagination justify-content-center">
-								<c:if test="${pageData.hasPrevPage()}">
-									<li class="page-item"><a class="page-link"
-										href="${findProUrl}?page=${pageData.prevPageNumber}">Prev</a>
-									</li>
+				<section class="container">
+					<div class="mb-1">
+						<table class="table table-hover mb-0">
+							<colgroup>
+								<col class="col-1">
+								<col class="col-auto">
+								<col class="col-2">
+								<col class="col-1">
+								<col class="col-1">
+								<col class="col-2">
+							</colgroup>
+							<thead>
+								<tr>
+									<th>번호</th>
+									<th>제목</th>
+									<th>작성자</th>
+									<th>조회수</th>
+									<th>추천수</th>
+									<th>작성일</th>
+								</tr>
+							</thead>
+							<tbody>
+								<c:if test="${not empty datas}">
+									<c:forEach items="${datas}" var="data">
+										<c:url var="findProDetailUrl"
+											value="/community/findPro/detail">
+											<c:param name="id">${data.findPro_Id}</c:param>
+										</c:url>
+										<tr onclick="location.href='${findProDetailUrl}'">
+											<td>${data.findPro_Id}</td>
+											<td>${data.findPro_Title}</td>
+											<td>${data.user_Name}</td>
+											<td>${data.findPro_view}</td>
+											<td>${data.findPro_like}</td>
+											<td>${data.findPro_Date}</td>
+										</tr>
+									</c:forEach>
 								</c:if>
-								<c:forEach
-									items="${pageData.getPageNumberList(pageData.currentPageNumber - 2, pageData.currentPageNumber + 2)}"
-									var="num">
-									<li
-										class="page-item ${pageData.currentPageNumber eq num ? 'active' : ''}">
-										<a class="page-link" href="${findProUrl}?page=${num}">${num}</a>
-									</li>
-								</c:forEach>
-								<c:if test="${pageData.hasNextPage()}">
-									<li class="page-item"><a class="page-link"
-										href="${findProUrl}?page=${pageData.nextPageNumber}">Next</a>
-									</li>
-								</c:if>
-							</ul>
-						</div>
-					</nav>
+							</tbody>
+						</table>
+						<nav>
+							<div>
+								<ul class="pagination justify-content-center">
+									<c:if test="${pageData.hasPrevPage()}">
+										<li class="page-item"><a class="page-link"
+											href="${findProUrl}?page=${pageData.prevPageNumber}">Prev</a>
+										</li>
+									</c:if>
+									<c:forEach
+										items="${pageData.getPageNumberList(pageData.currentPageNumber - 2, pageData.currentPageNumber + 2)}"
+										var="num">
+										<li
+											class="page-item ${pageData.currentPageNumber eq num ? 'active' : ''}">
+											<a class="page-link" href="${findProUrl}?page=${num}">${num}</a>
+										</li>
+									</c:forEach>
+									<c:if test="${pageData.hasNextPage()}">
+										<li class="page-item"><a class="page-link"
+											href="${findProUrl}?page=${pageData.nextPageNumber}">Next</a>
+										</li>
+									</c:if>
+								</ul>
+							</div>
+						</nav>
+					</div>
 				</section>
-
-				
-
-
-				<c:url var="mainurl" value="/main" />
-
-
-				<footer id="jb-footer">
-					<div
-						style="width: 1500px; height: 200px; background-color: #f6f7f7; margin: auto; padding: 10px;
-						">
-						이용약관</div>
-				</footer>
-				<!-- go to top -->
-				<a class="btn-top" href="#"><i class="xi-angle-up-thin"></i></a>
 			</div>
+		</section>
+
+
+
+
+		<c:url var="mainurl" value="/main" />
+
+
+		<footer id="jb-footer">
+			<div
+				style="width: 1500px; height: 200px; background-color: #f6f7f7; margin: auto; padding: 10px;">
+				이용약관</div>
+		</footer>
+		<!-- go to top -->
+		<a class="btn-top" href="#"><i class="xi-angle-up-thin"></i></a>
+	</div>
 </body>
 </html>

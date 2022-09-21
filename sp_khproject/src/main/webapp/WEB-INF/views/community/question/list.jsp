@@ -393,10 +393,11 @@ feed-item .feed-content {
 				</nav>
 
 
-				<!-- 커뮤니티 메인 새글
+
 
 				<section class="container">
 					<div class="mb-1">
+						<!-- 커뮤니티 메인 새글
 						<c:url var="questionListUrl" value="/community/question/list" />
 						<form action="${questionListUrl}" method="get">
 							<div class="row g-1">
@@ -419,76 +420,79 @@ feed-item .feed-content {
 								</div>
 							</div>
 						</form>
-					</div>
+					
 					 -->
-					<table class="table table-hover mb-0">
-						<colgroup>
-							<col class="col-1">
-							<col class="col-auto">
-							<col class="col-2">
-							<col class="col-1">
-							<col class="col-1">
-							<col class="col-2">
-						</colgroup>
-						<thead>
-							<tr>
-								<th>번호</th>
-								<th>제목</th>
-								<th>작성자</th>
-								<th>조회수</th>
-								<th>추천수</th>
-								<th>작성일</th>
-							</tr>
-						</thead>
-						<tbody>
-							<c:if test="${not empty datas}">
-								<c:forEach items="${datas}" var="data">
-									<c:url var="questionDetailUrl"
-										value="/community/question/detail">
-										<c:param name="id">${data.question_Id}</c:param>
-									</c:url>
-									<tr onclick="location.href='${questionDetailUrl}'">
-										<td>${data.question_Id}</td>
-										<td>${data.question_Title}</td>
-										<td>${data.user_Name}</td>
-										<td>${data.question_view}</td>
-										<td>${data.question_like}</td>
-										<td>${data.question_Date}</td>
-									</tr>
-								</c:forEach>
-							</c:if>
-						</tbody>
-					</table>
-					<nav>
-						<div>
-							<ul class="pagination justify-content-center">
-								<c:if test="${pageData.hasPrevPage()}">
-									<li class="page-item"><a class="page-link"
-										href="${questionUrl}?page=${pageData.prevPageNumber}">Prev</a>
-									</li>
+						<table class="table table-hover mb-0">
+							<colgroup>
+								<col class="col-1">
+								<col class="col-auto">
+								<col class="col-2">
+								<col class="col-1">
+								<col class="col-1">
+								<col class="col-2">
+							</colgroup>
+							<thead>
+								<tr>
+									<th>번호</th>
+									<th>제목</th>
+									<th>작성자</th>
+									<th>조회수</th>
+									<th>추천수</th>
+									<th>작성일</th>
+								</tr>
+							</thead>
+							<tbody>
+								<c:if test="${not empty datas}">
+									<c:forEach items="${datas}" var="data">
+										<c:url var="questionDetailUrl"
+											value="/community/question/detail">
+											<c:param name="id">${data.question_Id}</c:param>
+										</c:url>
+										<tr onclick="location.href='${questionDetailUrl}'">
+											<td>${data.question_Id}</td>
+											<td>${data.question_Title}</td>
+											<td>${data.user_Name}</td>
+											<td>${data.question_view}</td>
+											<td>${data.question_like}</td>
+											<td>${data.question_Date}</td>
+										</tr>
+									</c:forEach>
 								</c:if>
-								<c:forEach
-									items="${pageData.getPageNumberList(pageData.currentPageNumber - 2, pageData.currentPageNumber + 2)}"
-									var="num">
-									<li
-										class="page-item ${pageData.currentPageNumber eq num ? 'active' : ''}">
-										<a class="page-link" href="${questionUrl}?page=${num}">${num}</a>
-									</li>
-								</c:forEach>
-								<c:if test="${pageData.hasNextPage()}">
-									<li class="page-item"><a class="page-link"
-										href="${questionUrl}?page=${pageData.nextPageNumber}">Next</a>
-									</li>
-								</c:if>
-							</ul>
-						</div>
-					</nav>
+							</tbody>
+						</table>
+						<nav>
+							<div>
+								<ul class="pagination justify-content-center">
+									<c:if test="${pageData.hasPrevPage()}">
+										<li class="page-item"><a class="page-link"
+											href="${questionUrl}?page=${pageData.prevPageNumber}">Prev</a>
+										</li>
+									</c:if>
+									<c:forEach
+										items="${pageData.getPageNumberList(pageData.currentPageNumber - 2, pageData.currentPageNumber + 2)}"
+										var="num">
+										<li
+											class="page-item ${pageData.currentPageNumber eq num ? 'active' : ''}">
+											<a class="page-link" href="${questionUrl}?page=${num}">${num}</a>
+										</li>
+									</c:forEach>
+									<c:if test="${pageData.hasNextPage()}">
+										<li class="page-item"><a class="page-link"
+											href="${questionUrl}?page=${pageData.nextPageNumber}">Next</a>
+										</li>
+									</c:if>
+								</ul>
+							</div>
+						</nav>
+					</div>
 				</section>
+			</div>
+		</section>
 
-				
 
 
-				<c:url var="mainurl" value="/main" />
+
+		<c:url var="mainurl" value="/main" />
 
 
 				<footer id="jb-footer">
