@@ -37,7 +37,12 @@
 		<div class="mt-5">
 			<div class="row mb-5 center">
 				<div class="col-10 mb-3">
-					<p class="fw-bold fs-2">회원정보</p>
+					<c:if test="${data.ac_index == 10}">
+						<p class="fw-bold fs-2">회원정보</p>
+					</c:if>
+					<c:if test="${data.ac_index == 20}">
+						<p class="fw-bold fs-2">전문가 정보</p>
+					</c:if>
 				</div>
 			</div>
 			<div class="row mt-3">

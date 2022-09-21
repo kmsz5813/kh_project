@@ -8,7 +8,9 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
+
 import javax.servlet.ServletException;
+
 import java.util.Map;
 import java.util.UUID;
 
@@ -72,6 +74,7 @@ public class SelItemController {
 		 
 		// jsp에서 값을 받아오는
 
+
 		String title = request.getParameter("title");
 	    String service1 = request.getParameter("field");
 	    String location = request.getParameter("location");
@@ -80,6 +83,7 @@ public class SelItemController {
 		System.out.println(title);
 		System.out.println(location);
 		System.out.println(content);
+
 		data.setSel_title(title);
 		data.setSel_field(service1);
 		data.setSel_location(location);
@@ -191,10 +195,14 @@ public class SelItemController {
 
 		String name = request.getParameter("search");
 
+
 		AccountsDTO data = loginService.nameCheck(name);
 		//아이템 번호도 가져와야됨
 		int itemid = Integer.parseInt(request.getParameter("itemid"));
 		SelItemDTO itemdata = service.getData(itemid);
+
+
+		
 
 		request.setAttribute("data", data);
 		request.setAttribute("itemdata", itemdata);

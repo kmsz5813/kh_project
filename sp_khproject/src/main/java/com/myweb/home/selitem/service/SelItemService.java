@@ -94,4 +94,16 @@ public class SelItemService {
 		
 		return null;
 	}
+	
+	// 이름으로 게시글 찾기
+	public List<SelItemDTO> getName(String ac_name) {
+		List<SelItemDTO> datas = dao.searchName(ac_name);
+		if(datas != null) {
+			return datas;
+		}
+		return null;
+	}
+
+
+	
 }
