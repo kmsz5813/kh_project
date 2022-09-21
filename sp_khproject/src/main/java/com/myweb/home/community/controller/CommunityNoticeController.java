@@ -188,5 +188,4 @@ public class CommunityNoticeController {
 		
 		return "community/noticeDetail";
 	}
-	
 }
