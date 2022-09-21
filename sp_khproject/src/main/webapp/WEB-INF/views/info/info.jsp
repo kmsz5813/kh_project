@@ -7,7 +7,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
 	<meta charset="UTF-8">
 	<title>마이페이지</title>
 	
@@ -83,16 +83,82 @@
 				</div>
 			</div>
 			<div class="mt-5">
-				<input type="radio" class="btn-check radio-value" value = "1" name="options-outlined" id="success-outlined" autocomplete="off" checked>
-				<label class="btn btn-outline-success" for="success-outlined">구매내역</label>
+				<c:if test="${loginData.ac_index == 10}">
+					<input type="radio" class="btn-check radio-value" value = "1" name="options-outlined" id="success-outlined" autocomplete="off" checked>
+					<label class="btn btn-outline-success" for="success-outlined">구매 내역</label>
+				</c:if>
+				<c:if test="${loginData.ac_index == 20}">
+					<input type="radio" class="btn-check radio-value" value = "1" name="options-outlined" id="success-outlined" autocomplete="off" checked>
+					<label class="btn btn-outline-success" for="success-outlined">판매 게시글</label>
+				</c:if>
 				
-				<input type="radio" class="btn-check radio-value" value = "2" name="options-outlined" id="success-outlined2" autocomplete="off">
-				<label class="btn btn-outline-success" for="success-outlined2">관심상품</label>
+				<c:if test="${loginData.ac_index == 10}">
+					<input type="radio" class="btn-check radio-value" value = "2" name="options-outlined" id="success-outlined2" autocomplete="off">
+					<label class="btn btn-outline-success" for="success-outlined2">관심상품</label>
+				</c:if>
+				<c:if test="${loginData.ac_index == 20}">
+					<input type="radio" class="btn-check radio-value" value = "2" name="options-outlined" id="success-outlined2" autocomplete="off">
+					<label class="btn btn-outline-success" for="success-outlined2">판매내역</label>
+				</c:if>
 				
 				<input type="radio" class="btn-check radio-value" value = "3" name="options-outlined" id="success-outlined3" autocomplete="off">
 				<label class="btn btn-outline-success" for="success-outlined3">메시지</label>
 			</div>
-			<section class="container container1">
+			<c:if test="${loginData.ac_index == 10}">
+				<section class="container1">
+					<div class="mt-5 col-md-12">
+						<table class="table table-hover">
+							<colgroup>
+								<col class="col-2 row">
+								<col class="col-auto row">
+								<col class="col-5 row">
+							</colgroup>
+							<thead style="background-color: rgb(224, 224, 224)">							
+								<tr>
+									<th class="text-center">쿠폰명</th>
+									<th class="text-center">상세설명</th>
+									<th class="text-center">사용기한</th>
+								</tr>
+							</thead>
+							<tbody>
+								<c:forEach items="${items}" var="items">
+									<tr>
+										<td class="text-center">${items.sel_id}<td>
+										<td class="text-center">${items.sel_title}<td>
+										<td class="text-center">${items.sel_writeday}<td>
+									</tr>
+								</c:forEach>
+							</tbody>
+						</table>
+					</div>
+				</section>
+			</c:if>
+			<c:if test="${loginData.ac_index == 20}">
+				<section class="container1">
+					<div class="mt-5">
+						<table class="table table-hover">
+							<thead style="background-color: rgb(224, 224, 224)">							
+								<tr>
+									<th class="text-center">제목</th>
+									<th class="text-center">작성일자</th>
+									<th class="text-center">추천수</th>
+								</tr>
+							</thead>
+							<tbody>
+								<c:forEach items="${items}" var="item">
+									<tr onclick="location.href='./sellitem/itemdetail?search=${item.sel_name}&itemid=${item.sel_id}'" style="cursor:pointer;">
+										<td class="text-center">${item.sel_title}<td>
+										<td class="text-center">${item.sel_writeday}<td>
+										<td class="text-center">${item.sel_like}<td>
+									</tr>
+								</c:forEach>
+							</tbody>
+						</table>
+					</div>
+				</section>
+			</c:if>
+			<c:if test="${loginData.ac_index == 10}">
+				<section class="container2">
 					<div class="mt-5">
 						<table class="table table-hover">
 							<colgroup>
@@ -102,15 +168,17 @@
 							</colgroup>
 							<thead style="background-color: rgb(224, 224, 224)">
 								<tr>
-									<th class="text-center">test</th>
-									<th class="text-center">test</th>
-									<th class="text-center">test</th>
+									<th class="text-center">test2</th>
+									<th class="text-center">test2</th>
+									<th class="text-center">test2</th>
 								</tr>
 							</thead>
 						</table>
 					</div>
 				</section>
-				<section class="container container2">
+			</c:if>
+			<c:if test="${loginData.ac_index == 20}">
+				<section class="container2">
 					<div class="mt-5">
 						<table class="table table-hover">
 							<colgroup>
@@ -128,7 +196,8 @@
 						</table>
 					</div>
 				</section>
-				<section class="container container3">
+			</c:if>		
+				<section class="container3">
 					<div class="mt-5">
 						<table class="table table-hover">
 							<colgroup>
@@ -148,6 +217,7 @@
 				</section>
 		</div>
 	</section>
+	
 	<script type="text/javascript">
 		// radio active 버튼
 		$('.radio-value').on('click', function() {

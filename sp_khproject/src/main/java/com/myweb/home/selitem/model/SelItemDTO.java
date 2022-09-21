@@ -6,7 +6,7 @@ public class SelItemDTO {
 
 	private int sel_id;
 	private String sel_name;
-	private String sel_interest;
+	private String sel_field;
 	private String sel_location;
 	private String sel_title;
 	private String sel_content;
@@ -31,12 +31,12 @@ public class SelItemDTO {
 		this.sel_name = sel_name;
 	}
 
-	public String getSel_interest() {
-		return sel_interest;
+	public String getSel_field() {
+		return sel_field;
 	}
 
-	public void setSel_interest(String sel_interest) {
-		this.sel_interest = sel_interest;
+	public void setSel_field(String sel_field) {
+		this.sel_field = sel_field;
 	}
 
 	public String getSel_location() {
@@ -97,7 +97,7 @@ public class SelItemDTO {
 
 	@Override
 	public String toString() {
-		return "AccountsDTO [sel_id=" + sel_id + ", sel_name=" + sel_name + ", sel_interest=" + sel_interest
+		return "AccountsDTO [sel_id=" + sel_id + ", sel_name=" + sel_name + ", sel_field=" + sel_field
 				+ ", sel_location=" + sel_location + ", sel_title=" + sel_title + ", sel_content=" + sel_content
 				+ ", sel_writeday=" + sel_writeday + ", sel_view=" + sel_view + ", sel_like=" + sel_like
 				+ ", sel_report=" + sel_report + "]";

@@ -6,9 +6,6 @@
 <%@ page import="java.net.URLEncoder" %>
 <%@ page import="java.security.SecureRandom" %>
 <%@ page import="java.math.BigInteger" %>
-
-
-
 <c:url var="bs5" value="/static/bs5" />
 <c:url var="jQuery" value="/static/js" />
 <!DOCTYPE html>
@@ -17,11 +14,10 @@
 	<meta charset="UTF-8">
 	<title>로그인페이지</title>
 	<link rel="stylesheet" type="text/css" href="${bs5}/css/bootstrap.min.css">
-	<script type="text/javascript" src="${bs5}/js/bootstrap.min.js"></script>
 	<script type="text/javascript" src="${jQuery}/jquery-3.6.0.min.js"></script>  
-	<%@ include file="../module/head.jsp" %>
 </head>
 <body>
+	<%@ include file="../module/head.jsp" %>
 	<header></header>
 	<section class="container w-25">
 	<div class="mt-5" >

@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public class SelItemDAO {
-
+	
 	
 	@Autowired
 	private SqlSession session;
@@ -43,7 +43,7 @@ public class SelItemDAO {
 	}
 	
 	public SelItemDTO selectData(int id) {
-		String mapperId = String.format(mapper, "selectData");
+		String mapperId = String.format(mapper, "selectIdData");
 		SelItemDTO res = session.selectOne(mapperId, id);
 		return res;
 	}
@@ -114,5 +114,11 @@ public class SelItemDAO {
 		String mapperId = String.format(mapper, "updateStaticsLike");
 		int res = session.update(mapperId, data);
 		return res == 1 ? true : false;
+	}
+
+	public List<SelItemDTO> searchName(String ac_name) {
+		String mapperId = String.format(mapper, "searchName");
+		List<SelItemDTO> datas = session.selectList(mapperId, ac_name);
+		return datas;
 	}
 }
