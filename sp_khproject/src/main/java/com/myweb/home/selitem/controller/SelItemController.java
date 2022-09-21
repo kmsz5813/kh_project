@@ -112,18 +112,18 @@ public class SelItemController {
 		
 		if(selectData != null) {
 			paging = new Paging(seletResult, page, pageCount);
-			System.out.println("selectResult" + paging);
+			
 			model.addAttribute("selectData", "select=" + selectData);
 			
 		}else if(search != null){
 			//검색으로 조회
 			paging = new Paging(serachData, page, pageCount);
-			System.out.println("serachData" + paging);
+			
 			model.addAttribute("selectData", "search=" + search);
 		}
 		else {
 			paging = new Paging(result, page, pageCount);
-			System.out.println("result" + paging);
+			
 		}
 		
 		model.addAttribute("result", paging.getPageData());

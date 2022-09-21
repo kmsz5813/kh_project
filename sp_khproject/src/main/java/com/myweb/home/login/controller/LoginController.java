@@ -536,18 +536,22 @@ public class LoginController {
 		@ResponseBody
 		public String nameCheck(@RequestParam("name") String name) {
 			
-			
-			
 			JSONObject json = new JSONObject();
 			
-			AccountsDTO data = service.nameCheck(name);
-			
-			
-			if(data == null) {
-				json.put("code", "success");
+			if(name.getBytes().length <= 40) {
+				AccountsDTO data = service.nameCheck(name);
+				
+				if(data == null) {
+					json.put("code", "success");
+				}else {
+					json.put("code", "sameid");
+				}
 			}else {
-				json.put("code", "sameid");
+				System.out.println("login에서 작동");
+				json.put("code", "nameLength");
 			}
+			
+			
 			
 			return json.toJSONString();
 			

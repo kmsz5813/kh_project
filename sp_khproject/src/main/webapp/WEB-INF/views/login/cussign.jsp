@@ -41,6 +41,11 @@
 		color:red; 
 		display: none;
 		}
+		
+		.name_long{
+		color:red; 
+		display: none;
+		}
 	</style>
 </head>
 
@@ -68,7 +73,7 @@
 				<c:if test="${empty email }">
 				<div class="mb-3">
 					<label class="fw-normal mb-2">이메일</label>
-					<input type="email" id="id"  class="form-control" onchange="checkId()" name="cus_email" placeholder="이메일을 입력해주세요." required>
+					<input type="email" id="id"  class="form-control" onchange="checkId()" name="cus_email" placeholder="이메일을 입력해주세요."  maxlength="30" required>
 					<span id="email-alert" class="email-alert"></span>
 					<span class="id_ok">사용 가능한 이메일입니다.</span>
 					<span class="id_already">사용 중인 이메일입니다.</span>
@@ -80,9 +85,10 @@
 
 				<div class="mb-3">
 					<label class="fw-normal mb-2">닉네임</label>
-					<input class="form-control" id="name" onchange="checkName()" type="text" name="cus_name" placeholder="별명을 입력해주세요." required>
+					<input class="form-control" id="name" onchange="checkName()" type="text" name="cus_name" maxlength="20" placeholder="별명을 입력해주세요." required>
 					<span class="name_ok">사용 가능한 닉네임입니다.</span>
 					<span class="name_already">사용 중인 닉네임입니다.</span>
+					<span class="name_long">너무 긴 닉네임입니다.</span>
 				</div>
 				 
 				<div>
@@ -91,7 +97,7 @@
 	
 				<div class="mb-3">
 					<label class="mb-2">비밀번호</label>
-					<input class="form-control pw" type="password" id="cus_pw" name="cus_pw" placeholder="비밀번호를 입력해 주세요.(6자리 이상)" required>
+					<input class="form-control pw" type="password" id="cus_pw" name="cus_pw" placeholder="비밀번호를 입력해 주세요.(6자리 ~ 15자리)" maxlength="15" required>
 					<span class="pw-alert"></span>
 				</div>
 				<div>
@@ -100,7 +106,7 @@
 						
 				<div class="mb-3">
 					<label class="mb-2">비밀번호확인</label>
-					<input class="form-control pwpw" type="password" id="cor_pw" name="correct_pw" placeholder="비밀번호를 한 번 더 입력해 주세요." required>
+					<input class="form-control pwpw" type="password" id="cor_pw" name="correct_pw" placeholder="비밀번호를 한 번 더 입력해 주세요." maxlength="15" required>
 					<span class="pwpw-alert"></span>
 				</div>
 				<div>
@@ -319,15 +325,22 @@
 				            	if(data.code === "success" && label.text != ''){
 				            	      $('.name_ok').css("display","inline-block"); 
 				                      $('.name_already').css("display", "none");
+				                      $('.name_long').css("display", "none");
 				            		 return;
 				            	}else if(data.code === "sameid"){
 				            		 $('.name_already').css("display","inline-block");
 				                     $('.name_ok').css("display", "none");
 				                     $('#name').focus();
 				                     return false; 
-				            	} else {
+				            	}else if(data.code === "nameLength"){
+				            		$('.name_long').css("display", "inline-block");    	
+				            		$('#name').focus();
+				            		return false;
+				            	} 
+				            	else {
 				            		$('.name_already').css("display", "none");
 				            		$('.name_ok').css("display", "none");
+				            		$('.name_long').css("display", "none");
 				            	}
 				            },
 				        });
