@@ -2,6 +2,7 @@ package com.myweb.home.community.controller;
 
 import java.util.List;
 
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -30,6 +31,7 @@ import com.myweb.home.upload.service.FileUploadService;
 
 @Controller
 @RequestMapping(value="/community/question")
+@MultipartConfig
 public class CommunityQuestionController {
 	
 	@Autowired
@@ -38,7 +40,7 @@ public class CommunityQuestionController {
 	@Autowired
 	private FileUploadService fileUploadService;
 	
-	@RequestMapping(value="", method=RequestMethod.GET)
+	@RequestMapping(value="/list", method=RequestMethod.GET)
 	public String getList(Model model, HttpSession session
 			, @RequestParam(defaultValue="1", required=false) int page
 			, @RequestParam(defaultValue="0", required=false) int pageCount) {
@@ -58,7 +60,7 @@ public class CommunityQuestionController {
 		model.addAttribute("datas", paging.getPageData());
 		model.addAttribute("pageData", paging);
 		
-		return "community/question";
+		return "community/question/list";
 	}
 	
 	@GetMapping(value="/detail")
@@ -72,7 +74,7 @@ public class CommunityQuestionController {
 			service.incViewCnt(session, data);
 			model.addAttribute("data", data);
 			model.addAttribute("fileDatas", fileDatas);
-			return "question/detail";
+			return "community/question/detail";
 		} else {
 			model.addAttribute("error", "해당 데이터가 존재하지 않습니다.");
 			return "error/notExists";
@@ -81,38 +83,57 @@ public class CommunityQuestionController {
 	
 	@GetMapping(value="/add")
 	public String add() {
-		return "question/add";
+		return "community/question/add";
 	}
+	
+//	@PostMapping(value="/add")
+//	public String add(HttpServletRequest request
+//			, @SessionAttribute("loginData") AccountsDTO acDto
+//			, @ModelAttribute CommunityQuestionVO communityQuestionVo
+//			, @RequestParam("fileUpload") MultipartFile[] files) {
+//		CommunityQuestionDTO data = new CommunityQuestionDTO();
+//		data.setQuestion_Title(communityQuestionVo.getQuestion_title());
+//		data.setQuestion_Content(communityQuestionVo.getQuestion_content());
+//		data.setUser_Name(acDto.getAc_name());
+//		
+//		int id = service.add(data);
+//		
+//		for(MultipartFile file: files) {
+//			String location = request.getServletContext().getRealPath("/resources/community/question/upload");
+//			String url = "/static/community/question/upload";
+//			FileUploadDTO fileData = new FileUploadDTO(id, location, url);
+//			
+//			try {
+//				int fileResult = fileUploadService.upload(file, fileData);
+//				if(fileResult == -1) {
+//					request.setAttribute("error", "파일 업로드 수량을 초과하였습니다.");
+//					return "community/add";
+//				}
+//			} catch(Exception e) {
+//				request.setAttribute("error", "파일 업로드 작업중 예상치 못한 에러가 발생하였습니다.");
+//				return "community/add";
+//			}
+//			
+//		}
+//		
+//		if(id != -1) {
+//			return "redirect:/community/question/add?id=" + id;			
+//		} else {
+//			request.setAttribute("error", "게시글 저장 실패!");
+//			return "community/add";
+//		}
+//	}
 	
 	@PostMapping(value="/add")
 	public String add(HttpServletRequest request
 			, @SessionAttribute("loginData") AccountsDTO acDto
-			, @ModelAttribute CommunityQuestionVO communityQuestionVo
-			, @RequestParam("fileUpload") MultipartFile[] files) {
+			, @ModelAttribute CommunityQuestionVO communityQuestionVo) {
 		CommunityQuestionDTO data = new CommunityQuestionDTO();
 		data.setQuestion_Title(communityQuestionVo.getQuestion_title());
 		data.setQuestion_Content(communityQuestionVo.getQuestion_content());
 		data.setUser_Name(acDto.getAc_name());
 		
 		int id = service.add(data);
-		
-		for(MultipartFile file: files) {
-			String location = request.getServletContext().getRealPath("/resources/community/question/upload");
-			String url = "/static/community/question/upload";
-			FileUploadDTO fileData = new FileUploadDTO(id, location, url);
-			
-			try {
-				int fileResult = fileUploadService.upload(file, fileData);
-				if(fileResult == -1) {
-					request.setAttribute("error", "파일 업로드 수량을 초과하였습니다.");
-					return "community/question/add";
-				}
-			} catch(Exception e) {
-				request.setAttribute("error", "파일 업로드 작업중 예상치 못한 에러가 발생하였습니다.");
-				return "community/question/add";
-			}
-			
-		}
 		
 		if(id != -1) {
 			return "redirect:/community/question/detail?id=" + id;			
@@ -127,12 +148,12 @@ public class CommunityQuestionController {
 			, @SessionAttribute("loginData") AccountsDTO acDto
 			, @RequestParam int id) {
 		CommunityQuestionDTO data = service.getData(id);
-		List<FileUploadDTO> fileDatas = fileUploadService.getDatas(id);
+		//List<FileUploadDTO> fileDatas = fileUploadService.getDatas(id);
 		
 		if(data != null) {
-			if(data.getUser_Name() == acDto.getAc_name()) {
+			if(data.getUser_Name().equals(acDto.getAc_name()) ) {
 				model.addAttribute("data", data);
-				model.addAttribute("fileDatas", fileDatas);
+				//model.addAttribute("fileDatas", fileDatas);
 				return "community/question/modify";
 			} else {
 				model.addAttribute("error", "해당 작업을 수행할 권한이 없습니다.");
@@ -148,15 +169,16 @@ public class CommunityQuestionController {
 	public String modify(Model model
 			, @SessionAttribute("loginData") AccountsDTO acDto
 			, @ModelAttribute CommunityQuestionVO communityQuestionVo) {
+		//System.out.println(" vo : " + communityQuestionVo);
 		CommunityQuestionDTO data = service.getData(communityQuestionVo.getQuestion_id());
 		
 		if(data != null) {
-			if(data.getUser_Name() == acDto.getAc_name()) {
+			if(data.getUser_Name().equals(acDto.getAc_name())) {
 				data.setQuestion_Title(communityQuestionVo.getQuestion_title());
 				data.setQuestion_Content(communityQuestionVo.getQuestion_content());
 				boolean result = service.modify(data);
 				if(result) {
-					return "redirect:/community/question/detail?id=" + data.getUser_Name();
+					return "redirect:/community/question/detail?id=" + data.getQuestion_Id();
 				} else {
 					return modify(model, acDto, communityQuestionVo.getQuestion_id());
 				}
@@ -166,7 +188,7 @@ public class CommunityQuestionController {
 			}
 		} else {
 			model.addAttribute("error", "해당 데이터가 존재하지 않습니다.");
-			return "error/noExists";
+			return "error/notExists";
 		}
 	}
 	
@@ -174,6 +196,7 @@ public class CommunityQuestionController {
 	@ResponseBody
 	public String delete(@SessionAttribute("loginData") AccountsDTO acDto
 			, @RequestParam int id) {
+		//System.out.println("question_id " + ":" + id );
 		CommunityQuestionDTO data = service.getData(id);
 		
 		JSONObject json = new JSONObject();
@@ -183,7 +206,7 @@ public class CommunityQuestionController {
 			json.put("code", "notExists");
 			json.put("message", "이미 삭제 된 데이터 입니다.");
 		} else {
-			if(data.getUser_Name() == acDto.getAc_name()) {
+			if(data.getUser_Name().equals(acDto.getAc_name())) {
 				// 작성자, 수정자 동일인
 				boolean result = service.remove(data);
 				if(result) {

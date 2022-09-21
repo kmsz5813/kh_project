@@ -39,14 +39,17 @@
 
 <!-- style, css -->
 <style>
-.carousel-item {
-	width: 1500px;
-	height: 500px;
+a:link {
+	text-decoration: none;
+	color: black;
+	font-weight: bold;
+	font-family: 'Noto Sans KR', sans-serif;
 }
 
 body {
 	width: 1500px;
 	margin: auto;
+	font-family: 'Noto Sans KR', sans-serif;
 }
 
 #jb-container {
@@ -57,7 +60,6 @@ body {
 #jb-header {
 	padding: 20px;
 	margin-bottom: 20px;
-	border: 1px solid #bcbcbc;
 }
 
 #jb-content-head {
@@ -66,7 +68,6 @@ body {
 	padding: 20px;
 	margin-bottom: 20px;
 	float: left;
-	border: 1px solid #bcbcbc;
 }
 
 #jb-sidebar {
@@ -75,7 +76,6 @@ body {
 	padding: 20px;
 	margin-bottom: 20px;
 	float: left;
-	border: 1px solid #bcbcbc;
 	padding: 20px;
 }
 
@@ -84,16 +84,14 @@ body {
 	padding: 20px;
 	margin-bottom: 20px;
 	float: left;
-	border: 1px solid #bcbcbc;
 }
 
 #jb-footer {
 	width: 1500px;
 	clear: both;
-	padding: 20px;
+	padding: 10px;
 	margin-top: 1200px;
 	text-align: center;
-	border-top: 3px solid #dcdcde;
 	font-family: 'Noto Sans KR', sans-serif;
 	clear: both;
 }
@@ -143,16 +141,32 @@ li {
 @media ( max-width : 991.98px) .feed-item[data-v-05dbd958] {
 	padding
 	
+	
+	
 		
+	
+	
 	
 	:
 	
+	
+	
 	 
+	
+	
 	
 	1
 	
 	
+	
+	
+	
+	
 	.25rem
+	
+	
+	
+	
 	
 	
 	;
@@ -213,7 +227,7 @@ feed-item .feed-content {
 		<header>
 			<!-- 로그인/회원가입/FAQ -->
 			<div id="jb-header"
-				style="text-align: right; margin-right: 30px; position: relative; top: 20px;">
+				style="text-align: right; margin-right: -30px; position: relative; top: 20px;">
 				<c:if test="${empty loginData }">
 					<a href="${pageContext.request.contextPath}/login">로그인</a>&emsp;/&emsp; 
 			<a href="${pageContext.request.contextPath}/login/sign">회원가입</a>
@@ -221,12 +235,13 @@ feed-item .feed-content {
 				</c:if>
 				<c:if test="${not empty loginData }">
 			${loginData.ac_name }님 환영합니다!&emsp;/&emsp;
-			<a href="main/logout">로그아웃&emsp;/&emsp;</a>
+			<a href="${pageContext.request.contextPath}/main/logout">로그아웃&emsp;/&emsp;</a>
 					<a href="${pageContext.request.contextPath}/info">마이페이지&emsp;&emsp;</a>
 				</c:if>
 			</div>
-			
-			
+
+
+
 			<div style="text-align: center;">
 				<a href="#" style="display: table; margin-top: -100px;"> <img
 					src="../static/img/logo.png"
@@ -255,6 +270,39 @@ feed-item .feed-content {
 			</nav>
 		</header>
 
+		<div class="container-xl">
+			<div class="row">
+				<div class="col-md-12" style="position: relative; top: 100px;">
+					<h2>
+						<b>커뮤니티</b>
+					</h2>
+				</div>
+			</div>
+		</div>
+
+		<script type="text/javascript">
+			$('.carousel').carousel()
+		</script>
+		<nav class="navbar navbar-expand-md navbar-light"
+			style="margin-left: 1273px; position: relative; top: 50px;">
+			<div class="container">
+				<button class="navbar-toggler" type="button"
+					data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+					aria-controls="navbarSupportedContent" aria-expanded="false"
+					aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+
+				<div class="collapse navbar-collapse" id="navbarSupportedContent">
+					<form action="${communityUrl}/home/community/add" method="post">
+						<input type="hidden" name="cid" value="${data.cum_id}">
+						<button class="btn btn-outline-success" type="submit"
+							style="width: 150px;" id="button" onclick="formCheck(this.form);">글쓰기</button>
+					</form>
+				</div>
+			</div>
+		</nav>
+
 		<script type="text/javascript">
 			$('.carousel').carousel()
 		</script>
@@ -263,14 +311,14 @@ feed-item .feed-content {
 		<aside id="jb-sidebar">
 			<div>
 				<a href="${pageContext.request.contextPath}/community/main"
-				 style="position: relative; top: 120px; left: 60px;">
+					style="position: relative; top: 120px; left: 60px;">
 					<button type="button" class="btn btn-outline-success"
 						style="width: 130px; height: 50px;">전체</button>
 				</a>
 			</div>
 			<div>
 				<a href="${pageContext.request.contextPath}/community/findPro"
-				 style="position: relative; top: 180px; left: 60px;">
+					style="position: relative; top: 180px; left: 60px;">
 					<button type="button" class="btn btn-outline-success"
 						style="width: 130px; height: 50px;">전문가 찾아요</button>
 				</a>
@@ -283,7 +331,7 @@ feed-item .feed-content {
 			</div>
 			<div>
 				<a href="${pageContext.request.contextPath}/community/findStu"
-				 style="position: relative; top: 240px; left: 60px;">
+					style="position: relative; top: 240px; left: 60px;">
 					<button type="button" class="btn btn-outline-success"
 						style="width: 130px; height: 50px;">레슨자 찾아요</button>
 				</a>
@@ -296,7 +344,7 @@ feed-item .feed-content {
 			</div>
 			<div>
 				<a href="${pageContext.request.contextPath}/community/question"
-				 style="position: relative; top: 300px; left: 60px;">
+					style="position: relative; top: 300px; left: 60px;">
 					<button type="button" class="btn btn-outline-success"
 						style="width: 130px; height: 50px;">궁금해요</button>
 				</a>
@@ -309,7 +357,7 @@ feed-item .feed-content {
 			</div>
 			<div>
 				<a href="${pageContext.request.contextPath}/community/life"
-				 style="position: relative; top: 360px; left: 60px;">
+					style="position: relative; top: 360px; left: 60px;">
 					<button type="button" class="btn btn-outline-success"
 						style="width: 130px; height: 50px;">일상</button>
 				</a>
@@ -326,15 +374,8 @@ feed-item .feed-content {
 					<button type="button" class="btn btn-outline-success"
 						style="width: 130px; height: 50px;">공지사항</button>
 				</a>
-				<c:forEach items="${notice }" var="l">
-					<p id="conts">
-						<i class="fa fa-caret-right fa-1x mar-top"></i>&nbsp;
-						${l.NOTICE_TITLE}
-					</p>
-				</c:forEach>
 			</div>
 		</aside>
-
 
 		<section>
 
@@ -469,20 +510,16 @@ feed-item .feed-content {
 
 
 
-		<c:url var="mainurl" value="/main" />
+				<c:url var="mainurl" value="/main" />
 
 
-		<footer id="jb-footer">
-			<div
-				style="width: 1500px; height: 200px; background-color: #f6f7f7; margin: auto; padding: 10px;">
-				이용약관</div>
-		</footer>
-		<!-- go to top -->
-		<a class="btn-top" href="#"><i class="xi-angle-up-thin"></i></a>
-	</div>
-
-
-
-
+				<footer id="jb-footer">
+					<div
+						style="width: 1500px; height: 200px; background-color: #f6f7f7; margin: auto; padding: 10px;">
+						이용약관</div>
+				</footer>
+				<!-- go to top -->
+				<a class="btn-top" href="#"><i class="xi-angle-up-thin"></i></a>
+			</div>
 </body>
 </html>

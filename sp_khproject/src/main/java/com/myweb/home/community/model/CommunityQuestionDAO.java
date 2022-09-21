@@ -34,6 +34,7 @@ public class CommunityQuestionDAO {
 	
 	public boolean insertData(CommunityQuestionDTO data) {
 		String mapperId = String.format(mapper, "insertData");
+		System.out.println("insertData: " + data);
 		int res = session.insert(mapperId, data);
 		return res == 1 ? true : false;
 	}

@@ -18,7 +18,7 @@
 	
 	<select id="selectDatas" resultType="fileUploadDto">
 		SELECT *
-		  FROM FILEUPLOAD
+		  FROM FILE_UPLOAD
 		 WHERE FILE_BID = #{file_bId}
 	</select>
 </mapper>
