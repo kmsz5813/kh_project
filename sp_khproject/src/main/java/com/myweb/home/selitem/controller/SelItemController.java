@@ -1,9 +1,13 @@
 package com.myweb.home.selitem.controller;
 import java.io.File;
 import java.io.IOException;
-
-
+import java.util.ArrayList;
+import java.util.Enumeration;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -20,17 +24,19 @@ import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.myweb.home.Accounts.model.AccountsDTO;
 import com.myweb.home.common.Paging;
 import com.myweb.home.login.service.LoginService;
 import com.myweb.home.selitem.model.SelItemDTO;
 import com.myweb.home.selitem.service.SelItemService;
+import com.myweb.home.upload.model.FileUploadDTO;
 
 @Controller
 @RequestMapping(value="/sellitem")
 public class SelItemController {
-	
+	private static String CURR_IMAGE_REPO_PATH = null;
 			
 	@Autowired
 	private SelItemService service;
@@ -50,7 +56,9 @@ public class SelItemController {
 	@PostMapping(value="/additem")
 	public String additem(Model model, HttpServletRequest request
 			,@SessionAttribute("loginData") AccountsDTO acData
-			, MultipartHttpServletRequest mtfRequest) throws Exception {
+			, MultipartHttpServletRequest mtfRequest
+			, @RequestParam("file") MultipartFile[] files
+			 ) throws Exception {
 		SelItemDTO data = new SelItemDTO();
 		
 		// jsp에서 값을 받아오는
@@ -72,6 +80,7 @@ public class SelItemController {
             long fileSize = mf.getSize(); // 파일 사이즈
             System.out.println("originFileName : " + originFileName);
             System.out.println("fileSize : " + fileSize);
+            // 파일명 : 현재 시간 + 오리지널 네임
             String safeFile = path + System.currentTimeMillis() + originFileName;
             try {
                 mf.transferTo(new File(safeFile));
@@ -82,8 +91,17 @@ public class SelItemController {
             }
         }
 		
-
-        
+		// id = 게시글번호
+//		int id = service.getbId(data);
+//		for(MultipartFile file: files) {
+//			String path = request.getServletContext().getRealPath("/resources/img/item");
+//			String url = "/static/board/upload";
+//			FileUploadDTO fileData = new FileUploadDTO(id, path, url);
+//		}
+		
+			
+			
+			
 		boolean result = service.add(data);
 		
 		if(result) {
@@ -145,6 +163,8 @@ public class SelItemController {
 		model.addAttribute("result", paging.getPageData());
 		model.addAttribute("pageData", paging);
 		
+		// 로그인세션 존재유무 (전문가만 등록버튼 구현하기위해서)
+		// ??????
 		
 		return "/sellitem/list";
 	}

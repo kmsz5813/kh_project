@@ -15,6 +15,7 @@
 	<c:url var="bs5" value="/static/bs5" />
 	<c:url var="jQuery" value="/static/js" />
 	<link rel="stylesheet" type="text/css" href="${bs5}/css/bootstrap.min.css">
+	
 	<style>
 		.img-hover-zoom {
 	  	overflow: hidden;
@@ -41,11 +42,14 @@
 				</div>
 			</div>
 		</div>
-	
-	
 		
-
-	
+		<!-- 전문가면 글 등록가능하게 -->
+		<c:if test="${loginData.ac_index == 20}">
+			<div style="margin-left:1180px;">
+				<button onclick="location.href='./sellitem/additem'" class="btn btn-outline-success" type="button">상품 등록</button>
+			</div>
+		</c:if>
+		
 		<!-- 서비스 지역등 태그 페이지ㅣㅣㅣㅣㅣ -->
 		<div class="row g-1 mt-3 mb-5">
 			<div class="dropdown col-2">
