@@ -8,60 +8,60 @@
 	</select>
 	<insert id="insertData" parameterType="communityFindProDto">
 		INSERT INTO FINDPRO (FINDPRO_ID, USER_NAME, FINDPRO_TITLE, FINDPRO_CONTENT, FINDPRO_DATE)
-		     VALUES(#{findpro_id}, #{user_name}, #{findpro_title}, #{findpro_content}, SYSDATE)
+		     VALUES(#{findPro_Id}, #{user_Name}, #{findPro_Title}, #{findPro_Content}, SYSDATE)
 	</insert>
 	
 	<select id="selectQuestion" resultType="communityFindProDto">
 		SELECT F.FINDPRO_ID, F.FINDPRO_TITLE, F.FINDPRO_CONTENT
 		     , F.USER_NAME
 		     , F.FINDPRO_DATE
-		     , F.FINDPRO_VIEW AS findpro_view
+		     , F.FINDPRO_VIEW AS findPro_view
 		     , F."FINDPRO_LIKE"
 		  FROM FINDPRO F
 		  JOIN ACCOUNTS A
 		    ON F.USER_NAME = A.AC_NAME
-		 WHERE F.FINDPRO_ID = #{findpro_id}
+		 WHERE F.FINDPRO_ID = #{findPro_Id}
 	</select>
 	
 	<select id="selectData" resultType="communityFindProDto">
 		SELECT F.FINDPRO_ID, F.FINDPRO_TITLE, F.FINDPRO_CONTENT
 		     , F.USER_NAME
 		     , F.FINDPRO_DATE
-		     , F.FINDPRO_VIEW AS findpro_view
+		     , F.FINDPRO_VIEW AS findPro_view
 		     , F."FINDPRO_LIKE"
 		  FROM FINDPRO F
 		  JOIN ACCOUNTS A
 		    ON F.USER_NAME = A.AC_NAME
-		 WHERE F.FINDPRO_ID = #{findpro_id}
+		 WHERE F.FINDPRO_ID = #{findPro_Id}
 	</select>
 	<update id="updateViewCnt" parameterType="communityFindProDto">
 		UPDATE FINDPRO
-		   SET FINDPRO_VIEW = #{findpro_view} + 1
-		 WHERE FINDPRO_ID = #{findpro_id}
+		   SET FINDPRO_VIEW = #{findPro_view} + 1
+		 WHERE FINDPRO_ID = #{findPro_Id}
 	</update>
 	<update id="updateLike" parameterType="communityFindProDto">
 		UPDATE FINDPRO
-		   SET "FINDPRO_LIKE" = #{findpro_like}
-		 WHERE FINDPRO_ID= #{findpro_id}
+		   SET "FINDPRO_LIKE" = #{findPro_like}
+		 WHERE FINDPRO_ID= #{findPro_Id}
 	</update>
 	<select id="selectStatics" parameterType="communityFindProStaticsDto" resultType="communityFindProStaticsDto">
 		SELECT FINDPRO_ID, USER_NAME, FINDPRO_BID
 		     , FINDPRO_VIEWED
-		     , FINDPRO_LATEST_VIEW_DATE AS findpro_latestViewDate
+		     , FINDPRO_LATEST_VIEW_DATE AS findPro_latestViewDate
 		     , FINDPRO_LIKED
 		  FROM FINDPRO_STATICS
-		 WHERE USER_NAME = #{user_name}
-		   AND FINDPRO_BID = #{findpro_bId}
+		 WHERE USER_NAME = #{user_Name}
+		   AND FINDPRO_BID = #{findPro_bId}
 	</select>
 	<insert id="insertStatics" parameterType="communityFindProStaticsDto">
 		INSERT INTO FINDPRO_STATICS
 		     VALUES(FINDPRO_STATICS_SEQ.NEXTVAL
-		          , #{user_name}, #{findpro_bId}, 'Y', SYSDATE, 'N')
+		          , #{user_Name}, #{findPro_bId}, 'Y', SYSDATE, 'N')
 	</insert>
 	<update id="updateStatics" parameterType="communityFindProStaticsDto">
 		UPDATE FINDPRO_STATICS
 		   SET FINDPRO_LATEST_VIEW_DATE = SYSDATE
-		 WHERE FINDPRO_ID = #{findpro_id}
+		 WHERE FINDPRO_ID = #{findPro_Id}
 	</update>
 	<update id="updateStaticsLike" parameterType="communityFindProStaticsDto">
 		UPDATE FINDPRO_STATICS
@@ -73,13 +73,13 @@
 				SET FINDPRO_LIKED = 'N'
 			</otherwise>
 		</choose>
-		 WHERE FINDPRO_ID = #{findpro_id}
+		 WHERE FINDPRO_ID = #{findPro_Id}
 	</update>
 	<select id="selectAll" resultType="communityFindProDto">
 		SELECT F.FINDPRO_ID, F.FINDPRO_TITLE, F.FINDPRO_CONTENT
 		     , F.USER_NAME
 		     , F.FINDPRO_DATE
-		     , F.FINDPRO_VIEW AS findpro_view
+		     , F.FINDPRO_VIEW AS findPro_view
 		     , F."FINDPRO_LIKE"
 		  FROM FINDPRO F
 		  JOIN ACCOUNTS A
@@ -88,16 +88,16 @@
 	</select>
 	<delete id="deleteStaticsData">
 		DELETE FROM FINDPRO_STATICS
-		 WHERE FINDPRO_BID = #{findpro_bId}
+		 WHERE FINDPRO_BID = #{findPro_bId}
 	</delete>
 	<delete id="deleteData">
 		DELETE FROM FINDPRO
-		 WHERE FINDPRO_ID = #{findpro_id}
+		 WHERE FINDPRO_ID = #{findPro_Id}
 	</delete>
 	<update id="updateData" parameterType="communityFindProDto">
 		UPDATE FINDPRO
-		   SET FINDPRO_TITLE = #{findpro_title}
-		     , FINDPRO_CONTENT = #{findpro_content}
-		 WHERE FINDPRO_ID = #{findpro_id}
+		   SET FINDPRO_TITLE = #{findPro_Title}
+		     , FINDPRO_CONTENT = #{findPro_Content}
+		 WHERE FINDPRO_ID = #{findPro_Id}
 	</update>
 </mapper>

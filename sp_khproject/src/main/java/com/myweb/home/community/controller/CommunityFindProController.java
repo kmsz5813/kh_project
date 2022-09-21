@@ -35,18 +35,13 @@ public class CommunityFindProController {
 	@Autowired
 	private CommunityFindProService service;
 	
-	@Autowired
-	private FileUploadService fileUploadService;
-	
-	@RequestMapping(value="", method=RequestMethod.GET)
+	@RequestMapping(value="/list", method=RequestMethod.GET)
 	public String getList(Model model, HttpSession session
 			, @RequestParam(defaultValue="1", required=false) int page
 			, @RequestParam(defaultValue="0", required=false) int pageCount) {
 		List datas = service.getAll();
 		
-		if(session.getAttribute("pageCount") == null) {
-			session.setAttribute("pageCount", 5);
-		}
+		session.setAttribute("pageCount", 10); //10개씩 보여주기 위하게 만든것.
 		
 		if(pageCount > 0) {
 			session.setAttribute("pageCount", pageCount);
@@ -58,7 +53,7 @@ public class CommunityFindProController {
 		model.addAttribute("datas", paging.getPageData());
 		model.addAttribute("pageData", paging);
 		
-		return "community/findPro";
+		return "community/findPro/list";
 	}
 	
 	@GetMapping(value="/detail")
@@ -66,13 +61,11 @@ public class CommunityFindProController {
 			, HttpSession session
 			, @RequestParam int id) {
 		CommunityFindProDTO data = service.getData(id);
-		List<FileUploadDTO> fileDatas = fileUploadService.getDatas(id);
 		
 		if(data != null) {
 			service.incViewCnt(session, data);
 			model.addAttribute("data", data);
-			model.addAttribute("fileDatas", fileDatas);
-			return "findPro/detail";
+			return "community/findPro/detail";
 		} else {
 			model.addAttribute("error", "해당 데이터가 존재하지 않습니다.");
 			return "error/notExists";
@@ -81,38 +74,19 @@ public class CommunityFindProController {
 	
 	@GetMapping(value="/add")
 	public String add() {
-		return "findPro/add";
+		return "community/findPro/add";
 	}
 	
 	@PostMapping(value="/add")
 	public String add(HttpServletRequest request
 			, @SessionAttribute("loginData") AccountsDTO acDto
-			, @ModelAttribute CommunityFindProVO communityFindProVo
-			, @RequestParam("fileUpload") MultipartFile[] files) {
+			, @ModelAttribute CommunityFindProVO communityFindProVo) {
 		CommunityFindProDTO data = new CommunityFindProDTO();
 		data.setFindPro_Title(communityFindProVo.getFindPro_title());
 		data.setFindPro_Content(communityFindProVo.getFindPro_content());
 		data.setUser_Name(acDto.getAc_name());
 		
 		int id = service.add(data);
-		
-		for(MultipartFile file: files) {
-			String location = request.getServletContext().getRealPath("/resources/community/findPro/upload");
-			String url = "/static/community/findPro/upload";
-			FileUploadDTO fileData = new FileUploadDTO(id, location, url);
-			
-			try {
-				int fileResult = fileUploadService.upload(file, fileData);
-				if(fileResult == -1) {
-					request.setAttribute("error", "파일 업로드 수량을 초과하였습니다.");
-					return "community/findPro/add";
-				}
-			} catch(Exception e) {
-				request.setAttribute("error", "파일 업로드 작업중 예상치 못한 에러가 발생하였습니다.");
-				return "community/findPro/add";
-			}
-			
-		}
 		
 		if(id != -1) {
 			return "redirect:/community/findPro/detail?id=" + id;			
@@ -127,12 +101,10 @@ public class CommunityFindProController {
 			, @SessionAttribute("loginData") AccountsDTO acDto
 			, @RequestParam int id) {
 		CommunityFindProDTO data = service.getData(id);
-		List<FileUploadDTO> fileDatas = fileUploadService.getDatas(id);
 		
 		if(data != null) {
-			if(data.getUser_Name() == acDto.getAc_name()) {
+			if(data.getUser_Name().equals(acDto.getAc_name())) {
 				model.addAttribute("data", data);
-				model.addAttribute("fileDatas", fileDatas);
 				return "community/findPro/modify";
 			} else {
 				model.addAttribute("error", "해당 작업을 수행할 권한이 없습니다.");
@@ -140,7 +112,7 @@ public class CommunityFindProController {
 			}
 		} else {
 			model.addAttribute("error", "해당 데이터가 존재하지 않습니다.");
-			return "error/noExists";
+			return "error/notExists";
 		}
 	}
 	
@@ -151,12 +123,12 @@ public class CommunityFindProController {
 		CommunityFindProDTO data = service.getData(communityFindProVo.getFindPro_id());
 		
 		if(data != null) {
-			if(data.getUser_Name() == acDto.getAc_name()) {
+			if(data.getUser_Name().equals(acDto.getAc_name())) {
 				data.setFindPro_Title(communityFindProVo.getFindPro_title());
 				data.setFindPro_Content(communityFindProVo.getFindPro_content());
 				boolean result = service.modify(data);
 				if(result) {
-					return "redirect:/community/findPro/detail?id=" + data.getUser_Name();
+					return "redirect:/community/findPro/detail?id=" + data.getFindPro_Id();
 				} else {
 					return modify(model, acDto, communityFindProVo.getFindPro_id());
 				}
@@ -166,7 +138,7 @@ public class CommunityFindProController {
 			}
 		} else {
 			model.addAttribute("error", "해당 데이터가 존재하지 않습니다.");
-			return "error/noExists";
+			return "error/notExists";
 		}
 	}
 	
@@ -183,7 +155,7 @@ public class CommunityFindProController {
 			json.put("code", "notExists");
 			json.put("message", "이미 삭제 된 데이터 입니다.");
 		} else {
-			if(data.getUser_Name() == acDto.getAc_name()) {
+			if(data.getUser_Name().equals(acDto.getAc_name())) {
 				// 작성자, 수정자 동일인
 				boolean result = service.remove(data);
 				if(result) {
