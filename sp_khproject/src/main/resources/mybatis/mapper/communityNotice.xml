@@ -7,6 +7,7 @@
 	  
 <mapper namespace="CommunityNotice">
 
+	<!--           윤지님이 만드신부분 시작                -->
 	<!-- 모든 공지사항 수 조회 - 페이징 -->
 	<select id="selectCntNotice" resultType="int">
 	
@@ -58,7 +59,18 @@
 			) c
 		) notice 
 		where rnum BETWEEN #{paging.startNo} AND #{paging.endNo}
-	
 	</select>
+
+
+	<!--                   제가만든 부분 시작 -->
+	<!-- 내림차순으로 정렬해서 최신정보가 제일 위에오게끔 만들기 -->
+	<select id="allDatas" resultType="communityNoticeDto">
+		SELECT * FROM NOTICE ORDER BY NOTICE_NO DESC
+	</select>
+	
+	<select id="getDatas" resultType="communityNoticeDto">
+		SELECT * FROM NOTICE WHERE NOTICE_NO = #{notice_no}
+	</select>
+	
 	
 </mapper>
