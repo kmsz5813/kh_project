@@ -11,52 +11,12 @@
 	<c:url var="bs5" value="/static/bs5" />
 	<c:url var="jQuery" value="/static/js" />
 	<link rel="stylesheet" type="text/css" href="${bs5}/css/bootstrap.min.css">
-	<%@ include file="../module/head.jsp" %>
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-	
-	
 </head>
 <script type="text/javascript">
-	function formCheck(form) {
-		if(form.title.value === undefined || form.title.value.trim() === "") {
-			var modal = new bootstrap.Modal(document.getElementById("errorModal"), {
-				keyboard: false
-			});
-			modal.show();
-			return;
-		}
-		form.submit();
-	}
-	
-	function uploadCheck(element) {
-		var files = element.files;
-		
-		var modal = new bootstrap.Modal(document.getElementById("errorModal"), {
-			keyboard: false
-		});
-		var title = modal._element.querySelector(".modal-title");
-		var body = modal._element.querySelector(".modal-body");
-		
-		if(files.length > 1) {
-			title.innerText = "파일 업로드 오류";
-			body.innerText = "파일 업로드는 최대 1개로 제한되어 있습니다.";
-			modal.show();
-			element.value = "";
-			return;
-		}
-		
-		for(file of files) {
-			if(file.size / 1000 / 1000 > 5.0) {
-				title.innerText = "파일 업로드 오류";
-				body.innerText = "파일당 최대 5MB 까지만 업로드 할 수 있습니다. 5MB 초과 용량에 대해서는 관리자에게 문의하세요.";
-				modal.show();
-				element.value = "";
-				return;
-			}
-		}
-	}
+
 </script>
 <body>
+	<%@ include file="../module/head.jsp" %>
   <input type="file" class="real-upload" accept="image/*" required multiple style="display: none;">
   <div class="upload"></div>
   <script>

@@ -19,7 +19,7 @@
 </head>
 	<body>
 		<%@ include file="../module/head.jsp"%>
-		<c:if test="${data.ac_index == 20}">
+		<%--  <c:if test="${data.ac_index == 20}">--%>
 		<section class="container w-75">
 			<div class="mt-5">
 				<div class="row mb-5 center">
@@ -79,6 +79,6 @@
 				</div>
 			</c:if>
 		</section>
-		</c:if>
+		<%--  </c:if>--%>
 	</body>
 </html>

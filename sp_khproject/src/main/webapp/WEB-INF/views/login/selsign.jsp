@@ -11,7 +11,6 @@
 	<meta charset="UTF-8">
 	<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 	<link rel="stylesheet" type="text/css" href="${bs5}/css/bootstrap.min.css">
-	<script type="text/javascript" src="${bs5}/js/bootstrap.min.js"></script>
 	<script type="text/javascript" src="${jQuery}/jquery-3.6.0.min.js"></script>
 	<%@ include file="../module/head.jsp" %>
 	<title>전문가 가입페이지</title>

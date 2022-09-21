@@ -2,9 +2,16 @@ package com.myweb.home.selitem.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Enumeration;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.servlet.ServletException;
+import java.util.Map;
+import java.util.UUID;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -20,20 +27,20 @@ import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.myweb.home.Accounts.model.AccountsDTO;
 import com.myweb.home.common.Paging;
 import com.myweb.home.login.service.LoginService;
 import com.myweb.home.selitem.model.SelItemDTO;
 import com.myweb.home.selitem.service.SelItemService;
-import com.myweb.home.selitem.vo.BoardVO;
 import com.myweb.home.upload.model.FileUploadDTO;
-import com.myweb.home.upload.service.FileUploadService;
 
 @Controller
 @RequestMapping(value="/sellitem")
 public class SelItemController {
-	
+	private static String CURR_IMAGE_REPO_PATH = null;
+			
 	@Autowired
 	private SelItemService service;
 	
@@ -57,7 +64,9 @@ public class SelItemController {
 	@PostMapping(value="/additem")
 	public String additem(Model model, HttpServletRequest request
 			,@SessionAttribute("loginData") AccountsDTO acData
-			, MultipartHttpServletRequest mtfRequest) {
+			, MultipartHttpServletRequest mtfRequest
+			, @RequestParam("file") MultipartFile[] files
+			 ) throws Exception {
 
 		SelItemDTO data = new SelItemDTO();
 		 
@@ -69,29 +78,23 @@ public class SelItemController {
 	    String content = request.getParameter("description");
 		System.out.println(service1);
 		System.out.println(title);
-
 		System.out.println(location);
-
 		System.out.println(content);
 		data.setSel_title(title);
 		data.setSel_field(service1);
 		data.setSel_location(location);
 		data.setSel_content(content);
 		data.setSel_name(acData.getAc_name());
-	
-		System.out.println(data.getSel_field());
-		System.out.println(data.getSel_name());
-		System.out.println(data);
 		
 		// 이미지 다수 업로드
 		List<MultipartFile> fileList = mtfRequest.getFiles("file");
-		String path = request.getServletContext().getRealPath("/resources/img/item/") + acData.getAc_name() + ".png";
-		
+		String path = request.getServletContext().getRealPath("/resources/img/item/");
 		for (MultipartFile mf : fileList) {
             String originFileName = mf.getOriginalFilename(); // 원본 파일 명
             long fileSize = mf.getSize(); // 파일 사이즈
             System.out.println("originFileName : " + originFileName);
             System.out.println("fileSize : " + fileSize);
+            // 파일명 : 현재 시간 + 오리지널 네임
             String safeFile = path + System.currentTimeMillis() + originFileName;
             try {
                 mf.transferTo(new File(safeFile));
@@ -102,6 +105,17 @@ public class SelItemController {
             }
         }
 		
+		// id = 게시글번호
+//		int id = service.getbId(data);
+//		for(MultipartFile file: files) {
+//			String path = request.getServletContext().getRealPath("/resources/img/item");
+//			String url = "/static/board/upload";
+//			FileUploadDTO fileData = new FileUploadDTO(id, path, url);
+//		}
+		
+			
+			
+			
 		boolean result = service.add(data);
 		
 		if(result) {
@@ -110,6 +124,7 @@ public class SelItemController {
 			return "sellitem/additem";
 		}
 	}
+	
 
 
 	@GetMapping(value="")
@@ -129,11 +144,10 @@ public class SelItemController {
 		List result = service.getData(data);
 		
 		//특정되어있는 값 가져오기
-		
-	
-		String	selectData = request.getParameter("select"); // <<<<<<< 주소값
-			System.out.println(selectData);
-
+		String selectData = null;
+		if(selectData != null) {			
+			selectData = request.getParameter("select"); // <<<<<<< 주소값
+		}
 		
 		List seletResult = service.getSelect(selectData);
 		
@@ -163,6 +177,8 @@ public class SelItemController {
 		model.addAttribute("result", paging.getPageData());
 		model.addAttribute("pageData", paging);
 		
+		// 로그인세션 존재유무 (전문가만 등록버튼 구현하기위해서)
+		// ??????
 		
 		return "/sellitem/list";
 	}
