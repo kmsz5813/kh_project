@@ -301,14 +301,14 @@ feed-item .feed-content {
 		                                                                                                                		</a>
 			</div>
 			<div>
-				<a href="${pageContext.request.contextPath}/community/findPro"
+				<a href="${pageContext.request.contextPath}/community/findPro/list"
 					style="position: relative; top: 180px; left: 60px;">
 					<button type="button" class="btn btn-outline-success"
 						style="width: 130px; height: 50px;">전문가 찾아요</button>
 				</a>
 			</div>
 			<div>
-				<a href="${pageContext.request.contextPath}/community/findStu"
+				<a href="${pageContext.request.contextPath}/community/findStu/list"
 					style="position: relative; top: 240px; left: 60px;">
 					<button type="button" class="btn btn-outline-success"
 						style="width: 130px; height: 50px;">레슨자 찾아요</button>
@@ -322,7 +322,7 @@ feed-item .feed-content {
 				</a>
 			</div>
 			<div>
-				<a href="${pageContext.request.contextPath}/community/life"
+				<a href="${pageContext.request.contextPath}/community/life/list"
 					style="position: relative; top: 360px; left: 60px;">
 					<button type="button" class="btn btn-outline-success"
 						style="width: 130px; height: 50px;">일상</button>
@@ -356,8 +356,14 @@ feed-item .feed-content {
 							<form class="d-flex">
 								<input class="form-control me-4" type="search"
 									placeholder="키워드를 입력해주세요!" aria-label="Search"
-									style="min-width: 800px;">
+									style="min-width: 725px;">
+								<div class="col-3">
+									<div class="input-group">
+										<button class="btn btn-secondary" type="submit">조회</button>
+									</div>
+								</div>
 							</form>
+
 						</div>
 					</div>
 				</nav>
@@ -458,54 +464,6 @@ feed-item .feed-content {
 							</div>
 					</a></li>
 
-					<li class="feed-item"><a href="#"
-						data-testid="soomgo-life-feed-item"> <span>게시글 1</span>
-							<div class="feed-content">
-								<div>
-									<section>
-										<h3>게시글 1</h3>
-										<p>게시글 1</p>
-									</section>
-									<ul class="tag-list">
-										<li>게시글 1</li>
-										<li>게시글 1</li>
-										<li>게시글 1</li>
-									</ul>
-								</div>
-							</div>
-							<div>
-								<div>
-									<span class="like">0</span> <span class="comment">0</span>
-								</div>
-								<span class="sg-text-description">6분 전</span>
-							</div>
-					</a></li>
-
-					<li class="feed-item"><a href="#"
-						data-testid="soomgo-life-feed-item"> <span>게시글 1</span>
-							<div class="feed-content">
-								<div>
-									<section>
-										<h3>게시글 1</h3>
-										<p>게시글 1</p>
-									</section>
-									<ul class="tag-list">
-										<li>게시글 1</li>
-										<li>게시글 1</li>
-										<li>게시글 1</li>
-									</ul>
-								</div>
-							</div>
-							<div>
-								<div>
-									<span class="like">0</span> <span class="comment">0</span>
-								</div>
-								<span class="sg-text-description">6분 전</span>
-							</div>
-					</a></li>
-
-				</ul>
-			</div>
 		</article>
 
 
