@@ -83,6 +83,12 @@
 			        </select>
 		     	</div>
 		     </div>
+		    <div class="form-group">
+				<label class="col-sm-2 control-label">가격</label>
+				<div class="col-sm-10">
+					<input class="form-control" type="text" name="price" placeholder="가격을 입력하세요.">
+				</div>
+			</div> 
 			<div class="form-group row">
 				상품상세설명
 				<div>

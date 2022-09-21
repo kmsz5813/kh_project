@@ -10,6 +10,7 @@ public class SelItemDTO {
 	private String sel_location;
 	private String sel_title;
 	private String sel_content;
+	private int sel_price;
 	private Date sel_writeday;
 	private int sel_view;
 	private int sel_like;
@@ -62,7 +63,14 @@ public class SelItemDTO {
 	public void setSel_content(String sel_content) {
 		this.sel_content = sel_content;
 	}
-
+	
+	public int getSel_price() {
+		return sel_price;
+	}
+	public void setSel_price(int sel_price) {
+		this.sel_price = sel_price;
+	}
+	
 	public Date getSel_writeday() {
 		return sel_writeday;
 	}
@@ -99,7 +107,7 @@ public class SelItemDTO {
 	public String toString() {
 		return "AccountsDTO [sel_id=" + sel_id + ", sel_name=" + sel_name + ", sel_field=" + sel_field
 				+ ", sel_location=" + sel_location + ", sel_title=" + sel_title + ", sel_content=" + sel_content
-				+ ", sel_writeday=" + sel_writeday + ", sel_view=" + sel_view + ", sel_like=" + sel_like
+				+ ", sel_writeday=" + sel_writeday + ", sel_price=" + sel_price +", sel_view=" + sel_view + ", sel_like=" + sel_like
 				+ ", sel_report=" + sel_report + "]";
 	}
 

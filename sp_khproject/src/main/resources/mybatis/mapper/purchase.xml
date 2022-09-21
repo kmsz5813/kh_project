@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="purchaseMapper">
+	<insert id="insertData" parameterType="purchaseDto">
+		INSERT INTO ISBUY(BUY_NUMBER, BUY_ITEMNUMBER, BUY_BUYER, BUY_SELLER, BUY_PRICE)
+		VALUES (ISBUY_SEQ.NEXTVAL, #{buy_itemNumber}, #{buy_buyer}, #{buy_seller}, #{buy_price})
+	</insert>
+
+</mapper>

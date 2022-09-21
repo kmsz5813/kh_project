@@ -66,10 +66,12 @@ public class SelItemController {
 	    String service1 = request.getParameter("field");
 	    String location = request.getParameter("location");
 	    String content = request.getParameter("description");
+	    int price = Integer.parseInt(request.getParameter("price"));
 		data.setSel_title(title);
 		data.setSel_field(service1);
 		data.setSel_location(location);
 		data.setSel_content(content);
+		data.setSel_price(price);
 		data.setSel_name(acData.getAc_name());
 		
 		// 이미지 다수 업로드

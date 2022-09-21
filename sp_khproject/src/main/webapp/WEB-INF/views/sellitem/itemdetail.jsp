@@ -46,6 +46,11 @@
 					<div class="mt-5">
 						<button type="button" onclick="location.href='${pageContext.request.contextPath}/chat'"
 						class="btn btn-outline-success">메시지 보내기</button>
+						<c:if test="${loginData.ac_index == 10}">
+							<button style="margin-left:20px;" type="button" 
+							onclick="location.href='${pageContext.request.contextPath}/purchase?itemid=${itemdata.sel_id}'" 
+							class="btn btn-outline-success">구매하기</button>
+						</c:if>
 					</div>
 					<section class="container container1">
 						<div class="mt-5">
@@ -71,13 +76,14 @@
 				<div>
 					<button type="button">수정</button>
 					<button type="button">삭제</button>
-					<p>제목 : ${itemdata.sel_title}</p>
-					<p>내용 : ${itemdata.sel_content}</p>
-					<p>분야 : ${itemdata.sel_field}</p>
-					<p>지역 : ${itemdata.sel_location}</p>
-					<p>작성일자 : ${itemdata.sel_writeday}</p>
 				</div>
 			</c:if>
+			<p>제목 : ${itemdata.sel_title}</p>
+			<p>내용 : ${itemdata.sel_content}</p>
+			<p>분야 : ${itemdata.sel_field}</p>
+			<p>지역 : ${itemdata.sel_location}</p>
+			<p>가격 : ${itemdata.sel_price}</p>
+			<p>작성일자 : ${itemdata.sel_writeday}</p>
 		</section>
 		</c:if>
 	</body>
