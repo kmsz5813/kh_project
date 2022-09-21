@@ -381,7 +381,7 @@ feed-item .feed-content {
 					style="position: relative; top: 120px; left: 60px;">
 					<button type="button" class="btn btn-outline-success"
 						style="width: 130px; height: 50px;">전체</button>
-				</a>
+		                                                                                                                		</a>
 			</div>
 			<div>
 				<a href="${pageContext.request.contextPath}/community/findPro"
@@ -389,12 +389,6 @@ feed-item .feed-content {
 					<button type="button" class="btn btn-outline-success"
 						style="width: 130px; height: 50px;">전문가 찾아요</button>
 				</a>
-				<c:forEach items="${findpro }" var="l">
-					<p id="conts">
-						<i class="fa fa-caret-right fa-1x mar-top"></i>&nbsp;
-						${l.FINDPRO_TITLE}
-					</p>
-				</c:forEach>
 			</div>
 			<div>
 				<a href="${pageContext.request.contextPath}/community/findStu"
@@ -402,25 +396,13 @@ feed-item .feed-content {
 					<button type="button" class="btn btn-outline-success"
 						style="width: 130px; height: 50px;">레슨자 찾아요</button>
 				</a>
-				<c:forEach items="${findstu }" var="l">
-					<p id="conts">
-						<i class="fa fa-caret-right fa-1x mar-top"></i>&nbsp;
-						${l.FINDSTU_TITLE}
-					</p>
-				</c:forEach>
 			</div>
 			<div>
-				<a href="${pageContext.request.contextPath}/community/question"
+				<a href="${pageContext.request.contextPath}/community/question/list"
 					style="position: relative; top: 300px; left: 60px;">
 					<button type="button" class="btn btn-outline-success"
 						style="width: 130px; height: 50px;">궁금해요</button>
 				</a>
-				<c:forEach items="${question }" var="l">
-					<p id="conts">
-						<i class="fa fa-caret-right fa-1x mar-top"></i>&nbsp;
-						${l.QUESTION_TITLE}
-					</p>
-				</c:forEach>
 			</div>
 			<div>
 				<a href="${pageContext.request.contextPath}/community/life"
@@ -428,12 +410,6 @@ feed-item .feed-content {
 					<button type="button" class="btn btn-outline-success"
 						style="width: 130px; height: 50px;">일상</button>
 				</a>
-				<c:forEach items="${life }" var="l">
-					<p id="conts">
-						<i class="fa fa-caret-right fa-1x mar-top"></i>&nbsp;
-						${l.LIFE_TITLE}
-					</p>
-				</c:forEach>
 			</div>
 			<div>
 				<a href="${pageContext.request.contextPath}/community/notice"

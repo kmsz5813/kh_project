@@ -49,7 +49,7 @@ public class CommunityNoticeController {
 			model.addAttribute("paging", paging);
 			
 			
-			return "community/notice";
+			return "community/notice/notice";
 
 			
 //		} else { //로그인이 되어있지 않으면 메인페이지로 리다이렉트
@@ -79,7 +79,7 @@ public class CommunityNoticeController {
 			
 			model.addAttribute("notice", noticeDetail);
 			
-			return "/notice/Detail";
+			return "/community/notice/detail";
 
 			
 //		} else { //로그인이 되어있지 않으면 메인페이지로 리다이렉트
@@ -109,7 +109,7 @@ public class CommunityNoticeController {
 				model.addAttribute("alertMsg", "검색어를 입력해주세요");
 				model.addAttribute("url", req.getContextPath()+"/community/notice");
 				
-				return "/notice/error";
+				return "/community/notice/error";
 			}
 			
 			
@@ -133,7 +133,7 @@ public class CommunityNoticeController {
 			model.addAttribute("paging", paging);
 			
 			
-			return "/notice/SearchList";
+			return "/community/notice/searchList";
 
 			
 //		} else { //로그인이 되어있지 않으면 메인페이지로 리다이렉트
