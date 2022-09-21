@@ -37,8 +37,8 @@ public class CommunityQuestionController {
 	@Autowired
 	private CommunityQuestionService service;
 	
-	@Autowired
-	private FileUploadService fileUploadService;
+//	@Autowired
+//	private FileUploadService fileUploadService;
 	
 	@RequestMapping(value="/list", method=RequestMethod.GET)
 	public String getList(Model model, HttpSession session
@@ -46,9 +46,11 @@ public class CommunityQuestionController {
 			, @RequestParam(defaultValue="0", required=false) int pageCount) {
 		List datas = service.getAll();
 		
-		if(session.getAttribute("pageCount") == null) {
-			session.setAttribute("pageCount", 5);
-		}
+//		if(session.getAttribute("pageCount") == null) {
+//			session.setAttribute("pageCount", 5);
+//		}
+		
+		session.setAttribute("pageCount", 10); //10개씩 보여주기 위하게 만든것.
 		
 		if(pageCount > 0) {
 			session.setAttribute("pageCount", pageCount);
@@ -68,12 +70,12 @@ public class CommunityQuestionController {
 			, HttpSession session
 			, @RequestParam int id) {
 		CommunityQuestionDTO data = service.getData(id);
-		List<FileUploadDTO> fileDatas = fileUploadService.getDatas(id);
+		//List<FileUploadDTO> fileDatas = fileUploadService.getDatas(id);
 		
 		if(data != null) {
 			service.incViewCnt(session, data);
 			model.addAttribute("data", data);
-			model.addAttribute("fileDatas", fileDatas);
+			//model.addAttribute("fileDatas", fileDatas);
 			return "community/question/detail";
 		} else {
 			model.addAttribute("error", "해당 데이터가 존재하지 않습니다.");
@@ -161,7 +163,7 @@ public class CommunityQuestionController {
 			}
 		} else {
 			model.addAttribute("error", "해당 데이터가 존재하지 않습니다.");
-			return "error/noExists";
+			return "error/notExists";
 		}
 	}
 	

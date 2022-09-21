@@ -41,7 +41,7 @@
 	</update>
 	<update id="updateLike" parameterType="communityQuestionDto">
 		UPDATE QUESTION
-		   SET "QUESTION_LIKE" = #{question_Like}
+		   SET "QUESTION_LIKE" = #{question_like}
 		 WHERE QUESTION_ID= #{question_Id}
 	</update>
 	<select id="selectStatics" parameterType="communityQuestionStaticsDto" resultType="communityQuestionStaticsDto">

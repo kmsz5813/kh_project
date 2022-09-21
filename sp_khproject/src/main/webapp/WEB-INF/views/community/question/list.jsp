@@ -143,7 +143,9 @@ li {
 	
 	
 	
+	
 		
+	
 	
 	
 	
@@ -151,7 +153,9 @@ li {
 	
 	
 	
+	
 	 
+	
 	
 	
 	
@@ -162,7 +166,11 @@ li {
 	
 	
 	
+	
+	
 	.25rem
+	
+	
 	
 	
 	
@@ -225,7 +233,6 @@ feed-item .feed-content {
 <body>
 	<div id="jb-container">
 		<header>
-		<%@ include file="../../module/navigation.jsp" %>
 			<!-- 로그인/회원가입/FAQ -->
 			<div id="jb-header"
 				style="text-align: right; margin-right: -30px; position: relative; top: 20px;">
@@ -275,7 +282,7 @@ feed-item .feed-content {
 			<div class="row">
 				<div class="col-md-12" style="position: relative; top: 100px;">
 					<h2>
-						<b>커뮤니티</b>
+						<b>궁금해요</b>
 					</h2>
 				</div>
 			</div>
@@ -318,14 +325,14 @@ feed-item .feed-content {
 				</a>
 			</div>
 			<div>
-				<a href="${pageContext.request.contextPath}/community/findPro"
+				<a href="${pageContext.request.contextPath}/community/findPro/list"
 					style="position: relative; top: 180px; left: 60px;">
 					<button type="button" class="btn btn-outline-success"
 						style="width: 130px; height: 50px;">전문가 찾아요</button>
 				</a>
 			</div>
 			<div>
-				<a href="${pageContext.request.contextPath}/community/findStu"
+				<a href="${pageContext.request.contextPath}/community/findStu/list"
 					style="position: relative; top: 240px; left: 60px;">
 					<button type="button" class="btn btn-outline-success"
 						style="width: 130px; height: 50px;">레슨자 찾아요</button>
@@ -339,7 +346,7 @@ feed-item .feed-content {
 				</a>
 			</div>
 			<div>
-				<a href="${pageContext.request.contextPath}/community/life"
+				<a href="${pageContext.request.contextPath}/community/life/list"
 					style="position: relative; top: 360px; left: 60px;">
 					<button type="button" class="btn btn-outline-success"
 						style="width: 130px; height: 50px;">일상</button>
@@ -361,7 +368,7 @@ feed-item .feed-content {
 				<!-- 커뮤니티 키워드 검색 -->
 				<nav class="navbar navbar-expand-md navbar-light">
 					<div class="container"
-						style="position: relative; top: 40px; left: 40px;">
+						style="position: relative; top: 40px; left: 5px;">
 						<button class="navbar-toggler" type="button"
 							data-bs-toggle="collapse"
 							data-bs-target="#navbarSupportedContent"
@@ -374,200 +381,111 @@ feed-item .feed-content {
 								<input class="form-control me-4" type="search"
 									placeholder="키워드를 입력해주세요!" aria-label="Search"
 									style="min-width: 800px;">
+								<div class="col-3">
+									<div class="input-group">
+										<button class="btn btn-secondary" type="submit">조회</button>
+									</div>
+								</div>
 							</form>
+
 						</div>
 					</div>
 				</nav>
 
 
-		<!-- 커뮤니티 메인 새글 -->
-		
-		<section class="container">
-		<div class="mb-1">
-			<c:url var="questionListUrl" value="/community/question/list" />
-			<form action="${questionListUrl}" method="get">
-				<div class="row g-1">
-					<div class="col-3">
-					
-						<div class="input-group">
-							<input class="form-control" type="text" name="search">
-							<button class="btn btn-secondary" type="submit">조회</button>
+				<!-- 커뮤니티 메인 새글
+
+				<section class="container">
+					<div class="mb-1">
+						<c:url var="questionListUrl" value="/community/question/list" />
+						<form action="${questionListUrl}" method="get">
+							<div class="row g-1">
+
+								<div class="col-1">
+									<select class="form-select"
+										onchange="location.href='${questionListUrl}?pageCount=' + this.value">
+										<option value="5"
+											${sessionScope.pageCount == 5 ? 'selected' : ''}>5 개</option>
+										<option value="10"
+											${sessionScope.pageCount == 10 ? 'selected' : ''}>10
+											개</option>
+										<option value="15"
+											${sessionScope.pageCount == 15 ? 'selected' : ''}>15
+											개</option>
+										<option value="20"
+											${sessionScope.pageCount == 20 ? 'selected' : ''}>20
+											개</option>
+									</select>
+								</div>
+							</div>
+						</form>
+					</div>
+					 -->
+					<table class="table table-hover mb-0">
+						<colgroup>
+							<col class="col-1">
+							<col class="col-auto">
+							<col class="col-2">
+							<col class="col-1">
+							<col class="col-1">
+							<col class="col-2">
+						</colgroup>
+						<thead>
+							<tr>
+								<th>번호</th>
+								<th>제목</th>
+								<th>작성자</th>
+								<th>조회수</th>
+								<th>추천수</th>
+								<th>작성일</th>
+							</tr>
+						</thead>
+						<tbody>
+							<c:if test="${not empty datas}">
+								<c:forEach items="${datas}" var="data">
+									<c:url var="questionDetailUrl"
+										value="/community/question/detail">
+										<c:param name="id">${data.question_Id}</c:param>
+									</c:url>
+									<tr onclick="location.href='${questionDetailUrl}'">
+										<td>${data.question_Id}</td>
+										<td>${data.question_Title}</td>
+										<td>${data.user_Name}</td>
+										<td>${data.question_view}</td>
+										<td>${data.question_like}</td>
+										<td>${data.question_Date}</td>
+									</tr>
+								</c:forEach>
+							</c:if>
+						</tbody>
+					</table>
+					<nav>
+						<div>
+							<ul class="pagination justify-content-center">
+								<c:if test="${pageData.hasPrevPage()}">
+									<li class="page-item"><a class="page-link"
+										href="${questionUrl}?page=${pageData.prevPageNumber}">Prev</a>
+									</li>
+								</c:if>
+								<c:forEach
+									items="${pageData.getPageNumberList(pageData.currentPageNumber - 2, pageData.currentPageNumber + 2)}"
+									var="num">
+									<li
+										class="page-item ${pageData.currentPageNumber eq num ? 'active' : ''}">
+										<a class="page-link" href="${questionUrl}?page=${num}">${num}</a>
+									</li>
+								</c:forEach>
+								<c:if test="${pageData.hasNextPage()}">
+									<li class="page-item"><a class="page-link"
+										href="${questionUrl}?page=${pageData.nextPageNumber}">Next</a>
+									</li>
+								</c:if>
+							</ul>
 						</div>
-					</div>
-					<div class="col-1">
-						<select class="form-select" onchange="location.href='${questionListUrl}?pageCount=' + this.value">
-							<option value="5" ${sessionScope.pageCount == 5 ? 'selected' : ''}>5 개</option>
-							<option value="10" ${sessionScope.pageCount == 10 ? 'selected' : ''}>10 개</option>
-							<option value="15" ${sessionScope.pageCount == 15 ? 'selected' : ''}>15 개</option>
-							<option value="20" ${sessionScope.pageCount == 20 ? 'selected' : ''}>20 개</option>
-						</select>
-					</div>
-				</div>
-			</form>
-		</div>
-		<table class="table table-hover">
-			<colgroup>
-				<col class="col-1">
-				<col class="col-auto">
-				<col class="col-2">
-				<col class="col-1">
-				<col class="col-1">
-				<col class="col-2">
-			</colgroup>
-			<thead>
-				<tr>
-					<th>번호</th>
-					<th>제목</th>
-					<th>작성자</th>
-					<th>조회수</th>
-					<th>추천수</th>
-					<th>작성일</th>
-				</tr>
-			</thead>
-			<tbody>
-				<c:if test="${not empty datas}">
-					<c:forEach items="${datas}" var="data">
-						<c:url var="questionDetailUrl" value="/community/question/detail">
-							<c:param name="id">${data.question_Id}</c:param>
-						</c:url>
-						<tr onclick="location.href='${questionDetailUrl}'">
-							<td>${data.question_Id}</td>
-							<td>${data.question_Title}</td>
-							<td>${data.user_Name}</td>
-							<td>${data.question_view}</td>
-							<td>${data.question_like}</td>
-							<td>${data.question_Date}</td>
-						</tr>
-					</c:forEach>
-				</c:if>
-			</tbody>
-		</table>
-		<nav>
-			<div>
-				<ul class="pagination justify-content-center">
-					<c:if test="${pageData.hasPrevPage()}">
-						<li class="page-item">
-							<a class="page-link" href="${questionUrl}?page=${pageData.prevPageNumber}">Prev</a>
-						</li>
-					</c:if>
-					<c:forEach items="${pageData.getPageNumberList(pageData.currentPageNumber - 2, pageData.currentPageNumber + 2)}" var="num">
-						<li class="page-item ${pageData.currentPageNumber eq num ? 'active' : ''}">
-							<a class="page-link" href="${questionUrl}?page=${num}">${num}</a>
-						</li>
-					</c:forEach>
-					<c:if test="${pageData.hasNextPage()}">
-						<li class="page-item">
-							<a class="page-link" href="${questionUrl}?page=${pageData.nextPageNumber}">Next</a>
-						</li>
-					</c:if>
-				</ul>
-			</div>
-		</nav>
-	</section>
+					</nav>
+				</section>
 
-		<article>
-			<div id="jb-content">
-				<ul class="feed-list">
-					<li class="feed-item"><a href="#"
-						data-testid="soomgo-life-feed-item"> <span>게시글 1</span>
-							<div class="feed-content">
-								<div>
-									<section>
-										<h3>게시글 1</h3>
-										<p>게시글 1</p>
-									</section>
-									<ul class="tag-list">
-										<li>게시글 1</li>
-										<li>게시글 1</li>
-										<li>게시글 1</li>
-									</ul>
-								</div>
-							</div>
-							<div>
-								<div>
-									<span class="like">0</span> <span class="comment">0</span>
-								</div>
-								<span class="sg-text-description">6분 전</span>
-							</div>
-					</a></li>
-
-					<li class="feed-item"><a href="#"
-						data-testid="soomgo-life-feed-item"> <span>게시글 1</span>
-							<div class="feed-content">
-								<div>
-									<section>
-										<h3>게시글 1</h3>
-										<p>게시글 1</p>
-									</section>
-									<ul class="tag-list">
-										<li>게시글 1</li>
-										<li>게시글 1</li>
-										<li>게시글 1</li>
-									</ul>
-								</div>
-							</div>
-							<div>
-								<div>
-									<span class="like">0</span> <span class="comment">0</span>
-								</div>
-								<span class="sg-text-description">6분 전</span>
-							</div>
-					</a></li>
-
-					<li class="feed-item"><a href="#"
-						data-testid="soomgo-life-feed-item"> <span>게시글 1</span>
-							<div class="feed-content">
-								<div>
-									<section>
-										<h3>게시글 1</h3>
-										<p>게시글 1</p>
-									</section>
-									<ul class="tag-list">
-										<li>게시글 1</li>
-										<li>게시글 1</li>
-										<li>게시글 1</li>
-									</ul>
-								</div>
-							</div>
-							<div>
-								<div>
-									<span class="like">0</span> <span class="comment">0</span>
-								</div>
-								<span class="sg-text-description">6분 전</span>
-							</div>
-					</a></li>
-
-					<li class="feed-item"><a href="#"
-						data-testid="soomgo-life-feed-item"> <span>게시글 1</span>
-							<div class="feed-content">
-								<div>
-									<section>
-										<h3>게시글 1</h3>
-										<p>게시글 1</p>
-									</section>
-									<ul class="tag-list">
-										<li>게시글 1</li>
-										<li>게시글 1</li>
-										<li>게시글 1</li>
-									</ul>
-								</div>
-							</div>
-							<div>
-								<div>
-									<span class="like">0</span> <span class="comment">0</span>
-								</div>
-								<span class="sg-text-description">6분 전</span>
-							</div>
-					</a></li>
-
-				</ul>
-			</div>
-		</article>
-
-
-
-
-
+				
 
 
 				<c:url var="mainurl" value="/main" />
@@ -575,7 +493,8 @@ feed-item .feed-content {
 
 				<footer id="jb-footer">
 					<div
-						style="width: 1500px; height: 200px; background-color: #f6f7f7; margin: auto; padding: 10px;">
+						style="width: 1500px; height: 200px; background-color: #f6f7f7; margin: auto; padding: 10px;
+						">
 						이용약관</div>
 				</footer>
 				<!-- go to top -->
