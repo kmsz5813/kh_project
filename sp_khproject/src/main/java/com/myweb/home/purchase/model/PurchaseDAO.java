@@ -49,6 +49,24 @@ public class PurchaseDAO {
 		int res = session.insert(mapperId, coupon);
 		return res == 1? true: false;
 	}
+
+	public List<CouponDTO> getCouponFromName(String ac_Name) {
+		String mapperId = String.format(mapper, "getCouponFromName");
+		List<CouponDTO> result = session.selectList(mapperId, ac_Name);
+		return result;
+	}
+
+	public boolean usingCoupon(int couponNumber) {
+		String mapperId = String.format(mapper, "usingCoupon");
+		int res = session.update(mapperId, couponNumber);
+		return res == 1? true: false;
+	}
+
+
+
+
+	
+	
 	
 	
 }

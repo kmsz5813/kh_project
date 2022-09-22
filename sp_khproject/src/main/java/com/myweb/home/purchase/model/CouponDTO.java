@@ -8,8 +8,9 @@ public class CouponDTO {
 	private Date coupon_startDate;		// 쿠폰 다운로드일(시작일)
 	private Date coupon_endDate;		// 쿠폰 마감일
 	private String coupon_userName;		// 쿠폰 다운받은 회원닉네임
-	private int coupon_used;			// 사용됐으면 ISBUY 테이블의 구매번호
-	private int coupon_salePercent;	// 쿠폰 할인 %
+	private String coupon_used;			// 사용됐으면 'Y' 아니면 null
+	private int coupon_salePercent;		// 쿠폰 할인 %
+	
 	public int getCoupon_number() {
 		return coupon_number;
 	}
@@ -40,13 +41,13 @@ public class CouponDTO {
 	public void setCoupon_userName(String coupon_userName) {
 		this.coupon_userName = coupon_userName;
 	}
-	public int getCoupon_used() {
+	public String getCoupon_used() {
 		return coupon_used;
 	}
-	public void setCoupon_used(int coupon_used) {
+	public void setCoupon_used(String coupon_used) {
 		this.coupon_used = coupon_used;
 	}
-	public int getCoupon_salePersenct() {
+	public int getCoupon_salePercent() {
 		return coupon_salePercent;
 	}
 	public void setCoupon_salePercent(int coupon_salePercent) {

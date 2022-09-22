@@ -4,8 +4,8 @@
 
 <mapper namespace="purchaseMapper">
 	<insert id="insertData" parameterType="purchaseDto">
-		INSERT INTO ISBUY(BUY_NUMBER, BUY_ITEMNUMBER, BUY_BUYER, BUY_SELLER, BUY_PRICE)
-		VALUES (ISBUY_SEQ.NEXTVAL, #{buy_itemNumber}, #{buy_buyer}, #{buy_seller}, #{buy_price})
+		INSERT INTO ISBUY(BUY_NUMBER, BUY_ITEMNUMBER, BUY_BUYER, BUY_SELLER, BUY_PRICE, BUY_USEDPOINT, BUY_USEDCOUPON, BUY_REALPRICE)
+		VALUES (ISBUY_SEQ.NEXTVAL, #{buy_itemNumber}, #{buy_buyer}, #{buy_seller}, #{buy_price}, #{buy_usedPoint}, #{buy_usedCoupon}, #{buy_realPrice})
 	</insert>
 	
 	<select id="selectAll" resultType="purchaseDto">
@@ -31,5 +31,17 @@
 		INSERT INTO COUPON(COUPON_NUMBER, COUPON_NAME, COUPON_STARTDATE, COUPON_ENDDATE, COUPON_USERNAME, COUPON_SALEPERCENT)
 		VALUES(#{coupon_number}, #{coupon_name}, #{coupon_startDate}, #{coupon_endDate}, #{coupon_userName}, #{coupon_salePercent})
 	</insert>
+	
+	<select id="getCouponFromName" resultType="couponDto">
+		SELECT * FROM COUPON
+		 WHERE COUPON_USERNAME = #{ac_Name}
+	</select>
+	
+	<update id="usingCoupon" parameterType="_int">
+		UPDATE COUPON
+		   SET COUPON_USED = 'Y'
+		 WHERE COUPON_NUMBER = #{couponNumber}
+	</update>
+
 	
 </mapper>

@@ -8,7 +8,10 @@ public class PurchaseDTO {
 	private String buy_buyer;		// 구매자(닉네임)
 	private String buy_seller;		// 판매자(닉네임)
 	private Date buy_buyday;		// 구매일자
-	private int buy_price;			// 구매가격
+	private int buy_price;			// 상품가격
+	private int buy_usedPoint;		// 사용한 포인트
+	private int buy_usedCoupon;		// 사용한 쿠폰
+	private int buy_realPrice;		// 실제 구매 가격
 	
 	
 	public int getBuy_number() {
@@ -47,12 +50,32 @@ public class PurchaseDTO {
 	public void setBuy_price(int buy_price) {
 		this.buy_price = buy_price;
 	}
-	@Override
-	public String toString() {
-		return "PurchaseDTO [buy_number=" + buy_number + ", buy_itemNumver=" + buy_itemNumber + ", buy_buyer="
-				+ buy_buyer + ", buy_seller=" + buy_seller + ", buy_buyday=" + buy_buyday + ", buy_price=" + buy_price
-				+ "]";
+	public int getBuy_usedPoint() {
+		return buy_usedPoint;
+	}
+	public void setBuy_usedPoint(int buy_usedPoint) {
+		this.buy_usedPoint = buy_usedPoint;
+	}
+	public int getBuy_usedCoupon() {
+		return buy_usedCoupon;
+	}
+	public void setBuy_usedCoupon(int buy_usedCoupon) {
+		this.buy_usedCoupon = buy_usedCoupon;
+	}
+	public int getBuy_realPrice() {
+		return buy_realPrice;
+	}
+	public void setBuy_realPrice(int buy_realPrice) {
+		this.buy_realPrice = buy_realPrice;
 	}
 	
+	@Override
+	public String toString() {
+		return "PurchaseDTO [buy_number=" + buy_number + ", buy_itemNumber=" + buy_itemNumber + ", buy_buyer="
+				+ buy_buyer + ", buy_seller=" + buy_seller + ", buy_buyday=" + buy_buyday + ", buy_price=" + buy_price
+				+ ", buy_usedPoint=" + buy_usedPoint + ", buy_usedCoupon=" + buy_usedCoupon + ", buy_realPrice="
+				+ buy_realPrice + "]";
+	}
+
 	
 }

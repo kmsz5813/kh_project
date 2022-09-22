@@ -50,6 +50,27 @@ public class PurchaseService {
 		return result;
 	}
 
+	public List<CouponDTO> getCouponFromName(String ac_Name) {
+		List<CouponDTO> list = dao.getCouponFromName(ac_Name);
+		if(list != null) {
+			return list;
+		}
+		return null;
+	}
+
+	public boolean usingCoupon(int couponNumber) {
+		boolean res = dao.usingCoupon(couponNumber);
+		if(res) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+
+
+
+
 
 
 
