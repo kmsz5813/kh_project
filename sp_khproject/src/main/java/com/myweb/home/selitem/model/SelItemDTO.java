@@ -14,6 +14,34 @@ public class SelItemDTO {
 	private int sel_view;
 	private int sel_like;
 	private int sel_report;
+	
+	private String uuidName;
+	private String location;
+	public String getLocation() {
+		return location;
+	}
+
+	public void setLocation(String location) {
+		this.location = location;
+	}
+
+	public String getUrl() {
+		return url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
+	}
+
+	private String url;
+
+	public String getUuidName() {
+		return uuidName;
+	}
+
+	public void setUuidName(String uuidName) {
+		this.uuidName = uuidName;
+	}
 
 	public int getSel_id() {
 		return sel_id;
@@ -97,10 +125,11 @@ public class SelItemDTO {
 
 	@Override
 	public String toString() {
-		return "AccountsDTO [sel_id=" + sel_id + ", sel_name=" + sel_name + ", sel_field=" + sel_field
+		return "SelItemDTO [sel_id=" + sel_id + ", sel_name=" + sel_name + ", sel_field=" + sel_field
 				+ ", sel_location=" + sel_location + ", sel_title=" + sel_title + ", sel_content=" + sel_content
 				+ ", sel_writeday=" + sel_writeday + ", sel_view=" + sel_view + ", sel_like=" + sel_like
-				+ ", sel_report=" + sel_report + "]";
+				+ ", sel_report=" + sel_report + ", uuidName=" + uuidName + ", location=" + location + ", url=" + url
+				+ "]";
 	}
 
 

@@ -173,7 +173,7 @@ public class InfoController {
 		data.setAc_interest(mod_interest);
 		
 		boolean result = service.modify(data);
-
+		
 		if(result) {
 			// originName = 클라이언트가 전송한 사진파일 이름
 			String originName = Part.getOriginalFilename();

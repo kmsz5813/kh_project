@@ -30,7 +30,7 @@ public class SelItemService {
 		
 		return null;
 	}
-
+	
 
 	public List getSelect(String selectData) {
 		List datas = dao.selectData(selectData);
@@ -84,7 +84,7 @@ public class SelItemService {
 //		staticsData.setbId(data.getSel_id());
 		
 	}
-
+	//조회로 게시글찾rl
 	public List getSearch(String search) {
 		List datas = dao.searchData(search);
 		
@@ -103,6 +103,9 @@ public class SelItemService {
 		}
 		return null;
 	}
+
+
+
 
 
 	
