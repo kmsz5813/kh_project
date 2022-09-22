@@ -8,6 +8,8 @@ import java.util.Map.Entry;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.ibatis.session.SqlSession;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,12 +20,18 @@ import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
 
 import com.myweb.home.Accounts.model.AccountsDTO;
+import com.myweb.home.message.service.MessageService;
 
 
 public class ChattingCS extends TextWebSocketHandler {
 	
+	@Autowired
+	private SqlSession sqlSession;
+	
+	
 	private List<WebSocketSession> sessionList = new ArrayList<WebSocketSession>();
 	private Map<String, WebSocketSession> sessionMap = new HashMap<String, WebSocketSession>();
+
 	
 	@Override
 	public void afterConnectionEstablished(WebSocketSession session) throws Exception {
@@ -41,6 +49,8 @@ public class ChattingCS extends TextWebSocketHandler {
 		sessionMap.put(name, session);
 		
 		super.afterConnectionEstablished(session);
+		
+		
 	}
 	
 	protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
@@ -57,6 +67,7 @@ public class ChattingCS extends TextWebSocketHandler {
 			ws.sendMessage(new TextMessage("<p>" + name + " 님이 보낸 메시지<br>" + message.getPayload() + "</p>"));
 		}
 		super.handleTextMessage(session, message);
+		
 	}
 	
 	@Override
@@ -78,6 +89,7 @@ public class ChattingCS extends TextWebSocketHandler {
 		sessionMap.remove(name);
 		
 		super.afterConnectionClosed(session, status);
+		
 	}
 
 

@@ -209,7 +209,7 @@ div.col-md-12 { margin-bottom: 15px; }
 	position: absolute;
     right: 25%;
 }
-</style>l
+</style>
 <body>
 	<!-- 헤더 -->
 	<%@ include file="../module/head.jsp"%>
