@@ -23,6 +23,10 @@
     	<typeAlias type="com.myweb.home.selitem.model.SelItemDTO" alias="selItemDto" />
     	<typeAlias type="com.myweb.home.selitem.model.SelItemCommentDTO" alias="selItemComDto" />
     	<typeAlias type="com.myweb.home.upload.model.FileUploadDTO" alias="fileUploadDto"/>
+    	<typeAlias type="com.myweb.home.community.question.comment.model.QuestionCommentDTO" alias="questionCommentDto" />
+    	<typeAlias type="com.myweb.home.community.life.comment.model.LifeCommentDTO" alias="lifeCommentDto" />
+    	<typeAlias type="com.myweb.home.community.findPro.comment.model.FindProCommentDTO" alias="findProCommentDto" />
+    	<typeAlias type="com.myweb.home.community.findStu.comment.model.FindStuCommentDTO" alias="findStuCommentDto" />
 	</typeAliases>
 	
 </configuration>
