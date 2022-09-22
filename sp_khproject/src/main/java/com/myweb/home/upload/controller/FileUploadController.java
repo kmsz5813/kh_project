@@ -35,6 +35,7 @@ public class FileUploadController {
 			json.put("url", request.getContextPath() + "/static/img/board/" + file.getOriginalFilename());
 			
 			file.transferTo(new File(realPath + "/img/board/" + file.getOriginalFilename()));
+			
 		}
 		
 		return json.toJSONString();
