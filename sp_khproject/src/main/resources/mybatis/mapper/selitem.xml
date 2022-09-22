@@ -21,11 +21,8 @@
 
 	<insert id="insertData" parameterType="selItemDto" useGeneratedKeys="true"
         keyProperty="sel_id" keyColumn="SEL_ID">
-	
-		INSERT INTO SEL_ITEM(SEL_ID, SEL_NAME, SEL_FIELD, SEL_LOCATION, SEL_TITLE, SEL_CONTENT) 
-		VALUES (SEL_ITEM_SEQ.NEXTVAL, #{sel_name}, #{sel_field}, #{sel_location}, #{sel_title}, #{sel_content})
-	
-	
+		INSERT INTO SEL_ITEM(SEL_ID, SEL_NAME, SEL_FIELD, SEL_LOCATION, SEL_TITLE, SEL_CONTENT, SEL_PRICE) 
+		VALUES (SEL_ITEM_SEQ.NEXTVAL, #{sel_name}, #{sel_field}, #{sel_location}, #{sel_title}, #{sel_content}, #{sel_price})
 	</insert>
 
 	<select id="searchData" resultType="selItemDto">
@@ -46,7 +43,11 @@
 		UPDATE SEL_ITEM SET SEL_NUMBER = SEL_NUMBER + 1
 		 WHERE SEL_ID = #{itemid}
 	</update>
-
+	
+	<select id="getThumbnail" resultType="fileUploadDto">
+		SELECT * FROM FILE_UPLOAD
+		 WHERE FILE_BID = #{i}
+	</select>
 
 
 </mapper>

@@ -62,6 +62,19 @@ public class PurchaseDAO {
 		return res == 1? true: false;
 	}
 
+	public String getCouponNameFromNumber(int coupon_number) {
+		String mapperId = String.format(mapper, "getCouponNameFromNumber");
+		String result = session.selectOne(mapperId, coupon_number);
+		return result;
+	}
+
+	public String getBuyItemName(int buy_itemNumber) {
+		String mapperId = String.format(mapper, "getBuyItemName");
+		String result = session.selectOne(mapperId, buy_itemNumber);
+		return result;
+	}
+
+
 
 
 

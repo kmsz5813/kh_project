@@ -63,8 +63,6 @@ public class SelItemController {
 		, @SessionAttribute("loginData") AccountsDTO acData) {
 		System.out.println(acData);
 		System.out.println(acData.getAc_name());
-		String test = "김민성";
-		model.addAttribute("test", test);
 		return "/sellitem/additem";
 	}
 	
@@ -165,10 +163,6 @@ public class SelItemController {
 		
 		model.addAttribute("result", paging.getPageData());
 		model.addAttribute("pageData", paging);
-
-		
-		// 로그인세션 존재유무 (전문가만 등록버튼 구현하기위해서)
-		// ??????
 		
 		return "/sellitem/list";
 	}

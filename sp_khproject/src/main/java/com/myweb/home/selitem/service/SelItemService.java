@@ -11,6 +11,7 @@ import com.myweb.home.Accounts.model.AccountsDTO;
 import com.myweb.home.selitem.model.SelItemDAO;
 import com.myweb.home.selitem.model.SelItemDTO;
 import com.myweb.home.selitem.model.SelItemStaticsDTO;
+import com.myweb.home.upload.model.FileUploadDTO;
 
 @Service
 public class SelItemService {
@@ -112,6 +113,12 @@ public class SelItemService {
 		} else {
 			return false;
 		}
+	}
+
+
+	public FileUploadDTO getThumbnail(int i) {
+		FileUploadDTO thumbnail = dao.getThumbnail(i);
+		return thumbnail;
 	}
 
 

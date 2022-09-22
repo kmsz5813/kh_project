@@ -137,6 +137,9 @@
 					<th>판매자</th>
 					<th>구매일자</th>
 					<th>판매가격</th>
+					<th>사용 포인트</th>
+					<th>사용 쿠폰</th>
+					<th>실구매가</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -148,6 +151,9 @@
 						<td>${purchaseDatas.buy_seller}</td>
 						<td>${purchaseDatas.buy_buyday}</td>
 						<td><fmt:formatNumber type="number" maxFractionDigits="3" value="${purchaseDatas.buy_price}"/></td>
+						<td>${purchaseDatas.buy_usedPoint}</td>
+						<td>${purchaseDatas.buy_usedCouponName}</td>
+						<td>${purchaseDatas.buy_realPrice}</td>
 					</tr>
 				</c:forEach>
 			</tbody>

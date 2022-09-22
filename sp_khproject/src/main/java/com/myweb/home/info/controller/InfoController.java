@@ -33,6 +33,7 @@ import org.springframework.web.multipart.MultipartRequest;
 
 import com.myweb.home.Accounts.model.AccountsDTO;
 import com.myweb.home.login.service.LoginService;
+import com.myweb.home.purchase.model.CouponDTO;
 import com.myweb.home.purchase.model.PurchaseDTO;
 import com.myweb.home.purchase.service.PurchaseService;
 import com.myweb.home.selitem.model.SelItemDTO;
@@ -64,14 +65,23 @@ public class InfoController {
 		// 판매자의 판매글
 		List<SelItemDTO> items = selService.getName(acDto.getAc_name());
 		// 구매내역
-		List<PurchaseDTO> purchaseData = purchaseService.getFromBuyerName(acDto.getAc_name());
+		List<PurchaseDTO> purchaseDatas = purchaseService.getFromBuyerName(acDto.getAc_name());
+		for(PurchaseDTO purchaseData : purchaseDatas) {
+			int coupon_number = purchaseData.getBuy_usedCoupon();
+			String coupon_name = purchaseService.getCouponNameFromNumber(coupon_number);
+			purchaseData.setBuy_usedCouponName(coupon_name);
+			int buy_itemNumber = purchaseData.getBuy_itemNumber();
+			String buy_itemName = purchaseService.getBuyItemName(buy_itemNumber);
+			purchaseData.setBuy_itemName(buy_itemName);
+		}
 		// 판매내역
 		List<PurchaseDTO> sellData = purchaseService.getFromSellerName(acDto.getAc_name());
-		System.out.println(sellData);
+		// 보유쿠폰
+		List<CouponDTO> couponData = purchaseService.getCouponFromName(acDto.getAc_name());
 		request.setAttribute("items", items);
-		request.setAttribute("purchaseData", purchaseData);
+		request.setAttribute("purchaseData", purchaseDatas);
 		request.setAttribute("sellData", sellData);
-		
+		request.setAttribute("couponData", couponData);
 		
 		
 		return "info/info";

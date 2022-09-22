@@ -20,6 +20,7 @@ import com.myweb.home.purchase.model.UsePointVO;
 import com.myweb.home.purchase.service.PurchaseService;
 import com.myweb.home.selitem.model.SelItemDTO;
 import com.myweb.home.selitem.service.SelItemService;
+import com.myweb.home.upload.model.FileUploadDTO;
 
 @Controller
 @RequestMapping(value="/purchase")
@@ -44,7 +45,10 @@ public class PurchaseController {
 		
 		List<CouponDTO> coupon = service.getCouponFromName(acData.getAc_name());
 		request.setAttribute("coupon", coupon);
-		System.out.println(coupon);
+		
+		FileUploadDTO thumbnail = ItemService.getThumbnail(itemdata.getSel_id());
+		
+		request.setAttribute("thumbnail", thumbnail);
 		
 		return "purchase/purchase";
 	}
@@ -62,20 +66,25 @@ public class PurchaseController {
 		purchase.setBuy_buyer(acData.getAc_name());			// 구매자 닉네임 저장
 		purchase.setBuy_seller(selName);					// 판매자 닉네임 저장
 		purchase.setBuy_price(itemdata.getSel_price());		// 상품 가격 저장
-		purchase.setBuy_usedPoint(Integer.parseInt(request.getParameter("use_point")));		// 사용한 포인트 저장
-		int couponNumber = Integer.parseInt(request.getParameter("used_coupon"));			// 사용한 쿠폰
-		purchase.setBuy_usedCoupon(couponNumber);
+		if(request.getParameter("use_point") != "") {			
+			purchase.setBuy_usedPoint(Integer.parseInt(request.getParameter("use_point")));		// 사용한 포인트 저장
+		}
+		if(request.getParameter("used_coupon") != "") {			
+			int couponNumber = Integer.parseInt(request.getParameter("used_coupon"));			// 사용한 쿠폰
+			purchase.setBuy_usedCoupon(couponNumber);
+			service.usingCoupon(couponNumber);	// COUPON 테이블의 coupon_used에 'Y' 추가
+		}
 		purchase.setBuy_realPrice(Integer.parseInt(request.getParameter("realprice")));		// 실제 구매 가격 저장
 		
 		UsePointVO usingpoint = new UsePointVO();
 		usingpoint.setAc_name(acData.getAc_name());	
 		usingpoint.setUse_point(Integer.parseInt(request.getParameter("use_point")));
-		    
+		usingpoint.setEarn_point((int)(itemdata.getSel_price() / 100));
 		
-		loginService.usePoint(usingpoint);  // 계정에서 포인트 수정
+
+		loginService.usePoint(usingpoint);  // 계정에서 포인트 사용 빼고, 판매가 1% 적립하기
 		service.insertData(purchase);		// ISBUY 테이블에 삽입
 		ItemService.plusCount(itemid);		// SEL_ITEM 테이블에서 해당 항목 구매횟수 + 1
-		service.usingCoupon(couponNumber);	// COUPON 테이블의 COUPON_USED에 ISBUY 테이블의 구매번호 입력
 		
 		return "redirect:/sellitem";
 	}

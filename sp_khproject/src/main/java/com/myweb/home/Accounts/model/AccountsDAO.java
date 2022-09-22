@@ -95,7 +95,7 @@ public class AccountsDAO {
 	public boolean usePoint(UsePointVO usingpoint) {
 		String mapperId = String.format(mapper, "usePoint");
 		int res = session.update(mapperId, usingpoint);
-		return res >= 1 ? true : false;
+		return res == 1 ? true : false;
 	}
 
 

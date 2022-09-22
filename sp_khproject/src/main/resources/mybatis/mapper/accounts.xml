@@ -78,7 +78,7 @@
 	
 	<update id="usePoint" parameterType="UsePointVo">
 		UPDATE ACCOUNTS 
-		SET AC_POINT = AC_POINT - #{use_point}
+		SET AC_POINT = AC_POINT - #{use_point} + #{earn_point}
 		WHERE AC_NAME = #{ac_name}
 	</update>
 	

@@ -6,6 +6,8 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.myweb.home.upload.model.FileUploadDTO;
+
 @Repository
 public class SelItemDAO {
 	
@@ -126,5 +128,11 @@ public class SelItemDAO {
 		String mapperId = String.format(mapper, "plusCount");
 		int res = session.update(mapperId, itemid);
 		return res == 1 ? true : false;
+	}
+
+	public FileUploadDTO getThumbnail(int i) {
+		String mapperId = String.format(mapper, "getThumbnail");
+		FileUploadDTO thumbnail = session.selectOne(mapperId, i);
+		return thumbnail;
 	}
 }

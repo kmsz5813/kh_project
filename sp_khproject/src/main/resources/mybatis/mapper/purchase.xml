@@ -42,6 +42,18 @@
 		   SET COUPON_USED = 'Y'
 		 WHERE COUPON_NUMBER = #{couponNumber}
 	</update>
+	
+	<select id="getCouponNameFromNumber" resultType="string">
+		SELECT COUPON_NAME
+		  FROM COUPON
+		 WHERE COUPON_NUMBER = #{coupon_number}
+	</select>
+	
+	<select id="getBuyItemName" resultType="string">
+		SELECT SEL_TITLE
+		  FROM SEL_ITEM
+		 WHERE SEL_ID = #{buy_itemNumber}
+	</select>
 
 	
 </mapper>

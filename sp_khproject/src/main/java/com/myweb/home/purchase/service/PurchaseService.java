@@ -67,6 +67,16 @@ public class PurchaseService {
 		}
 	}
 
+	public String getCouponNameFromNumber(int coupon_number) {
+		String res = dao.getCouponNameFromNumber(coupon_number);
+		return res;
+	}
+
+	public String getBuyItemName(int buy_itemNumber) {
+		String itemName = dao.getBuyItemName(buy_itemNumber);
+		return itemName;
+	}
+
 
 
 

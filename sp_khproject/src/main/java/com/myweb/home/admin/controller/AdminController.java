@@ -74,7 +74,13 @@ public class AdminController {
 		List<AccountsDTO> datas = service.selectAll();
 		request.setAttribute("datas", datas);
 		// 거래내역 전체조회
-		List<PurchaseDTO> purchaseDatas = purchaseService.selectAll();		
+		List<PurchaseDTO> purchaseDatas = purchaseService.selectAll();
+		
+		for(PurchaseDTO purchaseData : purchaseDatas) {
+			int coupon_number = purchaseData.getBuy_usedCoupon();
+			String coupon_name = purchaseService.getCouponNameFromNumber(coupon_number);
+			purchaseData.setBuy_usedCouponName(coupon_name);
+		}
 		request.setAttribute("purchaseDatas", purchaseDatas);
 
 		return "admin/admin";
