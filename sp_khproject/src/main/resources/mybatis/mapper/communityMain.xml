@@ -18,7 +18,7 @@
 	<select id="selectQuestion" resultType="Map">
 	
 		SELECT R.* 
-		FROM (SELECT question_id, question_title FROM question ORDER BY question_id DESC) R
+		FROM (SELECT question_Id, question_Title FROM question ORDER BY question_Id DESC) R
 		WHERE rownum BETWEEN 1 AND 3
 	
 	</select>
@@ -26,23 +26,21 @@
 	<select id="selectFindStu" resultType="Map">
 	
 		SELECT R.* 
-		FROM (SELECT findstu_id, findstu_title FROM findstu ORDER BY findstu_id DESC) R
+		FROM (SELECT findStu_Id, findStu_Title FROM findStu ORDER BY findstu_Id DESC) R
 		WHERE rownum BETWEEN 1 AND 3
 	
 	</select>
 	
 	<select id="selectFindPro" resultType="Map">
-	
-		SELECT R.* 
-		FROM (SELECT findpro_id, findpro_title FROM findpro ORDER BY findpro_id DESC) R
-		WHERE rownum BETWEEN 1 AND 3
-	
+		SELECT R.*
+		  FROM (SELECT findPro_Id, findPro_Title FROM findPro ORDER BY findPro_Id DESC) R
+		 WHERE ROWNUM BETWEEN 1 AND 3
 	</select>
 	
 	<select id="selectLife" resultType="Map">
 	
 		SELECT R.* 
-		FROM (SELECT life_id, life_title FROM life ORDER BY life_id DESC) R
+		FROM (SELECT life_Id, life_Title FROM life ORDER BY life_Id DESC) R
 		WHERE rownum BETWEEN 1 AND 3
 	
 	</select>
