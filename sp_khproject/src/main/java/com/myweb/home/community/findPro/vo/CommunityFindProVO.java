@@ -1,4 +1,4 @@
-package com.myweb.home.community.vo;
+package com.myweb.home.community.findPro.vo;
 
 public class CommunityFindProVO {
 	private int findPro_id;

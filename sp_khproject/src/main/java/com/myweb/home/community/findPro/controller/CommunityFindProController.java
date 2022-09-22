@@ -1,4 +1,4 @@
-package com.myweb.home.community.controller;
+package com.myweb.home.community.findPro.controller;
 
 import java.util.List;
 
@@ -21,9 +21,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.myweb.home.Accounts.model.AccountsDTO;
 import com.myweb.home.common.util.Paging;
-import com.myweb.home.community.model.CommunityFindProDTO;
-import com.myweb.home.community.service.CommunityFindProService;
-import com.myweb.home.community.vo.CommunityFindProVO;
+import com.myweb.home.community.findPro.model.CommunityFindProDTO;
+import com.myweb.home.community.findPro.service.CommunityFindProService;
+import com.myweb.home.community.findPro.vo.CommunityFindProVO;
 import com.myweb.home.upload.model.FileUploadDTO;
 import com.myweb.home.upload.service.FileUploadService;
 

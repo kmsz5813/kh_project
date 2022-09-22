@@ -11,7 +11,7 @@
 		     VALUES(#{findPro_Id}, #{user_Name}, #{findPro_Title}, #{findPro_Content}, SYSDATE)
 	</insert>
 	
-	<select id="selectQuestion" resultType="communityFindProDto">
+	<select id="selectFindPro" resultType="communityFindProDto">
 		SELECT F.FINDPRO_ID, F.FINDPRO_TITLE, F.FINDPRO_CONTENT
 		     , F.USER_NAME
 		     , F.FINDPRO_DATE

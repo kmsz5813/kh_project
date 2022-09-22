@@ -1,4 +1,4 @@
-package com.myweb.home.community.service;
+package com.myweb.home.community.findPro.service;
 
 import java.util.Date;
 import java.util.List;
@@ -10,10 +10,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.myweb.home.Accounts.model.AccountsDTO;
-import com.myweb.home.community.model.CommunityFindProDAO;
-import com.myweb.home.community.model.CommunityFindProDTO;
-import com.myweb.home.community.model.CommunityFindProStaticsDTO;
-
+import com.myweb.home.community.findPro.model.CommunityFindProDAO;
+import com.myweb.home.community.findPro.model.CommunityFindProDTO;
+import com.myweb.home.community.findPro.model.CommunityFindProStaticsDTO;
 
 
 @Service
