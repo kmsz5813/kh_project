@@ -1,4 +1,4 @@
-package com.myweb.home.community.service;
+package com.myweb.home.community.question.service;
 
 import java.util.Date;
 import java.util.List;
@@ -10,9 +10,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.myweb.home.Accounts.model.AccountsDTO;
-import com.myweb.home.community.model.CommunityQuestionDAO;
-import com.myweb.home.community.model.CommunityQuestionDTO;
-import com.myweb.home.community.model.CommunityQuestionStaticsDTO;
+import com.myweb.home.community.question.model.CommunityQuestionDAO;
+import com.myweb.home.community.question.model.CommunityQuestionDTO;
+import com.myweb.home.community.question.model.CommunityQuestionStaticsDTO;
 
 @Service
 public class CommunityQuestionService {

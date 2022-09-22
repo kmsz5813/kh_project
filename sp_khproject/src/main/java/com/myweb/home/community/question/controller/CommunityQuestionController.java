@@ -1,4 +1,4 @@
-package com.myweb.home.community.controller;
+package com.myweb.home.community.question.controller;
 
 import java.util.List;
 
@@ -22,9 +22,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.myweb.home.Accounts.model.AccountsDTO;
 import com.myweb.home.common.util.Paging;
-import com.myweb.home.community.model.CommunityQuestionDTO;
-import com.myweb.home.community.service.CommunityQuestionService;
-import com.myweb.home.community.vo.CommunityQuestionVO;
+import com.myweb.home.community.question.model.CommunityQuestionDTO;
+import com.myweb.home.community.question.service.CommunityQuestionService;
+import com.myweb.home.community.question.vo.CommunityQuestionVO;
 import com.myweb.home.upload.model.FileUploadDTO;
 import com.myweb.home.upload.service.FileUploadService;
 

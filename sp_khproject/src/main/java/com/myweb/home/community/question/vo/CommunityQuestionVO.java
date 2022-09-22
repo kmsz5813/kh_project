@@ -1,4 +1,4 @@
-package com.myweb.home.community.vo;
+package com.myweb.home.community.question.vo;
 
 public class CommunityQuestionVO {
 	private int question_id;

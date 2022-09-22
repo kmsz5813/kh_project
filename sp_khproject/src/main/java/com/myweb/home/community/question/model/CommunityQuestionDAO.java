@@ -1,4 +1,4 @@
-package com.myweb.home.community.model;
+package com.myweb.home.community.question.model;
 
 import java.util.List;
 
