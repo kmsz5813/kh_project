@@ -142,13 +142,21 @@ li {
 	padding
 	
 	
+	
+	
 		
+	
+	
 	
 	
 	:
 	
 	
+	
+	
 	 
+	
+	
 	
 	
 	1
@@ -156,7 +164,15 @@ li {
 	
 	
 	
+	
+	
+	
+	
 	.25rem
+	
+	
+	
+	
 	
 	
 	
@@ -298,7 +314,7 @@ feed-item .feed-content {
 					style="position: relative; top: 120px; left: 60px;">
 					<button type="button" class="btn btn-outline-success"
 						style="width: 130px; height: 50px;">전체</button>
-		                                                                                                                		</a>
+				</a>
 			</div>
 			<div>
 				<a href="${pageContext.request.contextPath}/community/findPro/list"
@@ -416,72 +432,50 @@ feed-item .feed-content {
 		<!-- 커뮤니티 메인 새글 -->
 
 		<article>
-			<div id="jb-content">
-				<ul class="feed-list">
-					<li class="feed-item"><a href="#"
-						data-testid="soomgo-life-feed-item"> <span>게시글 1</span>
-							<div class="feed-content">
-								<div>
-									<section>
-										<h3>게시글 1</h3>
-										<p>게시글 1</p>
-									</section>
-									<ul class="tag-list">
-										<li>게시글 1</li>
-										<li>게시글 1</li>
-										<li>게시글 1</li>
-									</ul>
-								</div>
-							</div>
-							<div>
-								<div>
-									<span class="like">0</span> <span class="comment">0</span>
-								</div>
-								<span class="sg-text-description">6분 전</span>
-							</div>
-					</a></li>
+					<div id="jb-content">
+						<ul class="feed-list">
+							<li class="feed-item"><a href="#"
+								data-testid="soomgo-life-feed-item"> <span>게시글 1</span>
+									<div class="feed-content">
+										<div>
+											<section>
+												<h3>게시글 1</h3>
+												<p>게시글 1</p>
+											</section>
+											<ul class="tag-list">
+												<li>게시글 1</li>
+												<li>게시글 1</li>
+												<li>게시글 1</li>
+											</ul>
+										</div>
+									</div>
+									<div>
+										<div>
+											<span class="like">0</span> <span class="comment">0</span>
+										</div>
+										<span class="sg-text-description">6분 전</span>
+									</div>
+							</a></li>
 
-					<li class="feed-item"><a href="#"
-						data-testid="soomgo-life-feed-item"> <span>게시글 1</span>
-							<div class="feed-content">
-								<div>
-									<section>
-										<h3>게시글 1</h3>
-										<p>게시글 1</p>
-									</section>
-									<ul class="tag-list">
-										<li>게시글 1</li>
-										<li>게시글 1</li>
-										<li>게시글 1</li>
-									</ul>
-								</div>
-							</div>
-							<div>
-								<div>
-									<span class="like">0</span> <span class="comment">0</span>
-								</div>
-								<span class="sg-text-description">6분 전</span>
-							</div>
-					</a></li>
-
-		</article>
+						</ul>
+					</div>
+				</article>
 
 
 
 
 
 
+	<c:url var="mainurl" value="/main" />
 
-		<c:url var="mainurl" value="/main" />
 
-
-		<footer id="jb-footer">
-			<div
-				style="width: 1500px; height: 200px; background-color: #f6f7f7; margin: auto; padding: 10px;">
-				이용약관</div>
-		</footer>
-		<!-- go to top -->
-		<a class="btn-top" href="#"><i class="xi-angle-up-thin"></i></a>
+	<footer id="jb-footer">
+		<div
+			style="width: 1500px; height: 200px; background-color: #f6f7f7; margin: auto; padding: 10px;">
+			이용약관</div>
+	</footer>
+	<!-- go to top -->
+	<a class="btn-top" href="#"><i class="xi-angle-up-thin"></i></a>
 	</div>
 
 

@@ -451,7 +451,7 @@ feed-item .feed-content {
 								<ul class="pagination justify-content-center">
 									<c:if test="${pageData.hasPrevPage()}">
 										<li class="page-item"><a class="page-link"
-											href="${lifeUrl}?page=${pageData.prevPageNumber}">Prev</a></li>
+											href="${lifeUrl}?page=${pageData.prevPageNumber}"><</a></li>
 									</c:if>
 									<c:forEach
 										items="${pageData.getPageNumberList(pageData.currentPageNumber - 2, pageData.currentPageNumber + 2)}"
@@ -463,7 +463,7 @@ feed-item .feed-content {
 									</c:forEach>
 									<c:if test="${pageData.hasNextPage()}">
 										<li class="page-item"><a class="page-link"
-											href="${lifeUrl}?page=${pageData.nextPageNumber}">Next</a></li>
+											href="${lifeUrl}?page=${pageData.nextPageNumber}">></a></li>
 									</c:if>
 								</ul>
 							</div>
