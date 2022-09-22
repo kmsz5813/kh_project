@@ -1,4 +1,4 @@
-package com.myweb.home.community.controller;
+package com.myweb.home.community.life.controller;
 
 import java.util.List;
 
@@ -20,9 +20,9 @@ import org.springframework.web.bind.annotation.SessionAttribute;
 
 import com.myweb.home.Accounts.model.AccountsDTO;
 import com.myweb.home.common.util.Paging;
-import com.myweb.home.community.model.CommunityLifeDTO;
-import com.myweb.home.community.service.CommunityLifeService;
-import com.myweb.home.community.vo.CommunityLifeVO;
+import com.myweb.home.community.life.model.CommunityLifeDTO;
+import com.myweb.home.community.life.service.CommunityLifeService;
+import com.myweb.home.community.life.vo.CommunityLifeVO;
 import com.myweb.home.upload.model.FileUploadDTO;
 import com.myweb.home.upload.service.FileUploadService;
 

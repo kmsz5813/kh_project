@@ -11,7 +11,7 @@
 		     VALUES(#{life_Id}, #{user_Name}, #{life_Title}, #{life_Content}, SYSDATE)
 	</insert>
 	
-	<select id="selectQuestion" resultType="communityLifeDto">
+	<select id="selectLife" resultType="communityLifeDto">
 		SELECT L.LIFE_ID, L.LIFE_TITLE, L.LIFE_CONTENT
 		     , L.USER_NAME
 		     , L.LIFE_DATE

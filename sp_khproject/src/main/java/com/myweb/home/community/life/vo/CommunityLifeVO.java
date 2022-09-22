@@ -1,4 +1,4 @@
-package com.myweb.home.community.vo;
+package com.myweb.home.community.life.vo;
 
 public class CommunityLifeVO {
 	private int Life_id;
