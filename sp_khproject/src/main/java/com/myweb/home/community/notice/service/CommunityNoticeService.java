@@ -1,4 +1,4 @@
-package com.myweb.home.community.service;
+package com.myweb.home.community.notice.service;
 
 import java.util.List;
 import java.util.Map;
@@ -7,8 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.myweb.home.common.util.PagingCommunity;
-import com.myweb.home.community.model.CommunityNoticeDAO;
-import com.myweb.home.community.model.CommunityNoticeDTO;
+import com.myweb.home.community.notice.model.CommunityNoticeDAO;
+import com.myweb.home.community.notice.model.CommunityNoticeDTO;
 
 //사용자
 

@@ -1,4 +1,4 @@
-package com.myweb.home.community.controller;
+package com.myweb.home.community.notice.controller;
 
 import java.util.HashMap;
 import java.util.List;
@@ -17,8 +17,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.myweb.home.Accounts.model.AccountsDTO;
 import com.myweb.home.common.util.Paging;
 import com.myweb.home.common.util.PagingCommunity;
-import com.myweb.home.community.model.CommunityNoticeDTO;
-import com.myweb.home.community.service.CommunityNoticeService;
+import com.myweb.home.community.notice.model.CommunityNoticeDTO;
+import com.myweb.home.community.notice.service.CommunityNoticeService;
 
 //사용자
 @Controller

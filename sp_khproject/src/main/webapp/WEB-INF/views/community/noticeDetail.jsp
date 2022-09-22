@@ -340,14 +340,14 @@ feed-item .feed-content {
 		                                                                                                                		</a>
 			</div>
 			<div>
-				<a href="${pageContext.request.contextPath}/community/findPro"
+				<a href="${pageContext.request.contextPath}/community/findPro/list"
 					style="position: relative; top: 180px; left: 60px;">
 					<button type="button" class="btn btn-outline-success"
 						style="width: 130px; height: 50px;">전문가 찾아요</button>
 				</a>
 			</div>
 			<div>
-				<a href="${pageContext.request.contextPath}/community/findStu"
+				<a href="${pageContext.request.contextPath}/community/findStu/list"
 					style="position: relative; top: 240px; left: 60px;">
 					<button type="button" class="btn btn-outline-success"
 						style="width: 130px; height: 50px;">레슨자 찾아요</button>
@@ -361,7 +361,7 @@ feed-item .feed-content {
 				</a>
 			</div>
 			<div>
-				<a href="${pageContext.request.contextPath}/community/life"
+				<a href="${pageContext.request.contextPath}/community/life/list"
 					style="position: relative; top: 360px; left: 60px;">
 					<button type="button" class="btn btn-outline-success"
 						style="width: 130px; height: 50px;">일상</button>
@@ -377,10 +377,11 @@ feed-item .feed-content {
 		</aside>
 		<section>
 			<div id="jb-content-head">
+
 				<!-- 커뮤니티 키워드 검색 -->
 				<nav class="navbar navbar-expand-md navbar-light">
 					<div class="container"
-						style="position: relative; top: 40px; left: 40px;">
+						style="position: relative; top: 40px; left: 5px;">
 						<button class="navbar-toggler" type="button"
 							data-bs-toggle="collapse"
 							data-bs-target="#navbarSupportedContent"
@@ -393,7 +394,13 @@ feed-item .feed-content {
 								<input class="form-control me-4" type="search"
 									placeholder="키워드를 입력해주세요!" aria-label="Search"
 									style="min-width: 800px;">
+								<div class="col-3">
+									<div class="input-group">
+										<button class="btn btn-secondary" type="submit">조회</button>
+									</div>
+								</div>
 							</form>
+
 						</div>
 					</div>
 				</nav>
@@ -402,8 +409,6 @@ feed-item .feed-content {
 					<div id="jb-content">
 						<ul class="feed-list">
 							<!-- 본문 -->
-							<li class="feed-item"><a href="#"
-								data-testid="soomgo-life-feed-item"> <span>공지사항</span></a>
 								<div class="feed-content">
 									<div>
 										<section>
@@ -418,7 +423,6 @@ feed-item .feed-content {
 										</section>
 									</div>
 								</div> <!--end table-responsive-->
-							</li>
 						</ul>
 					</div>
 				</article>

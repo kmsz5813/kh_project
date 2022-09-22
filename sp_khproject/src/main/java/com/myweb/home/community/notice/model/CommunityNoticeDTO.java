@@ -1,4 +1,4 @@
-package com.myweb.home.community.model;
+package com.myweb.home.community.notice.model;
 
 public class CommunityNoticeDTO {
 	
