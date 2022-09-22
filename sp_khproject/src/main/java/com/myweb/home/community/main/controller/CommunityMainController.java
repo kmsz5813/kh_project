@@ -1,4 +1,4 @@
-package com.myweb.home.community.controller;
+package com.myweb.home.community.main.controller;
 
 import java.util.List;
 import java.util.Map;
@@ -11,7 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.myweb.home.Accounts.model.AccountsDTO;
-import com.myweb.home.community.service.CommunityMainService;
+import com.myweb.home.community.main.service.CommunityMainService;
 
 @Controller
 @RequestMapping("/community")

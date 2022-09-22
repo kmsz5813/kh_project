@@ -1,4 +1,4 @@
-package com.myweb.home.community.model;
+package com.myweb.home.community.main.model;
 
 import java.util.List;
 import java.util.Map;

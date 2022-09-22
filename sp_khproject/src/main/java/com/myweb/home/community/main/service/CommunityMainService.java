@@ -1,4 +1,4 @@
-package com.myweb.home.community.service;
+package com.myweb.home.community.main.service;
 
 import java.util.List;
 import java.util.Map;
@@ -6,7 +6,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.myweb.home.community.model.CommunityMainDAO;
+import com.myweb.home.community.main.model.CommunityMainDAO;
 
 @Service
 public class CommunityMainService {
