@@ -1,4 +1,4 @@
-package com.myweb.home.community.controller;
+package com.myweb.home.community.findStu.controller;
 
 import java.util.List;
 
@@ -21,9 +21,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.myweb.home.Accounts.model.AccountsDTO;
 import com.myweb.home.common.util.Paging;
-import com.myweb.home.community.model.CommunityFindStuDTO;
-import com.myweb.home.community.service.CommunityFindStuService;
-import com.myweb.home.community.vo.CommunityFindStuVO;
+import com.myweb.home.community.findStu.model.CommunityFindStuDTO;
+import com.myweb.home.community.findStu.service.CommunityFindStuService;
+import com.myweb.home.community.findStu.vo.CommunityFindStuVO;
 import com.myweb.home.upload.model.FileUploadDTO;
 import com.myweb.home.upload.service.FileUploadService;
 

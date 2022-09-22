@@ -1,4 +1,4 @@
-package com.myweb.home.community.vo;
+package com.myweb.home.community.findStu.vo;
 
 public class CommunityFindStuVO {
 	private int findStu_id;

@@ -11,7 +11,7 @@
 		     VALUES(#{findStu_Id}, #{user_Name}, #{findStu_Title}, #{findStu_Content}, SYSDATE)
 	</insert>
 	
-	<select id="selectQuestion" resultType="communityFindStuDto">
+	<select id="selectFindStu" resultType="communityFindStuDto">
 		SELECT F.FINDSTU_ID, F.FINDSTU_TITLE, F.FINDSTU_CONTENT
 		     , F.USER_NAME
 		     , F.FINDSTU_DATE
