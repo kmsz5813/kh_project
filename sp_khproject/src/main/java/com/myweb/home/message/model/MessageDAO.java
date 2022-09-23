@@ -14,11 +14,13 @@ public class MessageDAO {
 	@Autowired
 	private SqlSession sqlSession;
 	
+
+	
 	private String mapper = "Chat.%s";
 	
 	// 채팅 대화 DB저장
-		public int insertChatting(ChattingCS ch) {
-			return sqlSession.insert("ChattingCS.insertChatting", ch);
+		public int insertChatting(String message) {
+			return sqlSession.insert("Chat.insertChatting", message);
 		}
 	
 	// 채팅 내용 조회

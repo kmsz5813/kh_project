@@ -20,14 +20,14 @@ import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
 
 import com.myweb.home.Accounts.model.AccountsDTO;
+import com.myweb.home.message.model.MessageDAO;
 import com.myweb.home.message.service.MessageService;
 
 
 public class ChattingCS extends TextWebSocketHandler {
 	
 	@Autowired
-	private SqlSession sqlSession;
-	
+	private MessageDAO dao;
 	
 	private List<WebSocketSession> sessionList = new ArrayList<WebSocketSession>();
 	private Map<String, WebSocketSession> sessionMap = new HashMap<String, WebSocketSession>();
@@ -38,6 +38,10 @@ public class ChattingCS extends TextWebSocketHandler {
 		System.out.println(session.getUri().getQuery());
 		Map<String, Object> map = session.getAttributes();
 		String name = (String) map.get("HTTP.SESSION.ID");
+		
+		for(Entry<String, Object> e: map.entrySet()) {
+			System.out.println(e.getKey() + ": " + e.getValue());
+		}
 		
 		if(map.get("loginData") != null) {
 			name = ((AccountsDTO)map.get("loginData")).getAc_name();
@@ -61,6 +65,8 @@ public class ChattingCS extends TextWebSocketHandler {
 		if(map.get("loginData") != null) {
 			name = ((AccountsDTO)map.get("loginData")).getAc_name();
 		}
+		
+		dao.insertChatting(message.getPayload());
 		
 		for(Entry<String, WebSocketSession> entry: sessionMap.entrySet()) {
 			WebSocketSession ws = entry.getValue();
