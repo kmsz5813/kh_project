@@ -14,20 +14,26 @@ public class SelItemDAO {
 	private SqlSession session;
 	
 	private String mapper = "selItemMapper.%s";
-
+	//조회기능
 	public List<Object> getData(SelItemDTO data) {
 		
 		String mapperId = String.format(mapper, "getData");
 		List<Object> result = session.selectList(mapperId, data);
 		return result;
 	}
-
+	//조회기능
 	public List selectData(String selectData) {
 		String mapperId = String.format(mapper, "selectData");
 		List<Object> result = session.selectList(mapperId, selectData);
 		return result;
 	}
-
+	//조회기능
+	public List locationData(String locationData) {
+		String mapperId = String.format(mapper, "locationData");
+		List<Object> result = session.selectList(mapperId, locationData);
+		return result;
+	}
+	//조회기능
 	public List searchData(String search) {
 		
 		String mapperId = String.format(mapper, "searchData");
@@ -47,6 +53,8 @@ public class SelItemDAO {
 		SelItemDTO res = session.selectOne(mapperId, id);
 		return res;
 	}
+	
+
 	
 	public int getNextSeq() {
 		String mapperId = String.format(mapper, "getNextSeq");
@@ -128,4 +136,6 @@ public class SelItemDAO {
 		int res = session.update(mapperId, itemdata);
 		return res == 1 ? true : false;
 	}
+
+
 }

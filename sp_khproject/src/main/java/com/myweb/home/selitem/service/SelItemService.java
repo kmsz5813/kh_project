@@ -42,6 +42,16 @@ public class SelItemService {
 		return null;
 	}
 	
+	public List getLocation(String locationData) {
+		List datas = dao.locationData(locationData);
+		
+		if(datas != null) {
+			return datas;
+		}
+		
+		return null;
+	}
+	
 	public List<SelItemDTO> getAll() {
 		List<SelItemDTO> datas = dao.selectAll();
 	return datas;
@@ -125,6 +135,9 @@ public class SelItemService {
 		}
 
 	}
+
+
+
 
 
 

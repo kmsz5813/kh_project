@@ -64,10 +64,10 @@
 			  </button>
 			  <!------------------- 반복문 만들어서 집어넣기---------------------------->
 			  <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-			    <li><a class="dropdown-item" href="sellitem?select=IT">IT</a></li>
-			    <li><a class="dropdown-item" href="sellitem?select=운동">운동</a></li>
-			    <li><a class="dropdown-item" href="sellitem?select=음악">음악</a></li>
-			    <li><a class="dropdown-item" href="#">기타</a></li>
+			  	  <li><a class="dropdown-item" href="sellitem?">전체</a></li>
+			  	<c:forEach var="name" items="${Option}" >
+			    <li><a class="dropdown-item" href="sellitem?select=${name}">${name}</a></li>
+			  	</c:forEach>
 			  </ul>
 			 </div>
 			  
@@ -76,9 +76,10 @@
 			    지역
 			  </button>
 			  <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-			    <li><a class="dropdown-item" href="#">Action</a></li>
-			    <li><a class="dropdown-item" href="#">Another action</a></li>
-			    <li><a class="dropdown-item" href="#">Something else here</a></li>
+			 	   <li><a class="dropdown-item" href="sellitem?">전체</a></li>
+			    <c:forEach var="lc" items="${lc}" >
+			    <li><a class="dropdown-item" href="sellitem?location=${lc}">${lc}</a></li>
+			    </c:forEach>
 			  </ul>
 			 </div>
 			  <!-- ---------------------------------------------------------------- -->

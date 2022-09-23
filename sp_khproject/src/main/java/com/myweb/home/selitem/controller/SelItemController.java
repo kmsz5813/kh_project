@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -36,6 +37,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.google.common.io.Files;
 import com.myweb.home.Accounts.model.AccountsDTO;
 import com.myweb.home.common.Paging;
+import com.myweb.home.common.util.option;
 import com.myweb.home.login.service.LoginService;
 import com.myweb.home.selitem.model.SelItemDTO;
 import com.myweb.home.selitem.service.SelItemService;
@@ -56,12 +58,16 @@ public class SelItemController {
 	@Autowired
 	private LoginService loginService;
 	
+	option Option = new option();
+	
 //	@Autowired
 //	private FileUploadService fileUploadService;
 	@GetMapping(value="/additem")
 	public String additem(Model model
 		, @SessionAttribute("loginData") AccountsDTO acData) {
 	
+		model.addAttribute("Option", Option.fieldpage());
+		model.addAttribute("lc", Option.Location());
 		return "/sellitem/additem";
 	}
 	
@@ -134,6 +140,10 @@ public class SelItemController {
 		String selectData = request.getParameter("select"); // <<<<<<< 주소값
 		List seletResult = service.getSelect(selectData);
 		
+		//SEL_LOCATION으로 추적
+		String locationData = request.getParameter("location");
+		List locationResult = service.getLocation(locationData);
+		
 		if(session.getAttribute("pageCount") == null) {
 			session.setAttribute("pageCount", 8);
 		}
@@ -153,13 +163,22 @@ public class SelItemController {
 			//검색으로 조회
 			paging = new Paging(serachData, page, pageCount);
 			model.addAttribute("selectData", "search=" + search);
+		
+		}else if(locationData != null) {
+			paging = new Paging(locationResult, page, pageCount);
+			model.addAttribute("selectData", "select=" + locationData);
+			
 		}
+		
+		
 		else {
 			paging = new Paging(result, page, pageCount);
 		}
 		
 		model.addAttribute("result", paging.getPageData());
 		model.addAttribute("pageData", paging);
+		model.addAttribute("Option", Option.fieldpage());
+		model.addAttribute("lc", Option.Location());
 
 		
 		// 로그인세션 존재유무 (전문가만 등록버튼 구현하기위해서)
@@ -172,8 +191,8 @@ public class SelItemController {
 	@GetMapping(value="/itemdetail")
 	public String detail(Model model, HttpServletRequest request
 			,HttpSession session) {
-		// 판매자 닉네임 가져오기
-
+		// 판매자 닉네임 가져오기	
+		System.out.println(request.getParameter("itemid"));
 		String name = request.getParameter("search");
 
 
@@ -188,7 +207,7 @@ public class SelItemController {
 			String test1 = itemdata.getSel_name();
 			String test2 = acDto.getAc_name();
 			if(!test1.equals(test2)) {
-				System.out.println("실행");
+				
 				boolean result = service.incViewCnt(itemdata);
 				if(!result) {
 					request.setAttribute("viewerror", "조회수오류가있습니다.");
@@ -214,7 +233,8 @@ public class SelItemController {
 		SelItemDTO itemdata = service.getData(id);
 		
 		request.setAttribute("itemdata", itemdata);
-		
+		model.addAttribute("Option", Option.fieldpage());
+		model.addAttribute("lc", Option.Location());
 		
 		return "sellitem/modify";
 	}
@@ -261,6 +281,9 @@ public class SelItemController {
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
+				String error = "수정실패";
+				request.setAttribute("error", error);
+				return "sellitem/itemdetail";
 			}
 
 		}

@@ -51,6 +51,7 @@
 	<c:url var="modifyurl" value="/sellitem/modify" />
 	<form id="fileForm" action="${modifyurl}" method="post" enctype="multipart/form-data">
 			<input type="hidden" value="${itemdata.sel_id}" name="sel_id">
+			<input type="hidden" value="${error}" id="error">
 			<div class="image-form mb-3">
 					<!-- 여기 url은 home/ 뒤에 바로 modify 가 아니라 info/ 가 붙으므로 contextPaht 경로를 앞에 붙여야 한다.  -->
 					<div style="float:left;">
@@ -64,7 +65,7 @@
 					</div>
 					</div>
 					<div class="mb-3">
-						<input id="formFile" type="file" name="fileUpload" class="form-control" value="이미지 선택" accept="image/png" required>
+						<input id="formFile" type="file" name="fileUpload" class="form-control" value="이미지 선택" accept="image/png">
 					</div>
 			
 			</div>
@@ -72,57 +73,41 @@
 			<div class="mb-3">
 				<label class="col-sm-2 control-label">제목</label>
 				<div class="mt-3">
-					<input class="form-control" value="${itemdata.sel_title}" id="title" type="text" name="title" placeholder="제목을 입력하세요." required>
+					<input class="form-control" value="${itemdata.sel_title}" id="title" type="text" name="title" placeholder="제목을 입력하세요.">
 				</div>
 			</div>
 		    <div class="mb-3">
 		       <label class="col-sm-2 control-label">서비스</label>
 		       <div class="mt-3">
 		       		
-			       <select class="form-select" name="field" >
-						<option selected value="무관">-선택-</option>
-						<option value="IT">IT</option>
-						<option value="레슨">레슨</option>
-						<option value="미용">미용</option>
-						<option value="국영수">국영수</option>
-						<option value="기타">기타</option>
+			   		 <select class="form-select" name="field">
+						<option selected value="무관">무관</option>
+						<c:forEach var="name" items="${Option}" >
+						<option value="${name}">${name}</option>
+						</c:forEach>
 			       	</select>
 			
 		       </div>
 		    </div>
 		    <div class="mb-3">
 		        <label class="col-sm-2 control-label">지역</label>
-		        <div class="mt-3">
-			        <select class="form-select" name="location" >
-							<option selected value="무관">-선택-</option>
-							<option value="서울">서울</option>
-							<option value="경기">경기</option>
-							<option value="부산">부산</option>
-							<option value="대구">대구</option>
-							<option value="인천">인천</option>
-							<option value="대전">대전</option>
-							<option value="울산">울산</option>
-							<option value="광주">광주</option>
-							<option value="세종">세종</option>
-							<option value="경남">강원</option>
-							<option value="경북">경북</option>
-							<option value="경남">경남</option>
-							<option value="충북">충북</option>
-							<option value="충남">충남</option>
-							<option value="전북">전북</option>
-							<option value="전남">전남</option>
-							<option value="제주">제주</option>
+		         <div class="mt-3">
+			        <select class="form-select" name="location">
+							<option selected value="무관">무관</option>
+							<c:forEach var="lc" items="${lc}" >
+							<option value="${lc}">${lc}</option>
+							</c:forEach>
 			        </select>
 		     	</div>
 		     </div>
-		    <div class="form-group">
-				<label class="col-sm-2 control-label" >가격</label>
-				<div class="col-sm-10">
-					<input class="form-control" type="text" name="price" value="${itemdata.sel_price}" placeholder="가격을 입력하세요.">
+			  <div class="mb-3">
+				<label class="col-sm-2 control-label">가격</label>
+				<div class="mt-3">
+					<input class="form-control" type="text" name="price" placeholder="가격을 입력하세요.">
 				</div>
 			</div> 
 	
-			<div class="mb-3">
+			<div class="mt-3 mb-3">
 				<p>상품상세설명</p>
 				<textarea class="form-control" id="content" name="content" rows="10">${itemdata.sel_content}</textarea>
 			</div>
@@ -130,6 +115,7 @@
 			<div class="form-group row">
 				<button type="submit" class="form-control" onclick="imageUpload()">수정</button>
 			</div>
+			
 		</form>
 	</div>
 	</section>
@@ -137,6 +123,7 @@
 	<footer></footer>
 	<c:url var="upload" value="/upload/image" />
 		<script type="text/javascript">
+		
 			CKEDITOR.replace("content", {
 				filebrowserUploadUrl: "${upload}?type=image"
 			})
@@ -149,6 +136,8 @@
 				formFile.addEventListener("change", showImagePreview);
 			}
 			
+	
+			
 			var finalcheck = false;
 			
 			function showImagePreview(e) {
@@ -158,7 +147,7 @@
 			}
 			   
 			  $('form').on('submit', function(e) {
-					alert($('#formFile').val());
+					
 					
 					if($('#title').val() == ''){
 					   e.preventDefault();
