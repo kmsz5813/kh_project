@@ -9,7 +9,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
 
 import com.myweb.home.Accounts.model.AccountsDTO;
@@ -53,6 +55,7 @@ public class PurchaseController {
 		return "purchase/purchase";
 	}
 	
+	
 	// 구매페이지 값 받아서 넘기기
 	@PostMapping(value="/purchase")
 	public String purchaseOrder(Model model, HttpServletRequest request
@@ -74,11 +77,11 @@ public class PurchaseController {
 			purchase.setBuy_usedCoupon(couponNumber);
 			service.usingCoupon(couponNumber);	// COUPON 테이블의 coupon_used에 'Y' 추가
 		}
+		System.out.println("실구매가 : "+ request.getParameter("realprice"));
 		purchase.setBuy_realPrice(Integer.parseInt(request.getParameter("realprice")));		// 실제 구매 가격 저장
 		
 		UsePointVO usingpoint = new UsePointVO();
 		usingpoint.setAc_name(acData.getAc_name());	
-		usingpoint.setUse_point(Integer.parseInt(request.getParameter("use_point")));
 		usingpoint.setEarn_point((int)(itemdata.getSel_price() / 100));
 		
 
@@ -87,6 +90,14 @@ public class PurchaseController {
 		ItemService.plusCount(itemid);		// SEL_ITEM 테이블에서 해당 항목 구매횟수 + 1
 		
 		return "redirect:/sellitem";
+	}
+	
+	@PostMapping(value="/iamport")
+	@ResponseBody
+	public int iamport(){
+		System.out.println("거래성공");
+		int res = 1;
+		return res;
 	}
 	
 }

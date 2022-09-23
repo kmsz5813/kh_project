@@ -87,7 +87,7 @@
 						<p>${loginData.ac_field }</p>
 						<p>${loginData.ac_interest }</p>
 						<c:if test="${loginData.ac_index == 10}">
-							${loginData.ac_point}
+							<fmt:formatNumber type="number" maxFractionDigits="3" value="${loginData.ac_point}"/>
 						</c:if>
 					</div>
 				</div>
@@ -141,7 +141,7 @@
 									<td class="text-center"><fmt:formatNumber type="number" maxFractionDigits="3" value="${purchaseData.buy_price}"/></td>
 									<td class="text-center"><fmt:formatNumber type="number" maxFractionDigits="3" value="${purchaseData.buy_usedPoint}"/></td>
 									<td class="text-center">${purchaseData.buy_usedCouponName}</td>
-									<td class="text-center">${purchaseData.buy_realPrice}</td>
+									<td class="text-center"><fmt:formatNumber type="number" maxFractionDigits="3" value="${purchaseData.buy_realPrice}"/></td>
 								</tr>
 							</c:forEach>
 						</tbody>
