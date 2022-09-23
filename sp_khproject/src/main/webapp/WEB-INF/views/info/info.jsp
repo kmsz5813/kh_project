@@ -150,26 +150,28 @@
 			<c:if test="${loginData.ac_index == 20}">
 				<section class="container1">
 					<div class="mt-5">
+						
 						<table class="table table-hover">
 							<thead style="background-color: rgb(224, 224, 224)">							
 								<tr>
-									<th class="text-center">제목</th>
-									<th class="text-center">작성일자</th>
-									<th class="text-center">판매횟수</th>
-									<th class="text-center">추천수</th>
+									<th scope="col">제목</th>
+									<th scope="col">작성일자</th>
+									<th scope="col">판매횟수</th>
+									<th scope="col">추천수</th>
 								</tr>
 							</thead>
 							<tbody>
 								<c:forEach items="${items}" var="item">
 									<tr onclick="location.href='./sellitem/itemdetail?search=${item.sel_name}&itemid=${item.sel_id}'" style="cursor:pointer;">
-										<td class="text-center">${item.sel_title}<td>
-										<td class="text-center">${item.sel_writeday}<td>
-										<td class="text-center">${item.sel_number}<td>
-										<td class="text-center">${item.sel_like}<td>
+										<td>${item.sel_title}</td>
+										<td>${item.sel_writeday}</td>
+										<td>${item.sel_number}</td>
+										<td>${item.sel_like}</td>
 									</tr>
 								</c:forEach>
 							</tbody>
 						</table>
+					
 					</div>
 				</section>
 			</c:if>

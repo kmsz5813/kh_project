@@ -15,6 +15,10 @@
 	.container1 {
 		display: block;
 	}
+	
+	.bg-small{
+		width: 1100px; height: auto;
+	}
 	</style>
 </head>
 	<body>
@@ -52,24 +56,24 @@
 							class="btn btn-outline-success">구매하기</button>
 						</c:if>
 					</div>
-					<section class="container container1">
-						<div class="mt-5">
-							<table class="table table-hover">
-								<colgroup>
-									<col class="col-2">
-									<col class="col-auto">
-									<col class="col-5">
-								</colgroup>
-								<thead style="background-color: rgb(224, 224, 224)">
-									<tr>
-										<th class="text-center">test</th>
-										<th class="text-center">test</th>
-										<th class="text-center">test</th>
-									</tr>
-								</thead>
-							</table>
-						</div>
-					</section>
+					<div class="mt-5" style="background-color: rgb(241, 241, 241); height:10rem;">
+						<table class="table table-borderless">
+							<thead>
+							  <tr>
+							      <th class="col-4" style="text-align: center;">고용</th>
+							      <th class="col-4" style="text-align: center;">리뷰</th>
+							      <th class="col-auto" style="text-align: center;">경력</th>						      
+							  </tr>
+							</thead>
+							<tbody class="mt-5">
+							    <tr class="mt-5">
+							      <td style="text-align: center;">nn회</td>
+							      <td style="text-align: center;">리뷰~</td>
+							      <td style="text-align: center;">n년</td>
+							    </tr>
+							 </tbody>
+						</table>
+					</div>
 				</div>
 			</div>
 			<c:if test="${data.ac_name == loginData.ac_name}">
@@ -78,12 +82,30 @@
 					<button type="button">삭제</button>
 				</div>
 			</c:if>
-			<p>제목 : ${itemdata.sel_title}</p>
-			<p>내용 : ${itemdata.sel_content}</p>
-			<p>분야 : ${itemdata.sel_field}</p>
-			<p>지역 : ${itemdata.sel_location}</p>
-			<p>가격 : ${itemdata.sel_price}</p>
-			<p>작성일자 : ${itemdata.sel_writeday}</p>
+	
+			<div class="mt-5">상세내용</div>
+			<div>${itemdata.sel_content}</div>
+
+			<div class="mt-5">경력</div>
+				<div class="mt-5">
+					<table class="table table-sm">
+						<thead style="background-color: rgb(241, 241, 241);">
+						  <tr>
+						      <th class="col-4" style="text-align: center;">No.</th>
+						      <th class="col-4" style="text-align: center;">Name</th>
+						      <th class="col-auto" style="text-align: center;">Value</th>						      
+						  </tr>
+						</thead>
+						<tbody class="mt-5">
+						    <tr class="mt-5">
+						      <td style="text-align: center;">nn회</td>
+						      <td style="text-align: center;">리뷰~</td>
+						      <td style="text-align: center;">n년</td>
+						    </tr>
+						 </tbody>
+					</table>
+				</div>
+			
 		</section>
 		</c:if>
 	</body>
