@@ -26,6 +26,9 @@
 	</beans:bean>
 	
 	<beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+  		<beans:property name="maxUploadSize" value="-1"></beans:property>
+  		<beans:property name="maxUploadSizePerFile" value="5242880"></beans:property>
+		<beans:property name="maxInMemorySize" value="15728640"></beans:property>
 	</beans:bean>
 	
 	<context:component-scan base-package="com.myweb.home" />
