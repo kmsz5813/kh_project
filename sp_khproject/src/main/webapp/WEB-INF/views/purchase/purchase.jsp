@@ -48,7 +48,7 @@
 					<h2 class="mt-3 mb-3">상품정보</h2>
 					<div class="mt-3 mb-3">
 						<c:if test="${empty thumbnail.uuidName }">
-							<img src="${pageContext.request.contextPath}/static/img/profile/logo.png">
+							<img src="${pageContext.request.contextPath}/static/img/profile/logo.png" style="max-width:200px;">
 						</c:if>
 						<c:if test="${not empty thumbnail.uuidName }">
 							<img src="/home/${thumbnail.url}/${thumbnail.uuidName}" style="max-width:200px;">

@@ -45,7 +45,6 @@ import com.myweb.home.upload.service.FileUploadService;
 @Controller
 @RequestMapping(value="/sellitem")
 public class SelItemController {
-	private static String CURR_IMAGE_REPO_PATH = null;
 			
 	@Autowired
 	private SelItemService service;
