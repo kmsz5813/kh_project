@@ -64,6 +64,7 @@ public class SelItemService {
 	
 	public boolean modify(SelItemDTO data) {
 		boolean result = dao.updateData(data);
+		System.out.println("service부분" + data);
 		return result;
 	}
 	

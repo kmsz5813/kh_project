@@ -35,7 +35,16 @@
 		SELECT * FROM SEL_ITEM WHERE SEL_NAME = #{sel_name}
 	</select>
 
-
-
+	<update id="updateData" parameterType="selItemDto">
+		   
+		 UPDATE SEL_ITEM
+		   SET 
+		   SEL_FIELD = #{sel_field},
+		   SEL_LOCATION =  #{sel_location},
+		   SEL_TITLE = #{sel_title},
+		   SEL_CONTENT = #{sel_content}
+		   WHERE SEL_ID = #{sel_id}
+	</update>
+	
 
 </mapper>

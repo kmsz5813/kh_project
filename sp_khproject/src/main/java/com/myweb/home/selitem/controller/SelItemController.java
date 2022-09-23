@@ -15,6 +15,7 @@ import java.util.UUID;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -185,28 +186,142 @@ public class SelItemController {
 	
 
 	@GetMapping(value="/itemdetail")
-	public String detail(Model model, HttpServletRequest request
+	   public String detail(Model model, HttpServletRequest request
+	         , @SessionAttribute("loginData") AccountsDTO acData) {
+	      // 판매자 닉네임 가져오기
+
+	      String name = request.getParameter("search");
+
+	      String name1 = request.getParameter("minsung");
+	      System.out.println(name);
+	      System.out.println(name1);
+	      AccountsDTO data = loginService.nameCheck(name);
+	      //아이템 번호도 가져와야됨
+	      int itemid = Integer.parseInt(request.getParameter("itemid"));
+	      System.out.println(itemid);
+	      SelItemDTO itemdata = service.getData(itemid);
+
+
+	      
+
+	      request.setAttribute("data", data);
+	      request.setAttribute("itemdata", itemdata);
+	      request.setAttribute("loginData", acData);
+	      return "sellitem/itemdetail";
+	   }
+
+	
+	@GetMapping(value="/itemmodify")
+	public String itemmodify(Model model
+			, HttpServletRequest request
 			, @SessionAttribute("loginData") AccountsDTO acData) {
-		// 판매자 닉네임 가져오기
+			System.out.println(acData);
+			System.out.println(acData.getAc_name());
+			String test = "김민성";
+			model.addAttribute("test", test);
+			
+		    int itemid = Integer.parseInt(request.getParameter("itemid"));
+		    SelItemDTO itemdata = service.getData(itemid);
+		    System.out.println(itemdata);
 
-		String name = request.getParameter("search");
+		    request.setAttribute("itemdata", itemdata);
+		    
+			return "/sellitem/itemmodify";
+		}
+	
+	@PostMapping(value="/itemmodify")
+	public String itemmodify(Model model, HttpServletRequest request
+			,@SessionAttribute("loginData") AccountsDTO acData
+			, MultipartHttpServletRequest mtfRequest
+			, @RequestParam("file") MultipartFile[] files
+			 ) throws Exception {
 
-		AccountsDTO data = loginService.nameCheck(name);
-		//아이템 번호도 가져와야됨
-		int itemid = Integer.parseInt(request.getParameter("itemid"));
-		SelItemDTO itemdata = service.getData(itemid);
+		SelItemDTO data = new SelItemDTO();
+		 
+		// jsp에서 값을 받아오는
 
-		request.setAttribute("data", data);
-		request.setAttribute("itemdata", itemdata);
-		request.setAttribute("loginData", acData);
-		return "sellitem/itemdetail";
+		String title = request.getParameter("title");
+	    String service1 = request.getParameter("field");
+	    String location = request.getParameter("location");
+	    String content = request.getParameter("description");
+		System.out.println(service1);
+		System.out.println(title);
+		System.out.println(location);
+		System.out.println(content);
+		data.setSel_title(title);
+		data.setSel_field(service1);
+		data.setSel_location(location);
+		data.setSel_content(content);
+		data.setSel_name(acData.getAc_name());
+		
+		// 이미지 다수 업로드
+		List<MultipartFile> fileList = mtfRequest.getFiles("file");
+		String path = request.getServletContext().getRealPath("/resources/img/item/");
+		for (MultipartFile mf : fileList) {
+            String originFileName = mf.getOriginalFilename(); // 원본 파일 명
+            long fileSize = mf.getSize(); // 파일 사이즈
+            System.out.println("originFileName : " + originFileName);
+            System.out.println("fileSize : " + fileSize);
+            // 파일명 : 현재 시간 + 오리지널 네임
+            String safeFile = path + System.currentTimeMillis() + originFileName;
+            try {
+                mf.transferTo(new File(safeFile));
+            } catch (IllegalStateException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+		
+		// id = 게시글번호
+//		int id = service.getbId(data);
+//		for(MultipartFile file: files) {
+//			String path = request.getServletContext().getRealPath("/resources/img/item");
+//			String url = "/static/board/upload";
+//			FileUploadDTO fileData = new FileUploadDTO(id, path, url);
+//		}
+		
+			
+			
+		System.out.println(data);
+		boolean result = service.modify(data);
+		
+		if(result) {
+			return "redirect:/sellitem";
+		}else {
+			return "sellitem/itemmodify";
+		}
 	}
 	
-//	@GetMapping(value="/itemmodify")
-//	public String itemmodify(Model model
-//			, HttpServletRequest request
-//			, @SessionAttribute("loginData") AccountsDTO acDto) {
-//		request.setAttribute("", acDto)
-//	}
+	@PostMapping(value="/delete", produces="application/json; charset=utf-8")
+	@ResponseBody
+	public String delete(@SessionAttribute("loginData") AccountsDTO acData
+			, @RequestParam int id) {
+		SelItemDTO data = service.getData(id);
+		
+		JSONObject json = new JSONObject();
+		
+		if(data == null) {
+			json.put("code", "notExists");
+			json.put("message", "이미 삭제 된 데이터 입니다.");
+		} else {
+			if(data.getSel_id() == acData.getAc_index()) {
+				boolean result = service.remove(data);
+				if(result) {
+					json.put("code", "success");
+					json.put("message", "삭제가 완료되었습니다.");
+				} else {
+					json.put("code", "fail");
+					json.put("message", "삭제 작업 중 문제가 방생하였습니다.");
+				}
+			} else {
+				json.put("code", "permissionError");
+				json.put("message", "삭제 할 권한이 없습니다.");
+			}
+		}
+		return json.toJSONString();
+	}
+	
+	
 	
 }

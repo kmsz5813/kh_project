@@ -37,7 +37,7 @@
 	<header></header>
 	<section class="container w-75">
 	<div class="mt-5" >
-	<c:url var="addurl" value="/sellitem/additem" />
+	<c:url var="addurl" value="/sellitem/itemmodify" />
 	<form id="fileForm" action="${addurl}" method="post" enctype="multipart/form-data">
 			<div class="form-group">
 				<label class="col-sm-2 control-label">제목</label>
@@ -86,7 +86,8 @@
 			<div class="form-group row">
 				상품상세설명
 				<div>
-					<textarea name="description" cols="50" placeholder="내용을 입력해주세요." rows="5" class="form-control"></textarea>
+					<textarea name="description" cols="50" placeholder="내용을 입력해주세요."  rows="5" class="form-control"></textarea>
+					<input type="text" value="${test}">
 				</div>
 			</div>
 			<div class="form-group row">
