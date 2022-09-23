@@ -3,6 +3,7 @@ package com.myweb.home.info.controller;
 import java.io.File;
 import java.io.IOException;
 import java.util.Iterator;
+import java.util.List;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -32,6 +33,10 @@ import org.springframework.web.multipart.MultipartRequest;
 
 import com.myweb.home.Accounts.model.AccountsDTO;
 import com.myweb.home.login.service.LoginService;
+import com.myweb.home.purchase.model.PurchaseDTO;
+import com.myweb.home.purchase.service.PurchaseService;
+import com.myweb.home.selitem.model.SelItemDTO;
+import com.myweb.home.selitem.service.SelItemService;
 
 
 @Controller
@@ -42,7 +47,10 @@ public class InfoController {
 	
 	@Autowired
 	private LoginService service;
-	
+	@Autowired
+	private SelItemService selService;
+	@Autowired
+	private PurchaseService purchaseService;
 	
 	@GetMapping(value="")
 	public String main(Model model
@@ -53,6 +61,17 @@ public class InfoController {
 		
 		// 프로필 이미지 이름은 서버에 이메일로 저장되므로
 		request.setAttribute("profileImage", acDto.getAc_email());
+		// 판매자의 판매글
+		List<SelItemDTO> items = selService.getName(acDto.getAc_name());
+		// 구매내역
+		List<PurchaseDTO> purchaseData = purchaseService.getFromBuyerName(acDto.getAc_name());
+		// 판매내역
+		List<PurchaseDTO> sellData = purchaseService.getFromSellerName(acDto.getAc_name());
+		System.out.println(sellData);
+		request.setAttribute("items", items);
+		request.setAttribute("purchaseData", purchaseData);
+		request.setAttribute("sellData", sellData);
+		
 		
 		
 		return "info/info";
@@ -168,7 +187,7 @@ public class InfoController {
 		data.setAc_interest(mod_interest);
 		
 		boolean result = service.modify(data);
-
+		
 		if(result) {
 			// originName = 클라이언트가 전송한 사진파일 이름
 			String originName = Part.getOriginalFilename();

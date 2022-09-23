@@ -43,6 +43,8 @@ import com.myweb.home.admin.model.BlackDTO;
 import com.myweb.home.admin.service.AdminService;
 import com.myweb.home.login.controller.LoginController;
 import com.myweb.home.login.service.LoginService;
+import com.myweb.home.purchase.model.PurchaseDTO;
+import com.myweb.home.purchase.service.PurchaseService;
 
 import kr.co.shineware.nlp.komoran.constant.DEFAULT_MODEL;
 import kr.co.shineware.nlp.komoran.core.Komoran;
@@ -61,7 +63,8 @@ public class AdminController {
 	private LoginService service;
 	@Autowired
 	private AdminService adminService;
-	
+	@Autowired
+	private PurchaseService purchaseService;
 	
 	@GetMapping(value="")
 	public String admin(Model model,
@@ -70,6 +73,9 @@ public class AdminController {
 		// 회원정보
 		List<AccountsDTO> datas = service.selectAll();
 		request.setAttribute("datas", datas);
+		// 거래내역 전체조회
+		List<PurchaseDTO> purchaseDatas = purchaseService.selectAll();		
+		request.setAttribute("purchaseDatas", purchaseDatas);
 
 		return "admin/admin";
 	}

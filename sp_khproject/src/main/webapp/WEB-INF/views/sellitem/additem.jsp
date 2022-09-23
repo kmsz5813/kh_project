@@ -3,6 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,52 +12,22 @@
 	<c:url var="bs5" value="/static/bs5" />
 	<c:url var="jQuery" value="/static/js" />
 	<link rel="stylesheet" type="text/css" href="${bs5}/css/bootstrap.min.css">
-	<%@ include file="../module/head.jsp" %>
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-	
-	
+	<c:url var="ckeditor" value="/static/ckeditor" />
+	<script type="text/javascript" src="${ckeditor}/ckeditor.js"></script>
+	<style>
+	#previewImg {
+			margin-bottom : 20px;
+			border-radius: 30%;
+			max-width : 250px;
+			height : auto;
+		}
+	</style>
 </head>
 <script type="text/javascript">
-	function formCheck(form) {
-		if(form.title.value === undefined || form.title.value.trim() === "") {
-			var modal = new bootstrap.Modal(document.getElementById("errorModal"), {
-				keyboard: false
-			});
-			modal.show();
-			return;
-		}
-		form.submit();
-	}
-	
-	function uploadCheck(element) {
-		var files = element.files;
-		
-		var modal = new bootstrap.Modal(document.getElementById("errorModal"), {
-			keyboard: false
-		});
-		var title = modal._element.querySelector(".modal-title");
-		var body = modal._element.querySelector(".modal-body");
-		
-		if(files.length > 1) {
-			title.innerText = "파일 업로드 오류";
-			body.innerText = "파일 업로드는 최대 1개로 제한되어 있습니다.";
-			modal.show();
-			element.value = "";
-			return;
-		}
-		
-		for(file of files) {
-			if(file.size / 1000 / 1000 > 5.0) {
-				title.innerText = "파일 업로드 오류";
-				body.innerText = "파일당 최대 5MB 까지만 업로드 할 수 있습니다. 5MB 초과 용량에 대해서는 관리자에게 문의하세요.";
-				modal.show();
-				element.value = "";
-				return;
-			}
-		}
-	}
+
 </script>
 <body>
+	<%@ include file="../module/head.jsp" %>
   <input type="file" class="real-upload" accept="image/*" required multiple style="display: none;">
   <div class="upload"></div>
   <script>
@@ -78,25 +49,49 @@
 	<section class="container w-75">
 	<div class="mt-5" >
 	<c:url var="addurl" value="/sellitem/additem" />
-	<form action="${addurl}" method="post">
+	<form id="fileForm" action="${addurl}" method="post" enctype="multipart/form-data">
 			
-		    <div class="form-group">
+			<div class="image-form mb-3">
+					<!-- 여기 url은 home/ 뒤에 바로 modify 가 아니라 info/ 가 붙으므로 contextPaht 경로를 앞에 붙여야 한다.  -->
+					<div style="float:left;">
+					<img id="previewImg" class="image-360" alt="프로필 이미지." src="${pageContext.request.contextPath}/static/img/profile/${profileImage}.png"
+					onerror="this.onerror=null; this.src='${pageContext.request.contextPath}/static/img/profile/logo.png'"> 
+					<div style="float:right; margin-left:4rem; color:green;">
+					<p>-필수입력사항입니다
+					<p>-기본적으로 보여지는 상품이미지를 등록합니다
+					<p>-대표이미지 등록시 축소 이미지로 자동해서 들어갑니다.
+					<p>-권장이미지 250 x 250
+					</div>
+					</div>
+					<div class="mb-3">
+						<input id="formFile" type="file" name="fileUpload" class="form-control" value="이미지 선택" accept="image/png">
+					</div>
+			
+			</div>
+		
+			<div class="mb-3">
+				<label class="col-sm-2 control-label">제목</label>
+				<div class="mt-3">
+					<input class="form-control" type="text" name="title" id="title" placeholder="제목을 입력하세요.">
+				</div>
+			</div>
+		    <div class="mb-3">
 		       <label class="col-sm-2 control-label">서비스</label>
-		       <div class="col-sm-10">
-		       <select class="form-control" name="service">
-					<option selected value="무관">-선택-</option>
-					<option value="IT">IT</option>
-					<option value="레슨">레슨</option>
-					<option value="미용">미용</option>
-					<option value="국영수">국영수</option>
-					<option value="기타">기타</option>
-		       	</select>
+		       <div class="mt-3">
+			       <select class="form-select" name="field">
+						<option selected value="무관">-선택-</option>
+						<option value="IT">IT</option>
+						<option value="레슨">레슨</option>
+						<option value="미용">미용</option>
+						<option value="국영수">국영수</option>
+						<option value="기타">기타</option>
+			       	</select>
 		       </div>
 		    </div>
-		    <div class="form-group">
+		    <div class="mb-3">
 		        <label class="col-sm-2 control-label">지역</label>
-		        <div class="col-sm-10">
-			        <select class="form-control" name="location">
+		        <div class="mt-3">
+			        <select class="form-select" name="location">
 							<option selected value="무관">-선택-</option>
 							<option value="서울">서울</option>
 							<option value="경기">경기</option>
@@ -118,33 +113,75 @@
 			        </select>
 		     	</div>
 		     </div>
-		<div class="form-group row">
-		상품상세설명
-		<div>
-			<textarea name="description" cols="50" placeholder="내용을 입력해주세요." rows="5" class="form-control"></textarea>
-		</div>
-		</div>
-		<div class="form-group row">
-		<input type="file" class="real-upload" accept="image/*" >
-		</div>
-		<div class="form-group row">
-		<button type="submit"  class="form-control" onclick="imageUpload()">등록</button>
-		</div>
-	</form>
+		    <div class="form-group">
+				<label class="col-sm-2 control-label">가격</label>
+				<div class="col-sm-10">
+					<input class="form-control" type="text" name="price" placeholder="가격을 입력하세요.">
+				</div>
+			</div> 
+	
+			<div class="mb-3">
+				<p>상품상세설명</p>
+				<textarea class="form-control" id="content" name="content" rows="10"
+					placeholder="내용을 입력하세요."></textarea>
+			</div>
+
+		
+			<div class="form-group row">
+				<button type="submit" class="form-control" onclick="imageUpload()">등록</button>
+			</div>
+		</form>
 	</div>
 	</section>
-	
+
 	<footer></footer>
 	<c:url var="upload" value="/upload/image" />
-	<script type="text/javascript">
-		CKEDITOR.replace("content", {
-			filebrowserUploadUrl: "${upload}?type=image"
-		})
-	</script>
-	<c:if test="${not empty error}">
 		<script type="text/javascript">
-			alert("${error}");
+			CKEDITOR.replace("content", {
+				filebrowserUploadUrl: "${upload}?type=image"
+			})
+			
+			window.onload = function() {
+				previewImg.addEventListener("click", function(e) {
+					formFile.click();
+				});
+				
+				formFile.addEventListener("change", showImagePreview);
+			}
+			
+			var finalcheck = false;
+			
+			function showImagePreview(e) {
+				var file = e.target.files[0];
+				var imgUrl = URL.createObjectURL(file);
+				previewImg.src = imgUrl;
+			}
+			
+			   $('form').on('submit', function(e) {
+					alert($('#formFile').val());
+					
+					if($('#title').val() == ''){
+					   e.preventDefault();
+			           swal('등록 오류!', "제목을 입력해주세요!.", 'warning');
+					}
+					
+					if($('#content').val() == ''){
+					   e.preventDefault();
+			           swal('등록 오류!', "내용을 입력해주세요!.", 'warning');
+				
+					}
+					
+					if($('#formFile').val() == ''){
+					   e.preventDefault();
+			           swal('등록 오류!', "상품이미지를 입력해주세요!.", 'warning');
+						
+					}
+
+		        });
+			
+			
 		</script>
-	</c:if>
+
+	
 </body>
 </html>

@@ -30,7 +30,7 @@ public class SelItemService {
 		
 		return null;
 	}
-
+	
 
 	public List getSelect(String selectData) {
 		List datas = dao.selectData(selectData);
@@ -62,6 +62,7 @@ public class SelItemService {
 		return false;
 	}
 	
+	//sellitem 수정부분
 	public boolean modify(SelItemDTO data) {
 		boolean result = dao.updateData(data);
 		return result;
@@ -84,7 +85,7 @@ public class SelItemService {
 //		staticsData.setbId(data.getSel_id());
 		
 	}
-
+	//조회로 게시글찾rl
 	public List getSearch(String search) {
 		List datas = dao.searchData(search);
 		
@@ -94,4 +95,40 @@ public class SelItemService {
 		
 		return null;
 	}
+	
+	// 이름으로 게시글 찾기
+	public List<SelItemDTO> getName(String ac_name) {
+		List<SelItemDTO> datas = dao.searchName(ac_name);
+		if(datas != null) {
+			return datas;
+		}
+		return null;
+	}
+
+	// 구매시 구매횟수 + 1
+	public boolean plusCount(int itemid) {
+		boolean result = dao.plusCount(itemid);
+		if(result) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+
+	public boolean incViewCnt(SelItemDTO itemdata) {
+		boolean result = dao.viewCnt(itemdata);
+		if(result) {
+			return true;
+		}else {
+			return false;
+		}
+
+	}
+
+
+
+
+
+	
 }

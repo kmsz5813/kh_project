@@ -11,7 +11,7 @@
 <script type="text/javascript" src="${bs5}/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="${jQuery}/jquery-3.6.0.min.js"></script>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+
 
 <style>
 	a:link {
@@ -42,11 +42,14 @@
 			<a href="${pageContext.request.contextPath}/login">로그인</a>&emsp;/&emsp; 
 			<a href="${pageContext.request.contextPath}/login/sign">회원가입</a>&emsp;/&emsp;
 		</c:if>
-			<c:if test="${not empty loginData }">
+		<c:if test="${not empty loginData }">
 			${loginData.ac_name }님 환영합니다!&emsp;/&emsp;
+			<c:if test="${loginData.ac_index == 30}">
+				<a href="${pageContext.request.contextPath}/admin">관리자페이지&emsp;/&emsp;</a>
+			</c:if>
 			<a href="${pageContext.request.contextPath}/main/logout">로그아웃&emsp;/&emsp;</a>
 			<a href="${pageContext.request.contextPath}/info">마이페이지&emsp;/&emsp;</a>
-		</c:if> 
+		</c:if>
 		<a href="#">FAQ</a>
 	</div>
 	
@@ -65,10 +68,12 @@
 	      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
 
 	        <li class="nav-item dropdown">
-	          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="padding-left: 100px;">
+	          <a class="nav-link dropdown-toggle" href="#"  role="button" data-bs-toggle="dropdown" aria-expanded="false" style="padding-left: 100px;">
 	            카테고리
 	          </a>
-	          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+	          <ul class="dropdown-menu" >
+	          	<li><a class="dropdown-item" href="${pageContext.request.contextPath}/sellitem">전체보기</a></li>
+	          	<li><hr class="dropdown-divider"></li>
 	            <li><a class="dropdown-item" href="/selItem?pageCount=1">IT</a></li>
 	            <li><a class="dropdown-item" href="#">카테고리2</a></li>
 	            <li><hr class="dropdown-divider"></li>
@@ -79,11 +84,16 @@
 	        <li class="nav-item">
 	          <a class="nav-link" href="#" style="padding-left:100px;">커뮤니티</a>
 	        </li>
+	      
 	      </ul>
-	      <form class="d-flex">
-	        <input class="form-control me-4" type="search" placeholder="내용을 입력해주세요." aria-label="Search" style="min-width: 300px;">
+	  
+	      <c:url var="itemUrl" value="/sellitem" />
+	      <form action="${itemUrl}" class="d-flex">
+	        <input class="form-control me-4" name="search" type="search" placeholder="내용을 입력해주세요." aria-label="Search" style="min-width: 300px;">
 	        <button class="btn btn-outline-success" type="submit" style="width:100px; margin-right: 50px;" id="button">검색</button>
 	      </form>
+	   
+	   
 	    </div>
 	  </div>
 	</nav>

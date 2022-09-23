@@ -11,7 +11,6 @@
 	<meta charset="UTF-8">
 	<title>로그인페이지</title>
 	<link rel="stylesheet" type="text/css" href="${bs5}/css/bootstrap.min.css">
-	<script type="text/javascript" src="${bs5}/js/bootstrap.min.js"></script>
 	<script type="text/javascript" src="${jQuery}/jquery-3.6.0.min.js"></script>
 	<%@ include file="../module/head.jsp" %>
 </head>

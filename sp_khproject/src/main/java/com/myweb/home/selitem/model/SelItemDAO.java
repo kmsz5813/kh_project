@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public class SelItemDAO {
-
+	
 	
 	@Autowired
 	private SqlSession session;
@@ -43,7 +43,7 @@ public class SelItemDAO {
 	}
 	
 	public SelItemDTO selectData(int id) {
-		String mapperId = String.format(mapper, "selectData");
+		String mapperId = String.format(mapper, "selectIdData");
 		SelItemDTO res = session.selectOne(mapperId, id);
 		return res;
 	}
@@ -80,11 +80,6 @@ public class SelItemDAO {
 		return res == 1 ? true : false;
 	}
 	
-	public boolean updateViewCnt(SelItemDTO data) {
-		String mapperId = String.format(mapper, "updateViewCnt");
-		int res = session.update(mapperId, data);
-		return res == 1 ? true : false;
-	}
 	
 	public SelItemDTO selectStatics(SelItemStaticsDTO data) {
 		String mapperId = String.format(mapper, "selectStatics");
@@ -113,6 +108,24 @@ public class SelItemDAO {
 	public boolean updateStaticsLike(SelItemStaticsDTO data) {
 		String mapperId = String.format(mapper, "updateStaticsLike");
 		int res = session.update(mapperId, data);
+		return res == 1 ? true : false;
+	}
+
+	public List<SelItemDTO> searchName(String ac_name) {
+		String mapperId = String.format(mapper, "searchName");
+		List<SelItemDTO> datas = session.selectList(mapperId, ac_name);
+		return datas;
+	}
+
+	public boolean plusCount(int itemid) {
+		String mapperId = String.format(mapper, "plusCount");
+		int res = session.update(mapperId, itemid);
+		return res == 1 ? true : false;
+	}
+
+	public boolean viewCnt(SelItemDTO itemdata) {
+		String mapperId = String.format(mapper, "viewCnt");
+		int res = session.update(mapperId, itemdata);
 		return res == 1 ? true : false;
 	}
 }

@@ -13,6 +13,7 @@ public class AccountsDTO {
 	private String ac_interest;
 	private int ac_index;
 	private Date ac_signday;
+	private int ac_point;
 	private String ac_sendemail;
 	private String ac_ip;
 	
@@ -77,6 +78,12 @@ public class AccountsDTO {
 	}
 	public void setAc_signday(Date ac_signday) {
 		this.ac_signday = ac_signday;
+	}
+	public int getAc_point() {
+		return ac_point;
+	}
+	public void setAc_point(int ac_point) {
+		this.ac_point = ac_point;
 	}
 	public String getAc_sendemail() {
 		return ac_sendemail;
