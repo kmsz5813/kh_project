@@ -6,9 +6,6 @@
 	<select id="getNextSeq" resultType="_int">
 		SELECT SEL_ITEM_SEQ.NEXTVAL FROM DUAL
 	</select>
-<!-- <insert id="insertData" parameterType="boardDto">
-		INSERT INTO SEL_ITEM(SEL_ID, SEL_SELNAME, SEL_FIELD, SEL_LOCATION)
-	</insert> -->
 	<!-- 오름차순으로 정렬 -->
 	<select id="getData" resultType="selItemDto">
 		<!-- SELECT * FROM SEL_ITEM ORDER BY SEL_ID DESC -->
@@ -35,7 +32,7 @@
 	</select>
 	
 	<select id="selectIdData" resultType="selItemDto">
-		SELECT * FROM SEL_ITEM WHERE SEL_ID = #{sel_id}
+		SELECT * FROM SEL_ITEM S FULL OUTER JOIN FILE_UPLOAD ON S.SEL_ID = FILE_BID WHERE SEL_ID = #{sel_id}
 	</select>
 	
 	<select id="searchName" resultType="selItemDto">
@@ -47,6 +44,15 @@
 		 WHERE SEL_ID = #{itemid}
 	</update>
 
+	<update id="updateData">
+		UPDATE SEL_ITEM SET SEL_FIELD = #{sel_field} , SEL_TITLE = #{sel_title} ,
+						    SEL_LOCATION = #{sel_location} , SEL_CONTENT = #{sel_content} ,
+						    SEL_PRICE = #{sel_price}  WHERE SEL_ID = #{sel_id}
+	</update>
 
+	<update id="viewCnt">
+		UPDATE SEL_ITEM SET SEL_VIEW = SEL_VIEW + 1
+		 WHERE SEL_ID = #{sel_id}
+	</update>
 
 </mapper>

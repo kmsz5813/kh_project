@@ -11,7 +11,12 @@
 		border-radius: 30%;
 		height: auto;
 	}
-	
+	img {
+		max-width: 1125px;
+		object-fit: contain;
+			
+		
+	}
 	.container1 {
 		display: block;
 	}
@@ -55,6 +60,12 @@
 							onclick="location.href='${pageContext.request.contextPath}/purchase?itemid=${itemdata.sel_id}'" 
 							class="btn btn-outline-success">구매하기</button>
 						</c:if>
+						<c:if test="${data.ac_name == loginData.ac_name}">
+							<div class="mt-5">
+								<button type="button" class="btn btn-outline-success" onclick="location.href='modify?id=${itemdata.sel_id}'">수정</button>
+								<button type="button" class="btn btn-outline-success" style="margin-left:0.5">삭제</button>
+							</div>
+						</c:if>
 					</div>
 					<div class="mt-5" style="background-color: rgb(241, 241, 241); height:10rem;">
 						<table class="table table-borderless">
@@ -76,35 +87,39 @@
 					</div>
 				</div>
 			</div>
-			<c:if test="${data.ac_name == loginData.ac_name}">
-				<div>
-					<button type="button">수정</button>
-					<button type="button">삭제</button>
-				</div>
-			</c:if>
 	
 			<div class="mt-5">상세내용</div>
 			<div>${itemdata.sel_content}</div>
 
-			<div class="mt-5">경력</div>
+		
+				
+				<div class="mt-5">리뷰</div>
+					<div class="mt-5 mb-5">
+						<table class="table table-sm">
+							<thead style="background-color: rgb(241, 241, 241);">
+							  <tr>
+							      <th class="col-4" style="text-align: center;">No.</th>
+							      <th class="col-4" style="text-align: center;">Name</th>
+							      <th class="col-auto" style="text-align: center;">Value</th>						      
+							  </tr>
+							</thead>
+							<tbody class="mt-5">
+							    <tr class="mt-5">
+							      <td style="text-align: center;">1회</td>
+							      <td style="text-align: center;">리뷰~</td>
+							      <td style="text-align: center;">n년</td>
+							    </tr>
+							 </tbody>
+						</table>
+					</div>
+				
 				<div class="mt-5">
-					<table class="table table-sm">
-						<thead style="background-color: rgb(241, 241, 241);">
-						  <tr>
-						      <th class="col-4" style="text-align: center;">No.</th>
-						      <th class="col-4" style="text-align: center;">Name</th>
-						      <th class="col-auto" style="text-align: center;">Value</th>						      
-						  </tr>
-						</thead>
-						<tbody class="mt-5">
-						    <tr class="mt-5">
-						      <td style="text-align: center;">nn회</td>
-						      <td style="text-align: center;">리뷰~</td>
-						      <td style="text-align: center;">n년</td>
-						    </tr>
-						 </tbody>
-					</table>
-				</div>
+					<div class="" style="height:10rem;">
+					  <button type="button" class="btn btn-primary" style="margin-left:8rem; width:7rem; background-color:">❤</button>
+					  <button type="button" class="btn btn-primary" style="margin-left:1rem; width:7rem;">뒤로가기</button>
+					  <button type="button" class="btn btn-primary" style="margin-left:1rem; width:34rem;">견적 요청하기</button>
+					</div>
+				</div>	
 			
 		</section>
 		</c:if>
