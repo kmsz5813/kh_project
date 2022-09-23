@@ -122,6 +122,12 @@ public class SelItemService {
 	}
 
 
+	public int getNextSeq() {
+		int nextseq = dao.getNextSeq(); 
+		return nextseq;
+	}
+
+
 
 
 

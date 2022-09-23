@@ -76,7 +76,7 @@
 							</c:forEach>
 						</select>
 					</div>
-					<div style="overflow:scroll; height: 270px;">
+					<div style="overflow:scroll; max-height: 270px; max-width:600px;">
 						${itemdata.sel_content}
 					</div>
 				</div>
@@ -102,11 +102,9 @@
 							<input type="hidden" id="realprice" name="realprice" value="${itemdata.sel_price}">
 							<!-- Controller 에 보낼 사용 쿠폰 번호 -->
 							<input type="hidden" id="used_coupon" name="used_coupon" value="">	
-							<!-- <button style="margin-left: 116px; margin-right: 116px;"
-							class="btn btn-outline-primary btn-lg" id="purchase">결제하기</button> -->
+							<button style="margin-left: 116px; margin-right: 116px;"
+							class="btn btn-outline-primary btn-lg" type="submit" id="purchase">결제하기</button>
 						</form>
-						<button style="margin-left: 116px; margin-right: 116px;"
-							class="btn btn-outline-primary btn-lg" onclick="requestPay()">결제하기</button>
 					</div>
 				</div>
 			</div>
@@ -195,67 +193,62 @@
 		
 		// IMP 객체 
 		var IMP = window.IMP;
-		var code = "imp16646577";
+		var code = "imp21550052";
+		
 		IMP.init(code);
 		
 		// 아임포트 결제
-		function requestPay() {
+		$('form').on('submit', function(e) {
+			e.preventDefault();
 	      // IMP.request_pay(param, callback) 결제창 호출
 	      IMP.request_pay({ // param
 	          pg: "html5_inicis",
 	          pay_method: "card",
-	          merchant_uid: "ORD20180131-0000011",
-	          name: ${itemdata.sel_title},
-	          amount: 100,
-	          buyer_email: "gildong@gmail.com",
-	          buyer_name: "홍길동",
-	          buyer_tel: "010-4242-4242",
-	          buyer_addr: "서울특별시 강남구 신사동",
-	          buyer_postcode: "01181"
+	          merchant_uid: "item" + new Date().getTime(),		// 이미 결제된 번호는 하면 안됨
+	          name: "${itemdata.sel_title}",
+	          amount: $('#realprice').val(),
+	          buyer_email: "${loginData.ac_email}",
+	          buyer_name: "${loginData.ac_name}",
+	          buyer_tel: "010-7372-8727",
 	      }, function (rsp) { // callback
 	          if (rsp.success) {
-	              // 결제 성공 시 로직,
+	        	  swal('결제완료!', "마이페이지에서 구매내역을 확인하세요.", 'success');
+	        	  // return true; 안됨
+	        	  // e.submit(); 안됨
+	        	  // e.unbind(); 안됨
+	        	  $('form').unbind();
+	        	  $('form').submit();
 	          } else {
-	              alert("테스트");
+	              swal('결제를 취소하셨습니다.', '', 'warning')
 	          }
-	      });
-	    }
+	      })
+	    });
 		
 		IMP.request_pay({
 		      /* ...중략... */
 		    }, function (rsp) { // callback
 		      if (rsp.success) { // 결제 성공 시: 결제 승인 또는 가상계좌 발급에 성공한 경우
-		        let imp_uid = rsp.imp_id;
-	            let merchant_uid = rsp.merchant_uid;
-	            let paid_amount = rsp.paid_amount;
-	            let apply_num = rsp.apply_num;
-	            
-	            let data = {imp_uid:imp_uid,
-	            			merchant_uid:merchant_uid,
-	            			paid_amount:paid_amount,
-	            			apply_num:apply_num
-	            			};
-
 		        // jQuery로 HTTP 요청
 		        $.ajax({
-		            url: "/purchase/iamport", // 예: https://www.myservice.com/payments/complete
+		            url: "<c:url value='iamport' />", 
 		            method: "POST",
 		            headers: { "Content-Type": "application/json" },
 		            data: {
 		                imp_uid: rsp.imp_uid,
 		                merchant_uid: rsp.merchant_uid,
+		                paid_amount: rsp.paid_amount,
+            			apply_num: apply_num
 		            },
+		            dataType: 'json',
 		            success: function(data) {
 		            	let msg = "결제가 완료되었습니다.\n";
 	  		              msg += "고유ID: " + imp_uid;
 	  		              msg += "\n상점거래ID : " + merchant_uid;
 	  		              msg += "\n결제금액 : " + paid_amount;
 	  		              msg += "\n 카드승인번호 : " + apply_num;
-	  		              alert(msg);
+	  		              swal('결제완료!!!!!!', msg, 'success');
 		            }
 		        })
-		      } else {
-		        alert("결제에 실패하였습니다. 에러 내용: " +  rsp.error_msg);
 		      }
 		    });
 		</script>

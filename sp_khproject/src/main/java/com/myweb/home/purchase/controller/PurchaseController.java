@@ -1,6 +1,7 @@
 package com.myweb.home.purchase.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -49,7 +50,6 @@ public class PurchaseController {
 		request.setAttribute("coupon", coupon);
 		
 		FileUploadDTO thumbnail = ItemService.getThumbnail(itemdata.getSel_id());
-		
 		request.setAttribute("thumbnail", thumbnail);
 		
 		return "purchase/purchase";
@@ -89,13 +89,14 @@ public class PurchaseController {
 		service.insertData(purchase);		// ISBUY 테이블에 삽입
 		ItemService.plusCount(itemid);		// SEL_ITEM 테이블에서 해당 항목 구매횟수 + 1
 		
-		return "redirect:/sellitem";
+		return "redirect:/info";
 	}
 	
-	@PostMapping(value="/iamport")
+	@PostMapping("/iamport")
 	@ResponseBody
-	public int iamport(){
-		System.out.println("거래성공");
+	public int iamport(@RequestBody Map<String, String> buy,
+			Model model, HttpServletRequest request){
+		System.out.println(buy);
 		int res = 1;
 		return res;
 	}
