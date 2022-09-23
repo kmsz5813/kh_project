@@ -321,6 +321,21 @@ $(document).ready(function(){
 	    return false;
 	});
 });
+
+// 채팅 데이터 받아오기
+function getList() {
+	$.ajax({
+		type : 'get',
+		url : '/chat.json',
+		dataType : 'json',
+		success : function(data) {
+			var temp = Handlebars.compile($("#temp").html());
+			$("#chat").append(temp(data));
+		}
+	});
+}
+
+
 </script>
 
 

@@ -29,7 +29,7 @@
 	<div class="jumbotron">
 		<div class="container">
 			<h1 class="display-10">
-				상품 등록
+				판매글 수정
 			</h1>
 		</div>
 	</div>
