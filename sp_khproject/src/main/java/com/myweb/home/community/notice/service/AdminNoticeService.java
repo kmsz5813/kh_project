@@ -1,4 +1,4 @@
-package com.myweb.home.community.service;
+package com.myweb.home.community.notice.service;
 
 import java.util.List;
 import java.util.Map;
@@ -6,7 +6,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 
 import com.myweb.home.common.util.PagingCommunity;
-import com.myweb.home.community.model.CommunityNoticeDTO;
+import com.myweb.home.community.notice.model.CommunityNoticeDTO;
 
 
 public interface AdminNoticeService {

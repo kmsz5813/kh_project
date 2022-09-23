@@ -36,6 +36,8 @@
 <link
 	href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap"
 	rel="stylesheet">
+	<c:url var="ckeditor" value="/static/ckeditor" />
+	<script type="text/javascript" src="${ckeditor}/ckeditor.js"></script>
 
 <!-- style, css -->
 <style>

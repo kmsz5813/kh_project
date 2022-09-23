@@ -1,12 +1,4 @@
-/**
- /* 이인주 20200819 
- * 공지사항 컨트롤러 
- * 
- * 1. noticeList : 공지사항 전체 조회
- * 
- */
-
-package com.myweb.home.community.controller;
+package com.myweb.home.community.notice.controller;
 
 import java.util.HashMap;
 import java.util.List;
@@ -23,8 +15,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.myweb.home.common.util.PagingCommunity;
-import com.myweb.home.community.model.CommunityNoticeDTO;
-import com.myweb.home.community.service.AdminNoticeService;
+import com.myweb.home.community.notice.model.CommunityNoticeDTO;
+import com.myweb.home.community.notice.service.AdminNoticeService;
 
 
 @Controller
@@ -117,7 +109,7 @@ public class AdminNoticeController {
 //		System.out.println("noticeNo"+noticeNo);
 //		System.out.println("notice"+notice);
 		
-		notice.setNoticeNo(noticeNo);
+		notice.setNotice_no(noticeNo);
 		
 		//글 수정하기
 		int res = noticeService.updateNotice(notice);

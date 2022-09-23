@@ -69,6 +69,7 @@ public class CommunityQuestionController {
 	public String getDetail(Model model
 			, HttpSession session
 			, @RequestParam int id) {
+		System.out.println("question_id " + ":" + id );
 		CommunityQuestionDTO data = service.getData(id);
 		//List<FileUploadDTO> fileDatas = fileUploadService.getDatas(id);
 		
