@@ -6,14 +6,44 @@ public class SelItemDTO {
 
 	private int sel_id;
 	private String sel_name;
-	private String sel_field;
+	private String sel_field;	// 분야
 	private String sel_location;
 	private String sel_title;
 	private String sel_content;
+	private int sel_price;
 	private Date sel_writeday;
+	private int sel_number;	// 판매횟수
 	private int sel_view;
 	private int sel_like;
 	private int sel_report;
+	
+	private String uuidName;
+	private String location;
+	public String getLocation() {
+		return location;
+	}
+
+	public void setLocation(String location) {
+		this.location = location;
+	}
+
+	public String getUrl() {
+		return url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
+	}
+
+	private String url;
+
+	public String getUuidName() {
+		return uuidName;
+	}
+
+	public void setUuidName(String uuidName) {
+		this.uuidName = uuidName;
+	}
 
 	public int getSel_id() {
 		return sel_id;
@@ -62,13 +92,28 @@ public class SelItemDTO {
 	public void setSel_content(String sel_content) {
 		this.sel_content = sel_content;
 	}
-
+	
+	public int getSel_price() {
+		return sel_price;
+	}
+	public void setSel_price(int sel_price) {
+		this.sel_price = sel_price;
+	}
+	
 	public Date getSel_writeday() {
 		return sel_writeday;
 	}
 
 	public void setSel_writeday(Date sel_writeday) {
 		this.sel_writeday = sel_writeday;
+	}
+	
+	public int getSel_number() {
+		return sel_number;
+	}
+
+	public void setSel_number(int sel_number) {
+		this.sel_view = sel_number;
 	}
 
 	public int getSel_view() {
@@ -97,10 +142,11 @@ public class SelItemDTO {
 
 	@Override
 	public String toString() {
-		return "AccountsDTO [sel_id=" + sel_id + ", sel_name=" + sel_name + ", sel_field=" + sel_field
+		return "SelItemDTO [sel_id=" + sel_id + ", sel_name=" + sel_name + ", sel_field=" + sel_field
 				+ ", sel_location=" + sel_location + ", sel_title=" + sel_title + ", sel_content=" + sel_content
 				+ ", sel_writeday=" + sel_writeday + ", sel_view=" + sel_view + ", sel_like=" + sel_like
-				+ ", sel_report=" + sel_report + "]";
+				+ ", sel_report=" + sel_report + ", uuidName=" + uuidName + ", location=" + location + ", url=" + url
+				+ "]";
 	}
 
 

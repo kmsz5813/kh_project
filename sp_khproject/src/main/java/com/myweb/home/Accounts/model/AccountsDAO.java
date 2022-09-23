@@ -6,6 +6,8 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.myweb.home.purchase.model.UsePointVO;
+
 @Repository
 public class AccountsDAO {
 	
@@ -83,6 +85,20 @@ public class AccountsDAO {
 		System.out.println(ip); // 여기서 null 값이 뜸
 		return ip;
 	}
+
+	public String getNameFromEmail(String sellerEmail) {
+		String mapperId = String.format(mapper, "getNameFromEmail");
+		String name = session.selectOne(mapperId, sellerEmail); 
+		return name;
+	}
+
+	public boolean usePoint(UsePointVO usingpoint) {
+		String mapperId = String.format(mapper, "usePoint");
+		int res = session.update(mapperId, usingpoint);
+		return res >= 1 ? true : false;
+	}
+
+
 
 
 

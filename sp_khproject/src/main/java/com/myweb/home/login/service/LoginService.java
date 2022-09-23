@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import com.myweb.home.Accounts.model.AccountsDAO;
 import com.myweb.home.Accounts.model.AccountsDTO;
+import com.myweb.home.purchase.model.UsePointVO;
 
 @Service
 public class LoginService {
@@ -168,6 +169,21 @@ public class LoginService {
 		String ip_address = dao.getIp(id);
 		return ip_address;
 	}
+
+	public String getNameFromEmail(String sellerEmail) {
+		String name = dao.getNameFromEmail(sellerEmail);
+		return name;
+	}
+
+	public boolean usePoint(UsePointVO usingpoint) {
+		boolean result = dao.usePoint(usingpoint);
+		if(result) {
+			return true;
+		} else {
+			return false;			
+		}
+	}
+
 
 
 

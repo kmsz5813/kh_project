@@ -2,40 +2,39 @@ package com.myweb.home.community.model;
 
 public class CommunityNoticeDTO {
 	
-	private int noticeNo;
-	private String noticeTitle;
-	private String noticeContent;
-	private String noticeDate;
+	private int notice_no;
+	private String notice_title;
+	private String notice_content;
+	private String notice_date;
 	
 	@Override
 	public String toString() {
-		return "Notice [noticeNo=" + noticeNo + ", noticeTitle=" + noticeTitle + ", noticeContent=" + noticeContent
-				+ ", noticeDate=" + noticeDate + "]";
+		return "CommunityNoticeDTO [notice_no=" + notice_no + ", notice_title=" + notice_title + ", notice_content="
+				+ notice_content + ", notice_date=" + notice_date + "]";
 	}
-	
-	public int getNoticeNo() {
-		return noticeNo;
+	public int getNotice_no() {
+		return notice_no;
 	}
-	public void setNoticeNo(int noticeNo) {
-		this.noticeNo = noticeNo;
+	public void setNotice_no(int notice_no) {
+		this.notice_no = notice_no;
 	}
-	public String getNoticeTitle() {
-		return noticeTitle;
+	public String getNotice_title() {
+		return notice_title;
 	}
-	public void setNoticeTitle(String noticeTitle) {
-		this.noticeTitle = noticeTitle;
+	public void setNotice_title(String notice_title) {
+		this.notice_title = notice_title;
 	}
-	public String getNoticeContent() {
-		return noticeContent;
+	public String getNotice_content() {
+		return notice_content;
 	}
-	public void setNoticeContent(String noticeContent) {
-		this.noticeContent = noticeContent;
+	public void setNotice_content(String notice_content) {
+		this.notice_content = notice_content;
 	}
-	public String getNoticeDate() {
-		return noticeDate;
+	public String getNotice_date() {
+		return notice_date;
 	}
-	public void setNoticeDate(String noticeDate) {
-		this.noticeDate = noticeDate;
+	public void setNotice_date(String notice_date) {
+		this.notice_date = notice_date;
 	}
 
 }

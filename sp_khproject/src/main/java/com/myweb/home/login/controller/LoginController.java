@@ -13,6 +13,11 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.security.SecureRandom;
+import java.sql.Date;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 
@@ -62,6 +67,8 @@ import com.myweb.home.admin.model.AdminDAO;
 import com.myweb.home.admin.model.BlackDTO;
 import com.myweb.home.admin.service.AdminService;
 import com.myweb.home.login.service.LoginService;
+import com.myweb.home.purchase.model.CouponDTO;
+import com.myweb.home.purchase.service.PurchaseService;
 
 
 @Controller
@@ -79,7 +86,8 @@ public class LoginController {
 	private LoginService service;
 	@Autowired 
 	private AdminService adminService;
-	
+	@Autowired
+	private PurchaseService purchaseService;
 	
 	@GetMapping(value="")
 	public String login(Model model) {
@@ -390,6 +398,30 @@ public class LoginController {
 		data.setAc_ip(ip);
 		
 		boolean result = service.add(data);		// DB 에 계정 데이터 추가
+		
+		CouponDTO coupon = new CouponDTO();
+		Random rand = new Random();
+		int couponNumber = rand.nextInt(88888888) + 11111111;
+		List<Integer> couponNumberList = purchaseService.getCouponNumberList();
+		System.out.println("기존 쿠폰번호 리스트 : " + couponNumberList);
+		// 쿠폰번호 중복되면 안되므로
+		for(int i = 0; i < couponNumberList.size(); i++) {
+			if(couponNumberList.get(i) == couponNumber) {
+				couponNumber = rand.nextInt(88888888) + 11111111;
+			}
+		}
+		Date currentDate = new Date(System.currentTimeMillis());
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(currentDate); cal.add(Calendar.DATE, 30);
+		Date endDate = new Date(cal.getTimeInMillis());
+		coupon.setCoupon_number(couponNumber);
+		coupon.setCoupon_userName(cus_name);
+		coupon.setCoupon_name("회원가입 축하 10% 쿠폰");
+		coupon.setCoupon_startDate(currentDate);
+		coupon.setCoupon_endDate(endDate);
+		coupon.setCoupon_salePercent(10);
+		purchaseService.addSignCoupon(coupon);
+		
 		if(result) {					// 계정 데이터가 추가되면
 			data.setAc_email(cus_email);
 			data.setAc_pw(cus_pw);
@@ -536,18 +568,22 @@ public class LoginController {
 		@ResponseBody
 		public String nameCheck(@RequestParam("name") String name) {
 			
-			
-			
 			JSONObject json = new JSONObject();
 			
-			AccountsDTO data = service.nameCheck(name);
-			
-			
-			if(data == null) {
-				json.put("code", "success");
+			if(name.getBytes().length <= 40) {
+				AccountsDTO data = service.nameCheck(name);
+				
+				if(data == null) {
+					json.put("code", "success");
+				}else {
+					json.put("code", "sameid");
+				}
 			}else {
-				json.put("code", "sameid");
+				System.out.println("login에서 작동");
+				json.put("code", "nameLength");
 			}
+			
+			
 			
 			return json.toJSONString();
 			

@@ -18,48 +18,70 @@ public class CommunityNoticeService {
 	@Autowired
 	CommunityNoticeDAO communityNoticeDao;
 
-	//모든 공지사항 수 조회 - 페이징
-	public PagingCommunity noticeListPaging(int curPage) {
+//	//모든 공지사항 수 조회 - 페이징
+//	public PagingCommunity noticeListPaging(int curPage) {
+//		
+//		//모든 공지사항 수 조회 - 페이징
+//		int totalCount = communityNoticeDao.selectCntNotice();
+//		
+//		//paging객체 생성
+//		PagingCommunity paging = new PagingCommunity(totalCount, curPage);
+//		
+//		//계산된 Paging 객체 반환
+//		return paging;
+//	}
+//
+//	
+//	//모든 공지사항
+//	public List<CommunityNoticeDTO> selectNotice(PagingCommunity paging) {
+//		return communityNoticeDao.selectNotice(paging);
+//	}
+//
+//	
+//	//공지사항 상세
+//	public CommunityNoticeDTO selectNoticeDetail(int no) {
+//		return communityNoticeDao.selectNoticeDetail(no);
+//	}
+//
+//
+//	//공지사항 검색 - 페이징
+//	public PagingCommunity noticeListSearchPaging(String keyword, int curPage) {
+//		
+//		//검색 후 총 게시글 수를 조회한다
+//		int totalCount = communityNoticeDao.selectCnNoticeSearch(keyword);
+//		
+//		//paging객체 생성
+//		PagingCommunity paging = new PagingCommunity(totalCount, curPage);
+//		
+//		//계산된 Paging 객체 반환
+//		return paging;
+//	}
+//
+//
+//	//공지사항 검색 결과
+//	public List<CommunityNoticeDTO> selectNoticeSearch(Map<String, Object> searchMap) {
+//		return communityNoticeDao.selectNoticeSearch(searchMap);
+//	}
+
+
+	public List<CommunityNoticeDTO> getData() {
+		//데이터값을 가져오는것 
+		//CommunityNoticeDTO객체로 담는다.
+		List<CommunityNoticeDTO> datas = communityNoticeDao.allDatas();
 		
-		//모든 공지사항 수 조회 - 페이징
-		int totalCount = communityNoticeDao.selectCntNotice();
+		//data값이 반환
+		return datas;
 		
-		//paging객체 생성
-		PagingCommunity paging = new PagingCommunity(totalCount, curPage);
-		
-		//계산된 Paging 객체 반환
-		return paging;
 	}
 
-	
-	//모든 공지사항
-	public List<CommunityNoticeDTO> selectNotice(PagingCommunity paging) {
-		return communityNoticeDao.selectNotice(paging);
-	}
-
-	
-	//공지사항 상세
-	public CommunityNoticeDTO selectNoticeDetail(int no) {
-		return communityNoticeDao.selectNoticeDetail(no);
-	}
-
-
-	//공지사항 검색 - 페이징
-	public PagingCommunity noticeListSearchPaging(String keyword, int curPage) {
+	public CommunityNoticeDTO getOneData(String notice_no) {
 		
-		//검색 후 총 게시글 수를 조회한다
-		int totalCount = communityNoticeDao.selectCnNoticeSearch(keyword);
+		CommunityNoticeDTO data = communityNoticeDao.getData(notice_no);
 		
-		//paging객체 생성
-		PagingCommunity paging = new PagingCommunity(totalCount, curPage);
+		if(data != null) {
+			return data;
+		}
 		
-		//계산된 Paging 객체 반환
-		return paging;
-	}
-
-
-	//공지사항 검색 결과
-	public List<CommunityNoticeDTO> selectNoticeSearch(Map<String, Object> searchMap) {
-		return communityNoticeDao.selectNoticeSearch(searchMap);
+		return null;
 	}
 }

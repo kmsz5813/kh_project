@@ -44,7 +44,7 @@
 		<label class="btn btn-outline-success" for="success-outlined2">섹션2</label>
 		
 		<input type="radio" class="btn-check radio-value" value = "3" name="options-outlined" id="success-outlined3" autocomplete="off">
-		<label class="btn btn-outline-success" for="success-outlined3">섹션3</label>
+		<label class="btn btn-outline-success" for="success-outlined3">거래내역 조회</label>
 	</div>
 
 	<section class="container-fluid container1">
@@ -120,26 +120,42 @@
 	</section>
 	
 	<section class="container container3">
-		<p>웹 크롤링 테스트(Selenium) -> Chrome 에서만 동작,
-		크롬 브라우저 -> 메뉴 -> 설정 -> 도움말 -> 본인 크롬 버전 확인 후 최신 업데이트 
-		구글에 chromedriver 검색, 해당 버전에 맞는 chromedriver 를 다운로드
-		chromedriver.exe 파일을 D드라이브에 넣어놓은 후 실행
-		</p>
-		
-		<c:url var="crawling_kmong" value="/admin/crawling_kmong" />
-		<form action="${crawling_kmong }" method="get">
-			<input type="text" id="craw_content">
-			<button type="button" id="craw_kmong">검색하기</button>
-		</form>
-		
-		<div class="content_craw2">
-			<!-- 여기엔 검색 결과물이 출력됨.(json 방식) -->
-		</div>
-		
-		
+		<table class="table wide vertical-hidden table-hover" id="table3">
+			<colgroup>
+				<col class="col-auto">
+				<col class="col-auto">
+				<col class="col-auto">
+				<col class="col-auto">
+				<col class="col-auto">
+				<col class="col-auto">
+			</colgroup>
+			<thead class="thead-light">
+				<tr>
+					<th>거래번호</th>
+					<th>상품번호</th>
+					<th>구매자</th>
+					<th>판매자</th>
+					<th>구매일자</th>
+					<th>판매가격</th>
+				</tr>
+			</thead>
+			<tbody>
+				<c:forEach items="${purchaseDatas}" var="purchaseDatas">
+					<tr onclick="location.href='./sellitem/itemdetail?search=${purchaseDatas.buy_seller}&itemid=${purchaseDatas.buy_itemNumber}'" style="cursor:pointer;">
+						<td>${purchaseDatas.buy_number}</td>
+						<td>${purchaseDatas.buy_itemNumber}</td>
+						<td>${purchaseDatas.buy_buyer}</td>
+						<td>${purchaseDatas.buy_seller}</td>
+						<td>${purchaseDatas.buy_buyday}</td>
+						<td><fmt:formatNumber type="number" maxFractionDigits="3" value="${purchaseDatas.buy_price}"/></td>
+					</tr>
+				</c:forEach>
+			</tbody>
+		</table>	
 	</section>
 	
 	<script type="text/javascript">
+	
 		// radio active 버튼
 		$('.radio-value').on('click', function() {
 			var chkValue = $('.radio-value:checked').val();

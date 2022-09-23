@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public class SelItemDAO {
-
+	
 	
 	@Autowired
 	private SqlSession session;
@@ -122,5 +122,11 @@ public class SelItemDAO {
 		String mapperId = String.format(mapper, "searchName");
 		List<SelItemDTO> datas = session.selectList(mapperId, ac_name);
 		return datas;
+	}
+
+	public boolean plusCount(int itemid) {
+		String mapperId = String.format(mapper, "plusCount");
+		int res = session.update(mapperId, itemid);
+		return res == 1 ? true : false;
 	}
 }

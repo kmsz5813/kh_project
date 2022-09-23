@@ -11,6 +11,7 @@
 			 , AC_FIELD AS ac_field
 			 , AC_INTEREST AS ac_interest
 			 , AC_INDEX AS ac_index
+			 , AC_POINT AS ac_point
 			 , AC_SIGNDAY AS ac_signday
 		FROM ACCOUNTS 
 	</select>
@@ -68,5 +69,17 @@
 		  FROM ACCOUNTS
 		 WHERE AC_EMAIL = #{id}
 	</select>
+	
+	<select id="getNameFromEmail" resultType="string">
+		SELECT AC_NAME
+		  FROM ACCOUNTS
+		 WHERE AC_EMAIL = #{sellerEmail}
+	</select>
+	
+	<update id="usePoint" parameterType="UsePointVo">
+		UPDATE ACCOUNTS 
+		SET AC_POINT = AC_POINT - #{use_point}
+		WHERE AC_NAME = #{ac_name}
+	</update>
 	
 </mapper>

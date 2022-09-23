@@ -11,20 +11,27 @@
 	</insert> -->
 	<!-- 오름차순으로 정렬 -->
 	<select id="getData" resultType="selItemDto">
-		SELECT * FROM SEL_ITEM ORDER BY SEL_ID DESC
+		<!-- SELECT * FROM SEL_ITEM ORDER BY SEL_ID DESC -->
+		SELECT * FROM SEL_ITEM S FULL OUTER JOIN FILE_UPLOAD ON S.SEL_ID = FILE_BID ORDER BY SEL_ID DESC
 	</select>
 
 	<select id="selectData" resultType="selItemDto">
-		SELECT * FROM SEL_ITEM WHERE SEL_FIELD = #{selectData} ORDER BY SEL_ID DESC
+		SELECT * FROM SEL_ITEM  S FULL OUTER JOIN FILE_UPLOAD ON S.SEL_ID = FILE_BID WHERE SEL_FIELD = #{selectData} ORDER BY SEL_ID DESC
 	</select>
 
-	<insert id="insertData" parameterType="selItemDto">
+	<insert id="insertData" parameterType="selItemDto" useGeneratedKeys="true"
+        keyProperty="sel_id" keyColumn="SEL_ID">
+	
 		INSERT INTO SEL_ITEM(SEL_ID, SEL_NAME, SEL_FIELD, SEL_LOCATION, SEL_TITLE, SEL_CONTENT) 
 		VALUES (SEL_ITEM_SEQ.NEXTVAL, #{sel_name}, #{sel_field}, #{sel_location}, #{sel_title}, #{sel_content})
+	
+	
 	</insert>
 
 	<select id="searchData" resultType="selItemDto">
-		SELECT * FROM SEL_ITEM WHERE SEL_FIELD LIKE '%'||#{search}||'%' ORDER BY SEL_ID DESC
+		SELECT * FROM SEL_ITEM S FULL OUTER JOIN FILE_UPLOAD ON S.SEL_ID = FILE_BID WHERE (SEL_FIELD LIKE '%'||#{search}||'%' 
+											OR SEL_NAME LIKE '%'||#{search}||'%'
+											OR SEL_TITLE LIKE '%'||#{search}||'%') ORDER BY SEL_ID DESC
 	</select>
 	
 	<select id="selectIdData" resultType="selItemDto">
@@ -34,6 +41,11 @@
 	<select id="searchName" resultType="selItemDto">
 		SELECT * FROM SEL_ITEM WHERE SEL_NAME = #{sel_name}
 	</select>
+	
+	<update id="plusCount">
+		UPDATE SEL_ITEM SET SEL_NUMBER = SEL_NUMBER + 1
+		 WHERE SEL_ID = #{itemid}
+	</update>
 
 	<update id="updateData" parameterType="selItemDto">
 		   
