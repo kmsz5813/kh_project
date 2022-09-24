@@ -76,7 +76,7 @@
 							</c:forEach>
 						</select>
 					</div>
-					<div style="overflow:scroll; max-height: 270px; max-width:600px;">
+					<div style="overflow:scroll; min-height : 270px; max-height: 270px; max-width:600px;">
 						${itemdata.sel_content}
 					</div>
 				</div>

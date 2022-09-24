@@ -134,7 +134,7 @@
 						</thead>
 						<tbody>
 							<c:forEach items="${purchaseData}" var="purchaseData">
-								<tr onclick="location.href='./sellitem/itemdetail?search=${item.sel_name}&itemid=${item.sel_id}'" style="cursor:pointer;">
+								<tr onclick="location.href='./sellitem/itemdetail?search=${purchaseData.buy_seller}&itemid=${purchaseData.buy_itemNumber}'" style="cursor:pointer;">
 									<td scope="row" class="text-center">${purchaseData.buy_number}</td>
 									<td class="text-center">${purchaseData.buy_itemName}</td>
 									<td class="text-center">${purchaseData.buy_buyday}</td>
@@ -241,7 +241,31 @@
 				</section>
 				<c:if test="${loginData.ac_index == 10}">
 				<section class="container4">
-					<div class="mt-5">
+				<p class="fw-bold fs-4 mt-5">다운로드 가능한 쿠폰</p>
+					<c:url var="downEvtCouUrl" value="/info/downEventCoupon" />
+					<c:if test="${empty downableCoupons}">
+						<p>다운로드 가능한 쿠폰이 없습니다.</p>
+					</c:if>	
+					<c:forEach items="${downableCoupons}" var="downableCoupons">
+						<div style="max-width:300px; display:inline-block; margin-right:50px;">
+							<form id="downCouponSubmit" action="${downEvtCouUrl}" method="post">
+							 	<input type="hidden" value="${downableCoupons.evtcou_name}" name="evtcouName">
+							 	<input type="hidden" value="${downableCoupons.evtcou_endDate}" name="evtcouEndDate">
+							 	<input type="hidden" value="${downableCoupons.evtcou_salePercent}" name="evtcouSalePercent">
+							 	<button style="border:none; background-color:transparent;" type="submit">
+									<img style="max-width:300px; display:flex;" src="./static/img/coupon.png">
+							 	</button>
+						 	</form>
+							<div style="margin-left: 80px;">
+								<span>${downableCoupons.evtcou_name}</span><br>
+								<span>쿠폰 유효기간 : ${downableCoupons.evtcou_endDate}</span>
+							</div>
+							<span style="position:relative; bottom:175px; margin-left:140px; cursor:default;
+							font-weight:bold; font-size:3rem;">${downableCoupons.evtcou_salePercent}%</span>
+						</div>
+					</c:forEach>
+				<p class="fw-bold fs-4">보유 쿠폰</p>
+					<div class="mt-3">
 						<table class="table table-hover">
 							<thead style="background-color: rgb(224, 224, 224)">
 								<tr>
@@ -260,7 +284,7 @@
 											<td class="text-center">${couponData.coupon_name}</td>
 											<td class="text-center">${couponData.coupon_startDate}</td>
 											<td class="text-center">${couponData.coupon_endDate}</td>
-											<td class="text-center">${couponData.coupon_salePercent}</td>
+											<td class="text-center">${couponData.coupon_salePercent}%</td>
 										</tr>
 									</c:if>
 								</c:forEach>
@@ -271,7 +295,7 @@
 											<td class="text-center">${couponData.coupon_name}</td>
 											<td class="text-center">${couponData.coupon_startDate}</td>
 											<td class="text-center">${couponData.coupon_endDate}</td>
-											<td class="text-center">${couponData.coupon_salePercent}</td>
+											<td class="text-center">${couponData.coupon_salePercent}%</td>
 										</tr>
 									</c:if>
 								</c:forEach>
@@ -311,6 +335,17 @@
 				$('.container3').css("display", "none");
 				$('.container4').css("display", "block");
 			}
+		});
+		
+		$('#downCouponSubmit').on('submit', function(e) {
+			e.preventDefault();
+			swal('쿠폰 다운로드 완료!', "보유 쿠폰목록에서 확인하세요.", 'success');
+			setTimeout(function () {
+			}, 1500);
+			setTimeout(function () {
+				$('#downCouponSubmit').unbind();
+				$('#downCouponSubmit').submit();
+			}, 1500);
 		});
 	</script>
 </body>

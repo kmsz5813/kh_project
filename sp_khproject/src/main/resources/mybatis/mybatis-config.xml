@@ -26,6 +26,7 @@
     	<typeAlias type="com.myweb.home.purchase.model.PurchaseDTO" alias="purchaseDto" />
     	<typeAlias type="com.myweb.home.purchase.model.CouponDTO" alias="CouponDto" />
     	<typeAlias type="com.myweb.home.purchase.model.UsePointVO" alias="UsePointVo" />
+    	<typeAlias type="com.myweb.home.purchase.model.EventCouponDTO" alias="eventCouponDto" />
 	</typeAliases>
 	
 </configuration>

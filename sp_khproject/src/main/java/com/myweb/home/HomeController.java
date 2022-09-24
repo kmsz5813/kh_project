@@ -84,8 +84,6 @@ public class HomeController {
 		request.setAttribute("purchaseData", purchaseDatas);
 		request.setAttribute("sellData", sellData);
 		request.setAttribute("couponData", couponData);
-		
-		
 		return "detail/detail";
 	}
 	

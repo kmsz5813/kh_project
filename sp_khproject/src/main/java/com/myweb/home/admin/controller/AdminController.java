@@ -1,6 +1,7 @@
 package com.myweb.home.admin.controller;
 
 import java.io.File;
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -43,6 +44,7 @@ import com.myweb.home.admin.model.BlackDTO;
 import com.myweb.home.admin.service.AdminService;
 import com.myweb.home.login.controller.LoginController;
 import com.myweb.home.login.service.LoginService;
+import com.myweb.home.purchase.model.EventCouponDTO;
 import com.myweb.home.purchase.model.PurchaseDTO;
 import com.myweb.home.purchase.service.PurchaseService;
 
@@ -235,9 +237,22 @@ public class AdminController {
 		boolean result = service.addBlacklist(id);
 		// BLACKLIST 테이블에 해당 회원 정보 추가
 		boolean result2 = adminService.addBlacklist(black);
+		return "redirect:/admin";
+	}
+	
+	@PostMapping(value="/addEventCoupon")
+	public String addEventCoupon(Model model, 
+			HttpServletRequest request) {
+		String evtcouName = request.getParameter("evtcouName");		// 이벤트 쿠폰명
+		Date endDate = java.sql.Date.valueOf(request.getParameter("endDate"));		// 쿠폰 마감일
+		int salePercent = Integer.parseInt(request.getParameter("salePercent"));	// 쿠폰 할인율
+		EventCouponDTO eventCoupon = new EventCouponDTO();
+		eventCoupon.setEvtcou_name(evtcouName);
+		eventCoupon.setEvtcou_endDate(endDate);
+		eventCoupon.setEvtcou_salePercent(salePercent);
 		
+		boolean result = purchaseService.addEventCoupon(eventCoupon);
 		
-
 		return "redirect:/admin";
 	}
 }

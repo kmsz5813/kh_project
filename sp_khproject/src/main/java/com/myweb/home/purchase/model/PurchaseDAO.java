@@ -44,8 +44,8 @@ public class PurchaseDAO {
 		return numbers;
 	}
 
-	public boolean addSignCoupon(CouponDTO coupon) {
-		String mapperId = String.format(mapper, "addSignCoupon");
+	public boolean addCoupon(CouponDTO coupon) {
+		String mapperId = String.format(mapper, "addCoupon");
 		int res = session.insert(mapperId, coupon);
 		return res == 1? true: false;
 	}
@@ -73,6 +73,31 @@ public class PurchaseDAO {
 		String result = session.selectOne(mapperId, buy_itemNumber);
 		return result;
 	}
+
+	public boolean addEventCoupon(EventCouponDTO eventCoupon) {
+		String mapperId = String.format(mapper, "addEventCoupon");
+		int res = session.update(mapperId, eventCoupon);
+		return res == 1? true: false;
+	}
+
+	public boolean checkOverlap(CouponDTO coupon) {
+		String mapperId = String.format(mapper, "checkOverlap");
+		int res = session.selectOne(mapperId, coupon);
+		
+		if(res >=1) {
+			return false;
+		} else {
+			return true;
+		}
+	}
+
+	public List<EventCouponDTO> allEventCoupons() {
+		String mapperId = String.format(mapper, "allEventCoupons");
+		List<EventCouponDTO> list = session.selectList(mapperId);
+		return list;
+	}
+
+
 
 
 

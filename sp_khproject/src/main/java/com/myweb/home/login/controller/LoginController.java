@@ -420,7 +420,7 @@ public class LoginController {
 		coupon.setCoupon_startDate(currentDate);
 		coupon.setCoupon_endDate(endDate);
 		coupon.setCoupon_salePercent(10);
-		purchaseService.addSignCoupon(coupon);
+		purchaseService.addCoupon(coupon);
 		
 		if(result) {					// 계정 데이터가 추가되면
 			data.setAc_email(cus_email);
