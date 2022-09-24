@@ -43,6 +43,9 @@ public class PurchaseController {
 	@GetMapping(value="")
 	public String purchase(Model model, HttpServletRequest request
 			, @SessionAttribute("loginData") AccountsDTO acData) {
+		if(request.getParameter("itemid") == null) {
+			return "redirect:/main";
+		}
 		int itemid = Integer.parseInt(request.getParameter("itemid"));
 		SelItemDTO itemdata = ItemService.getData(itemid);
 		request.setAttribute("itemdata", itemdata);

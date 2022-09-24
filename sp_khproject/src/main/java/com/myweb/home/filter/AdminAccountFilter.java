@@ -14,19 +14,21 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.myweb.home.Accounts.model.AccountsDTO;
+
 @WebFilter(
 		urlPatterns = {
-				"/info", "/info/*",
-				"/sellitem/additem"
+				"/admin", "/admin/**", "/detail"  // 추가로 넣어야할것??
 		}
 )
-public class LoginFilter extends HttpFilter implements Filter {
+public class AdminAccountFilter extends HttpFilter implements Filter {
 
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 		HttpSession session = ((HttpServletRequest)request).getSession();
 		HttpServletRequest req = (HttpServletRequest)request;
 		String url = null;
-		if(session.getAttribute("loginData") != null) {
+		AccountsDTO acdto = (AccountsDTO) session.getAttribute("loginData");
+		if(session.getAttribute("loginData") != null && acdto.getAc_index() == 30) {
 			chain.doFilter(request, response);
 		} else {
 			String context_path = ((HttpServletRequest) request).getContextPath();

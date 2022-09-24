@@ -89,9 +89,14 @@ public class LoginController {
 	@Autowired
 	private PurchaseService purchaseService;
 	
+	
+	private String notLoginUrl = null;
 	@GetMapping(value="")
-	public String login(Model model) {
-		
+	public String login(Model model, HttpServletRequest request) {
+		notLoginUrl = null;
+		if(request.getParameter("url") != null) {
+			notLoginUrl = request.getParameter("url");
+		}
 		return "login/login";
 	}
 
@@ -110,6 +115,10 @@ public class LoginController {
 			boolean result = service.getLogin(session, data);
 
 			if(result) {
+				// 잘못된 접근으로 로그인 페이지로 들어왔을경우
+				if(notLoginUrl != null) {			
+					return "redirect:" + notLoginUrl;
+				}
 				//로그인성공시
 				return "redirect:main";
 			}else {

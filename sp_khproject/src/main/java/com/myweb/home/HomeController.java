@@ -78,8 +78,13 @@ public class HomeController {
 		// 판매내역
 		List<PurchaseDTO> sellData = purchaseService.getFromSellerName(name);
 		// 보유쿠폰
+		Date today = new Date(System.currentTimeMillis());
 		List<CouponDTO> couponData = purchaseService.getCouponFromName(name);
-		System.out.println(couponData);
+		for(CouponDTO coupons : couponData) {
+			if(coupons.getCoupon_endDate().before(today)) {
+				coupons.setCoupon_used("F");  	// F 는 유효기간 지난거
+			}
+		}
 		request.setAttribute("items", items);
 		request.setAttribute("purchaseData", purchaseDatas);
 		request.setAttribute("sellData", sellData);

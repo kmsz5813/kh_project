@@ -226,6 +226,10 @@
 				<c:if test="${data.ac_index == 10}">
 					<section class="container4">
 						<div class="mt-5">
+						<div style="float:right;">
+							<button style="background-color:#F6CECE; border: none;">유효기간 만료</button>
+							<button style="background-color:#E9967A; border: none;">사용됨</button>
+						</div>
 							<table class="table table-hover">
 								<thead style="background-color: rgb(224, 224, 224)">
 									<tr>
@@ -249,8 +253,8 @@
 										</c:if>
 									</c:forEach>
 									<c:forEach items="${couponData}" var="couponData">
-										<c:if test="${couponData.coupon_used != null}">
-											<tr style="background-color:#E9967A ">
+										<c:if test="${couponData.coupon_used == 'F'}">
+											<tr style="background-color:#F6CECE ">
 												<td class="text-center">${couponData.coupon_number}</td>
 												<td class="text-center">${couponData.coupon_name}</td>
 												<td class="text-center">${couponData.coupon_startDate}</td>
@@ -259,6 +263,17 @@
 											</tr>
 										</c:if>
 									</c:forEach>
+									<c:forEach items="${couponData}" var="couponData">	
+									<c:if test="${couponData.coupon_used == 'Y'}">
+										<tr style="background-color:#E9967A ">
+											<td class="text-center">${couponData.coupon_number}</td>
+											<td class="text-center">${couponData.coupon_name}</td>
+											<td class="text-center">${couponData.coupon_startDate}</td>
+											<td class="text-center">${couponData.coupon_endDate}</td>
+											<td class="text-center">${couponData.coupon_salePercent}%</td>
+										</tr>
+									</c:if>
+								</c:forEach>
 								</tbody>
 							</table>
 						</div>

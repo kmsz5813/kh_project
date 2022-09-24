@@ -47,8 +47,10 @@
 			<c:if test="${loginData.ac_index == 30}">
 				<a href="${pageContext.request.contextPath}/admin">관리자페이지&emsp;/&emsp;</a>
 			</c:if>
-			<a href="${pageContext.request.contextPath}/main/logout">로그아웃&emsp;/&emsp;</a>
-			<a href="${pageContext.request.contextPath}/info">마이페이지&emsp;</a>
+			<a href="${pageContext.request.contextPath}/main/logout">로그아웃</a>
+			<c:if test="${loginData.ac_index == 10 || loginData.ac_index == 20}">
+				<a href="${pageContext.request.contextPath}/info">&emsp;/&emsp;마이페이지&emsp;</a>
+			</c:if>
 		</c:if>
 	</div>
 	

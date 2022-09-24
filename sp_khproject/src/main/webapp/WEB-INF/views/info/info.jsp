@@ -266,6 +266,10 @@
 					</c:forEach>
 				<p class="fw-bold fs-4">보유 쿠폰</p>
 					<div class="mt-3">
+						<div style="float:right;">
+							<button style="background-color:#F6CECE; border: none;">유효기간 만료</button>
+							<button style="background-color:#E9967A; border: none;">사용됨</button>
+						</div>
 						<table class="table table-hover">
 							<thead style="background-color: rgb(224, 224, 224)">
 								<tr>
