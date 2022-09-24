@@ -1,5 +1,6 @@
 package com.myweb.home.purchase.controller;
 
+import java.sql.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -46,7 +47,13 @@ public class PurchaseController {
 		SelItemDTO itemdata = ItemService.getData(itemid);
 		request.setAttribute("itemdata", itemdata);
 		
+		Date today = new Date(System.currentTimeMillis());
 		List<CouponDTO> coupon = service.getCouponFromName(acData.getAc_name());
+		for(CouponDTO ableCoupon : coupon) {
+			if(ableCoupon.getCoupon_endDate().before(today) ) {
+				ableCoupon.setCoupon_used("F");
+			}
+		}
 		request.setAttribute("coupon", coupon);
 		
 		FileUploadDTO thumbnail = ItemService.getThumbnail(itemdata.getSel_id());

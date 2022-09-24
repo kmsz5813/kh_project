@@ -3,6 +3,7 @@ package com.myweb.home.info.controller;
 import java.io.File;
 import java.io.IOException;
 import java.sql.Date;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -65,6 +66,7 @@ public class InfoController {
 		
 		logger.info("main({}) cusdata({})", model, acDto);
 		
+		Date today = new Date(System.currentTimeMillis());
 		// 프로필 이미지 이름은 서버에 이메일로 저장되므로
 		request.setAttribute("profileImage", acDto.getAc_email());
 		// 판매자의 판매글
@@ -83,6 +85,11 @@ public class InfoController {
 		List<PurchaseDTO> sellData = purchaseService.getFromSellerName(acDto.getAc_name());
 		// 보유쿠폰
 		List<CouponDTO> couponData = purchaseService.getCouponFromName(acDto.getAc_name());
+		for(CouponDTO coupons : couponData) {
+			if(coupons.getCoupon_endDate().before(today)) {
+				coupons.setCoupon_used("F");  	// F 는 유효기간 지난거
+			}
+		}
 		
 		request.setAttribute("items", items);
 		request.setAttribute("purchaseData", purchaseDatas);
@@ -100,7 +107,8 @@ public class InfoController {
 					flag++;
 				}
 			}
-			if(flag == 0) {
+			// 보유쿠폰과 중복 안되고 유효기간 안지났을경우에만 다운로드 가능 쿠폰 리스트에 추가
+			if(flag == 0 && eventCoupon.getEvtcou_endDate().after(today)) {
 				downableCoupons.add(eventCoupon);				
 			}
 			flag = 0;
