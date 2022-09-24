@@ -86,5 +86,6 @@
 			<p>작성일자 : ${itemdata.sel_writeday}</p>
 		</section>
 		</c:if>
+		<%@ include file="../module/footer.jsp" %>
 	</body>
 </html>

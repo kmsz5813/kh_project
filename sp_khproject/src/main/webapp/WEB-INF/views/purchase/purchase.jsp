@@ -253,6 +253,6 @@
 		    });
 		</script>
 	</section>
-	
+	<%@ include file="../module/footer.jsp" %>
 </body>
 </html>

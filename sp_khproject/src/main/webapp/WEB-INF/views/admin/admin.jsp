@@ -194,7 +194,7 @@
 			<button type="submit" class="form-control p-1 btn-outline-success text-center fw-normal">쿠폰 발행</button>
 		</form>
 	</section>
-	
+	<%@ include file="../module/footer.jsp" %>
 	<script type="text/javascript">
 	
 		// radio active 버튼

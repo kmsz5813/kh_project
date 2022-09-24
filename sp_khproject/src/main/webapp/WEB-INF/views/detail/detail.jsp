@@ -267,7 +267,7 @@
 			</div>
 		</div>
 	</section>
-	
+	<%@ include file="../module/footer.jsp" %>
 	<script type="text/javascript">
 		// radio active 버튼
 		$('.radio-value').on('click', function() {

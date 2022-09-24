@@ -145,7 +145,7 @@
 	</div>
 	</section>
 
-	<footer></footer>
+	<%@ include file="../module/footer.jsp" %>
 	<c:url var="upload" value="/upload/image" />
 		<script type="text/javascript">
 			CKEDITOR.replace("content", {

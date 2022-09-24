@@ -7,7 +7,7 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>Want</title>
+	<title>Find</title>
 	<!-- jQuery 적용 -->
 	<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 	<!-- ajax 적용 -->
@@ -231,7 +231,7 @@
 	<!-- 헤더 -->
 	<%@ include file="../module/head.jsp" %>
 	
-<!-- 배너, carousel -->
+	<!-- 배너, carousel -->
 	
 	<div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
 	  <ol class="carousel-indicators">
@@ -567,8 +567,8 @@
 		</div>
 	</article>
 	
-	<!-- Modal -->
-	<div class="modal fade" id="staticBackdrop"  data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+	<!-- 이벤트 쿠폰 Modal -->
+	<%-- <div class="modal fade" id="staticBackdrop"  data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
 	  <div class="modal-dialog">
 	    <div class="modal-content">
 	      <div class="modal-header">
@@ -587,10 +587,12 @@
 	      </div>
 	    </div>
 	  </div>
-	</div>
+	</div> --%>
+	
 	<footer class="footer" style="margin-top : 200px; text-align:center; border-top: 3px solid #dcdcde; ">
-		<div style="width: 400px; height: 200px; background-color: #f6f7f7; margin: auto; margin-bottom: 50px; margin-top: 20px; padding: 10px;" >
-			이용약관
+		<div style="height:100px; padding: 22px; font-weight:bold; color:#747D89; background-color:#F2F3F7; margin: auto; margin-bottom: 50px; margin-top: 20px;" >
+			<p style="margin-bottom:0px;">© 2020 Copyright: Find.com</p>
+			<p>이메일 : findofficial9@gmail.com</p>
 		</div>
 	</footer>
 	

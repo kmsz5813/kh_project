@@ -288,8 +288,19 @@
 										</tr>
 									</c:if>
 								</c:forEach>
-								<c:forEach items="${couponData}" var="couponData">
-									<c:if test="${couponData.coupon_used != null}">
+								<c:forEach items="${couponData}" var="couponData"> 	
+									<c:if test="${couponData.coupon_used == 'F'}">
+										<tr style="background-color:#F6CECE ">
+											<td class="text-center">${couponData.coupon_number}</td>
+											<td class="text-center">${couponData.coupon_name}</td>
+											<td class="text-center">${couponData.coupon_startDate}</td>
+											<td class="text-center">${couponData.coupon_endDate}</td>
+											<td class="text-center">${couponData.coupon_salePercent}%</td>
+										</tr>
+									</c:if>
+								</c:forEach>
+								<c:forEach items="${couponData}" var="couponData">	
+									<c:if test="${couponData.coupon_used == 'Y'}">
 										<tr style="background-color:#E9967A ">
 											<td class="text-center">${couponData.coupon_number}</td>
 											<td class="text-center">${couponData.coupon_name}</td>
@@ -306,7 +317,7 @@
 				</c:if>
 		</div>
 	</section>
-	
+	<%@ include file="../module/footer.jsp" %>
 	<script type="text/javascript">
 		// radio active 버튼
 		$('.radio-value').on('click', function() {

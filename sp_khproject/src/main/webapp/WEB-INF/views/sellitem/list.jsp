@@ -155,6 +155,7 @@
 				</ul>
 			</div>
 		</nav>
+		<%@ include file="../module/footer.jsp" %>
 	<script type="text/javascript">
 		
 	</script>
