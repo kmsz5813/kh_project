@@ -595,8 +595,8 @@
 	</footer>
 	
 	<script type="text/javascript">	
-	
-		$('#couponDown').on('click', function(e) {
+	/* 배너에서 쿠폰다운 */
+		/* $('#couponDown').on('click', function(e) {
 			if(${empty loginData}) {
 				$('#submit').prop('disabled', true);
 				$('.modal-body').text("로그인이 필요한 서비스입니다.");
@@ -618,7 +618,7 @@
 				e.preventDefault();
 				alert("일반회원만 다운로드 받을 수 있습니다.");
 			}
-		});
+		}); */
 	</script>
 </body>
 	
