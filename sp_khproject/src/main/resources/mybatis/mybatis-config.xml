@@ -23,6 +23,8 @@
     	<typeAlias type="com.myweb.home.selitem.model.SelItemDTO" alias="selItemDto" />
     	<typeAlias type="com.myweb.home.selitem.model.SelItemCommentDTO" alias="selItemComDto" />
     	<typeAlias type="com.myweb.home.upload.model.FileUploadDTO" alias="fileUploadDto"/>
+    	<typeAlias type="com.myweb.home.message.model.MessageDTO" alias="messageDto"/>
+    	<typeAlias type="com.myweb.home.chat.model.ChatDAOImpl" alias="ChatMapper"/>
     	<typeAlias type="com.myweb.home.purchase.model.PurchaseDTO" alias="purchaseDto" />
     	<typeAlias type="com.myweb.home.purchase.model.CouponDTO" alias="CouponDto" />
     	<typeAlias type="com.myweb.home.purchase.model.UsePointVO" alias="UsePointVo" />

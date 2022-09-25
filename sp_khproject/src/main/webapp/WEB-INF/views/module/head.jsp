@@ -85,11 +85,16 @@
 	        <li class="nav-item">
 	          <a class="nav-link" href="#" style="padding-left:100px;">커뮤니티</a>
 	        </li>
+	      
 	      </ul>
-	      <form class="d-flex">
-	        <input class="form-control me-4" type="search" placeholder="내용을 입력해주세요." aria-label="Search" style="min-width: 300px;">
+	  
+	      <c:url var="itemUrl" value="/sellitem" />
+	      <form action="${itemUrl}" class="d-flex">
+	        <input class="form-control me-4" name="search" type="search" placeholder="내용을 입력해주세요." aria-label="Search" style="min-width: 300px;">
 	        <button class="btn btn-outline-success" type="submit" style="width:100px; margin-right: 50px;" id="button">검색</button>
 	      </form>
+	   
+	   
 	    </div>
 	  </div>
 	</nav>

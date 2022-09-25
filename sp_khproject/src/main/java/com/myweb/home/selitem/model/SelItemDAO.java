@@ -82,11 +82,6 @@ public class SelItemDAO {
 		return res == 1 ? true : false;
 	}
 	
-	public boolean updateViewCnt(SelItemDTO data) {
-		String mapperId = String.format(mapper, "updateViewCnt");
-		int res = session.update(mapperId, data);
-		return res == 1 ? true : false;
-	}
 	
 	public SelItemDTO selectStatics(SelItemStaticsDTO data) {
 		String mapperId = String.format(mapper, "selectStatics");
@@ -134,5 +129,10 @@ public class SelItemDAO {
 		String mapperId = String.format(mapper, "getThumbnail");
 		FileUploadDTO thumbnail = session.selectOne(mapperId, i);
 		return thumbnail;
+	}	
+	public boolean viewCnt(SelItemDTO itemdata) {
+		String mapperId = String.format(mapper, "viewCnt");
+		int res = session.update(mapperId, itemdata);
+		return res == 1 ? true : false;
 	}
 }

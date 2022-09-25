@@ -48,14 +48,14 @@
 	<header></header>
 	<section class="container w-75">
 	<div class="mt-5" >
-	<c:url var="addurl" value="/sellitem/additem" />
-	<form id="fileForm" action="${addurl}" method="post" enctype="multipart/form-data">
-			
+	<c:url var="modifyurl" value="/sellitem/modify" />
+	<form id="fileForm" action="${modifyurl}" method="post" enctype="multipart/form-data">
+			<input type="hidden" value="${itemdata.sel_id}" name="sel_id">
 			<div class="image-form mb-3">
 					<!-- 여기 url은 home/ 뒤에 바로 modify 가 아니라 info/ 가 붙으므로 contextPaht 경로를 앞에 붙여야 한다.  -->
 					<div style="float:left;">
-					<img id="previewImg" class="image-360" alt="프로필 이미지." src="${pageContext.request.contextPath}/static/img/profile/${profileImage}.png"
-					onerror="this.onerror=null; this.src='${pageContext.request.contextPath}/static/img/profile/logo.png'"> 
+					<img id="previewImg" class="image-360" alt="프로필 이미지." src="/home/${itemdata.url}/${itemdata.uuidName}"
+					onerror="this.onerror=null; this.src='${pageContext.request.contextPath}/static/img/profile/logo.png'" > 
 					<div style="float:right; margin-left:4rem; color:green;">
 					<p>-필수입력사항입니다
 					<p>-기본적으로 보여지는 상품이미지를 등록합니다
@@ -64,7 +64,7 @@
 					</div>
 					</div>
 					<div class="mb-3">
-						<input id="formFile" type="file" name="fileUpload" class="form-control" value="이미지 선택" accept="image/png">
+						<input id="formFile" type="file" name="fileUpload" class="form-control" value="이미지 선택" accept="image/png" required>
 					</div>
 			
 			</div>
@@ -72,13 +72,14 @@
 			<div class="mb-3">
 				<label class="col-sm-2 control-label">제목</label>
 				<div class="mt-3">
-					<input class="form-control" type="text" name="title" id="title" placeholder="제목을 입력하세요.">
+					<input class="form-control" value="${itemdata.sel_title}" id="title" type="text" name="title" placeholder="제목을 입력하세요." required>
 				</div>
 			</div>
 		    <div class="mb-3">
 		       <label class="col-sm-2 control-label">서비스</label>
 		       <div class="mt-3">
-			       <select class="form-select" name="field">
+		       		
+			       <select class="form-select" name="field" >
 						<option selected value="무관">-선택-</option>
 						<option value="IT">IT</option>
 						<option value="레슨">레슨</option>
@@ -86,12 +87,13 @@
 						<option value="국영수">국영수</option>
 						<option value="기타">기타</option>
 			       	</select>
+			
 		       </div>
 		    </div>
 		    <div class="mb-3">
 		        <label class="col-sm-2 control-label">지역</label>
 		        <div class="mt-3">
-			        <select class="form-select" name="location">
+			        <select class="form-select" name="location" >
 							<option selected value="무관">-선택-</option>
 							<option value="서울">서울</option>
 							<option value="경기">경기</option>
@@ -114,27 +116,25 @@
 		     	</div>
 		     </div>
 		    <div class="form-group">
-				<label class="col-sm-2 control-label">가격</label>
+				<label class="col-sm-2 control-label" >가격</label>
 				<div class="col-sm-10">
-					<input class="form-control" type="text" name="price" placeholder="가격을 입력하세요.">
+					<input class="form-control" type="text" name="price" value="${itemdata.sel_price}" placeholder="가격을 입력하세요.">
 				</div>
 			</div> 
 	
 			<div class="mb-3">
 				<p>상품상세설명</p>
-				<textarea class="form-control" id="content" name="content" rows="10"
-					placeholder="내용을 입력하세요."></textarea>
+				<textarea class="form-control" id="content" name="content" rows="10">${itemdata.sel_content}</textarea>
 			</div>
-
 		
 			<div class="form-group row">
-				<button type="submit" class="form-control" onclick="imageUpload()">등록</button>
+				<button type="submit" class="form-control" onclick="imageUpload()">수정</button>
 			</div>
 		</form>
 	</div>
 	</section>
 
-	<%@ include file="../module/footer.jsp" %>
+	<footer></footer>
 	<c:url var="upload" value="/upload/image" />
 		<script type="text/javascript">
 			CKEDITOR.replace("content", {
@@ -156,8 +156,8 @@
 				var imgUrl = URL.createObjectURL(file);
 				previewImg.src = imgUrl;
 			}
-			
-			   $('form').on('submit', function(e) {
+			   
+			  $('form').on('submit', function(e) {
 					alert($('#formFile').val());
 					
 					if($('#title').val() == ''){
@@ -179,9 +179,10 @@
 
 		        });
 			
+
+			
 			
 		</script>
-
 	
 </body>
 </html>

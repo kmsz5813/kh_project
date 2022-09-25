@@ -63,6 +63,7 @@ public class SelItemService {
 		return false;
 	}
 	
+	//sellitem 수정부분
 	public boolean modify(SelItemDTO data) {
 		boolean result = dao.updateData(data);
 		return result;
@@ -116,6 +117,7 @@ public class SelItemService {
 	}
 
 
+
 	public FileUploadDTO getThumbnail(int i) {
 		FileUploadDTO thumbnail = dao.getThumbnail(i);
 		return thumbnail;
@@ -125,6 +127,16 @@ public class SelItemService {
 	public int getNextSeq() {
 		int nextseq = dao.getNextSeq(); 
 		return nextseq;
+	}
+	public boolean incViewCnt(SelItemDTO itemdata) {
+		boolean result = dao.viewCnt(itemdata);
+		if(result) {
+			return true;
+		}else {
+			return false;
+		}
+
+
 	}
 
 

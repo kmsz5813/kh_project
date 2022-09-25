@@ -30,6 +30,10 @@
 		.img-hover-zoom:hover img {
 		  transform: scale(1.15);
 		}
+		
+		.card-img-top{
+			height: 15rem;
+		}
 	</style>
 </head>
 <body>
@@ -109,7 +113,7 @@
 		<!-- 메인 내용 페이지 !!!!!!!!!!!!!!!!!!!!!!!!!! -->
 		<div class="row g-1 mt-5">
 		<c:forEach items="${result}" var="data">	
-			<div class="card" style="width: 18rem; margin-right: 2rem; margin-bottom: 2rem; border:none">
+			<div class="card" style="width: 18rem; margin-right: 2rem; margin-bottom: 2rem;">
 			  <div class="img-hover-zoom" style="border-radius:10px;">
 				<a href="./sellitem/itemdetail?search=${data.sel_name}&itemid=${data.sel_id}">
 			

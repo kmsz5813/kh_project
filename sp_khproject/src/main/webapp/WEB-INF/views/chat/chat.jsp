@@ -3,14 +3,9 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html lang="ko">
 <head>
-<meta charset="UTF-8">
-<title>1:1 문의</title>
-
-
-
 <link rel="stylesheet"
    href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
@@ -26,10 +21,8 @@
    src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
    crossorigin="anonymous"></script>
-<script type="text/javascript"
-   src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.1.5/sockjs.min.js"></script>
-   
-
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.1/handlebars.js"></script>
 
 <!-- 무료아이콘 -->
 <link rel="stylesheet"
@@ -37,137 +30,81 @@
 <link rel=stylesheet href=../resources/chatting.css>
 
 
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Chat Application</title>
+<style>
+div.header {
+	position: sticky;
+	top: 0;
+	background-color: blue;
+}
+* {
+	margin: 0px;
+	padding: 0px;
+}
 
-<style type="text/css">
-   
-h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
-    font-weight: 600;
+.chat_wrap .header {
+	font-size: 14px;
+	padding: 15px 0px;
+	background: #F18C7E;
+	color: white;
+	text-align: center;
 }
-<!-- 모달 -->  
-.card {
-   position: relative;
-   display: flex;
-   flex-direction: column;
-   min-width: 0;
-   word-wrap: break-word;
-   background-color: #fff;
-   background-clip: border-box;
-   border: 0 solid transparent;
-   border-radius: 0;
-   margin-bottom: 30px;
+
+.chat_wrap #chat {
+	padding-bottom: 100px;
+	width: 100%;
 }
-.card-body {
-    flex: 1 1 auto;
-    padding: 1.3rem;
-    background: #f0f0f087;
-    border: 1px solid #eee;
-    height: 350px;
-    position: relative;
+
+.chat_wrap #chat .left {
+	text-align: left;
 }
-.card p{
-   font-family: "Raleway", Arial, sans-serif;
-    font-weight: 400;
-    font-size: 16px;
-    line-height: 1.7;
+
+.chat_wrap #chat .right {
+	text-align: right;
 }
-.note-has-grid .nav-link {
-    padding: .5rem
+
+.chat_wrap #chat {
+	font-size: 12px;
 }
-.note-has-grid .single-note-item .card {
-    border-radius: 10px;
+
+.chat_wrap #chat .sender {
+	margin: 10px 25px 0px 10px;
+	font-weight: bold;
 }
-.note-has-grid .single-note-item .favourite-note {
-    cursor: pointer
+
+.chat_wrap #chat .message {
+	display: inline-block;
+	margin: 5px 20px 0px 10px;
+	max-width: 75%;
+	border: 1px solid gray;
+	padding: 5px;
+	border-radius: 5px;
+	background-color: #FCFCFC;
+	text-align: left;
 }
-.note-has-grid .single-note-item .category-dropdown.dropdown-toggle:after {
-    display: none
+
+.chat_wrap #chat .date {
+	margin: 5px 20px 10px 10px;
+	font-size: 10px;
 }
-.note-has-grid .single-note-item .category [class*=category-] {
-    height: 15px;
-    width: 15px;
-    display: none
+
+.chat_wrap .input-div {
+	position: fixed;
+	bottom: 0px;
+	width: 100%;
+	background-color: #FFF;
+	text-align: center;
+	border-top: 1px solid #F18C7E;
 }
-.note-has-grid .single-note-item .category [class*=category-]::after {
-    content: "\f0d7";
-    font: normal normal normal 14px/1 FontAwesome;
-    font-size: 12px;
-    color: #fff;
-    position: absolute
+
+#txtMessage {
+	width: 100%;
+	height: 80px;
+	border: none;
+	padding: 5px;
 }
-.note-has-grid .single-note-item.note-business .category .category-business {
-    display: inline-block
-}
-.note-has-grid .single-note-item.note-social .category .category-social {
-    display: inline-block
-}
-.note-has-grid .single-note-item.note-important .category .category-important {
-    display: inline-block
-}
-.note-has-grid .single-note-item.all-category .more-options,
-.note-has-grid .single-note-item.all-category.note-favourite .more-options {
-    display: block
-}
-.note-has-grid .single-note-item.all-category.note-business .more-options,
-.note-has-grid .single-note-item.all-category.note-favourite.note-business .more-options,
-.note-has-grid .single-note-item.all-category.note-favourite.note-important .more-options,
-.note-has-grid .single-note-item.all-category.note-favourite.note-social .more-options,
-.note-has-grid .single-note-item.all-category.note-important .more-options,
-.note-has-grid .single-note-item.all-category.note-social .more-options {
-    display: none
-}
-@media (max-width:767.98px) {
-   .note-has-grid .single-note-item {
-       max-width: 100%
-   }
-}
-@media (max-width:991.98px) {
-    .note-has-grid .single-note-item {
-        max-width: 216px
-    }
-}
- 
-.modal-header { background: #17b7945e; } 
- 
-.modal-header .close {
-    margin-top: -20px;
-} 
-.note-title {
-   margin: 10px 0 0;
-   text-align: center;
-}
-                
-.star { 
-   color: #ffeb00;
-   font-size: 20px;
-}
-.note-content {
-   height: 135px;
-    margin: 10px;
-    overflow: auto;
-}
-                    
-.note-info {
-    position: absolute;
-    text-align: left;
-    left: 8%;
-    bottom: 5%;
-}
-p.note-title {
-   color: black;
-   font-size: 16px;
-   font-weight: bolder;
-}
-span#singo a {
-   color: #777777;
-    font-size: 12px;
-    position: absolute;
-    right: 8%;
-    bottom: 18px;
-}
-span#singo:hover a {
-   color: #777777;
-   text-decoration: underline;
-}
+
 div.col-md-12 { margin-bottom: 15px; } 
 .star_on { color: #ffeb00; }
 .buttonA { 
@@ -195,106 +132,156 @@ div.col-md-12 { margin-bottom: 15px; }
     border-radius: 5px;
     cursor: pointer;
 }
-.buttonC { /* 검색버튼 */
-   background-color: #eee; 
-   color: #666;
-   text-align: center;
-   text-decoration: none;
-   display: inline-block;
-   font-size: 15px;
-   padding: 4px;
-   border: 1px solid #aaa;
-   border-radius: 3px;
-   cursor: pointer;
-   width: 60px;
-    height: 35px;
-    margin-left: 7px;
-}
-.buttonC:hover { /* 검색버튼 */
-   background-color: #dfdfdf; 
-   
-}
-.pagingstyle{
-    width: 50%; 
-    margin: 0 auto;
-}
-#searchbox{
-    float: right;
-    width: 270px;
-    margin: 0 auto;
-    padding: 20px;
-}
-#row {
-    position: relative;
-    margin-top: 97px;
-}
-#form-control {
-   width: 180px;
-    position: absolute;
-    right: 25%;
-    height: 35px;
-}
-.input-group-btn{
-   position: absolute;
-    right: 25%;
-}
 
-<!-- 모달 -->  
+
+
 </style>
-
-
 </head>
 <body>
-   <!-- 헤더 -->
-   <%@ include file="../module/head.jsp"%>
 
-   
-   
-   <div style="text-align: right; margin: 10px;">
+<!-- 헤더 -->
+	<%@ include file="../module/head.jsp"%>
+	
+	<div style="text-align: right; margin: 10px;">
          <button class="btn btn-success">거래하기</button>
          <button class="btn btn-danger" data-toggle="modal" data-target="#addnotesmodal">리뷰작성</button>
    </div>
-   
-   <div style="border-bottom: 4px dashed gray; margin-top: 10px;">
-         <h3 class="text-center">견적 상담</h3>
-   </div>
-   <section class="container">
-      <div style="height:500px; overflow:scroll;" id="id_chat">
-      </div>
-      
-      
-      <div style="text-align: right; margin: 10px;">
-         <form onsubmit="return sendMessage(this.context);">
-            <input name="file" type="file" class="real-upload" accept="image/png" multiple>
-            <input type="text" id="id_context" name="context" style="width:900px;">
-            <button type="submit" class="btn btn-info">전송</button>
-         </form>
-      </div>
-   </section> 
-   
-   
-<script type="text/javascript">
-   ws = new WebSocket("ws://localhost/home/chatting/cs");
-   ws.onopen = function() {
-      console.log("Chatting Server Connection...");
-   };
-   ws.onmessage = function(data) {
-      console.log(data);
-      id_chat.innerHTML += data.data;
-      id_chat.scrollTo(0, id_chat.scrollHeight);
-   };
-   ws.onclose = function() {
-      console.log("Chatting Server Close...");
-   };
+	
+	
+	
+	
+	
+	<div class="chat_wrap">
+		<div class="header">
+			<h3>채팅방</h3>
+		</div>
+		<div id="chat"></div>
+		<!-- 채팅저장출력 -->
+		<script id="temp" type="text/x-handlebars-template">
+        <div class="{{printLeftRight sender}}">
+          <div class="sender">{{sender}}</div>
+          <div class="message">{{message}}</div>
+        </div>
+       </script>
+		<div class="input-div">
+			<textarea id="txtMessage" cols="30" rows="10"
+				placeholder="메시지를 입력한 후에 엔터키를 누르세요."></textarea>
+		</div>
+	</div>
+</body>
 
-   function sendMessage(element) {
-      value = element.value;
-      element.value = "";
-      ws.send(value);
-      element.focus();
-      return false;
-   }
+
+
+<!-- 메시지 입력시 오른쪽 왼쪽으로 기입되는 방식 지정 -->
+<script>
+	var uid = "${sessionScope.loginData.ac_name}";
+	
+	Handlebars.registerHelper("printLeftRight", function(sender) {
+		if (uid === sender) {
+			return "right";
+		} else {
+			return "left";
+		}
+	});
+	
 </script>
+<script>
+	
+	$("#txtMessage").on("keypress", function(e) {
+		if (e.keyCode == 13 && !e.shiftKey) {
+			e.preventDefault();
+			var message = $("#txtMessage").val();
+			if (message == "") {
+				alert("메시지를 입력하세요.");
+				$("#txtMessage").focus();
+				return;
+			}
+
+			// 서버로 메시지 보내기
+			sock.send(uid + "|" + message);
+			$("#txtMessage").val("");
+			$("#txtMessage").focus();
+		}
+	})
+
+	// 웹소캣 생성
+	var sock = new WebSocket("ws://localhost/home/echo");
+	sock.onmessage = onMessage;
+
+	//서버로부터 메세지 받기...
+	   function onMessage(msg) {
+	      var items = msg.data.split("|");
+	      var sender = items[0];
+	      
+	      if(sender == "delete"){
+	    	  getList();
+	    	  return;
+	      }
+	      
+	      var message = items[1];
+	      var id= items[2];
+	      var photo = items[3];
+	      var date = items[4];
+	      
+	      var data = {
+	         "message" : message,
+	         "sender" : sender,
+	         "regdate" : date,
+	         "id": id
+	      };
+
+	      var template = Handlebars.compile($("#temp").html());
+	      $("#chat").append(template(data));
+
+	      //스크롤바 아래 고정
+	      window.scrollTo(0, $('#chat').prop('scrollHeight'));
+	   }
+
+	    function getList() {
+	      $.ajax({
+	         type : "get",
+	         url : "/chat.json",
+	         dataType : "json",
+	         success : function(data) {
+	            var template = Handlebars.compile($("#temp").html());
+	            $("#chat").html(template(data));
+	         }
+	      });
+	   } 
+	</script>
+	
+	
+	
+<script type="text/javascript">
+	ws = new WebSocket("ws://localhost/home/echo");
+	ws.onopen = function() {
+		console.log("Chatting Server Connection...");
+	};
+	ws.onmessage = function(data) {
+		console.log(data);
+		id_chat.innerHTML += data.data;
+		id_chat.scrollTo(0, id_chat.scrollHeight);
+	};
+	ws.onclose = function() {
+		console.log("Chatting Server Close...");
+	};
+
+	function sendMessage(element) {
+		value = element.value;
+		element.value = "";
+		ws.send(value);
+		element.focus();
+		return false;
+	}
+</script>
+
+
+
+
+
+
+
+
 
 
 <!-- 모달 - 별점 -->
@@ -474,6 +461,6 @@ $(function() {
 //     })
 })
 </script>
-          
-</body>
+
+
 </html>

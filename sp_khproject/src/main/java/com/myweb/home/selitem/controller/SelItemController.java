@@ -60,8 +60,6 @@ public class SelItemController {
 	@GetMapping(value="/additem")
 	public String additem(Model model
 		, @SessionAttribute("loginData") AccountsDTO acData) {
-		System.out.println(acData);
-		System.out.println(acData.getAc_name());
 		return "/sellitem/additem";
 	}
 	
@@ -71,11 +69,9 @@ public class SelItemController {
 			, MultipartHttpServletRequest mtfRequest
 			, @RequestParam("fileUpload") MultipartFile[] files) throws Exception {
 
+		System.out.println(files);
 		SelItemDTO data = new SelItemDTO();
 		 
-		// jsp에서 값을 받아오는
-
-
 		String title = request.getParameter("title");
 	    String service1 = request.getParameter("field");
 	    String location = request.getParameter("location");
@@ -99,7 +95,7 @@ public class SelItemController {
 			String location1 = request.getServletContext().getRealPath("/resources/img/board");
 			String url = "/static/img/board"; 
 			FileUploadDTO fileData = new FileUploadDTO(data.getSel_id(), location1, url);
-			System.out.println(fileData);
+			
 			
 			int fileResult = fileUploadService.upload(file, fileData);
 
@@ -169,7 +165,7 @@ public class SelItemController {
 
 	@GetMapping(value="/itemdetail")
 	public String detail(Model model, HttpServletRequest request
-			) {
+			,HttpSession session) {
 		// 판매자 닉네임 가져오기
 
 		String name = request.getParameter("search");
@@ -180,7 +176,21 @@ public class SelItemController {
 		int itemid = Integer.parseInt(request.getParameter("itemid"));
 		SelItemDTO itemdata = service.getData(itemid);
 
+		if(session.getAttribute("loginData") != null) {
+			//로그인했을때만... 로그인안했을때 들어가는건 동일ip일땐 안늘게
+			AccountsDTO acDto = (AccountsDTO) session.getAttribute("loginData");
+			String test1 = itemdata.getSel_name();
+			String test2 = acDto.getAc_name();
+			if(!test1.equals(test2)) {
+				System.out.println("실행");
+				boolean result = service.incViewCnt(itemdata);
+				if(!result) {
+					request.setAttribute("viewerror", "조회수오류가있습니다.");
+				}
+			}
 
+		}
+		
 		
 
 		request.setAttribute("data", data);
@@ -189,11 +199,75 @@ public class SelItemController {
 		return "sellitem/itemdetail";
 	}
 	
-//	@GetMapping(value="/itemmodify")
-//	public String itemmodify(Model model
-//			, HttpServletRequest request
-//			, @SessionAttribute("loginData") AccountsDTO acDto) {
-//		request.setAttribute("", acDto)
-//	}
+	@GetMapping(value="/modify")
+	public String itemmodify(Model model
+			, HttpServletRequest request
+			, @SessionAttribute("loginData") AccountsDTO acDto
+			, @RequestParam int id) {
+		
+		SelItemDTO itemdata = service.getData(id);
+		
+		request.setAttribute("itemdata", itemdata);
+		
+		
+		return "sellitem/modify";
+	}
+	
+	
+	@PostMapping(value="/modify")
+	public String itemmodify(Model model, HttpServletRequest request
+			,@SessionAttribute("loginData") AccountsDTO acData
+			, MultipartHttpServletRequest mtfRequest
+			, @RequestParam("fileUpload") MultipartFile[] files
+			) {
+		
+		SelItemDTO data = new SelItemDTO();
+	
+		int sel_id = Integer.parseInt(request.getParameter("sel_id"));
+		String title = request.getParameter("title");
+	    String service1 = request.getParameter("field");
+	    String location = request.getParameter("location");
+	    int price = Integer.parseInt(request.getParameter("price"));
+	    String content = request.getParameter("content");
+
+
+		data.setSel_title(title);
+		data.setSel_field(service1);
+		data.setSel_location(location);
+		data.setSel_content(content);
+		data.setSel_price(price);
+		data.setSel_name(acData.getAc_name());
+		data.setSel_id(sel_id);
+			
+		boolean result = service.modify(data);
+		//해서만들어진 게시물번호값을 불러오기.
+		
+		
+		//썸네일 이미지 저장하는것
+		for(MultipartFile file: files) {
+			String location1 = request.getServletContext().getRealPath("/resources/img/board");
+			String url = "/static/img/board"; 
+			FileUploadDTO fileData = new FileUploadDTO(sel_id, location1, url);
+			
+			
+			try {
+				int fileResult = fileUploadService.modify(file, fileData);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+		}
+		
+		
+		if(result) {
+			return "redirect: /home/sellitem";
+		}else {
+			String error = "수정실패";
+			request.setAttribute("error", error);
+			return "sellitem/itemdetail";
+		}
+		
+	}
 	
 }
