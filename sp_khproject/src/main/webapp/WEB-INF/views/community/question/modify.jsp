@@ -6,6 +6,8 @@
 <!DOCTYPE html>
 <html>
 <head>
+<c:url var="ckeditor" value="/static/ckeditor" />
+<script type="text/javascript" src="${ckeditor}/ckeditor.js"></script>
 <meta charset="UTF-8">
 <title>FindU</title>
 <!-- bootstrap css 적용 -->
@@ -36,8 +38,7 @@
 <link
 	href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap"
 	rel="stylesheet">
-	<c:url var="ckeditor" value="/static/ckeditor" />
-	<script type="text/javascript" src="${ckeditor}/ckeditor.js"></script>
+
 
 <!-- style, css -->
 <style>
@@ -141,101 +142,7 @@ li {
 }
 
 @media ( max-width : 991.98px) .feed-item[data-v-05dbd958] {
-	padding
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-		
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	:
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	 
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	1
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	.25rem
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	;
+	padding :1 .25rem;
 }
 
 .feed-list {
@@ -373,12 +280,12 @@ feed-item .feed-content {
 		var modal = new bootstrap.Modal(document.getElementById("errorModal"), {
 			keyboard: false
 		});
-		var question_title = modal._element.querySelector(".modal-title");
-		var question_body = modal._element.querySelector(".modal-body");
+		var title = modal._element.querySelector(".modal-title");
+		var body = modal._element.querySelector(".modal-body");
 		
 		if(files.length > 3) {
-			question_Title.innerText = "파일 업로드 오류";
-			question_Body.innerText = "파일 업로드는 최대 3개로 제한되어 있습니다.";
+			title.innerText = "파일 업로드 오류";
+			body.innerText = "파일 업로드는 최대 3개로 제한되어 있습니다.";
 			modal.show();
 			element.value = "";
 			return;
@@ -386,15 +293,15 @@ feed-item .feed-content {
 		
 		for(file of files) {
 			if(file.size / 1000 / 1000 > 5.0) {
-				question_Title.innerText = "파일 업로드 오류";
-				question_Body.innerText = "파일당 최대 5MB 까지만 업로드 할 수 있습니다. 5MB 초과 용량에 대해서는 관리자에게 문의하세요.";
+				title.innerText = "파일 업로드 오류";
+				body.innerText = "파일당 최대 5MB 까지만 업로드 할 수 있습니다. 5MB 초과 용량에 대해서는 관리자에게 문의하세요.";
 				modal.show();
 				element.value = "";
 				return;
 			}
 		}
 	}
-	 */
+	*/
 </script>
 <body>
 	<div id="jb-container">
@@ -556,7 +463,7 @@ feed-item .feed-content {
 													<textarea class="form-control" name="question_content"
 														rows="8" placeholder="내용을 입력하세요.">${data.question_Content}</textarea>
 												</div>
-												<!-- 
+				<!-- 								
 				<div class="mb-3">
 					<ul class="list-group">
 					<c:forEach items="${fileDatas}" var="file">
@@ -572,7 +479,8 @@ feed-item .feed-content {
 				<div class="mb-3">
 					<input class="form-control" type="file" onchange="uploadCheck(this);" name="fileUpload" multiple>
 				</div>
-				-->
+				 -->
+				
 												<div class="mb-3 text-end">
 													<button class="btn btn-primary" type="button"
 														onclick="formCheck(this.form);">저장</button>
@@ -613,17 +521,22 @@ feed-item .feed-content {
 			</div>
 		</section>
 
-					<c:url var="mainurl" value="/main" />
+		<c:url var="mainurl" value="/main" />
 
 
-				<footer id="jb-footer">
-					<div
-						style="width: 1500px; height: 200px; background-color: #f6f7f7; margin: auto; padding: 10px;
-						position: relative; left: 50px;">
-						이용약관</div>
-				</footer>
-				<!-- go to top -->
-				<a class="btn-top" href="#"><i class="xi-angle-up-thin"></i></a>
-			</div>
+		<footer id="jb-footer">
+			<div
+				style="width: 1500px; height: 200px; background-color: #f6f7f7; margin: auto; padding: 10px; position: relative; left: 50px;">
+				이용약관</div>
+		</footer>
+		<c:url var="upload" value="/upload/image" />
+		<script type="text/javascript">
+			CKEDITOR.replace("question_content", {
+				filebrowserUploadUrl : "${upload}?type=image"
+			})
+		</script>
+		<!-- go to top -->
+		<a class="btn-top" href="#"><i class="xi-angle-up-thin"></i></a>
+	</div>
 </body>
 </html>

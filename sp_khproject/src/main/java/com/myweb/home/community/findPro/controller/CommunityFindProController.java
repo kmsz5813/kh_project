@@ -2,6 +2,7 @@ package com.myweb.home.community.findPro.controller;
 
 import java.util.List;
 
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -30,6 +31,7 @@ import com.myweb.home.upload.service.FileUploadService;
 
 @Controller
 @RequestMapping(value="/community/findPro")
+@MultipartConfig
 public class CommunityFindProController {
 	
 	@Autowired

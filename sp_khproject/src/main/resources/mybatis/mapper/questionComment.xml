@@ -7,9 +7,9 @@
   <mapper namespace="questionCommentMapper">
 	<insert id="insertData" parameterType="questionCommentDto">
 		INSERT INTO QUESTION_COMMENT(COMMENT_ID, COMMENT_BID, USER_NAME, COMMENT_CONTENT, COMMENT_DELETED)
-			 VALUES(QUESTION_COMMENT_SEQ.NEXTVAL
+			                  VALUES(QUESTION_COMMENT_SEQ.NEXTVAL
 			      , #{comment_bId}, #{user_Name}, #{comment_Content}
-			      , 'N', 'N')
+			      , 'N')
 	</insert>
 	<select id="selectDatas" resultType="questionCommentDto">
 		SELECT Q.COMMENT_ID

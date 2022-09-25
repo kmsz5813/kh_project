@@ -2,6 +2,7 @@ package com.myweb.home.community.findStu.controller;
 
 import java.util.List;
 
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -30,6 +31,7 @@ import com.myweb.home.upload.service.FileUploadService;
 
 @Controller
 @RequestMapping(value="/community/findStu")
+@MultipartConfig
 public class CommunityFindStuController {
 	
 	@Autowired
@@ -87,6 +89,7 @@ public class CommunityFindStuController {
 		data.setUser_Name(acDto.getAc_name());
 		
 		int id = service.add(data);
+		
 		
 		if(id != -1) {
 			return "redirect:/community/findStu/detail?id=" + id;			

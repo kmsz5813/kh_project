@@ -2,6 +2,7 @@ package com.myweb.home.community.life.controller;
 
 import java.util.List;
 
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.myweb.home.Accounts.model.AccountsDTO;
 import com.myweb.home.common.util.Paging;
@@ -29,11 +31,11 @@ import com.myweb.home.upload.service.FileUploadService;
 
 @Controller
 @RequestMapping(value="/community/life")
+@MultipartConfig
 public class CommunityLifeController {
 	
 	@Autowired
 	private CommunityLifeService service;
-	
 	
 	@RequestMapping(value="/list", method=RequestMethod.GET)
 	public String getList(Model model, HttpSession session

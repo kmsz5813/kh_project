@@ -138,86 +138,8 @@ li {
 	text-align: -webkit-match-parent;
 }
 
-@media ( max-width : 991.98px) .feed-item[data-v-05dbd958] {
-	padding
-	
-	
-	
-	
-	
-	
-	
-	
-	
-		
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	:
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	 
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	1
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	.25rem
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	;
+@media ( max-width : 991.98px) .feed-item {
+	padding :1 .25rem;
 }
 
 .feed-list {
@@ -481,7 +403,7 @@ feed-item .feed-content {
 													<label id="id_like" class="text-secondary text-opacity-75">${data.question_like}</label>
 												</div>
 											</div>
-											<!-- 
+			<!-- 								
 			<div class="row mb-1">
 				<ul class="col-4 ms-auto list-group">
 				<c:forEach items="${fileDatas}" var="file">
@@ -492,7 +414,7 @@ feed-item .feed-content {
 				</c:forEach>
 				</ul>
 			</div>
-			 -->
+			 --> 
 											<div class="mb-1 text-end">
 												<c:url var="questionUrl" value="/community/question" />
 												<button class="btn btn-primary" type="button"
@@ -574,7 +496,10 @@ feed-item .feed-content {
 												</div>
 											</c:forEach>
 											<div class="mb-1">
-												<form action="${questionDetailUrl}/comment/add"
+											<c:url var="questionUrl"
+														value="/community/question">
+													</c:url>
+												<form action="${questionUrl}/comment/add"
 													method="post">
 													<input type="hidden" name="bid" value="${data.question_Id}">
 													<div class="input-group">

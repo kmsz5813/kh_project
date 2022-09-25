@@ -71,12 +71,12 @@ public class CommunityQuestionController {
 			, @RequestParam int id) {
 		System.out.println("question_id " + ":" + id );
 		CommunityQuestionDTO data = service.getData(id);
-		//List<FileUploadDTO> fileDatas = fileUploadService.getDatas(id);
+//		List<FileUploadDTO> fileDatas = fileUploadService.getDatas(id);
 		
 		if(data != null) {
 			service.incViewCnt(session, data);
 			model.addAttribute("data", data);
-			//model.addAttribute("fileDatas", fileDatas);
+//			model.addAttribute("fileDatas", fileDatas);
 			return "community/question/detail";
 		} else {
 			model.addAttribute("error", "해당 데이터가 존재하지 않습니다.");
@@ -89,74 +89,40 @@ public class CommunityQuestionController {
 		return "community/question/add";
 	}
 	
-//	@PostMapping(value="/add")
-//	public String add(HttpServletRequest request
-//			, @SessionAttribute("loginData") AccountsDTO acDto
-//			, @ModelAttribute CommunityQuestionVO communityQuestionVo
-//			, @RequestParam("fileUpload") MultipartFile[] files) {
-//		CommunityQuestionDTO data = new CommunityQuestionDTO();
-//		data.setQuestion_Title(communityQuestionVo.getQuestion_title());
-//		data.setQuestion_Content(communityQuestionVo.getQuestion_content());
-//		data.setUser_Name(acDto.getAc_name());
-//		
-//		int id = service.add(data);
-//		
-//		for(MultipartFile file: files) {
-//			String location = request.getServletContext().getRealPath("/resources/community/question/upload");
-//			String url = "/static/community/question/upload";
-//			FileUploadDTO fileData = new FileUploadDTO(id, location, url);
-//			
-//			try {
-//				int fileResult = fileUploadService.upload(file, fileData);
-//				if(fileResult == -1) {
-//					request.setAttribute("error", "파일 업로드 수량을 초과하였습니다.");
-//					return "community/add";
-//				}
-//			} catch(Exception e) {
-//				request.setAttribute("error", "파일 업로드 작업중 예상치 못한 에러가 발생하였습니다.");
-//				return "community/add";
-//			}
-//			
-//		}
-//		
-//		if(id != -1) {
-//			return "redirect:/community/question/add?id=" + id;			
-//		} else {
-//			request.setAttribute("error", "게시글 저장 실패!");
-//			return "community/add";
-//		}
-//	}
+	
 	
 	@PostMapping(value="/add")
 	public String add(HttpServletRequest request
 			, @SessionAttribute("loginData") AccountsDTO acDto
 			, @ModelAttribute CommunityQuestionVO communityQuestionVo) {
+//			, @RequestParam("fileUpload") MultipartFile[] files) {
 		CommunityQuestionDTO data = new CommunityQuestionDTO();
 		data.setQuestion_Title(communityQuestionVo.getQuestion_title());
 		data.setQuestion_Content(communityQuestionVo.getQuestion_content());
 		data.setUser_Name(acDto.getAc_name());
 		
 		int id = service.add(data);
-		
+			
 		if(id != -1) {
 			return "redirect:/community/question/detail?id=" + id;			
 		} else {
 			request.setAttribute("error", "게시글 저장 실패!");
 			return "community/question/add";
-		}
+		} 
 	}
 	
+
 	@GetMapping(value="/modify")
 	public String modify(Model model
 			, @SessionAttribute("loginData") AccountsDTO acDto
 			, @RequestParam int id) {
 		CommunityQuestionDTO data = service.getData(id);
-		//List<FileUploadDTO> fileDatas = fileUploadService.getDatas(id);
+//		List<FileUploadDTO> fileDatas = fileUploadService.getDatas(id);
 		
 		if(data != null) {
 			if(data.getUser_Name().equals(acDto.getAc_name()) ) {
 				model.addAttribute("data", data);
-				//model.addAttribute("fileDatas", fileDatas);
+//				model.addAttribute("fileDatas", fileDatas);
 				return "community/question/modify";
 			} else {
 				model.addAttribute("error", "해당 작업을 수행할 권한이 없습니다.");

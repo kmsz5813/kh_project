@@ -6,6 +6,8 @@
 <!DOCTYPE html>
 <html>
 <head>
+<c:url var="ckeditor" value="/static/ckeditor" />
+<script type="text/javascript" src="${ckeditor}/ckeditor.js"></script>
 <meta charset="UTF-8">
 <title>FindU</title>
 <!-- bootstrap css 적용 -->
@@ -140,92 +142,14 @@ li {
 
 @media ( max-width : 991.98px) .feed-item[data-v-05dbd958] {
 	padding
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-		
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	:
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	 
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	:
 	1
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	 
 	.25rem
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	;
+	
+
 }
 
 .feed-list {
@@ -472,7 +396,7 @@ feed-item .feed-content {
 		<section>
 			<div id="jb-content-head">
 
-				
+
 				<!-- 커뮤니티 메인 새글 -->
 				<article>
 					<div id="jb-content">
@@ -488,14 +412,14 @@ feed-item .feed-content {
 											<form action="${lifeAddUrl}" method="post"
 												enctype="multipart/form-data">
 												<div class="mb-3">
-													<input class="form-control" type="text"
-														name="life_title" placeholder="제목을 입력하세요.">
+													<input class="form-control" type="text" name="life_title"
+														placeholder="제목을 입력하세요.">
 												</div>
 												<div class="mb-3">
-													<textarea class="form-control" name="life_content"
-														rows="8" placeholder="내용을 입력하세요."></textarea>
+													<textarea class="form-control" name="life_content" rows="8"
+														placeholder="내용을 입력하세요."></textarea>
 												</div>
-											
+
 												<div class="mb-3 text-end">
 													<button class="btn btn-primary" type="button"
 														onclick="formCheck(this.form);">저장</button>
@@ -530,26 +454,32 @@ feed-item .feed-content {
 						</ul>
 					</div>
 				</article>
-				
-				</div>
-				</section>
 
-				<c:if test="${not empty error}">
-					<script type="text/javascript">
+			</div>
+		</section>
+
+		<c:url var="upload" value="/upload/image" />
+		<script type="text/javascript">
+		CKEDITOR.replace("life_content", {
+			filebrowserUploadUrl: "${upload}?type=image"
+		})
+	</script>
+
+		<c:if test="${not empty error}">
+			<script type="text/javascript">
 						alert("${error}");
 					</script>
-				</c:if>
-				<c:url var="mainurl" value="/main" />
+		</c:if>
+		<c:url var="mainurl" value="/main" />
 
 
-				<footer id="jb-footer">
-					<div
-						style="width: 1500px; height: 200px; background-color: #f6f7f7; margin: auto; padding: 10px;
-						position: relative; left: 50px;">
-						이용약관</div>
-				</footer>
-				<!-- go to top -->
-				<a class="btn-top" href="#"><i class="xi-angle-up-thin"></i></a>
-			</div>
+		<footer id="jb-footer">
+			<div
+				style="width: 1500px; height: 200px; background-color: #f6f7f7; margin: auto; padding: 10px; position: relative; left: 50px;">
+				이용약관</div>
+		</footer>
+		<!-- go to top -->
+		<a class="btn-top" href="#"><i class="xi-angle-up-thin"></i></a>
+	</div>
 </body>
 </html>

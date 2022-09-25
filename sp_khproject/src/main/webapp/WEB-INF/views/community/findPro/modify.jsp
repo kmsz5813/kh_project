@@ -6,6 +6,8 @@
 <!DOCTYPE html>
 <html>
 <head>
+<c:url var="ckeditor" value="/static/ckeditor" />
+<script type="text/javascript" src="${ckeditor}/ckeditor.js"></script>
 <meta charset="UTF-8">
 <title>FindU</title>
 <!-- bootstrap css 적용 -->
@@ -139,101 +141,7 @@ li {
 }
 
 @media ( max-width : 991.98px) .feed-item[data-v-05dbd958] {
-	padding
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-		
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	:
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	 
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	1
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	.25rem
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	;
+	padding :1 .25rem;
 }
 
 .feed-list {
@@ -518,7 +426,7 @@ feed-item .feed-content {
 												<div class="mb-3">
 													<textarea class="form-control" name="findPro_content"
 														rows="8" placeholder="내용을 입력하세요.">${data.findPro_Content}</textarea>
-												</div>
+												</div>			
 									<div class="mb-3 text-end">
 													<button class="btn btn-primary" type="button"
 														onclick="formCheck(this.form);">저장</button>
@@ -568,6 +476,11 @@ feed-item .feed-content {
 						position: relative; left: 50px;">
 						이용약관</div>
 				</footer>
+				<script type="text/javascript">
+			CKEDITOR.replace("findPro_content", {
+				filebrowserUploadUrl : "${upload}?type=image"
+			})
+		</script>
 				<!-- go to top -->
 				<a class="btn-top" href="#"><i class="xi-angle-up-thin"></i></a>
 			</div>
