@@ -165,8 +165,11 @@ public class SelItemDAO {
 
 	public int getStarScore(int parseInt) {
 		String mapperId = String.format(mapper, "getStarScore");
-		int res = session.selectOne(mapperId, parseInt);
-		return res;
+		if(session.selectOne(mapperId, parseInt) != null) {
+			int res = session.selectOne(mapperId, parseInt);
+			return res;
+		}
+		return 0;
 	}
 
 	public boolean addReviewCount(int i) {

@@ -143,7 +143,7 @@
 			    <h4 style="text-align:right"><a href="./detail?search=${data.sel_name}" class="card-text">${data.sel_name}</a></h4>
 			    <h4 class="price" style="text-align:right">&#8361; <fmt:formatNumber type="number" maxFractionDigits="3" value="${data.sel_price}"/></h4>
 			    <h4>리뷰등록횟수 : ${data.sel_reviewCount}</h4>
-			    <h4>별점 : ${data.sel_starScore}</h4>
+			    <h4>별점 :  <fmt:formatNumber value="${data.sel_starScore}" pattern=".0"/></h4>
 			  </div>
 			</div>
 		</c:forEach>

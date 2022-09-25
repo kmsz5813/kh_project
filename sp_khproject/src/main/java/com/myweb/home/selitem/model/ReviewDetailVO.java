@@ -5,7 +5,7 @@ import java.sql.Date;
 public class ReviewDetailVO {
 	
 	private int sel_id;
-	private int star;
+	private double star;
 	
 	public int getSel_id() {
 		return sel_id;
@@ -13,10 +13,10 @@ public class ReviewDetailVO {
 	public void setSel_id(int sel_id) {
 		this.sel_id = sel_id;
 	}
-	public int getStar() {
+	public double getStar() {
 		return star;
 	}
-	public void setStar(int star) {
+	public void setStar(double star) {
 		this.star = star;
 	}
 	
