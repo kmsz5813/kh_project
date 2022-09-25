@@ -40,17 +40,18 @@
 	<div style="text-align: right; margin-right: 100px; position:relative; top: 20px;">
 		<c:if test="${empty loginData }">
 			<a href="${pageContext.request.contextPath}/login">로그인</a>&emsp;/&emsp; 
-			<a href="${pageContext.request.contextPath}/login/sign">회원가입</a>&emsp;/&emsp;
+			<a href="${pageContext.request.contextPath}/login/sign">회원가입</a>
 		</c:if>
 		<c:if test="${not empty loginData }">
 			${loginData.ac_name }님 환영합니다!&emsp;/&emsp;
 			<c:if test="${loginData.ac_index == 30}">
 				<a href="${pageContext.request.contextPath}/admin">관리자페이지&emsp;/&emsp;</a>
 			</c:if>
-			<a href="${pageContext.request.contextPath}/main/logout">로그아웃&emsp;/&emsp;</a>
-			<a href="${pageContext.request.contextPath}/info">마이페이지&emsp;/&emsp;</a>
+			<a href="${pageContext.request.contextPath}/main/logout">로그아웃</a>
+			<c:if test="${loginData.ac_index == 10 || loginData.ac_index == 20}">
+				<a href="${pageContext.request.contextPath}/info">&emsp;/&emsp;마이페이지&emsp;</a>
+			</c:if>
 		</c:if>
-		<a href="#">FAQ</a>
 	</div>
 	
 <!-- nav-bar -->
@@ -97,4 +98,5 @@
 	    </div>
 	  </div>
 	</nav>
-</header>	
+</header>
+	

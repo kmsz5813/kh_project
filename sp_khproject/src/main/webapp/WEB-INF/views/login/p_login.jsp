@@ -61,6 +61,7 @@
 	</form>
 	</div>
 	</section>
+	<%@ include file="../module/footer.jsp" %>
 	<script type="text/javascript">
     	swal('가입오류!', "이미 가입하신 아이디입니다.", 'warning');
 	</script>

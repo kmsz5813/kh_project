@@ -13,6 +13,8 @@ public class PurchaseDTO {
 	private int buy_usedCoupon;		// 사용한 쿠폰
 	private int buy_realPrice;		// 실제 구매 가격
 	
+	private String buy_usedCouponName;	// 사용한 쿠폰(쿠폰번호)를 통한 쿠폰명 조회
+	private String buy_itemName;
 	
 	public int getBuy_number() {
 		return buy_number;
@@ -68,6 +70,18 @@ public class PurchaseDTO {
 	public void setBuy_realPrice(int buy_realPrice) {
 		this.buy_realPrice = buy_realPrice;
 	}
+	public String getBuy_usedCouponName() {
+		return buy_usedCouponName;
+	}
+	public void setBuy_usedCouponName(String buy_usedCouponName) {
+		this.buy_usedCouponName = buy_usedCouponName;
+	}
+	public String getBuy_itemName() {
+		return buy_itemName;
+	}
+	public void setBuy_itemName(String buy_itemName) {
+		this.buy_itemName = buy_itemName;
+	}
 	
 	@Override
 	public String toString() {
@@ -76,6 +90,5 @@ public class PurchaseDTO {
 				+ ", buy_usedPoint=" + buy_usedPoint + ", buy_usedCoupon=" + buy_usedCoupon + ", buy_realPrice="
 				+ buy_realPrice + "]";
 	}
-
 	
 }

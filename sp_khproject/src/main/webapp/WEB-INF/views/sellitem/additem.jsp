@@ -108,8 +108,8 @@
 	
 			<div class="mt-3 mb-3">
 				<p>상품상세설명</p>
-				<textarea class="form-control" id="content" name="content" rows="10"
-					placeholder="내용을 입력하세요."></textarea>
+				<textarea required class="form-control" id="content" name="content" rows="10"
+				 ></textarea>
 			</div>
 
 		
@@ -120,7 +120,7 @@
 	</div>
 	</section>
 
-	<footer></footer>
+	<%@ include file="../module/footer.jsp" %>
 	<c:url var="upload" value="/upload/image" />
 		<script type="text/javascript">
 			CKEDITOR.replace("content", {
@@ -152,9 +152,7 @@
 					}
 					
 					if($('#content').val() == ''){
-					   e.preventDefault();
-			           swal('등록 오류!', "내용을 입력해주세요!.", 'warning');
-				
+					   	e.preventDefault();
 					}
 					
 					if($('#formFile').val() == ''){

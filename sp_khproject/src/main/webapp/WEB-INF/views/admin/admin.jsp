@@ -23,6 +23,10 @@
 			display : none;
 		}
 		
+		.container4 {
+			display : none;
+		}
+		
 		.btn-outline-success {
 			margin-right : 10px;
 		}
@@ -31,7 +35,11 @@
 			max-width : 20px;
 		}
 		
-
+		input::-webkit-inner-spin-button {
+		  appearance: none;
+		  -moz-appearance: none;
+		  -webkit-appearance: none;
+		}
 	</style>
 </head>
 <body>
@@ -45,6 +53,9 @@
 		
 		<input type="radio" class="btn-check radio-value" value = "3" name="options-outlined" id="success-outlined3" autocomplete="off">
 		<label class="btn btn-outline-success" for="success-outlined3">거래내역 조회</label>
+		
+		<input type="radio" class="btn-check radio-value" value = "4" name="options-outlined" id="success-outlined4" autocomplete="off">
+		<label class="btn btn-outline-success" for="success-outlined4">이벤트쿠폰 발행</label>
 	</div>
 
 	<section class="container-fluid container1">
@@ -105,7 +116,7 @@
 		</table>
 	</section>
 	
-	<section class="container container2">
+	<section class="container-fluid container2">
 		<p>
 			웹크롤링 테스트(jsoup, 크몽) --> jsoup은 동적 페이지를 인식하지 못해 안되는 것으로 추정<br>
 			다른 정적 페이지는 잘 됨. jsoup의 장점은 웹을 직접 열지 않고도 html만 따올 수 있음.<br>
@@ -119,7 +130,12 @@
 		</div>	
 	</section>
 	
-	<section class="container container3">
+	<section class="container-fluid container3">
+
+		<div id="input-form" class="mb-3" style="margin-left : 1200px;">
+			<input type="text" class="form-control form-right" id="keyword2" placeholder="거래정보 검색">
+		</div>
+		
 		<table class="table wide vertical-hidden table-hover" id="table3">
 			<colgroup>
 				<col class="col-auto">
@@ -137,9 +153,12 @@
 					<th>판매자</th>
 					<th>구매일자</th>
 					<th>판매가격</th>
+					<th>사용 포인트</th>
+					<th>사용 쿠폰</th>
+					<th>실구매가</th>
 				</tr>
 			</thead>
-			<tbody>
+			<tbody id="searching2">
 				<c:forEach items="${purchaseDatas}" var="purchaseDatas">
 					<tr onclick="location.href='./sellitem/itemdetail?search=${purchaseDatas.buy_seller}&itemid=${purchaseDatas.buy_itemNumber}'" style="cursor:pointer;">
 						<td>${purchaseDatas.buy_number}</td>
@@ -148,12 +167,34 @@
 						<td>${purchaseDatas.buy_seller}</td>
 						<td>${purchaseDatas.buy_buyday}</td>
 						<td><fmt:formatNumber type="number" maxFractionDigits="3" value="${purchaseDatas.buy_price}"/></td>
+						<td>${purchaseDatas.buy_usedPoint}</td>
+						<td>${purchaseDatas.buy_usedCouponName}</td>
+						<td>${purchaseDatas.buy_realPrice}</td>
 					</tr>
 				</c:forEach>
 			</tbody>
 		</table>	
 	</section>
 	
+	<section class="container w-25 container4">
+		<c:url var="addEventCouponUrl" value="/admin/addEventCoupon" />
+		<form action="${addEventCouponUrl}" method="post">
+			<div class="mb-3 center">
+				<label class="fw-normal mb-2">쿠폰명</label>
+				<input type="text" class="form-control" name="evtcouName" placeholder="이벤트명, 할인% 를 기입하세요.">
+			</div>
+			<div class="mb-3 center">
+				<label class="fw-normal mb-2">쿠폰 마감일</label>
+				<input type="date" class="form-control" name="endDate" required>
+			</div>
+			<div class="mb-3 center">
+				<label class="fw-normal mb-2">할인%</label>
+				<input type="number" id="salePercent" class="form-control" name="salePercent" onchange="noMinus()" placeholder="숫자만 입력하세요">
+			</div>
+			<button type="submit" class="form-control p-1 btn-outline-success text-center fw-normal">쿠폰 발행</button>
+		</form>
+	</section>
+	<%@ include file="../module/footer.jsp" %>
 	<script type="text/javascript">
 	
 		// radio active 버튼
@@ -163,16 +204,25 @@
 				$('.container1').css("display", "block");
 				$('.container2').css("display", "none");
 				$('.container3').css("display", "none");
+				$('.container4').css("display", "none");
 			}
 			if(chkValue == 2) {
 				$('.container1').css("display", "none");
 				$('.container2').css("display", "block");
 				$('.container3').css("display", "none");
+				$('.container4').css("display", "none");
 			}
 			if(chkValue == 3) {
 				$('.container1').css("display", "none");
 				$('.container2').css("display", "none");
 				$('.container3').css("display", "block");
+				$('.container4').css("display", "none");
+			}
+			if(chkValue == 4) {
+				$('.container1').css("display", "none");
+				$('.container2').css("display", "none");
+				$('.container3').css("display", "none");
+				$('.container4').css("display", "block");
 			}
 		});
 		
@@ -223,7 +273,24 @@
 		
 		  });
 		
-		});	
+		});
+		
+		// 거래목록 검색(키를 누를때마다)
+		$(document).ready(function(){
+		
+		  $("#keyword2").on("keyup", function() { 
+		
+		    var value = $(this).val().toLowerCase();
+		
+		    $("#searching2 tr").filter(function() {
+		
+		      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1) 
+		
+		    });
+		
+		  });
+		
+		});
 		
 		// jSoup 웹 크롤링(크몽)
 		$("#craw_submit").click(function(){
@@ -257,6 +324,14 @@
 				}
 			})
      	});
+		
+		function noMinus () {	
+			if($('#salePercent').val() < 0) {	// 할인퍼센트 마이너스 일경우
+				$('#salePercent').val(0);	// 0으로
+			}
+		}
+		
+		
 		
 	</script>
 </body>

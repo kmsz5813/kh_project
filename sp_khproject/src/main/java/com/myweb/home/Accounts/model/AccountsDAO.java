@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.myweb.home.purchase.model.UsePointVO;
+import com.myweb.home.selitem.model.SelItemStaticsDTO;
 
 @Repository
 public class AccountsDAO {
@@ -95,7 +96,7 @@ public class AccountsDAO {
 	public boolean usePoint(UsePointVO usingpoint) {
 		String mapperId = String.format(mapper, "usePoint");
 		int res = session.update(mapperId, usingpoint);
-		return res >= 1 ? true : false;
+		return res == 1 ? true : false;
 	}
 
 	//좋아요했던거 조회할수 있게끔 
@@ -105,6 +106,12 @@ public class AccountsDAO {
 		List<AccountsDTO> datas = session.selectList(mapperId, acData);
 		
 		return datas;
+	}
+
+	public List<SelItemStaticsDTO> likeDatas(String ac_name) {
+		String mapperId = String.format(mapper, "likeDatas");
+		List<SelItemStaticsDTO> list = session.selectList(mapperId, ac_name);
+		return list;
 	}
 
 

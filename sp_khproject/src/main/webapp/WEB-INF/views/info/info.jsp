@@ -87,7 +87,7 @@
 						<p>${loginData.ac_field }</p>
 						<p>${loginData.ac_interest }</p>
 						<c:if test="${loginData.ac_index == 10}">
-							${loginData.ac_point}
+							<fmt:formatNumber type="number" maxFractionDigits="3" value="${loginData.ac_point}"/>
 						</c:if>
 					</div>
 				</div>
@@ -118,8 +118,9 @@
 				</c:if>
 			</div>
 			<c:if test="${loginData.ac_index == 10}">
-				<section class="container1 mt-3">				
-					<table class="table wide vertical-hidden table-hover">
+				<section class="container1">	
+					<div class="mt-5">			
+					<table class="table table-hover">
 						<thead style="background-color: rgb(224, 224, 224)">							
 							<tr>
 								<th scope="col" class="text-center">구매번호</th>
@@ -133,45 +134,44 @@
 						</thead>
 						<tbody>
 							<c:forEach items="${purchaseData}" var="purchaseData">
-								<tr onclick="location.href='./sellitem/itemdetail?search=${item.sel_name}&itemid=${item.sel_id}'" style="cursor:pointer;">
-									<td scope="row" class="text-center">${purchaseData.buy_number}<td>
-									<td class="text-center">${purchaseData.buy_buyer}<td>
-									<td class="text-center">${purchaseData.buy_buyday}<td>
-									<td class="text-center"><fmt:formatNumber type="number" maxFractionDigits="3" value="${purchaseData.buy_price}"/><td>
+								<tr onclick="location.href='./sellitem/itemdetail?search=${purchaseData.buy_seller}&itemid=${purchaseData.buy_itemNumber}'" style="cursor:pointer;">
+									<td scope="row" class="text-center">${purchaseData.buy_number}</td>
+									<td class="text-center">${purchaseData.buy_itemName}</td>
+									<td class="text-center">${purchaseData.buy_buyday}</td>
+									<td class="text-center"><fmt:formatNumber type="number" maxFractionDigits="3" value="${purchaseData.buy_price}"/></td>
 									<td class="text-center"><fmt:formatNumber type="number" maxFractionDigits="3" value="${purchaseData.buy_usedPoint}"/></td>
-									<td class="text-center">${buy_usedCoupon}</td>
-									<td class="text-center">${buy_realPrice}</td>
+									<td class="text-center">${purchaseData.buy_usedCouponName}</td>
+									<td class="text-center"><fmt:formatNumber type="number" maxFractionDigits="3" value="${purchaseData.buy_realPrice}"/></td>
 								</tr>
 							</c:forEach>
 						</tbody>
 					</table>
+					</div>
 				</section>
 			</c:if>
 			<c:if test="${loginData.ac_index == 20}">
 				<section class="container1">
 					<div class="mt-5">
-						
-						<table class="table table-hover">
-							<thead style="background-color: rgb(224, 224, 224)">							
-								<tr>
-									<th scope="col">제목</th>
-									<th scope="col">작성일자</th>
-									<th scope="col">판매횟수</th>
-									<th scope="col">추천수</th>
-								</tr>
-							</thead>
-							<tbody>
-								<c:forEach items="${items}" var="item">
-									<tr onclick="location.href='./sellitem/itemdetail?search=${item.sel_name}&itemid=${item.sel_id}'" style="cursor:pointer;">
-										<td>${item.sel_title}</td>
-										<td>${item.sel_writeday}</td>
-										<td>${item.sel_number}</td>
-										<td>${item.sel_like}</td>
-									</tr>
-								</c:forEach>
-							</tbody>
-						</table>
-					
+						   <table class="table table-hover">
+                     <thead style="background-color: rgb(224, 224, 224)">                     
+                        <tr>
+                           <th scope="col">제목</th>
+                           <th scope="col">작성일자</th>
+                           <th scope="col">판매횟수</th>
+                           <th scope="col">추천수</th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        <c:forEach items="${items}" var="item">
+                           <tr onclick="location.href='./sellitem/itemdetail?search=${item.sel_name}&itemid=${item.sel_id}'" style="cursor:pointer;">
+                              <td>${item.sel_title}</td>
+                              <td>${item.sel_writeday}</td>
+                              <td>${item.sel_number}</td>
+                              <td>${item.sel_like}</td>
+                           </tr>
+                        </c:forEach>
+                     </tbody>
+                  </table>
 					</div>
 				</section>
 			</c:if>
@@ -182,15 +182,23 @@
 							<colgroup>
 								<col class="col-2">
 								<col class="col-auto">
-								<col class="col-5">
 							</colgroup>
 							<thead style="background-color: rgb(224, 224, 224)">
 								<tr>
-									<th class="text-center">test2</th>
-									<th class="text-center">test2</th>
-									<th class="text-center">test2</th>
+									<th class="text-center">게시번호</th>
+									<th class="text-center">상품명</th>
+									<th class="text-center">판매자</th>
 								</tr>
 							</thead>
+							<tbody>
+								<c:forEach items="${likedData}" var="likedData">
+									<tr onclick="location.href='./sellitem/itemdetail?search=${likedData.sel_name}&itemid=${likedData.sel_id}'" style="cursor:pointer;" >
+										<th class="text-center">${likedData.sel_id}</th>
+										<th class="text-center">${likedData.sel_title}</th>
+										<th class="text-center">${likedData.sel_name}</th>
+									</tr>
+								</c:forEach>
+							</tbody>
 						</table>
 					</div>
 				</section>
@@ -210,10 +218,10 @@
 							<tbody>
 								<c:forEach items="${sellData}" var="sellData">
 									<tr>
-										<td class="text-center">${sellData.buy_number}<td>
-										<td class="text-center">${sellData.buy_buyer}<td>
-										<td class="text-center">${sellData.buy_buyday}<td>
-										<td class="text-center"><fmt:formatNumber type="number" maxFractionDigits="3" value="${sellData.buy_price}"/><td>
+										<td class="text-center">${sellData.buy_number}</td>
+										<td class="text-center">${sellData.buy_buyer}</td>
+										<td class="text-center">${sellData.buy_buyday}</td>
+										<td class="text-center"><fmt:formatNumber type="number" maxFractionDigits="3" value="${sellData.buy_price}"/></td>
 									</tr>
 								</c:forEach>
 							</tbody>	
@@ -227,13 +235,11 @@
 							<colgroup>
 								<col class="col-2">
 								<col class="col-auto">
-								<col class="col-5">
 							</colgroup>
 							<thead style="background-color: rgb(224, 224, 224)">
 								<tr>
-									<th class="text-center">test3</th>
-									<th class="text-center">test3</th>
-									<th class="text-center">test3</th>
+									<th class="text-center">test</th>
+									<th class="text-center">test</th>
 								</tr>
 							</thead>
 						</table>
@@ -241,27 +247,87 @@
 				</section>
 				<c:if test="${loginData.ac_index == 10}">
 				<section class="container4">
-					<div class="mt-5">
+				<p class="fw-bold fs-4 mt-5">다운로드 가능한 쿠폰</p>
+					<c:url var="downEvtCouUrl" value="/info/downEventCoupon" />
+					<c:if test="${empty downableCoupons}">
+						<p>다운로드 가능한 쿠폰이 없습니다.</p>
+					</c:if>	
+					<c:forEach items="${downableCoupons}" var="downableCoupons">
+						<div style="max-width:300px; display:inline-block; margin-right:50px;">
+							<form id="downCouponSubmit" action="${downEvtCouUrl}" method="post">
+							 	<input type="hidden" value="${downableCoupons.evtcou_name}" name="evtcouName">
+							 	<input type="hidden" value="${downableCoupons.evtcou_endDate}" name="evtcouEndDate">
+							 	<input type="hidden" value="${downableCoupons.evtcou_salePercent}" name="evtcouSalePercent">
+							 	<button style="border:none; background-color:transparent;" type="submit">
+									<img style="max-width:300px; display:flex;" src="./static/img/coupon.png">
+							 	</button>
+						 	</form>
+							<div style="margin-left: 80px;">
+								<span>${downableCoupons.evtcou_name}</span><br>
+								<span>쿠폰 유효기간 : ${downableCoupons.evtcou_endDate}</span>
+							</div>
+							<span style="position:relative; bottom:175px; margin-left:140px; cursor:default;
+							font-weight:bold; font-size:3rem;">${downableCoupons.evtcou_salePercent}%</span>
+						</div>
+					</c:forEach>
+				<p class="fw-bold fs-4">보유 쿠폰</p>
+					<div class="mt-3">
+						<div style="float:right;">
+							<button style="background-color:#F6CECE; border: none;" disabled>유효기간 만료</button>
+							<button style="background-color:#E9967A; border: none;" disabled>사용됨</button>
+						</div>
 						<table class="table table-hover">
-							<colgroup>
-								<col class="col-2">
-								<col class="col-auto">
-								<col class="col-5">
-							</colgroup>
 							<thead style="background-color: rgb(224, 224, 224)">
 								<tr>
-									<th class="text-center">test4</th>
-									<th class="text-center">test4</th>
-									<th class="text-center">test4</th>
+									<th class="text-center">쿠폰번호</th>
+									<th class="text-center">쿠폰명</th>
+									<th class="text-center">쿠폰 다운로드일</th>
+									<th class="text-center">쿠폰 마감일</th>
+									<th class="text-center">쿠폰 할인율</th>
 								</tr>
 							</thead>
+							<tbody>
+								<c:forEach items="${couponData}" var="couponData">
+									<c:if test="${couponData.coupon_used == null}">
+										<tr>
+											<td class="text-center">${couponData.coupon_number}</td>
+											<td class="text-center">${couponData.coupon_name}</td>
+											<td class="text-center">${couponData.coupon_startDate}</td>
+											<td class="text-center">${couponData.coupon_endDate}</td>
+											<td class="text-center">${couponData.coupon_salePercent}%</td>
+										</tr>
+									</c:if>
+								</c:forEach>
+								<c:forEach items="${couponData}" var="couponData"> 	
+									<c:if test="${couponData.coupon_used == 'F'}">
+										<tr style="background-color:#F6CECE ">
+											<td class="text-center">${couponData.coupon_number}</td>
+											<td class="text-center">${couponData.coupon_name}</td>
+											<td class="text-center">${couponData.coupon_startDate}</td>
+											<td class="text-center">${couponData.coupon_endDate}</td>
+											<td class="text-center">${couponData.coupon_salePercent}%</td>
+										</tr>
+									</c:if>
+								</c:forEach>
+								<c:forEach items="${couponData}" var="couponData">	
+									<c:if test="${couponData.coupon_used == 'Y'}">
+										<tr style="background-color:#E9967A ">
+											<td class="text-center">${couponData.coupon_number}</td>
+											<td class="text-center">${couponData.coupon_name}</td>
+											<td class="text-center">${couponData.coupon_startDate}</td>
+											<td class="text-center">${couponData.coupon_endDate}</td>
+											<td class="text-center">${couponData.coupon_salePercent}%</td>
+										</tr>
+									</c:if>
+								</c:forEach>
+							</tbody>
 						</table>
 					</div>
 				</section>
 				</c:if>
 		</div>
 	</section>
-	
+	<%@ include file="../module/footer.jsp" %>
 	<script type="text/javascript">
 		// radio active 버튼
 		$('.radio-value').on('click', function() {
@@ -290,6 +356,17 @@
 				$('.container3').css("display", "none");
 				$('.container4').css("display", "block");
 			}
+		});
+		
+		$('#downCouponSubmit').on('submit', function(e) {
+			e.preventDefault();
+			swal('쿠폰 다운로드 완료!', "보유 쿠폰목록에서 확인하세요.", 'success');
+			setTimeout(function () {
+			}, 1500);
+			setTimeout(function () {
+				$('#downCouponSubmit').unbind();
+				$('#downCouponSubmit').submit();
+			}, 1500);
 		});
 	</script>
 </body>

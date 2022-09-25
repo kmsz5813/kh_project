@@ -152,7 +152,7 @@
 			</form>
 		</div>
 		</section>
-	
+		<%@ include file="../module/footer.jsp" %>
 		<script type="text/javascript">
 				
 			

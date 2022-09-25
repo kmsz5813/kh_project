@@ -23,11 +23,8 @@
 
 	<insert id="insertData" parameterType="selItemDto" useGeneratedKeys="true"
         keyProperty="sel_id" keyColumn="SEL_ID">
-	
-		INSERT INTO SEL_ITEM(SEL_ID, SEL_NAME, SEL_FIELD, SEL_LOCATION, SEL_TITLE, SEL_CONTENT) 
-		VALUES (SEL_ITEM_SEQ.NEXTVAL, #{sel_name}, #{sel_field}, #{sel_location}, #{sel_title}, #{sel_content})
-	
-	
+		INSERT INTO SEL_ITEM(SEL_ID, SEL_NAME, SEL_FIELD, SEL_LOCATION, SEL_TITLE, SEL_CONTENT, SEL_PRICE) 
+		VALUES (SEL_ITEM_SEQ.NEXTVAL, #{sel_name}, #{sel_field}, #{sel_location}, #{sel_title}, #{sel_content}, #{sel_price})
 	</insert>
 
 	<select id="searchData" resultType="selItemDto">
@@ -48,6 +45,11 @@
 		UPDATE SEL_ITEM SET SEL_NUMBER = SEL_NUMBER + 1
 		 WHERE SEL_ID = #{itemid}
 	</update>
+	
+	<select id="getThumbnail" resultType="fileUploadDto">
+		SELECT * FROM FILE_UPLOAD
+		 WHERE FILE_BID = #{i}
+	</select>
 
 	<update id="updateData">
 		UPDATE SEL_ITEM SET SEL_FIELD = #{sel_field} , SEL_TITLE = #{sel_title} ,
@@ -59,6 +61,41 @@
 		UPDATE SEL_ITEM SET SEL_VIEW = SEL_VIEW + 1
 		 WHERE SEL_ID = #{sel_id}
 	</update>
+	
+
+	<insert id="addReview" parameterType="reviewDto">
+		INSERT INTO REVIEW (REVIEW_NUMBER, REVIEW_ITEMNUMBER, REVIEW_STARCOUNT, REVIEW_WRITER, REVIEW_CONTENT)
+		VALUES (REVIEW_SEQ.NEXTVAL, #{review_itemNumber}, #{review_starCount}, #{review_writer}, #{review_content})
+	</insert>
+	
+	<select id="getReviews" resultType="reviewDto">
+		SELECT * FROM REVIEW
+		 WHERE REVIEW_ITEMNUMBER = #{itemid}
+	</select>
+	
+	<select id="getReviewCount" parameterType="int" resultType="int">
+		SELECT SEL_REVIEWCOUNT
+		  FROM SEL_ITEM
+		 WHERE SEL_ID = #{itemid}
+	</select>
+	
+	<select id="getStarScore" resultType="int" parameterType="int">
+		SELECT SUM(REVIEW_STARCOUNT)
+		  FROM REVIEW
+		 WHERE REVIEW_ITEMNUMBER = #{parseInt}
+	</select>
+	
+	<update id="addReviewCount" parameterType="int">
+		UPDATE SEL_ITEM
+		   SET SEL_REVIEWCOUNT = SEL_REVIEWCOUNT + 1
+		 WHERE SEL_ID = #{i}  
+	</update>
+	
+	<update id="addReviewStar" parameterType="reviewDetailVo">
+		UPDATE SEL_ITEM
+		   SET SEL_STARSCORE = #{star}
+		 WHERE SEL_ID = #{sel_id}
+	</update>  
 	
 	<select id="selectStatics" resultType="SelItemStaticsDto">
 		SELECT * FROM SEL_ITEM_STATICS WHERE AC_NAME = #{ac_name} AND SEL_ID = #{sel_id}
@@ -88,8 +125,23 @@
 		   SET "SEL_LIKE" = #{sel_like}
 		 WHERE SEL_ID = #{sel_id}
 	</update>
+	
+	<select id="getTitle" resultType="string">
+		SELECT SEL_TITLE
+		  FROM SEL_ITEM
+		  NATURAL JOIN SEL_ITEM_STATICS
+		 WHERE SEL_ID = #{sel_id} AND LIKED = 'Y'
+	</select>
+
 
 	<delete id="deleteData">
 		DELETE FROM SEL_ITEM WHERE SEL_ID = {id} 
 	</delete>
+
+	<select id="getSeller" resultType="string">
+		SELECT SEL_NAME
+		  FROM SEL_ITEM
+		 WHERE SEL_ID = #{sel_id}
+	</select>
+
 </mapper>
