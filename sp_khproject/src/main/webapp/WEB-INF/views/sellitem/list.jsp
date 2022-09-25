@@ -131,7 +131,7 @@
 			    <h5 class="card-title" style="font-weight:bold; text-align:center">${data.sel_title}</h5>
 			    <h4 style="text-align:right">${data.sel_name}</h4>
 			    <h4 class="price" style="text-align:right">&#8361; <fmt:formatNumber type="number" maxFractionDigits="3" value="${data.sel_price}"/></h4>
-			    <h4>조회수 : ${data.sel_reviewCount}</h4>
+			    <h4>리뷰등록횟수 : ${data.sel_reviewCount}</h4>
 			    <h4>별점 : ${data.sel_starScore}</h4>
 			  </div>
 			</div>
