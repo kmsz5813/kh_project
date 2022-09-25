@@ -29,8 +29,12 @@ public class QuestionCommentController {
 			, @SessionAttribute("loginData") AccountsDTO acDto
 			, @ModelAttribute QuestionCommentDTO questionCommentDTO) {
 		QuestionCommentDTO data = new QuestionCommentDTO();
-		data.setComment_bId(questionCommentDTO.getComment_bId());
-		data.setComment_Content(questionCommentDTO.getComment_Content());
+		String content = request.getParameter("content");
+		int bid = Integer.parseInt(request.getParameter("bid"));
+		System.out.println(content);
+		System.out.println(bid);
+		data.setComment_bId(bid);
+		data.setComment_Content(content);
 		data.setUser_Name(acDto.getAc_name());
 		
 		int id = service.add(data);
@@ -39,7 +43,7 @@ public class QuestionCommentController {
 			return "redirect:/community/question/detail?id=" + data.getComment_bId();
 		} else {
 			request.setAttribute("error", "댓글 저장 실패!");
-			return "redirect:/community/question/detail?id=" + data.getComment_bId();
+			return "/community/question/detail?id=" + id;
 		}
 	
 	}

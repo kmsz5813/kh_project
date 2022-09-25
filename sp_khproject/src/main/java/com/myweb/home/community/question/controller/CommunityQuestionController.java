@@ -22,6 +22,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.myweb.home.Accounts.model.AccountsDTO;
 import com.myweb.home.common.util.Paging;
+import com.myweb.home.community.question.comment.model.QuestionCommentDTO;
+import com.myweb.home.community.question.comment.service.QuestionCommentService;
 import com.myweb.home.community.question.model.CommunityQuestionDTO;
 import com.myweb.home.community.question.service.CommunityQuestionService;
 import com.myweb.home.community.question.vo.CommunityQuestionVO;
@@ -36,6 +38,9 @@ public class CommunityQuestionController {
 	
 	@Autowired
 	private CommunityQuestionService service;
+	
+	@Autowired
+	private QuestionCommentService commentService;
 	
 //	@Autowired
 //	private FileUploadService fileUploadService;
@@ -73,9 +78,14 @@ public class CommunityQuestionController {
 		CommunityQuestionDTO data = service.getData(id);
 //		List<FileUploadDTO> fileDatas = fileUploadService.getDatas(id);
 		
+		//id값이 만든 페이지 번호 
+		List<QuestionCommentDTO> datas = commentService.getDatas(id);
+		
+		System.out.println(datas);
 		if(data != null) {
 			service.incViewCnt(session, data);
 			model.addAttribute("data", data);
+			model.addAttribute("datas", datas);
 //			model.addAttribute("fileDatas", fileDatas);
 			return "community/question/detail";
 		} else {

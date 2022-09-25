@@ -15,9 +15,16 @@ public class QuestionCommentDAO {
 	
 	private String mapper = "questionCommentMapper.%s";
 	
+	public int getNextSeq() {
+		String mapperId = String.format(mapper, "getNextSeq");
+		int seq = session.selectOne(mapperId);
+		return seq;
+	}
+	
 	public boolean insertData(QuestionCommentDTO data) {
 		String mapperId = String.format(mapper, "insertData");
-		int res = session.insert(mapperId, data);
+		System.out.println("insertData: " + data);
+		int res = session.insert(mapperId, data); 
 		return res == 1 ? true : false;
 	}
 	

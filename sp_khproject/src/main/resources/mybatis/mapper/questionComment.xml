@@ -8,23 +8,13 @@
 	<insert id="insertData" parameterType="questionCommentDto">
 		INSERT INTO QUESTION_COMMENT(COMMENT_ID, COMMENT_BID, USER_NAME, COMMENT_CONTENT, COMMENT_DELETED)
 			                  VALUES(QUESTION_COMMENT_SEQ.NEXTVAL
-			      , #{comment_bId}, #{user_Name}, #{comment_Content}
-			      , 'N')
+			                  , #{comment_bId}, #{user_Name}, #{comment_Content}, 'N')
 	</insert>
+	
 	<select id="selectDatas" resultType="questionCommentDto">
-		SELECT Q.COMMENT_ID
-		     , Q.COMMENT_BID
-		     , USER_NAME
-		     , Q.COMMENT_CONTENT
-		     , Q.COMMENT_DATE
-		     , Q.COMMENT_DELETED
-		     , Q.COMMENT_LIKE
-		  FROM QUESTION_COMMENT Q
-		  JOIN ACCOUNTS A
-		    ON Q.USER_NAME = A.AC_NAME
-		 WHERE Q.COMMENT_BID = #{comment_bId}
-		 ORDER BY Q.COMMENT_ID
+	  SELECT * FROM QUESTION_COMMENT WHERE COMMENT_BID = #{id}
 	</select>
+	
 	<select id="selectData" resultType="questionCommentDto">
 		SELECT Q.COMMENT_ID
 		     , Q.COMMENT_BID
