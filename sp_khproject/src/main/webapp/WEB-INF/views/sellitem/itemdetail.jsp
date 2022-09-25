@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>       
 <!DOCTYPE html>
 <html>
 <head>
@@ -85,7 +88,7 @@
 			<div class="mt-5">
 				<div class="row mb-5 center">
 					<div class="col-10 mb-3">
-						<p class="fw-bold fs-2">판매정보</p>
+						<p class="fw-bold fs-3">${itemdata.sel_title}</p>
 					</div>
 				</div>
 				<div class="row mt-3">
@@ -94,48 +97,41 @@
 						src="../static/img/profile/${data.ac_email}.png" 
 						onerror="this.onerror=null; this.src='../static/img/profile/basic.png'">
 					</div>
-					<div class="col-4 mt-4">
-						<p>이름</p>
-						<p>직업</p>
-						<p>전문분야</p>
+					<div class="col-3 mt-4">
+						<p>${data.ac_email}</p>						
+						<p>${data.ac_name}</p>
+						<p>${data.ac_job}</p>
+						<p>${data.ac_field}</p>
 					</div>
-					<div class="col-4 mt-4">
-						<p>${data.ac_name }</p>
-						<p>${data.ac_job }</p>
-						<p>${data.ac_field }</p>
+					<div class="col-3 mt-4">
+						<p>&emsp;<fmt:formatNumber type="number" maxFractionDigits="3" value="${itemdata.sel_price}"/> 원</p>
+						<p>&emsp;${itemdata.sel_like}&emsp;<img style="width:20px; position:relative; bottom:2px;" src="${pageContext.request.contextPath}/static/img/heart.png"></p>
+						<p>&emsp;${itemdata.sel_view} views</p>
+						<p>&emsp;${itemdata.sel_starScore}&emsp;<img style="width:20px; position:relative; bottom:2px;" src="${pageContext.request.contextPath}/static/img/star.png"></p>
+					</div>
+					<div class="col-3">
+						<c:if test="${empty thumbnail.uuidName }">
+							<img style="max-width:200px; border-radius:10%" src="${pageContext.request.contextPath}/static/img/profile/logo.png" style="max-width:250px; border-radius:5%;">
+						</c:if>
+						<c:if test="${not empty thumbnail.uuidName }">
+							<img style="max-width:200px; border-radius:10%" src="/home/${thumbnail.url}/${thumbnail.uuidName}">
+						</c:if>
 					</div>
 					<div class="mt-5">
-						<button type="button" onclick="location.href='${pageContext.request.contextPath}/chatting?itemid=${itemdata.sel_id}&buyer=${loginData.ac_name}&seller=${itemdata.sel_name}'"
-						class="btn btn-outline-success">메시지 보내기</button>
 						<c:if test="${loginData.ac_index == 10}">
+							<button type="button" onclick="location.href='${pageContext.request.contextPath}/chatting?itemid=${itemdata.sel_id}&buyer=${loginData.ac_name}&seller=${itemdata.sel_name}'"
+							class="btn btn-outline-success">메시지 보내기</button>
 							<button style="margin-left:20px;" type="button" 
 							onclick="location.href='${pageContext.request.contextPath}/purchase?itemid=${itemdata.sel_id}'" 
 							class="btn btn-outline-success">구매하기</button>
 						</c:if>
 						<c:if test="${data.ac_name == loginData.ac_name}">
-							<div class="mt-5">
-								<button type="button" class="btn btn-outline-success" onclick="location.href='modify?id=${itemdata.sel_id}'">수정</button>
-								<button type="button" class="btn btn-outline-success" style="margin-left:0.5">삭제</button>
-							</div>
+							<button type="button" class="btn btn-outline-success" onclick="location.href='modify?id=${itemdata.sel_id}'">수정</button>
+							<button type="button" class="btn btn-outline-success" style="margin-left:0.5">삭제</button>
 						</c:if>
-					</div>
-					<div class="mt-5" style="background-color: rgb(241, 241, 241); height:10rem;">
-						<table class="table table-borderless">
-							<thead>
-							  <tr>
-							      <th class="col-4" style="text-align: center;">고용</th>
-							      <th class="col-4" style="text-align: center;">리뷰</th>
-							      <th class="col-auto" style="text-align: center;">경력</th>						      
-							  </tr>
-							</thead>
-							<tbody class="mt-5">
-							    <tr class="mt-5">
-							      <td style="text-align: center;">nn회</td>
-							      <td style="text-align: center;">리뷰~</td>
-							      <td style="text-align: center;">n년</td>
-							    </tr>
-							 </tbody>
-						</table>
+						<a href="#moveToReview" id="scroll_move"><button id="moveToReview" type="button" style="margin-left:20px;" class="btn btn-outline-secondary">리뷰(${reviewCount})</button></a>
+						<button type="button" style="width:50px; margin-left:20px;" class="btn btn-outline-danger"onclick="ajaxLike(${itemdata.sel_id});">
+						<img style="width:20px; position:relative; bottom:2px;" src="${pageContext.request.contextPath}/static/img/heart.png"></button>
 					</div>
 				</div>
 			</div>
@@ -144,13 +140,14 @@
 			<div>${itemdata.sel_content}</div>
 
 			
-			<p class="fw-bold fs-4 mt-5 mb-5">리뷰(${reviewCount})</p>
-			<c:forEach items="${reviews}" var="reviews">
-				<p>${reviews.review_starCount}</p>
-				<p>${reviews.review_writeDay}</p>
-				<p>${reviews.review_writer}</p>
-				<p>${reviews.review_content}</p>
-			</c:forEach>
+			<p id="moveToReview" class="fw-bold fs-4 mt-5 mb-3">리뷰(${reviewCount})</p>
+			<div style=" background-color:#EAF3F7; border-radius:5%; padding:30px;">
+				<c:forEach items="${reviews}" var="reviews">
+					<p><img src="${pageContext.request.contextPath}/static/img/star.png" style="position:relative; bottom:2px;">
+					${reviews.review_starCount}&emsp;${reviews.review_writer}&emsp;${reviews.review_writeDay}</p>
+					<p style="margin-bottom: 30px;">${reviews.review_content}</p>
+				</c:forEach>
+			</div>
 			
 				
 				<c:if test="${loginData.ac_index == 10}">
@@ -264,14 +261,17 @@
 				},
 				success: function(data) {
 					if(data.code === "success"){
-						alert("성공");
+						swal('관심 상품에 추가되었습니다!', "", 'success');
 					}else if(data.code === "default"){
 						alert("실패");
-						
 					}
-					
 				}
 			});
 		}
+		
+		$('scroll_move').click(function(e) {
+			e.preventDefault();
+			$('html,body').animate({scrollTop:$(this.hash).offset().top}, 500);	// 500은 스크롤속도
+		})
 	</script>
 </html>

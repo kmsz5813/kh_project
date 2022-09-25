@@ -75,11 +75,15 @@
 	          <ul class="dropdown-menu" >
 	          	<li><a class="dropdown-item" href="${pageContext.request.contextPath}/sellitem">전체보기</a></li>
 	          	<li><hr class="dropdown-divider"></li>
-	            <li><a class="dropdown-item" href="/selItem?pageCount=1">IT</a></li>
-	            <li><a class="dropdown-item" href="#">카테고리2</a></li>
-	            <li><hr class="dropdown-divider"></li>
-	            <li><a class="dropdown-item" href="#">카테고리3</a></li>
-	            <li><a class="dropdown-item" href="#">카테고리4</a></li>
+	            <li><a class="dropdown-item" href="${pageContext.request.contextPath}/sellitem?select=IT.프로그래밍">IT.프로그래밍</a></li>
+	            <li><a class="dropdown-item" href="${pageContext.request.contextPath}/sellitem?select=디자인">디자인</a></li>
+	            <li><a class="dropdown-item" href="${pageContext.request.contextPath}/sellitem?select=비즈니스">비즈니스</a></li>
+	            <li><a class="dropdown-item" href="${pageContext.request.contextPath}/sellitem?select=마케팅">마케팅</a></li>
+	            <li><a class="dropdown-item" href="${pageContext.request.contextPath}/sellitem?select=번역.통역">번역.통역</a></li>
+	            <li><a class="dropdown-item" href="${pageContext.request.contextPath}/sellitem?select=문서, 글쓰기">문서, 글쓰기</a></li>
+	            <li><a class="dropdown-item" href="${pageContext.request.contextPath}/sellitem?select=주문 제작">주문 제작</a></li>
+	            <li><a class="dropdown-item" href="${pageContext.request.contextPath}/sellitem?select=세무.법무">세무.법무</a></li>
+	            <li><a class="dropdown-item" href="${pageContext.request.contextPath}/sellitem?select=기타">기타</a></li>
 	          </ul>
 	        </li>
 	        <li class="nav-item">

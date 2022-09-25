@@ -234,6 +234,9 @@ public class SelItemController {
 		List<ReviewDTO> reviews = service.getReviews(itemid);
 		int reviewCount = service.getReviewCount(itemid);
 		
+		FileUploadDTO thumbnail = service.getThumbnail(itemdata.getSel_id());
+		request.setAttribute("thumbnail", thumbnail);
+		
 		request.setAttribute("reviews", reviews);
 		request.setAttribute("reviewCount", reviewCount);
 		request.setAttribute("data", data);
