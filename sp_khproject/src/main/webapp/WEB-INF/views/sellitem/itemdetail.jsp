@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -76,10 +79,11 @@
 					</div>
 				</div>
 			</div>
+			<c:url var="selitemdetailUrl" value="/selitem/detail" />
 			<c:if test="${data.ac_name == loginData.ac_name}">
 				<div>
 					<button type="button">수정</button>
-					<button type="button">삭제</button>
+					<button class="btn btn-danger" type="button" data-bs-toggle="modal" data-bs-target="removeModal">삭제</button>
 				</div>
 			</c:if>
 	
@@ -105,7 +109,25 @@
 						 </tbody>
 					</table>
 				</div>
-			
+				
+		<div class="modal fade" id="removeModal" tabindex="-1" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h6 class="modal-title">삭제 확인</h6>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					</div>
+					<div class="modal-body">
+						해당 데이터를 삭제하겠습니까?
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-sm btn-danger" data-bs-dismiss="modal" onclick="deleteitemdetail(${data})">확인</button>
+					</div>
+				</div>
+			</div>
+		</div>
+				
+				
 		</section>
 		</c:if>
 	</body>

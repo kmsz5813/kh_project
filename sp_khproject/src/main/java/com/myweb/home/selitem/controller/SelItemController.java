@@ -55,10 +55,16 @@ public class SelItemController {
 	private FileUploadService fileUploadService;
 	
 	@Autowired
-	private FileUploadService fileUploadService;
-	
-	@Autowired
 	private LoginService loginService;
+	
+	@GetMapping(value="/additem")
+	public String additem(Model model
+			, @SessionAttribute("loginData") AccountsDTO acData) {
+			System.out.println(acData);
+			System.out.println(acData.getAc_name());
+
+			return "/sellitem/additem";
+		}
 	
 //	@Autowired
 //	private FileUploadService fileUploadService;
@@ -171,14 +177,14 @@ public class SelItemController {
 
 	@GetMapping(value="/itemdetail")
 	   public String detail(Model model, HttpServletRequest request
-	         , @SessionAttribute("loginData") AccountsDTO acData) {
+	         ) {
 	      // 판매자 닉네임 가져오기
 
 	      String name = request.getParameter("search");
 
-	      String name1 = request.getParameter("minsung");
+
 	      System.out.println(name);
-	      System.out.println(name1);
+
 	      AccountsDTO data = loginService.nameCheck(name);
 	      //아이템 번호도 가져와야됨
 	      int itemid = Integer.parseInt(request.getParameter("itemid"));
@@ -190,7 +196,6 @@ public class SelItemController {
 
 	      request.setAttribute("data", data);
 	      request.setAttribute("itemdata", itemdata);
-	      request.setAttribute("loginData", acData);
 	      return "sellitem/itemdetail";
 	   }
 
