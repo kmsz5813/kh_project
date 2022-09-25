@@ -9,8 +9,13 @@
 		INSERT INTO LIFE_COMMENT(COMMENT_ID, COMMENT_BID, USER_NAME, COMMENT_CONTENT, COMMENT_DELETED)
 			 VALUES(LIFE_COMMENT_SEQ.NEXTVAL
 			      , #{comment_bId}, #{user_Name}, #{comment_Content}
-			      , 'N', 'N')
+			      , 'N')
 	</insert>
+	
+	<select id="selectDatas" resultType="lifeCommentDto">
+	  SELECT * FROM LIFE_COMMENT WHERE COMMENT_BID = #{id}
+	</select>
+	<!-- 
 	<select id="selectDatas" resultType="lifeCommentDto">
 		SELECT L.COMMENT_ID
 		     , L.COMMENT_BID
@@ -25,6 +30,7 @@
 		 WHERE L.COMMENT_BID = #{comment_bId}
 		 ORDER BY L.COMMENT_ID
 	</select>
+	 -->
 	<select id="selectData" resultType="lifeCommentDto">
 		SELECT L.COMMENT_ID
 		     , L.COMMENT_BID

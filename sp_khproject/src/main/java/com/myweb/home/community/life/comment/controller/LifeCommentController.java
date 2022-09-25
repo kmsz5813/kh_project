@@ -30,8 +30,10 @@ public class LifeCommentController {
 			, @SessionAttribute("loginData") AccountsDTO acDto
 			, @ModelAttribute LifeCommentDTO lifeCommentDTO) {
 		LifeCommentDTO data = new LifeCommentDTO();
-		data.setComment_bId(lifeCommentDTO.getComment_bId());
-		data.setComment_Content(lifeCommentDTO.getComment_Content());
+		String content = request.getParameter("content");
+		int bid = Integer.parseInt(request.getParameter("bid"));
+		data.setComment_bId(bid);
+		data.setComment_Content(content);
 		data.setUser_Name(acDto.getAc_name());
 		
 		int id = service.add(data);
@@ -40,7 +42,7 @@ public class LifeCommentController {
 			return "redirect:/community/life/detail?id=" + data.getComment_bId();
 		} else {
 			request.setAttribute("error", "댓글 저장 실패!");
-			return "redirect:/community/life/detail?id=" + data.getComment_bId();
+			return "redirect:/community/life/detail?id=" + id;
 		}
 	
 	}

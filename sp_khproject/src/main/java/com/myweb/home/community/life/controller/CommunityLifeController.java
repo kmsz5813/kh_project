@@ -22,6 +22,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.myweb.home.Accounts.model.AccountsDTO;
 import com.myweb.home.common.util.Paging;
+import com.myweb.home.community.life.comment.model.LifeCommentDTO;
+import com.myweb.home.community.life.comment.service.LifeCommentService;
 import com.myweb.home.community.life.model.CommunityLifeDTO;
 import com.myweb.home.community.life.service.CommunityLifeService;
 import com.myweb.home.community.life.vo.CommunityLifeVO;
@@ -36,6 +38,9 @@ public class CommunityLifeController {
 	
 	@Autowired
 	private CommunityLifeService service;
+	
+	@Autowired
+	private LifeCommentService commentService;
 	
 	@RequestMapping(value="/list", method=RequestMethod.GET)
 	public String getList(Model model, HttpSession session
@@ -64,9 +69,13 @@ public class CommunityLifeController {
 			, @RequestParam int id) {
 		CommunityLifeDTO data = service.getData(id);
 		
+		//id값이 만든 페이지 번호 
+		List<LifeCommentDTO> datas = commentService.getDatas(id);
+		
 		if(data != null) {
 			service.incViewCnt(session, data);
 			model.addAttribute("data", data);
+			model.addAttribute("datas", datas);
 			return "community/life/detail";
 		} else {
 			model.addAttribute("error", "해당 데이터가 존재하지 않습니다.");
