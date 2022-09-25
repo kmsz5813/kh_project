@@ -269,50 +269,7 @@ feed-item .feed-content {
 </script>
 <body>
 	<div id="jb-container">
-		<header>
-			<!-- 로그인/회원가입/FAQ -->
-			<div id="jb-header"
-				style="text-align: right; margin-right: -30px; position: relative; top: 20px;">
-				<c:if test="${empty loginData }">
-					<a href="${pageContext.request.contextPath}/login">로그인</a>&emsp;/&emsp; 
-			<a href="${pageContext.request.contextPath}/login/sign">회원가입</a>
-					&emsp;&emsp;
-				</c:if>
-				<c:if test="${not empty loginData }">
-			${loginData.ac_name }님 환영합니다!&emsp;/&emsp;
-			<a href="${pageContext.request.contextPath}/main/logout">로그아웃&emsp;/&emsp;</a>
-					<a href="${pageContext.request.contextPath}/info">마이페이지&emsp;&emsp;</a>
-				</c:if>
-			</div>
-			<div style="text-align: center;">
-				<a href="#" style="display: table; margin-top: -100px;"> <img
-					src="../../static/img/logo.png"
-					style="width: 300px; margin-bottom: -100px;" class="d-inline-block">
-				</a>
-			</div>
-			<nav class="navbar navbar-expand-md navbar-light"
-				style="margin-left: 1000px; position: relative;">
-				<div class="container">
-					<button class="navbar-toggler" type="button"
-						data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-						aria-controls="navbarSupportedContent" aria-expanded="false"
-						aria-label="Toggle navigation">
-						<span class="navbar-toggler-icon"></span>
-					</button>
-					<div class="collapse navbar-collapse" id="navbarSupportedContent">
-						<form class="d-flex">
-							<input class="form-control me-4" type="search"
-								placeholder="어떤 서비스가 필요하세요?" aria-label="Search"
-								style="min-width: 300px;">
-							<button class="btn btn-outline-success" type="submit"
-								style="width: 100px" id="button">검색</button>
-						</form>
-					</div>
-				</div>
-			</nav>
-		</header>
-
-
+		<%@ include file="../../module/head.jsp" %>
 		<div class="container-xl">
 			<div class="row">
 				<div class="col-md-12" style="position: relative; top: 100px;">
@@ -322,11 +279,7 @@ feed-item .feed-content {
 				</div>
 			</div>
 		</div>
-		<script type="text/javascript">
-			$('.carousel').carousel()
-		</script>
-		<nav class="navbar navbar-expand-md navbar-light"
-			style="margin-left: 1273px; position: relative; top: 50px;">
+		
 			<div class="container">
 				<button class="navbar-toggler" type="button"
 					data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
@@ -335,10 +288,7 @@ feed-item .feed-content {
 					<span class="navbar-toggler-icon"></span>
 				</button>
 			</div>
-		</nav>
-		<script type="text/javascript">
-			$('.carousel').carousel()
-		</script>
+
 		<!-- 커뮤니티 메뉴 -->
 		<aside id="jb-sidebar">
 			<div>
@@ -377,7 +327,7 @@ feed-item .feed-content {
 				</a>
 			</div>
 			<div>
-				<a href="${pageContext.request.contextPath}/community/notice"
+				<a href="${pageContext.request.contextPath}/community/notice/list"
 					style="position: relative; top: 420px; left: 60px;">
 					<button type="button" class="btn btn-outline-success"
 						style="width: 130px; height: 50px;">공지사항</button>
@@ -389,7 +339,7 @@ feed-item .feed-content {
 			<div id="jb-content-head">
 
 				<!-- 커뮤니티 키워드 검색 -->
-				<nav class="navbar navbar-expand-md navbar-light">
+				
 					<div class="container"
 						style="position: relative; top: 40px; left: 5px;">
 						<button class="navbar-toggler" type="button"
@@ -401,7 +351,6 @@ feed-item .feed-content {
 						</button>
 
 					</div>
-				</nav>
 				<!-- 커뮤니티 메인 새글 -->
 				<article>
 					<div id="jb-content">

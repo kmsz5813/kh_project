@@ -140,44 +140,14 @@ li {
 
 @media ( max-width : 991.98px) .feed-item[data-v-05dbd958] {
 	padding
-	
-	
-	
-	
-		
-	
-	
-	
-	
-	:
-	
-	
-	
-	
 	 
-	
-	
-	
-	
+	:
 	1
-	
-	
-	
-	
-	
-	
-	
-	
+	 
 	.25rem
-	
-	
-	
-	
-	
-	
-	
-	
 	;
+	
+
 }
 
 .feed-list {
@@ -232,51 +202,7 @@ feed-item .feed-content {
 
 <body>
 	<div id="jb-container">
-		<header>
-			<!-- 로그인/회원가입/FAQ -->
-			<div id="jb-header"
-				style="text-align: right; margin-right: -30px; position: relative; top: 20px;">
-				<c:if test="${empty loginData }">
-					<a href="${pageContext.request.contextPath}/login">로그인</a>&emsp;/&emsp; 
-			<a href="${pageContext.request.contextPath}/login/sign">회원가입</a>
-					&emsp;&emsp;
-				</c:if>
-				<c:if test="${not empty loginData }">
-			${loginData.ac_name }님 환영합니다!&emsp;/&emsp;
-			<a href="${pageContext.request.contextPath}/main/logout">로그아웃&emsp;/&emsp;</a>
-					<a href="${pageContext.request.contextPath}/info">마이페이지&emsp;&emsp;</a>
-				</c:if>
-			</div>
-
-
-
-			<div style="text-align: center;">
-				<a href="#" style="display: table; margin-top: -100px;"> <img
-					src="../static/img/logo.png"
-					style="width: 300px; margin-bottom: -100px;" class="d-inline-block">
-				</a>
-			</div>
-			<nav class="navbar navbar-expand-md navbar-light"
-				style="margin-left: 1000px; position: relative;">
-				<div class="container">
-					<button class="navbar-toggler" type="button"
-						data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-						aria-controls="navbarSupportedContent" aria-expanded="false"
-						aria-label="Toggle navigation">
-						<span class="navbar-toggler-icon"></span>
-					</button>
-					<div class="collapse navbar-collapse" id="navbarSupportedContent">
-						<form class="d-flex">
-							<input class="form-control me-4" type="search"
-								placeholder="어떤 서비스가 필요하세요?" aria-label="Search"
-								style="min-width: 300px;">
-							<button class="btn btn-outline-success" type="submit"
-								style="width: 100px" id="button">검색</button>
-						</form>
-					</div>
-				</div>
-			</nav>
-		</header>
+		<%@ include file="../module/head.jsp"%>
 
 		<div class="container-xl">
 			<div class="row">
@@ -287,25 +213,6 @@ feed-item .feed-content {
 				</div>
 			</div>
 		</div>
-
-		<script type="text/javascript">
-			$('.carousel').carousel()
-		</script>
-		<nav class="navbar navbar-expand-md navbar-light"
-			style="margin-left: 1273px; position: relative; top: 50px;">
-			<div class="container">
-				<button class="navbar-toggler" type="button"
-					data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-					aria-controls="navbarSupportedContent" aria-expanded="false"
-					aria-label="Toggle navigation">
-					<span class="navbar-toggler-icon"></span>
-				</button>
-			</div>
-		</nav>
-
-		<script type="text/javascript">
-			$('.carousel').carousel()
-		</script>
 
 		<!-- 커뮤니티 메뉴 -->
 		<aside id="jb-sidebar">
@@ -345,7 +252,7 @@ feed-item .feed-content {
 				</a>
 			</div>
 			<div>
-				<a href="${pageContext.request.contextPath}/community/notice"
+				<a href="${pageContext.request.contextPath}/community/notice/list"
 					style="position: relative; top: 420px; left: 60px;">
 					<button type="button" class="btn btn-outline-success"
 						style="width: 130px; height: 50px;">공지사항</button>
@@ -358,73 +265,64 @@ feed-item .feed-content {
 			<div id="jb-content-head">
 
 				<!-- 커뮤니티 키워드 검색 -->
-				<nav class="navbar navbar-expand-md navbar-light">
-					<div class="container"
-						style="position: relative; top: 40px; left: 40px;">
-						<button class="navbar-toggler" type="button"
-							data-bs-toggle="collapse"
-							data-bs-target="#navbarSupportedContent"
-							aria-controls="navbarSupportedContent" aria-expanded="false"
-							aria-label="Toggle navigation">
-							<span class="navbar-toggler-icon"></span>
-						</button>
-						<div class="collapse navbar-collapse" id="navbarSupportedContent">
-							<form class="d-flex">
-								<input class="form-control me-4" type="search"
-									placeholder="키워드를 입력해주세요!" aria-label="Search"
-									style="min-width: 725px;">
-								<div class="col-3">
-									<div class="input-group">
-										<button class="btn btn-secondary" type="submit">조회</button>
-									</div>
-								</div>
-							</form>
-
+				<div>
+					<form class="d-flex"
+						style="position: relative; top: 80px; left: 50px;">
+						<input class="form-control me-4" type="search"
+							placeholder="키워드를 입력해주세요!" aria-label="Search"
+							style="min-width: 725px;">
+						<div class="col-3">
+							<div class="input-group">
+								<button class="btn btn-secondary" type="submit">조회</button>
+							</div>
 						</div>
-					</div>
-				</nav>
+					</form>
+
+				</div>
 
 				<!-- 커뮤니티 HOT -->
-				<div
-					style="font-weight: bold; font-size: 20px; position: relative; top: 70px; left: 50px;">
-					<h2>커뮤니티 HOT🔥</h2>
-				</div>
-				<div>
-					<a href="${pageContext.request.contextPath}/community/notice"
-						data-testid="curation-item" tabIndex="-1"
-						style="width: 100%; display: block;"> <span
-						style="position: relative; top: 120px; left: 50px;">
-							<button type="button" class="btn btn-outline-success"
-								style="width: 200px; height: 200px;">
-								<p style="font-weight: bold; font-size: 25px;">공지사항</p>
-								<h3 style="font-weight: bold; font-size: 15px;">커뮤니티 사용법✏️</h3>
-							</button>
-					</span>
-					</a>
-				</div>
-				<div>
-					<a href="#" data-testid="curation-item" tabIndex="-1"
-						style="width: 100%; display: inline-block;"> <span
-						style="position: relative; top: -80px; left: 350px;">
-							<button type="button" class="btn btn-outline-success"
-								style="width: 200px; height: 200px;">
-								<p style="font-weight: bold; font-size: 25px;">궁금해요</p>
-								<h3 style="font-weight: bold; font-size: 15px;"></h3>
-							</button>
-					</span>
-					</a>
-				</div>
-				<div>
-					<a href="#" data-testid="curation-item" tabIndex="-1"
-						style="width: 100%; display: inline-block;"> <span
-						style="position: relative; top: -280px; left: 650px;">
-							<button type="button" class="btn btn-outline-success"
-								style="width: 200px; height: 200px;">
-								<p style="font-weight: bold; font-size: 25px;">일상</p>
-								<h3 style="font-weight: bold; font-size: 15px;"></h3>
-							</button>
-					</span>
-					</a>
+				<div style="position: relative; top: 70px;">
+					<div
+						style="font-weight: bold; font-size: 20px; position: relative; top: 70px; left: 50px;">
+						<h2>커뮤니티 HOT🔥</h2>
+					</div>
+					<div>
+						<a href="${pageContext.request.contextPath}/community/notice/list"
+							data-testid="curation-item" tabIndex="-1"
+							style="width: 100%; display: block;"> <span
+							style="position: relative; top: 120px; left: 50px;">
+								<button type="button" class="btn btn-outline-success"
+									style="width: 200px; height: 200px;">
+									<p style="font-weight: bold; font-size: 25px;">공지사항</p>
+									<h3 style="font-weight: bold; font-size: 15px;">커뮤니티 사용법✏️</h3>
+								</button>
+						</span>
+						</a>
+					</div>
+					<div>
+						<a href="${pageContext.request.contextPath}/community/question/list" data-testid="curation-item" tabIndex="-1"
+							style="width: 100%; display: inline-block;"> <span
+							style="position: relative; top: -80px; left: 350px;">
+								<button type="button" class="btn btn-outline-success"
+									style="width: 200px; height: 200px;">
+									<p style="font-weight: bold; font-size: 25px;">궁금해요</p>
+									<h3 style="font-weight: bold; font-size: 15px;"></h3>
+								</button>
+						</span>
+						</a>
+					</div>
+					<div>
+						<a href="${pageContext.request.contextPath}/community/life/list" data-testid="curation-item" tabIndex="-1"
+							style="width: 100%; display: inline-block;"> <span
+							style="position: relative; top: -280px; left: 650px;">
+								<button type="button" class="btn btn-outline-success"
+									style="width: 200px; height: 200px;">
+									<p style="font-weight: bold; font-size: 25px;">일상</p>
+									<h3 style="font-weight: bold; font-size: 15px;"></h3>
+								</button>
+						</span>
+						</a>
+					</div>
 				</div>
 			</div>
 		</section>
@@ -432,50 +330,50 @@ feed-item .feed-content {
 		<!-- 커뮤니티 메인 새글 -->
 
 		<article>
-					<div id="jb-content">
-						<ul class="feed-list">
-							<li class="feed-item"><a href="#"
-								data-testid="soomgo-life-feed-item"> <span>게시글 1</span>
-									<div class="feed-content">
-										<div>
-											<section>
-												<h3>게시글 1</h3>
-												<p>게시글 1</p>
-											</section>
-											<ul class="tag-list">
-												<li>게시글 1</li>
-												<li>게시글 1</li>
-												<li>게시글 1</li>
-											</ul>
-										</div>
-									</div>
-									<div>
-										<div>
-											<span class="like">0</span> <span class="comment">0</span>
-										</div>
-										<span class="sg-text-description">6분 전</span>
-									</div>
-							</a></li>
+			<div id="jb-content">
+				<ul class="feed-list">
+					<li class="feed-item"><a href="#"
+						data-testid="soomgo-life-feed-item"> <span>게시글 1</span>
+							<div class="feed-content">
+								<div>
+									<section>
+										<h3>게시글 1</h3>
+										<p>게시글 1</p>
+									</section>
+									<ul class="tag-list">
+										<li>게시글 1</li>
+										<li>게시글 1</li>
+										<li>게시글 1</li>
+									</ul>
+								</div>
+							</div>
+							<div>
+								<div>
+									<span class="like">0</span> <span class="comment">0</span>
+								</div>
+								<span class="sg-text-description">6분 전</span>
+							</div>
+					</a></li>
 
-						</ul>
-					</div>
-				</article>
-
-
+				</ul>
+			</div>
+		</article>
 
 
 
 
-	<c:url var="mainurl" value="/main" />
 
 
-	<footer id="jb-footer">
-		<div
-			style="width: 1500px; height: 200px; background-color: #f6f7f7; margin: auto; padding: 10px;">
-			이용약관</div>
-	</footer>
-	<!-- go to top -->
-	<a class="btn-top" href="#"><i class="xi-angle-up-thin"></i></a>
+		<c:url var="mainurl" value="/main" />
+
+
+		<footer id="jb-footer">
+			<div
+				style="width: 1500px; height: 200px; background-color: #f6f7f7; margin: auto; padding: 10px;">
+				이용약관</div>
+		</footer>
+		<!-- go to top -->
+		<a class="btn-top" href="#"><i class="xi-angle-up-thin"></i></a>
 	</div>
 
 

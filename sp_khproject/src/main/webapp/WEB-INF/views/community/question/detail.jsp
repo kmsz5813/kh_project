@@ -252,48 +252,8 @@ feed-item .feed-content {
 </head>
 <body>
 	<div id="jb-container">
-		<header>
-			<!-- 로그인/회원가입/FAQ -->
-			<div id="jb-header"
-				style="text-align: right; margin-right: -30px; position: relative; top: 20px;">
-				<c:if test="${empty loginData }">
-					<a href="${pageContext.request.contextPath}/login">로그인</a>&emsp;/&emsp; 
-			<a href="${pageContext.request.contextPath}/login/sign">회원가입</a>
-					&emsp;&emsp;
-				</c:if>
-				<c:if test="${not empty loginData }">
-			${loginData.ac_name }님 환영합니다!&emsp;/&emsp;
-			<a href="${pageContext.request.contextPath}/main/logout">로그아웃&emsp;/&emsp;</a>
-					<a href="${pageContext.request.contextPath}/info">마이페이지&emsp;&emsp;</a>
-				</c:if>
-			</div>
-			<div style="text-align: center;">
-				<a href="#" style="display: table; margin-top: -100px;"> <img
-					src="../../static/img/logo.png"
-					style="width: 300px; margin-bottom: -100px;" class="d-inline-block">
-				</a>
-			</div>
-			<nav class="navbar navbar-expand-md navbar-light"
-				style="margin-left: 1000px; position: relative;">
-				<div class="container">
-					<button class="navbar-toggler" type="button"
-						data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-						aria-controls="navbarSupportedContent" aria-expanded="false"
-						aria-label="Toggle navigation">
-						<span class="navbar-toggler-icon"></span>
-					</button>
-					<div class="collapse navbar-collapse" id="navbarSupportedContent">
-						<form class="d-flex">
-							<input class="form-control me-4" type="search"
-								placeholder="어떤 서비스가 필요하세요?" aria-label="Search"
-								style="min-width: 300px;">
-							<button class="btn btn-outline-success" type="submit"
-								style="width: 100px" id="button">검색</button>
-						</form>
-					</div>
-				</div>
-			</nav>
-		</header>
+		<%@ include file="../../module/head.jsp" %>
+
 
 		<div class="container-xl">
 			<div class="row">
@@ -304,23 +264,7 @@ feed-item .feed-content {
 				</div>
 			</div>
 		</div>
-		<script type="text/javascript">
-			$('.carousel').carousel()
-		</script>
-		<nav class="navbar navbar-expand-md navbar-light"
-			style="margin-left: 1273px; position: relative; top: 50px;">
-			<div class="container">
-				<button class="navbar-toggler" type="button"
-					data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-					aria-controls="navbarSupportedContent" aria-expanded="false"
-					aria-label="Toggle navigation">
-					<span class="navbar-toggler-icon"></span>
-				</button>
-			</div>
-		</nav>
-		<script type="text/javascript">
-			$('.carousel').carousel()
-		</script>
+		
 		<!-- 커뮤니티 메뉴 -->
 		<aside id="jb-sidebar">
 			<div>
@@ -359,7 +303,7 @@ feed-item .feed-content {
 				</a>
 			</div>
 			<div>
-				<a href="${pageContext.request.contextPath}/community/notice"
+				<a href="${pageContext.request.contextPath}/community/notice/list"
 					style="position: relative; top: 420px; left: 60px;">
 					<button type="button" class="btn btn-outline-success"
 						style="width: 130px; height: 50px;">공지사항</button>
@@ -375,7 +319,7 @@ feed-item .feed-content {
 					<div id="jb-content">
 						<ul class="feed-list">
 							<!-- 본문 -->
-							<div class="feed-content">
+							<div class="feed-content" style="position: relative; top: 50px;">
 								<div>
 
 
@@ -388,7 +332,7 @@ feed-item .feed-content {
 											<div class="mb-3">
 												<label class="pe-3 text-secondary text-opacity-75">${data.user_Name}</label>
 												<fmt:formatDate value="${data.question_Date}"
-													var="Question_Date" dateStyle="long" />
+													var="question_Date" dateStyle="long" />
 												<label class="pe-3 text-secondary text-opacity-75">${data.question_Date}</label>
 												<label class="pe-3 text-secondary text-opacity-75">조회수:
 													${data.question_view}</label>
@@ -438,7 +382,7 @@ feed-item .feed-content {
 													</c:url>
 													<c:if test="${commentPage.hasPrevPage()}">
 														<li class="page-item"><a class="page-link"
-															href="${questionDetailUrl}&page=${commentPage.prevPageNumber}">Prev</a>
+															href="${questionDetailUrl}&page=${commentPage.prevPageNumber}"><</a>
 														</li>
 													</c:if>
 													<c:forEach
@@ -452,7 +396,7 @@ feed-item .feed-content {
 													</c:forEach>
 													<c:if test="${commentPage.hasNextPage()}">
 														<li class="page-item"><a class="page-link"
-															href="${questionDetailUrl}&page=${commentPage.nextPageNumber}">Next</a>
+															href="${questionDetailUrl}&page=${commentPage.nextPageNumber}">></a>
 														</li>
 													</c:if>
 												</ul>
@@ -465,18 +409,18 @@ feed-item .feed-content {
 													<div class="card border-light">
 														<div class="card-header">
 															<div class="d-flex justify-content-between">
-																<span><small>${comment.user_Name}</small></span> <span><small>${comment.question_Date}</small></span>
+																<span><small>${comment.user_Name}</small></span> <span><small>${comment.comment_Date}</small></span>
 															</div>
 														</div>
 														<div class="card-body">
-															<input type="hidden" value="${comment.question_Id}">
+															<input type="hidden" value="${comment.comment_Id}">
 															<c:choose>
-																<c:when test="${comment.question_isDeleted()}">
+																<c:when test="${comment.comment_isDeleted()}">
 																	<p class="text-muted">삭제된 댓글 입니다.</p>
 																</c:when>
 																<c:otherwise>
 																	<c:set var="newLine" value="<%=\"\n\"%>" />
-																	<p class="card-text">${fn:replace(comment.question_Content, newLine, '<br>')}</p>
+																	<p class="card-text">${fn:replace(comment.comment_Content, newLine, '<br>')}</p>
 																</c:otherwise>
 															</c:choose>
 															<c:if
@@ -487,7 +431,7 @@ feed-item .feed-content {
 																			type="button" onclick="changeEdit(this);">수정</button>
 																		<button class="btn btn-sm btn-outline-dark"
 																			type="button"
-																			onclick="commentDelete(this, ${comment.question_Id})">삭제</button>
+																			onclick="commentDelete(this, ${comment.comment_Id})">삭제</button>
 																	</div>
 																</c:if>
 															</c:if>

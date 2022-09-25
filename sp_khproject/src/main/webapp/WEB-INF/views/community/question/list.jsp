@@ -144,7 +144,9 @@ li {
 	
 	
 	
+	
 		
+	
 	
 	
 	
@@ -154,7 +156,9 @@ li {
 	
 	
 	
+	
 	 
+	
 	
 	
 	
@@ -168,7 +172,11 @@ li {
 	
 	
 	
+	
+	
 	.25rem
+	
+	
 	
 	
 	
@@ -232,51 +240,7 @@ feed-item .feed-content {
 
 <body>
 	<div id="jb-container">
-		<header>
-			<!-- 로그인/회원가입/FAQ -->
-			<div id="jb-header"
-				style="text-align: right; margin-right: -30px; position: relative; top: 20px;">
-				<c:if test="${empty loginData }">
-					<a href="${pageContext.request.contextPath}/login">로그인</a>&emsp;/&emsp; 
-			<a href="${pageContext.request.contextPath}/login/sign">회원가입</a>
-					&emsp;&emsp;
-				</c:if>
-				<c:if test="${not empty loginData }">
-			${loginData.ac_name }님 환영합니다!&emsp;/&emsp;
-			<a href="${pageContext.request.contextPath}/main/logout">로그아웃&emsp;/&emsp;</a>
-					<a href="${pageContext.request.contextPath}/info">마이페이지&emsp;&emsp;</a>
-				</c:if>
-			</div>
-
-
-
-			<div style="text-align: center;">
-				<a href="#" style="display: table; margin-top: -100px;"> <img
-					src="../../static/img/logo.png"
-					style="width: 300px; margin-bottom: -100px;" class="d-inline-block">
-				</a>
-			</div>
-			<nav class="navbar navbar-expand-md navbar-light"
-				style="margin-left: 1000px; position: relative;">
-				<div class="container">
-					<button class="navbar-toggler" type="button"
-						data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-						aria-controls="navbarSupportedContent" aria-expanded="false"
-						aria-label="Toggle navigation">
-						<span class="navbar-toggler-icon"></span>
-					</button>
-					<div class="collapse navbar-collapse" id="navbarSupportedContent">
-						<form class="d-flex">
-							<input class="form-control me-4" type="search"
-								placeholder="어떤 서비스가 필요하세요?" aria-label="Search"
-								style="min-width: 300px;">
-							<button class="btn btn-outline-success" type="submit"
-								style="width: 100px" id="button">검색</button>
-						</form>
-					</div>
-				</div>
-			</nav>
-		</header>
+		<%@ include file="../../module/head.jsp"%>
 
 		<div class="container-xl">
 			<div class="row">
@@ -288,9 +252,15 @@ feed-item .feed-content {
 			</div>
 		</div>
 
-		<script type="text/javascript">
-			$('.carousel').carousel()
-		</script>
+		<form action="${questionUrl}/home/community/question/add">
+			<input type="hidden" name="qid" value="${data.question_id}">
+			<button class="btn btn-outline-success" type="submit"
+				style="width: 150px; position: relative; top: 45px; left: 1200px;"
+				id="button" onclick="formCheck(this.form);">글쓰기</button>
+		</form>
+
+
+		<!-- 
 		<nav class="navbar navbar-expand-md navbar-light"
 			style="margin-left: 1273px; position: relative; top: 50px;">
 			<div class="container">
@@ -310,10 +280,8 @@ feed-item .feed-content {
 				</div>
 			</div>
 		</nav>
-
-		<script type="text/javascript">
-			$('.carousel').carousel()
-		</script>
+		
+		 -->
 
 		<!-- 커뮤니티 메뉴 -->
 		<aside id="jb-sidebar">
@@ -353,7 +321,7 @@ feed-item .feed-content {
 				</a>
 			</div>
 			<div>
-				<a href="${pageContext.request.contextPath}/community/notice"
+				<a href="${pageContext.request.contextPath}/community/notice/list"
 					style="position: relative; top: 420px; left: 60px;">
 					<button type="button" class="btn btn-outline-success"
 						style="width: 130px; height: 50px;">공지사항</button>
@@ -366,6 +334,22 @@ feed-item .feed-content {
 			<div id="jb-content-head">
 
 				<!-- 커뮤니티 키워드 검색 -->
+
+				<div>
+					<form class="d-flex"
+						style="position: relative; top: 60px; left: 15px;">
+						<input class="form-control me-4" type="search"
+							placeholder="키워드를 입력해주세요!" aria-label="Search"
+							style="min-width: 800px;">
+						<div class="col-3">
+							<div class="input-group">
+								<button class="btn btn-secondary" type="submit">조회</button>
+							</div>
+						</div>
+					</form>
+
+				</div>
+				<!-- 
 				<nav class="navbar navbar-expand-md navbar-light">
 					<div class="container"
 						style="position: relative; top: 40px; left: 5px;">
@@ -392,11 +376,11 @@ feed-item .feed-content {
 					</div>
 				</nav>
 
-
+ -->
 
 
 				<section class="container">
-					<div class="mb-1">
+					<div class="mb-1" style="position: relative; top: 150px;">
 						<!-- 커뮤니티 메인 새글
 						<c:url var="questionListUrl" value="/community/question/list" />
 						<form action="${questionListUrl}" method="get">
@@ -462,11 +446,11 @@ feed-item .feed-content {
 						</table>
 						<nav>
 							<div>
-								<ul class="pagination justify-content-center">
+								<ul class="pagination justify-content-center"
+									style="position: relative; top: 50px;">
 									<c:if test="${pageData.hasPrevPage()}">
 										<li class="page-item"><a class="page-link"
-											href="${questionUrl}?page=${pageData.prevPageNumber}"><</a>
-										</li>
+											href="${questionUrl}?page=${pageData.prevPageNumber}"><</a></li>
 									</c:if>
 									<c:forEach
 										items="${pageData.getPageNumberList(pageData.currentPageNumber - 2, pageData.currentPageNumber + 2)}"
@@ -478,8 +462,7 @@ feed-item .feed-content {
 									</c:forEach>
 									<c:if test="${pageData.hasNextPage()}">
 										<li class="page-item"><a class="page-link"
-											href="${questionUrl}?page=${pageData.nextPageNumber}">></a>
-										</li>
+											href="${questionUrl}?page=${pageData.nextPageNumber}">></a></li>
 									</c:if>
 								</ul>
 							</div>
@@ -495,14 +478,13 @@ feed-item .feed-content {
 		<c:url var="mainurl" value="/main" />
 
 
-				<footer id="jb-footer">
-					<div
-						style="width: 1500px; height: 200px; background-color: #f6f7f7; margin: auto; padding: 10px;
-						">
-						이용약관</div>
-				</footer>
-				<!-- go to top -->
-				<a class="btn-top" href="#"><i class="xi-angle-up-thin"></i></a>
-			</div>
+		<footer id="jb-footer">
+			<div
+				style="width: 1500px; height: 200px; background-color: #f6f7f7; margin: auto; padding: 10px;">
+				이용약관</div>
+		</footer>
+		<!-- go to top -->
+		<a class="btn-top" href="#"><i class="xi-angle-up-thin"></i></a>
+	</div>
 </body>
 </html>

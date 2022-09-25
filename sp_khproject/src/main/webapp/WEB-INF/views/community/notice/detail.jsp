@@ -1,193 +1,369 @@
-<!-- 메인 > 상단메뉴 > 커뮤니티 > 공지사항 > 상세보기 -->
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>FindU</title>
+<!-- bootstrap css 적용 -->
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+	crossorigin="anonymous">
+<!-- jQuery 적용 -->
+<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+<!-- ajax 적용 -->
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+	integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+	crossorigin="anonymous"></script>
+<!-- bootstrap js 적용 -->
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
+	integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
+	crossorigin="anonymous"></script>
+<script
+	src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+	integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+	crossorigin="anonymous"></script>
+<!-- 폰트 적용 -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link
+	href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap"
+	rel="stylesheet">
 
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
-
-<script type="text/javascript"
-src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
-
-<!-- nav include  -->
-<c:import url="/WEB-INF/layout/main/header.jsp"></c:import>
-
-<!-- 배너 css link -->
-<link rel="stylesheet"href="${pageContext.request.contextPath}/resources/css/HisearchBar.css">	
-
-
-<!-- 배너 -->
-<style type="text/css">
-
-@import url('https://cdn.rawgit.com/innks/NanumSquareRound/master/nanumsquareround.min.css');
-
-.banner h1,.banner h2{
-	font-family: 'NanumSquareRound', sans-serif !important;
-    font-weight: bolder !important;
+<!-- style, css -->
+<style>
+a:link {
+	text-decoration: none;
+	color: black;
+	font-weight: bold;
+	font-family: 'Noto Sans KR', sans-serif;
 }
 
-.banner h1{ margin-top:20px; }
-
-.banner{ margin-top:120px; }
-
-</style>
-
-
-<!-- 본문 -->
-<style type="text/css">
-
-.container {
-	width: 970px;
-	margin: 100px auto 0;
+body {
+	width: 1500px;
+	margin: auto;
+	font-family: 'Noto Sans KR', sans-serif;
 }
 
-.card {
-    border: none;
-    margin-bottom: 30px;
+#jb-container {
+	width: 1500px;
+	padding: 20px;
+}
+
+#jb-header {
+	padding: 20px;
+	margin-bottom: 20px;
+}
+
+#jb-content-head {
+	width: 950px;
+	height: 500px;
+	padding: 20px;
+	margin-bottom: 20px;
+	float: left;
+}
+
+#jb-sidebar {
+	width: 300px;
+	height: 900px;
+	padding: 20px;
+	margin-bottom: 20px;
+	float: left;
+	padding: 20px;
+}
+
+#jb-content {
+	width: 950px;
+	padding: 20px;
+	margin-bottom: 20px;
+	float: left;
+}
+
+#jb-footer {
+	width: 1500px;
+	clear: both;
+	padding: 10px;
+	margin-top: 1200px;
+	text-align: center;
+	font-family: 'Noto Sans KR', sans-serif;
+	clear: both;
+}
+
+@media ( max-width : 480px ) {
+	#jb-container {
+		width: auto;
+	}
+	#jb-content-head {
+		float: none;
+		width: auto;
+	}
+	#jb-sidebar {
+		float: none;
+		width: auto;
+	}
+	#jb-content {
+		float: none;
+		width: auto;
+	}
+}
+
+.feed-item {
+	padding: 1rem 0.5rem;
+	border-bottom: 0.0625rem solid #f4f4f4;
+	cursor: pointer;
+}
+
+ul li {
+	list-style: none;
+}
+
+* {
+	word-break: break-word;
+}
+
+*, :after, :before {
+	box-sizing: border-box;
+}
+
+user agent stylesheet
+li {
+	display: list-item;
+	text-align: -webkit-match-parent;
+}
+
+@media ( max-width : 991.98px) .feed-item {
+	padding
+	 
+	:
+	1
+	 
+	.25rem
+	;
+	
+
+}
+
+.feed-list {
+	margin: 0;
+}
+
+ul {
+	padding: 0;
+}
+
+dl, ol, ul {
+	margin-top: 0;
+}
+
+address, dl, ol, ul {
+	margin-bottom: 1rem;
+}
+
+* {
+	word-break: break-word;
+}
+
+*, :after, :before {
+	box-sizing: border-box;
+}
+
+user agent stylesheet
+ul {
+	display: block;
+	list-style-type: disc;
+	margin-block-start: 1em;
+	margin-block-end: 1em;
+	margin-inline-start: 0px;
+	margin-inline-end: 0px;
+	padding-inline-start: 40px;
+}
+
+feed-item .feed-content {
+	display: flex;
+	margin-bottom: 0.875rem;
+}
+
+* {
+	word-break: break-word;
+}
+
+*, :after, :before {
+	box-sizing: border-box;
 }
 
 .table th {
-    color: #777777;
-    font-weight: bold;
-}
-
-.table th span#n { 
-	color: #555555; 
 	font-weight: 500;
+	color: #777777;
+	font-weight: bold;
 }
 
-.table thead { background-color: #fff; }
-
-.table thead th:first-child { padding: 0 30px 8px; }
-
-.table>thead>tr>td {
-    padding: 14px 12px;
-    vertical-align: middle;
+.table thead {
+	background-color: #fff;
 }
 
-#gotolist{
-    float: right;
-    width: 50px;
-    margin: 0 auto 50px;
+.table thead th:first-child {
+	padding: 0 30px 8px;
 }
 
-.button3 { /* 목록버튼 */
-	background-color: #17B794;
-	border: none;
-	color: white;
-	text-align: center;
-	text-decoration: none;
-	display: inline-block;
-	font-size: 15px;
-	padding: 4px;
-	border-radius: 3px;
-	cursor: pointer;
-	width: 65px;
+.table tbody tr td:first-child {
+	padding: 0 30px;
+}
+
+.table>tbody>tr>td, .table>thead>tr>td {
+	padding: 14px 12px;
+	vertical-align: middle;
+}
+
+.table tr td {
+	color: #555555;
+}
+
+.table tbody td a {
+	color: #555555;
+	padding: 13px 0;
+}
+
+.table tbody td a:hover {
+	color: #17B794;
+}
+
+.pagingstyle {
+	width: 50%;
+	margin: 0 auto;
+}
+
+#searchbox {
+	float: right;
+	width: 270px;
+	margin: 0 auto;
+}
+
+#row {
+	position: relative;
+	margin-top: 10px;
+}
+
+#form-control {
+	width: 150px;
+	position: absolute;
+	right: 18%;
 	height: 30px;
 }
-
 </style>
+</head>
+<body>
+	<div id="jb-container">
+		<%@ include file="../../module/head.jsp" %>
 
-
-<script type="text/javascript">
-$(document).ready(function(){
-	
-	//목록 버튼 동작
-	$("#listBtn").click(function(){
-		$(location).attr("href", "${pageContext.request.contextPath}/board/notice");
-	});
-	
-})
-</script>
-
-
-
-<!-- 배너 -->
-<header id="gtco_header" class="gtco-cover gtco-cover-xs gtco-inner" role="banner">
-	<div class="gtco-container">
-		<div class="row">
-			<div class="col-md-12 col-md-offset-0 text-left">
-				<a href="${pageContext.request.contextPath}/board/notice"><div class="display-t">
-					<div class="display-tc">
-						<div class="row">
-							<div class="col-md-8 animate-box">
-								<div class="row padding-horizontal-md pull-left banner">
-									<div class="row margin-top-xs text title title-xxl text-bold text-white">
-										<p><h1>공지사항</h1></p>
-									</div>
-									<br>
-									<div class="row margin-top-xl text title title-xl text-bold text-white pull-left">
-										<p><h2>슬기로운 과외 생활을 위한 새롭고 다양한 소식을 전해드려요</h2></p>
-									</div>
-								</div>
-							</div>	
-						</div>
-					</div>
-				</div></a>
+		<div class="container-xl">
+			<div class="row">
+				<div class="col-md-12" style="position: relative; top: 100px;">
+					<h2>
+						<b>공지사항</b>
+					</h2>
+				</div>
 			</div>
 		</div>
-	</div>
-</header>
+		
+		<!-- 커뮤니티 메뉴 -->
+		<aside id="jb-sidebar">
+			<div>
+				<a href="${pageContext.request.contextPath}/community/main"
+					style="position: relative; top: 120px; left: 60px;">
+					<button type="button" class="btn btn-outline-success"
+						style="width: 130px; height: 50px;">전체</button>
+				</a>
+			</div>
+			<div>
+				<a href="${pageContext.request.contextPath}/community/findPro/list"
+					style="position: relative; top: 180px; left: 60px;">
+					<button type="button" class="btn btn-outline-success"
+						style="width: 130px; height: 50px;">전문가 찾아요</button>
+				</a>
+			</div>
+			<div>
+				<a href="${pageContext.request.contextPath}/community/findStu/list"
+					style="position: relative; top: 240px; left: 60px;">
+					<button type="button" class="btn btn-outline-success"
+						style="width: 130px; height: 50px;">레슨자 찾아요</button>
+				</a>
+			</div>
+			<div>
+				<a href="${pageContext.request.contextPath}/community/question/list"
+					style="position: relative; top: 300px; left: 60px;">
+					<button type="button" class="btn btn-outline-success"
+						style="width: 130px; height: 50px;">궁금해요</button>
+				</a>
+			</div>
+			<div>
+				<a href="${pageContext.request.contextPath}/community/life/list"
+					style="position: relative; top: 360px; left: 60px;">
+					<button type="button" class="btn btn-outline-success"
+						style="width: 130px; height: 50px;">일상</button>
+				</a>
+			</div>
+			<div>
+				<a href="${pageContext.request.contextPath}/community/notice/list"
+					style="position: relative; top: 420px; left: 60px;">
+					<button type="button" class="btn btn-outline-success"
+						style="width: 130px; height: 50px;">공지사항</button>
+				</a>
+			</div>
+		</aside>
+		<section>
+			<div id="jb-content-head">
+
+				<!-- 커뮤니티 메인 새글 -->
+
+				<article>
+					<div id="jb-content">
+						<ul class="feed-list">
+							<!-- 본문 -->
+							<div class="feed-content">
+								<div style="position: relative; top: 50px;">
+									<section class="container">
+										<div class="mt-3">
+											<div class="mb-1 border-bottom border-2 border-secondary">
+												<h1>${data.notice_title}</h1>
+											</div>
+											
+											<div class="mb-1 border-bottom border-2 border-secondary"
+											style="position: relative; top: 50px;">
+												<p>${data.notice_content}</p>
+											</div>
+
+											<div class="mb-1 text-end" style="position: relative; top: 50px;">
+												<c:url var="noticeUrl" value="/community/notice" />
+												<button class="btn btn-primary" type="button"
+													onclick="location.href='${noticeUrl}/list'">목록</button>
+											</div>
+										</div>
+									</section>
+								</div>
+							</div>
+							<!--end table-responsive-->
+						</ul>
+					</div>
+				</article>
+				<c:url var="mainurl" value="/main" />
 
 
-<div class="clearfix"></div>
-
-<!-- 본문 -->
-<div class="container">
-    <div class="row">
-        <div class="col-xl-12">
-            <div class="card">
-                <div class="card-body">
-                    <div class="table-responsive">
-                        <table class="table table-hover mb-0">
-                            <thead>
-                                <tr class="align-self-center">
-                                    <th style="width: 25%;">No. <span id="n">${notice.noticeNo }</span></th>
-                                    <th style="width: 55%;">Title. <span id="n">${notice.noticeTitle }</span></th>
-                                    <th style="width: 20%;">Date. <span id="n">${notice.noticeDate }</span></th>
-                                </tr>
-                            </thead>
-                        </table>
-                    </div>
-                    <div style="text-align: center; margin: 50px 0;">${notice.noticeContent }</div><br><br>
-<!--                end table-responsive -->
-                </div>
-            </div>
-        </div>
-    </div>
-    
-	<!-- 목록 -->
-	<div id="gotolist" >
-		<button type="button" class="button3" id="listBtn">목록</button>
-	</div>
-	
-</div>
+				<footer id="jb-footer">
 
 
-
-
-
-
-<!-- footer include  -->
-<c:import url="/WEB-INF/layout/main/footer.jsp"></c:import>
-
-
-<div class="gototop js-top">
-	<a href="" class="js-gotop"><i class="icon-arrow-up"></i></a>
-</div>
-
-<!-- jQuery -->
-<script src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
-<!-- jQuery Easing -->
-<script src="${pageContext.request.contextPath}/resources/js/jquery.easing.1.3.js"></script>
-<!-- Bootstrap -->
-<script src="${pageContext.request.contextPath}/resources/js/bootstrap.min.js"></script>
-<!-- Waypoints -->
-<script src="${pageContext.request.contextPath}/resources/js/jquery.waypoints.min.js"></script>
-<!-- countTo -->
-<script src="${pageContext.request.contextPath}/resources/js/jquery.countTo.js"></script>
-<!-- Carousel -->
-<script src="${pageContext.request.contextPath}/resources/js/owl.carousel.min.js"></script>
-<!-- Magnific Popup -->
-<script src="${pageContext.request.contextPath}/resources/js/jquery.magnific-popup.min.js"></script>
-<script src="${pageContext.request.contextPath}/resources/js/magnific-popup-options.js"></script>
-<!-- Main -->
-<script src="${pageContext.request.contextPath}/resources/js/main.js"></script>
+					<div
+						style="width: 1500px; height: 200px; background-color: #f6f7f7; margin: auto; padding: 10px; position: relative; left: -250px;">
+						이용약관</div>
+				</footer>
+				<!-- go to top -->
+				<a class="btn-top" href="#"><i class="xi-angle-up-thin"></i></a>
+			</div>
+</body>
+</html>
