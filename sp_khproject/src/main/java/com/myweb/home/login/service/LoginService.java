@@ -184,6 +184,19 @@ public class LoginService {
 		}
 	}
 
+	public List<AccountsDTO> getlikeData(AccountsDTO acData) {
+		List<AccountsDTO> result = dao.getLikeData(acData);
+		
+	
+		if(result != null) {
+			return result;
+		}else {
+			return null;
+		}
+		
+	
+	}
+
 
 
 

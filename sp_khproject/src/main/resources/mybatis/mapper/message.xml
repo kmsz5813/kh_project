@@ -6,9 +6,9 @@
 
 	
 	<!-- 채팅 대화 DB저장 -->
-	<insert id="insertChatting" parameterType="messageDto">
+	<insert id="insertChatting" parameterType="string">
 		INSERT INTO CHATTING(CH_CONTENT)
-		VALUES(CHATTING.SEQ.NEXTVAL, #{ch_content})
+		VALUES(#{message})
 	</insert>
 	
 	<!-- 채팅 내용 조회 -->

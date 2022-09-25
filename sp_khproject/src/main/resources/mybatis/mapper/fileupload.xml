@@ -21,4 +21,11 @@
 		  FROM FILEUPLOAD
 		 WHERE FILE_BID = #{file_bId}
 	</select>
+	
+	<update id="updateData">
+	UPDATE FILE_UPLOAD SET FILENAME = #{fileName} , UUIDNAME = #{uuidName}, 
+						   LOCATION = #{location}, URL = #{url}, 
+						   FILESIZE = #{fileSize}, CONTENTTYPE = #{contentType} 
+						   WHERE FILE_BID = #{file_bId}
+	</update>
 </mapper>

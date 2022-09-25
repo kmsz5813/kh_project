@@ -2,8 +2,12 @@ package com.myweb.home.info.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.sql.Date;
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Random;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -33,6 +37,8 @@ import org.springframework.web.multipart.MultipartRequest;
 
 import com.myweb.home.Accounts.model.AccountsDTO;
 import com.myweb.home.login.service.LoginService;
+import com.myweb.home.purchase.model.CouponDTO;
+import com.myweb.home.purchase.model.EventCouponDTO;
 import com.myweb.home.purchase.model.PurchaseDTO;
 import com.myweb.home.purchase.service.PurchaseService;
 import com.myweb.home.selitem.model.SelItemDTO;
@@ -52,6 +58,7 @@ public class InfoController {
 	@Autowired
 	private PurchaseService purchaseService;
 	
+	@SuppressWarnings("null")
 	@GetMapping(value="")
 	public String main(Model model
 			, @SessionAttribute("loginData") AccountsDTO acDto
@@ -59,24 +66,92 @@ public class InfoController {
 		
 		logger.info("main({}) cusdata({})", model, acDto);
 		
+		Date today = new Date(System.currentTimeMillis());
 		// 프로필 이미지 이름은 서버에 이메일로 저장되므로
 		request.setAttribute("profileImage", acDto.getAc_email());
 		// 판매자의 판매글
 		List<SelItemDTO> items = selService.getName(acDto.getAc_name());
 		// 구매내역
-		List<PurchaseDTO> purchaseData = purchaseService.getFromBuyerName(acDto.getAc_name());
+		List<PurchaseDTO> purchaseDatas = purchaseService.getFromBuyerName(acDto.getAc_name());
+		for(PurchaseDTO purchaseData : purchaseDatas) {
+			int coupon_number = purchaseData.getBuy_usedCoupon();
+			String coupon_name = purchaseService.getCouponNameFromNumber(coupon_number);
+			purchaseData.setBuy_usedCouponName(coupon_name);
+			int buy_itemNumber = purchaseData.getBuy_itemNumber();
+			String buy_itemName = purchaseService.getBuyItemName(buy_itemNumber);
+			purchaseData.setBuy_itemName(buy_itemName);
+		}
 		// 판매내역
 		List<PurchaseDTO> sellData = purchaseService.getFromSellerName(acDto.getAc_name());
-		System.out.println(sellData);
+		// 보유쿠폰
+		List<CouponDTO> couponData = purchaseService.getCouponFromName(acDto.getAc_name());
+		for(CouponDTO coupons : couponData) {
+			if(coupons.getCoupon_endDate().before(today)) {
+				coupons.setCoupon_used("F");  	// F 는 유효기간 지난거
+			}
+		}
+		
 		request.setAttribute("items", items);
-		request.setAttribute("purchaseData", purchaseData);
+		request.setAttribute("purchaseData", purchaseDatas);
 		request.setAttribute("sellData", sellData);
+		request.setAttribute("couponData", couponData);
 		
+		// 이벤트쿠폰 전체조회
+		List<EventCouponDTO> allEventCoupons = purchaseService.allEventCoupons();
+		List<EventCouponDTO> downableCoupons = new ArrayList<EventCouponDTO>();
+		// 전체 이벤트 쿠폰 중 가지고 있는쿠폰(사용된것도)과 겹치는지 확인		
+		int flag = 0;
+		for(EventCouponDTO eventCoupon : allEventCoupons) {
+			for(CouponDTO ownCoupon : couponData) {
+				if(eventCoupon.getEvtcou_name().equals(ownCoupon.getCoupon_name())) {
+					flag++;
+				}
+			}
+			// 보유쿠폰과 중복 안되고 유효기간 안지났을경우에만 다운로드 가능 쿠폰 리스트에 추가
+			if(flag == 0 && eventCoupon.getEvtcou_endDate().after(today)) {
+				downableCoupons.add(eventCoupon);				
+			}
+			flag = 0;
+		}
 		
-		
+		request.setAttribute("downableCoupons", downableCoupons);
+
+
 		return "info/info";
-		
 	}
+	
+	@PostMapping(value="/downEventCoupon")
+	public String downEventCoupon (Model model
+			, @SessionAttribute("loginData") AccountsDTO acDto
+			, HttpServletRequest request) {
+		
+		String evtcou_name = request.getParameter("evtcouName");
+		Date evtcou_endDate = java.sql.Date.valueOf(request.getParameter("evtcouEndDate"));  
+		int evtcou_salePercent = Integer.parseInt(request.getParameter("evtcouSalePercent"));
+		
+		CouponDTO coupon = new CouponDTO();
+		Random rand = new Random();
+		int couponNumber = rand.nextInt(88888888) + 11111111;
+		List<Integer> couponNumberList = purchaseService.getCouponNumberList();
+		for(int i = 0; i < couponNumberList.size(); i++) {
+			if(couponNumberList.get(i) == couponNumber) {
+				couponNumber = rand.nextInt(88888888) + 11111111;
+			}
+		}
+		Date currentDate = new Date(System.currentTimeMillis());
+		coupon.setCoupon_number(couponNumber);
+		coupon.setCoupon_name(evtcou_name);
+		coupon.setCoupon_startDate(currentDate);
+		coupon.setCoupon_endDate(evtcou_endDate);
+		coupon.setCoupon_userName(acDto.getAc_name());
+		coupon.setCoupon_salePercent(evtcou_salePercent);
+		purchaseService.addCoupon(coupon);
+		
+		
+		
+		return "redirect:/info";
+	}
+	
 	
 	@GetMapping(value="/modifycheck")
 	public String modifycheck(Model model

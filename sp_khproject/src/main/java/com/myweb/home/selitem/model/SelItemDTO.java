@@ -15,6 +15,8 @@ public class SelItemDTO {
 	private int sel_number;	// 판매횟수
 	private int sel_view;
 	private int sel_like;
+	private int sel_reviewCount;
+	private int sel_starScore;
 	private int sel_report;
 	
 	private String uuidName;
@@ -22,6 +24,8 @@ public class SelItemDTO {
 	public String getLocation() {
 		return location;
 	}
+
+
 
 	public void setLocation(String location) {
 		this.location = location;
@@ -139,7 +143,24 @@ public class SelItemDTO {
 	public void setSel_report(int sel_report) {
 		this.sel_report = sel_report;
 	}
+	
+	public int getSel_reviewCount() {
+		return sel_reviewCount;
+	}
 
+	public void setSel_reviewCount(int sel_reviewCount) {
+		this.sel_reviewCount = sel_reviewCount;
+	}
+
+	public int getSel_starScore() {
+		return sel_starScore;
+	}
+
+	public void setSel_starScore(int sel_starScore) {
+		this.sel_starScore = sel_starScore;
+	}
+	
+	
 	@Override
 	public String toString() {
 		return "SelItemDTO [sel_id=" + sel_id + ", sel_name=" + sel_name + ", sel_field=" + sel_field

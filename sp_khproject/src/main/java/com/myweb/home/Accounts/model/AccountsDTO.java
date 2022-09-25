@@ -17,12 +17,32 @@ public class AccountsDTO {
 	private String ac_sendemail;
 	private String ac_ip;
 	
+	//좋아요를 구하기 위한것.
+	private int sel_id;
+	private boolean liked;
+	
+	public int getSel_id() {
+		return sel_id;
+	}
+
+	public void setSel_id(int sel_id) {
+		this.sel_id = sel_id;
+	}
+
+	public boolean isLiked() {
+		return liked;
+	}
+
+	public void setLiked(boolean liked) {
+		this.liked = liked;
+	}
+
 	@Override
 	public String toString() {
 		return "AccountsDTO [ac_number=" + ac_number + ", ac_email=" + ac_email + ", ac_name=" + ac_name + ", ac_pw="
 				+ ac_pw + ", ac_job=" + ac_job + ", ac_field=" + ac_field + ", ac_interest=" + ac_interest
-				+ ", ac_index=" + ac_index + ", ac_signday=" + ac_signday + ", ac_sendemail=" + ac_sendemail
-				+ ", ac_ip=" + ac_ip + "]";
+				+ ", ac_index=" + ac_index + ", ac_signday=" + ac_signday + ", ac_point=" + ac_point + ", ac_sendemail="
+				+ ac_sendemail + ", ac_ip=" + ac_ip + ", sel_id=" + sel_id + ", liked=" + liked + "]";
 	}
 	
 	public int getAc_number() {

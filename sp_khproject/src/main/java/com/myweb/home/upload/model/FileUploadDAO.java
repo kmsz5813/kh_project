@@ -28,4 +28,10 @@ public class FileUploadDAO {
 		return res;
 	}
 
+	public boolean updateData(FileUploadDTO data) {
+		int res = session.update("fileUploadMapper.updateData", data);
+		System.out.println(res);
+		return res == 1 ? true : false;
+	}
+
 }

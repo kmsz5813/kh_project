@@ -91,7 +91,7 @@
 	</form>
 	</div>
 	</section>
-	
+	<%@ include file="../module/footer.jsp" %>
 	<script>
 	 /* 메일 전송 클릭 시 이메일 전송 및 인증 확인 */
 	$("#mailAuth").on("click",function(){
