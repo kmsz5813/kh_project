@@ -22,7 +22,7 @@ import com.myweb.home.community.notice.service.CommunityNoticeService;
 
 //사용자
 @Controller
-@RequestMapping("/community")
+@RequestMapping(value="/community")
 public class CommunityNoticeController {
 
 	@Autowired
@@ -150,8 +150,8 @@ public class CommunityNoticeController {
 //	}
 	//제가만든 부분
 	//아래 이제 네게이션 부분
-	@GetMapping("/notice")
-	public String NoticeList(Model model, HttpSession session
+	@GetMapping(value="/notice/list")
+	public String getlist(Model model, HttpSession session
 			, @RequestParam(defaultValue="1", required=false) int page
 			, @RequestParam(defaultValue="0", required=false) int pageCount) {
 		
@@ -174,11 +174,11 @@ public class CommunityNoticeController {
 		model.addAttribute("result", paging.getPageData());
 		model.addAttribute("pageData", paging);
 	
-		return "community/notice";
+		return "community/notice/list";
 	}
 	
-	@GetMapping("/noticeDetail")
-	public String noticeDetail(Model model, HttpServletRequest request) {
+	@GetMapping(value="/notice/detail")
+	public String detail(Model model, HttpServletRequest request) {
 		String notice_no = request.getParameter("no");
 		
 		//notice_no을 기준으로 데이터 조회
@@ -186,6 +186,7 @@ public class CommunityNoticeController {
 		CommunityNoticeDTO data = communityNoticeService.getOneData(notice_no);
 		model.addAttribute("data", data);
 		
-		return "community/noticeDetail";
+		return "community/notice/detail";
 	}
+	
 }

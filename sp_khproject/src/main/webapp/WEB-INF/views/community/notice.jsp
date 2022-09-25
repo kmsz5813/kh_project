@@ -452,7 +452,7 @@ feed-item .feed-content {
 															<tr>
 																<td>${data.notice_no }</td>
 																<td><a
-																	href="${pageContext.request.contextPath}/community/noticeDetail?no=${data.notice_no }">${data.notice_title }</a></td>
+																	href="${pageContext.request.contextPath}/community/notice/detail?no=${data.notice_no }">${data.notice_title }</a></td>
 																<td>${data.notice_date }</td>
 															</tr>
 														</c:forEach>

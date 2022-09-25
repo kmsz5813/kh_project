@@ -63,25 +63,24 @@ public class CommunityNoticeService {
 //		return communityNoticeDao.selectNoticeSearch(searchMap);
 //	}
 
-
 	public List<CommunityNoticeDTO> getData() {
-		//데이터값을 가져오는것 
-		//CommunityNoticeDTO객체로 담는다.
+		// 데이터값을 가져오는것
+		// CommunityNoticeDTO객체로 담는다.
 		List<CommunityNoticeDTO> datas = communityNoticeDao.allDatas();
-		
-		//data값이 반환
+
+		// data값이 반환
 		return datas;
-		
+
 	}
 
 	public CommunityNoticeDTO getOneData(String notice_no) {
-		
+
 		CommunityNoticeDTO data = communityNoticeDao.getData(notice_no);
-		
-		if(data != null) {
+
+		if (data != null) {
 			return data;
 		}
-		
+
 		return null;
 	}
 }
