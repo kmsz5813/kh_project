@@ -120,11 +120,34 @@
 					  <button type="button" class="btn" style="margin-left:1rem; width:34rem; background-color:rgb(39, 174, 96);">견적 요청하기</button>
 					</div>
 				</div>	
+				<button type="button" class="btn btn-danger" id="myModal" data-bs-toggle="modal" data-bs-target="#removeModal"></button>
+				
+				<!-- 모달창 -->
+				<div class="modal fade" id="removeModal" tabindex="-1" aria-hidden="true">
+				  <div class="modal-dialog">
+				    <div class="modal-content">
+				      <div class="modal-header">
+				        <h5 class="modal-title">삭제 확인</h5>
+				        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				      </div>
+				      <div class="modal-body">
+				        <p>이 데이터를 삭제하시겠습니까?</p>
+				      </div>
+				      <div class="modal-footer">														
+				        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="location.href='delete?id=${itemdata.sel_id}'">Close</button>
+				        <button type="button" class="btn btn-primary">Save changes</button>
+				      </div>
+				    </div>
+				  </div>
+				</div>
+				
 			
 		</section>
 		</c:if>
 		<footer></footer>
 		<script type="text/javascript">
+		
+		
 		
 		function ajaxLike(id) {
 			$.ajax({

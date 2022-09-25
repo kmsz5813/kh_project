@@ -76,15 +76,11 @@ public class SelItemDAO {
 		return res == 1? true : false;
 	}
 	
-	public boolean deleteStaticsData(SelItemStaticsDTO data) {
-		String mapperId = String.format(mapper, "deleteStaticsData");
-		int res = session.delete(mapperId, data);
-		return res >= 0 ? true : false;
-	}
 	
-	public boolean deleteData(SelItemDTO data) {
+	//데이터삭제
+	public boolean deleteData(int id) {
 		String mapperId = String.format(mapper, "deleteData");
-		int res = session.delete(mapperId, data);
+		int res = session.delete(mapperId, id);
 		return res == 1 ? true : false;
 	}
 	

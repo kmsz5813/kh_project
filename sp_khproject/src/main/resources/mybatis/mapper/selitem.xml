@@ -89,4 +89,7 @@
 		 WHERE SEL_ID = #{sel_id}
 	</update>
 
+	<delete id="deleteData">
+		DELETE FROM SEL_ITEM WHERE SEL_ID = {id} 
+	</delete>
 </mapper>

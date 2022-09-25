@@ -95,14 +95,17 @@ public class SelItemService {
 		}
 		
 		if(selectData.isLiked()) {
-			staticsData.setLiked(false);
+			selectData.setLiked(false);
+			
 			data.setSel_like(data.getSel_like() -1);
+			
 		}else {
 			selectData.setLiked(true);
 			data.setSel_like(data.getSel_like() + 1);
 		}
 		
 		dao.updateStaticsLike(selectData);
+		//이부분이 뭔가 문제가있음.
 		
 		boolean result = dao.updateLike(data);
 		
@@ -146,6 +149,17 @@ public class SelItemService {
 			return false;
 		}
 
+	}
+	
+	public boolean delete(int id) {
+		boolean result = dao.deleteData(id);
+		
+		if(result) {
+			return true;
+		}else {
+			return false;
+		}
+		
 	}
 
 

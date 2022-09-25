@@ -319,4 +319,12 @@ public class SelItemController {
 		
 	}
 	
+	@GetMapping(value="/delete")
+	private String delete(@RequestParam int id) {
+		boolean result = service.delete(id);
+		
+		return "redirect: /home/sellitem";
+	}
+	
+	
 }
