@@ -82,4 +82,9 @@
 		WHERE AC_NAME = #{ac_name}
 	</update>
 	
+	
+	<select id="selectLike" resultType="acDto">
+		SELECT * FROM ACCOUNTS A FULL OUTER JOIN SEL_ITEM_STATICS F ON A.AC_NAME = F.AC_NAME WHERE AC_NUMBER = #{ac_number}
+	</select>
+	
 </mapper>

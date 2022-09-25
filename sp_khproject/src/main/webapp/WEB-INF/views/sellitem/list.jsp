@@ -129,7 +129,16 @@
 				  </a>
 			  </div>
 			  <div class="card-body">
-			    <h5 class="card-title" style="font-weight:bold; text-align:center">${data.sel_title}</h5>
+			  	<h5 class="card-title" style="font-weight:bold; text-align:center">${data.sel_title}</h5>
+				 <!-- 좋아요를 보여주는 것 -->
+				 <c:forEach items="${likeData}" var="likeData">
+				 	<c:if test="${data.sel_id == likeData.sel_id}">
+				 		❤
+				 	</c:if>
+
+				 </c:forEach>
+				 
+			   
 			    <h4 style="text-align:right"><a href="./detail?search=${data.sel_name}" class="card-text">${data.sel_name}</a></h4>
 			    <h4 class="price" style="text-align:right">&#8361; <fmt:formatNumber type="number" maxFractionDigits="3" value="${data.sel_price}"/></h4>
 			  </div>

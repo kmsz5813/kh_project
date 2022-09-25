@@ -115,13 +115,35 @@
 				
 				<div class="mt-5">
 					<div class="" style="height:10rem;">
-					  <button type="button" class="btn btn-primary" style="margin-left:8rem; width:7rem; background-color:">❤</button>
-					  <button type="button" class="btn btn-primary" style="margin-left:1rem; width:7rem;">뒤로가기</button>
-					  <button type="button" class="btn btn-primary" style="margin-left:1rem; width:34rem;">견적 요청하기</button>
+					  <button type="button" class="btn" onclick="ajaxLike(${itemdata.sel_id});" style="margin-left:8rem; width:7rem; background-color:rgb(224, 224, 224);">❤</button>
+					  <button type="button" class="btn" style="margin-left:1rem; width:7rem; background-color:rgb(224, 224, 224);">뒤로가기</button>
+					  <button type="button" class="btn" style="margin-left:1rem; width:34rem; background-color:rgb(39, 174, 96);">견적 요청하기</button>
 					</div>
 				</div>	
 			
 		</section>
 		</c:if>
+		<footer></footer>
+		<script type="text/javascript">
+		
+		function ajaxLike(id) {
+			$.ajax({
+				type: "post",
+				url: "/home/sellitem/like",
+				data: {
+					id: id
+				},
+				success: function(data) {
+					if(data.code === "success"){
+						alert("성공");
+					}else if(data.code === "default"){
+						alert("실패");
+						
+					}
+					
+				}
+			});
+		}
+		</script>
 	</body>
 </html>

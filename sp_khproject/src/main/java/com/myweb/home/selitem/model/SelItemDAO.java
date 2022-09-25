@@ -88,16 +88,17 @@ public class SelItemDAO {
 		return res == 1 ? true : false;
 	}
 	
-	
-	public SelItemDTO selectStatics(SelItemStaticsDTO data) {
+	//statics 조회-----------조회수가 추가되어 있는지 안되어 있는지
+	public SelItemStaticsDTO selectStatics(SelItemStaticsDTO data) {
 		String mapperId = String.format(mapper, "selectStatics");
-		SelItemDTO res = session.selectOne(mapperId, data);
+		SelItemStaticsDTO res = session.selectOne(mapperId, data);
 		return res;
 	}
 	
-	public boolean insertStatics(SelItemStaticsDTO data) {
+	//테이블에 값넣어주기 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+	public boolean insertStatics(SelItemStaticsDTO staticsData) {
 		String mapperId = String.format(mapper, "insertStatics");
-		int res = session.insert(mapperId, data);
+		int res = session.insert(mapperId, staticsData);
 		return res == 1 ? true : false;
 	}
 	

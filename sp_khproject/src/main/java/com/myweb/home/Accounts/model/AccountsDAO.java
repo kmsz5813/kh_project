@@ -98,6 +98,16 @@ public class AccountsDAO {
 		return res >= 1 ? true : false;
 	}
 
+	//좋아요했던거 조회할수 있게끔 
+	public List<AccountsDTO> getLikeData(AccountsDTO acData) {
+		String mapperId = String.format(mapper, "selectLike");
+		
+		List<AccountsDTO> datas = session.selectList(mapperId, acData);
+		
+		return datas;
+	}
+
+
 
 
 

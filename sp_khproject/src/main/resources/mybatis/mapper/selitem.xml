@@ -59,5 +59,34 @@
 		UPDATE SEL_ITEM SET SEL_VIEW = SEL_VIEW + 1
 		 WHERE SEL_ID = #{sel_id}
 	</update>
+	
+	<select id="selectStatics" resultType="SelItemStaticsDto">
+		SELECT * FROM SEL_ITEM_STATICS WHERE AC_NAME = #{ac_name} AND SEL_ID = #{sel_id}
+	</select>
+	
+	<insert id="insertStatics" parameterType="SelItemStaticsDto">
+		INSERT INTO SEL_ITEM_STATICS(ID, AC_NAME, SEL_ID, LIKED)
+		     VALUES(SEL_ITEM_STATICS_SEQ.NEXTVAL
+		          , #{ac_name} , #{sel_id}, 'N')
+	</insert>
+	
+	<update id="updateStaticsLike" parameterType="SelItemStaticsDto">
+		UPDATE SEL_ITEM_STATICS
+		<choose>
+			<when test="liked">
+				SET LIKED = 'Y'
+			</when>
+			<otherwise>
+				SET LIKED = 'N'
+			</otherwise>
+		</choose>
+		 WHERE ID = #{id}
+	</update>
+	
+	<update id="updateLike" parameterType="selItemDto">
+		UPDATE SEL_ITEM
+		   SET "SEL_LIKE" = #{sel_like}
+		 WHERE SEL_ID = #{sel_id}
+	</update>
 
 </mapper>
