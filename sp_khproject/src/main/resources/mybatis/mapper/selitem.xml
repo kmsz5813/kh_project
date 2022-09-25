@@ -125,6 +125,17 @@
 		   SET "SEL_LIKE" = #{sel_like}
 		 WHERE SEL_ID = #{sel_id}
 	</update>
-
 	
+	<select id="getTitle" resultType="string">
+		SELECT SEL_TITLE
+		  FROM SEL_ITEM
+		  NATURAL JOIN SEL_ITEM_STATICS
+		 WHERE SEL_ID = #{sel_id} AND LIKED = 'Y'
+	</select>
+
+	<select id="getSeller" resultType="string">
+		SELECT SEL_NAME
+		  FROM SEL_ITEM
+		 WHERE SEL_ID = #{sel_id}
+	</select>
 </mapper>

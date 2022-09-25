@@ -42,6 +42,7 @@ import com.myweb.home.purchase.model.EventCouponDTO;
 import com.myweb.home.purchase.model.PurchaseDTO;
 import com.myweb.home.purchase.service.PurchaseService;
 import com.myweb.home.selitem.model.SelItemDTO;
+import com.myweb.home.selitem.model.SelItemStaticsDTO;
 import com.myweb.home.selitem.service.SelItemService;
 
 
@@ -115,8 +116,15 @@ public class InfoController {
 		}
 		
 		request.setAttribute("downableCoupons", downableCoupons);
-
-
+		// 관심상품 전체조회
+		List<SelItemStaticsDTO> likedData = service.likeDatas(acDto.getAc_name()); 
+		for(SelItemStaticsDTO data : likedData) {
+			data.setSel_title(selService.getTitle(data.getSel_id()));
+			data.setSel_name(selService.getSeller(data.getSel_id()));
+		}
+		System.out.println(likedData);
+		request.setAttribute("likedData", likedData);
+		
 		return "info/info";
 	}
 	

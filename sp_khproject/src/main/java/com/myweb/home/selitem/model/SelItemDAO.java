@@ -183,6 +183,17 @@ public class SelItemDAO {
 		int res = session.update(mapperId, detail);
 		return res == 1 ? true : false; 
 	}
+	
+	public String getTitle(int sel_id) {
+		String mapperId = String.format(mapper, "getTitle");
+		String result = session.selectOne(mapperId, sel_id);
+		return result;
+	}
+	public String getSeller(int sel_id) {
+		String mapperId = String.format(mapper, "getSeller");
+		String result = session.selectOne(mapperId, sel_id);
+		return result;
+	}
 
 
 }

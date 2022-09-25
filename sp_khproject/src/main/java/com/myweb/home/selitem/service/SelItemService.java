@@ -200,6 +200,18 @@ public class SelItemService {
 	}
 
 
+	public String getTitle(int sel_id) {
+		String result = dao.getTitle(sel_id);
+		return result;
+	}
+
+
+	public String getSeller(int sel_id) {
+		String result = dao.getSeller(sel_id);
+		return result;
+	}
+
+
 
 
 
