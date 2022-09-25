@@ -390,35 +390,36 @@ feed-item .feed-content {
 											</div>
 										</nav>
 
+										<!-- 코멘트 출력 -->
 										<div class="mt-3 mb-3">
-											<c:forEach items="${commentPage.pageData}" var="comment">
+											<c:forEach items="${datas}" var="datas">
 												<div class="mb-1">
 													<div class="card border-light">
 														<div class="card-header">
 															<div class="d-flex justify-content-between">
-																<span><small>${comment.user_Name}</small></span> <span><small>${comment.findStu_Date}</small></span>
+																<span><small>${datas.user_Name}</small></span> <span><small>${datas.comment_Date}</small></span>
 															</div>
 														</div>
 														<div class="card-body">
-															<input type="hidden" value="${comment.findStu_Id}">
+															<input type="hidden" value="${datas.comment_Id}">
 															<c:choose>
-																<c:when test="${comment.findStu_isDeleted()}">
+																<c:when test="${datas.isComment_deleted()}">
 																	<p class="text-muted">삭제된 댓글 입니다.</p>
 																</c:when>
 																<c:otherwise>
 																	<c:set var="newLine" value="<%=\"\n\"%>" />
-																	<p class="card-text">${fn:replace(comment.findStu_Content, newLine, '<br>')}</p>
+																	<p class="card-text">${fn:replace(datas.comment_Content, newLine, '<br>')}</p>
 																</c:otherwise>
 															</c:choose>
 															<c:if
-																test="${sessionScope.loginData.ac_name eq comment.user_Name}">
-																<c:if test="${not comment.findStu_isDeleted()}">
+																test="${sessionScope.loginData.ac_name eq datas.user_Name}">
+																<c:if test="${not datas.isComment_deleted()}">
 																	<div class="text-end">
 																		<button class="btn btn-sm btn-outline-dark"
 																			type="button" onclick="changeEdit(this);">수정</button>
 																		<button class="btn btn-sm btn-outline-dark"
 																			type="button"
-																			onclick="commentDelete(this, ${comment.findStu_Id})">삭제</button>
+																			onclick="commentDelete(this, ${datas.comment_Id})">삭제</button>
 																	</div>
 																</c:if>
 															</c:if>
@@ -426,9 +427,11 @@ feed-item .feed-content {
 													</div>
 												</div>
 											</c:forEach>
+
 											<div class="mb-1">
-												<form action="${findStuDetailUrl}/comment/add"
-													method="post">
+												<c:url var="findStuUrl" value="/community/findStu">
+												</c:url>
+												<form action="${findStuUrl}/comment/add" method="post">
 													<input type="hidden" name="bid" value="${data.findStu_Id}">
 													<div class="input-group">
 														<textarea class="form-control" name="content" rows="2"></textarea>
@@ -438,6 +441,7 @@ feed-item .feed-content {
 												</form>
 											</div>
 										</div>
+
 
 										<div class="modal fade" id="removeModal" tabindex="-1"
 											aria-hidden="true">
@@ -452,7 +456,7 @@ feed-item .feed-content {
 													<div class="modal-footer">
 														<button type="button" class="btn btn-sm btn-danger"
 															data-bs-dismiss="modal"
-															onclick="deletefindStuDetail(${data.findStu_Id})">확인</button>
+															onclick="deleteFindStuDetail(${data.findStu_Id})">확인</button>
 													</div>
 												</div>
 											</div>
@@ -472,102 +476,102 @@ feed-item .feed-content {
 
 				<footer id="jb-footer">
 					<script type="text/javascript">
-		function changeEdit(element) {
-			element.innerText = "확인";
-			element.nextElementSibling.remove();
-			
-			var value = element.parentElement.previousElementSibling.innerText;
-			var textarea = document.createElement("textarea");
-			textarea.setAttribute("class", "form-control");
-			textarea.value = value;
-			
-			element.parentElement.previousElementSibling.innerText = "";
-			element.parentElement.previousElementSibling.append(textarea);
-			
-			element.setAttribute("onclick", "commentUpdate(this);");
-		}
-		
-		function changeText(element) {
-			element.innerText = "수정";
-			var cid = element.parentElement.parentElement.children[0].value;
-			var value = element.parentElement.previousElementSibling.children[0].value;
-			element.parentElement.previousElementSibling.children[0].remove();
-			element.parentElement.previousElementSibling.innerText = value;
-			
-			var btnDelete = document.createElement("button");
-			btnDelete.innerText = "삭제";
-			btnDelete.setAttribute("class", "btn btn-sm btn-outline-dark");
-			btnDelete.setAttribute("onclick", "commentDelete(this, " + cid + ");");
-			
-			element.parentElement.append(btnDelete);
-			element.setAttribute("onclick", "changeEdit(this);");
-		}
-		
-		function commentUpdate(element) {
-			var cid = element.parentElement.parentElement.children[0].value;
-			var value = element.parentElement.previousElementSibling.children[0].value;
-			
-			$.ajax({
-				url: "/comment/modify",
-				type: "post",
-				data: {
-					id: cid,
-					content: value
-				},
-				success: function(data) {
-					element.parentElement.previousElementSibling.children[0].value = data.value
-					changeText(element);
-				}
-			});
-		}
-		
-		function commentDelete(element, id) {
-			$.ajax({
-				url: "/comment/delete",
-				type: "post",
-				data: {
-					id: id
-				},
-				success: function(data) {
-					if(data.code === "success") {
-						element.parentElement.parentElement.parentElement.parentElement.remove();
+					function changeEdit(element) {
+						element.innerText = "확인";
+						element.nextElementSibling.remove();
+						
+						var value = element.parentElement.previousElementSibling.innerText;
+						var textarea = document.createElement("textarea");
+						textarea.setAttribute("class", "form-control");
+						textarea.value = value;
+						
+						element.parentElement.previousElementSibling.innerText = "";
+						element.parentElement.previousElementSibling.append(textarea);
+						
+						element.setAttribute("onclick", "commentUpdate(this);");
+					}
+					
+					function changeText(element) {
+						element.innerText = "수정";
+						var comment_Id = element.parentElement.parentElement.children[0].value;
+						var value = element.parentElement.previousElementSibling.children[0].value;
+						element.parentElement.previousElementSibling.children[0].remove();
+						element.parentElement.previousElementSibling.innerText = value;
+						
+						var btnDelete = document.createElement("button");
+						btnDelete.innerText = "삭제";
+						btnDelete.setAttribute("class", "btn btn-sm btn-outline-dark");
+						btnDelete.setAttribute("onclick", "commentDelete(this, " + comment_Id + ");");
+						
+						element.parentElement.append(btnDelete);
+						element.setAttribute("onclick", "changeEdit(this);");
+					}
+					
+					function commentUpdate(element) {
+						var comment_Id = element.parentElement.parentElement.children[0].value;
+						var value = element.parentElement.previousElementSibling.children[0].value;
+						
+						$.ajax({
+							url: "${findStuUrl}/comment/modify",
+							type: "post",
+							data: {
+								id: comment_Id,
+								content: value
+							},
+							success: function(datas) {
+								element.parentElement.previousElementSibling.children[0].value = datas.value
+								changeText(element);
+							}
+						});
+					}
+					
+					function commentDelete(element, comment_Id) {
+						$.ajax({
+							url: "${findStuUrl}/comment/delete",
+							type: "post",
+							data: {
+								id: comment_Id
+							},
+							success: function(datas) {
+								if(datas.code === "success") {
+									element.parentElement.parentElement.parentElement.parentElement.remove();
+								}
+							}
+						});
+					}
+				function formCheck(form) {
+					if(form.content.value.trim() === "") {
+						alert("댓글 내용을 입력하세요.");
+					} else {
+						form.submit();
 					}
 				}
-			});
-		}
-		function formCheck(form) {
-			if(form.content.value.trim() === "") {
-				alert("댓글 내용을 입력하세요.");
-			} else {
-				form.submit();
-			}
-		}
-		function deletefindStuDetail(findStu_Id) {
-			$.ajax({
-				url: "${findStuUrl}/delete",
-				type: "post",
-				data: {
-					id: findStu_Id
-				},
-				dataType: "json",
-				success: function(data) {
-					if(data.code === "success") {
-						alert("삭제 완료");
-						location.href = "${findStuUrl}/list";
-					} else if(data.code === "permissionError") {
-						alert("권한이 오류");
-					} else if(data.code === "notExists") {
-						alert("이미 삭제되었습니다.")
-					}
+				function deleteFindStuDetail(findStu_Id) {
+					$.ajax({
+						url: "${findStuUrl}/delete",
+						type: "post",
+						data: {
+							id: findStu_Id
+						},
+						dataType: "json",
+						success: function(data) {
+							if(data.code === "success") {
+								alert("삭제 완료");
+								location.href = "${findStuUrl}/list";
+							} else if(data.code === "permissionError") {
+								alert("권한이 오류");
+							} else if(data.code === "notExists") {
+								alert("이미 삭제되었습니다.")
+							}
+						}
+					});
 				}
-			});
-		}
 		function ajaxLike(element, id) {
 			$.ajax({
 				type: "post",
 				url: "${findStuDetailUrl}/like",
 				data: {
-					id: id
+					id: findStu_Id
 				},
 				success: function(data) {
 					if(data.code === "success") {

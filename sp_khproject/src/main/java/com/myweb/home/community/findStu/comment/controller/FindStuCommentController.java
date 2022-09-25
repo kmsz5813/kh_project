@@ -30,8 +30,10 @@ public class FindStuCommentController {
 			, @SessionAttribute("loginData") AccountsDTO acDto
 			, @ModelAttribute FindStuCommentDTO findStuCommentDTO) {
 		FindStuCommentDTO data = new FindStuCommentDTO();
-		data.setComment_bId(findStuCommentDTO.getComment_bId());
-		data.setComment_Content(findStuCommentDTO.getComment_Content());
+		String content = request.getParameter("content");
+		int bid = Integer.parseInt(request.getParameter("bid"));
+		data.setComment_bId(bid);
+		data.setComment_Content(content);
 		data.setUser_Name(acDto.getAc_name());
 		
 		int id = service.add(data);
@@ -40,7 +42,7 @@ public class FindStuCommentController {
 			return "redirect:/community/findStu/detail?id=" + data.getComment_bId();
 		} else {
 			request.setAttribute("error", "댓글 저장 실패!");
-			return "redirect:/community/findStu/detail?id=" + data.getComment_bId();
+			return "redirect:/community/findStu/detail?id=" + id;
 		}
 	
 	}

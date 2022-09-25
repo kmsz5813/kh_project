@@ -9,8 +9,13 @@
 		INSERT INTO FINDSTU_COMMENT(COMMENT_ID, COMMENT_BID, USER_NAME, COMMENT_CONTENT, COMMENT_DELETED)
 			 VALUES(FINDSTU_COMMENT_SEQ.NEXTVAL
 			      , #{comment_bId}, #{user_Name}, #{comment_Content}
-			      , 'N', 'N')
+			      , 'N')
 	</insert>
+	
+	 <select id="selectDatas" resultType="findStuCommentDto">
+	  SELECT * FROM FINDSTU_COMMENT WHERE COMMENT_BID = #{id}
+	</select>
+	<!-- 
 	<select id="selectDatas" resultType="findStuCommentDto">
 		SELECT S.COMMENT_ID
 		     , S.COMMENT_BID
@@ -25,6 +30,7 @@
 		 WHERE S.COMMENT_BID = #{comment_bId}
 		 ORDER BY S.COMMENT_ID
 	</select>
+	 -->
 	<select id="selectData" resultType="findStuCommentDto">
 		SELECT S.COMMENT_ID
 		     , S.COMMENT_BID
