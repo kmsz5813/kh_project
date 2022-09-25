@@ -64,10 +64,10 @@
 			  </button>
 			  <!------------------- 반복문 만들어서 집어넣기---------------------------->
 			  <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-			    <li><a class="dropdown-item" href="sellitem?select=IT">IT</a></li>
-			    <li><a class="dropdown-item" href="sellitem?select=운동">운동</a></li>
-			    <li><a class="dropdown-item" href="sellitem?select=음악">음악</a></li>
-			    <li><a class="dropdown-item" href="#">기타</a></li>
+			  	  <li><a class="dropdown-item" href="sellitem?">전체</a></li>
+			  	<c:forEach var="name" items="${Option}" >
+			    <li><a class="dropdown-item" href="sellitem?select=${name}">${name}</a></li>
+			  	</c:forEach>
 			  </ul>
 			 </div>
 			  
@@ -76,9 +76,10 @@
 			    지역
 			  </button>
 			  <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-			    <li><a class="dropdown-item" href="#">Action</a></li>
-			    <li><a class="dropdown-item" href="#">Another action</a></li>
-			    <li><a class="dropdown-item" href="#">Something else here</a></li>
+			 	   <li><a class="dropdown-item" href="sellitem?">전체</a></li>
+			    <c:forEach var="lc" items="${lc}" >
+			    <li><a class="dropdown-item" href="sellitem?location=${lc}">${lc}</a></li>
+			    </c:forEach>
 			  </ul>
 			 </div>
 			  <!-- ---------------------------------------------------------------- -->
@@ -128,8 +129,18 @@
 				  </a>
 			  </div>
 			  <div class="card-body">
-			    <h5 class="card-title" style="font-weight:bold; text-align:center">${data.sel_title}</h5>
-			    <h4 style="text-align:right">${data.sel_name}</h4>
+
+			  	<h5 class="card-title" style="font-weight:bold; text-align:center">${data.sel_title}</h5>
+				 <!-- 좋아요를 보여주는 것 -->
+				 <c:forEach items="${likeData}" var="likeData">
+				 	<c:if test="${data.sel_id == likeData.sel_id}">
+				 		❤
+				 	</c:if>
+
+				 </c:forEach>
+				 
+			   
+			    <h4 style="text-align:right"><a href="./detail?search=${data.sel_name}" class="card-text">${data.sel_name}</a></h4>
 			    <h4 class="price" style="text-align:right">&#8361; <fmt:formatNumber type="number" maxFractionDigits="3" value="${data.sel_price}"/></h4>
 			    <h4>리뷰등록횟수 : ${data.sel_reviewCount}</h4>
 			    <h4>별점 : ${data.sel_starScore}</h4>

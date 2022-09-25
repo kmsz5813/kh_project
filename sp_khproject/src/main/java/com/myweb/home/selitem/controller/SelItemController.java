@@ -1,5 +1,6 @@
 package com.myweb.home.selitem.controller;
 
+
 import java.io.File;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -10,34 +11,24 @@ import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
-
-
-import javax.servlet.ServletException;
-
-import java.util.Map;
-import java.util.UUID;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-
-import org.apache.commons.io.FileUtils;
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
-import org.springframework.web.servlet.ModelAndView;
 
-import com.google.common.io.Files;
 import com.myweb.home.Accounts.model.AccountsDTO;
 import com.myweb.home.common.Paging;
+import com.myweb.home.common.util.option;
 import com.myweb.home.login.service.LoginService;
 import com.myweb.home.purchase.model.PurchaseDTO;
 import com.myweb.home.purchase.service.PurchaseService;
@@ -61,14 +52,22 @@ public class SelItemController {
 	@Autowired
 	private LoginService loginService;
 	
+
 	@Autowired
 	private PurchaseService purchaseService;
+
+	option Option = new option();
+
 	
 //	@Autowired
 //	private FileUploadService fileUploadService;
 	@GetMapping(value="/additem")
 	public String additem(Model model
 		, @SessionAttribute("loginData") AccountsDTO acData) {
+	
+		model.addAttribute("Option", Option.fieldpage());
+		model.addAttribute("lc", Option.Location());
+
 		return "/sellitem/additem";
 	}
 	
@@ -128,6 +127,14 @@ public class SelItemController {
 			, @RequestParam(defaultValue="0", required=false) int pageCount) {
 		Paging paging = null;
 		
+		//acData를 가지고 ....................... 하트표시나오게끔 하기!
+	     AccountsDTO acData = (AccountsDTO) session.getAttribute("loginData");
+		
+	     //acdata로 풀조인을 해서 list에 값을 넘겨주고 list에서 liked가 y로 찍히면 하트가 될수 있게끔.
+	     List<AccountsDTO> likeData = loginService.getlikeData(acData);
+	    
+	 
+
 		
 		//검색으로 조회
 		String search = request.getParameter("search");
@@ -140,6 +147,10 @@ public class SelItemController {
 		//SEL_FIELD로 추적
 		String selectData = request.getParameter("select"); // <<<<<<< 주소값
 		List seletResult = service.getSelect(selectData);
+		
+		//SEL_LOCATION으로 추적
+		String locationData = request.getParameter("location");
+		List locationResult = service.getLocation(locationData);
 		
 		if(session.getAttribute("pageCount") == null) {
 			session.setAttribute("pageCount", 8);
@@ -160,7 +171,14 @@ public class SelItemController {
 			//검색으로 조회
 			paging = new Paging(serachData, page, pageCount);
 			model.addAttribute("selectData", "search=" + search);
+		
+		}else if(locationData != null) {
+			paging = new Paging(locationResult, page, pageCount);
+			model.addAttribute("selectData", "select=" + locationData);
+			
 		}
+		
+		
 		else {
 			paging = new Paging(result, page, pageCount);
 		}
@@ -169,6 +187,12 @@ public class SelItemController {
 			
 		model.addAttribute("result", paging.getPageData());
 		model.addAttribute("pageData", paging);
+
+		model.addAttribute("Option", Option.fieldpage());
+		model.addAttribute("lc", Option.Location());
+		model.addAttribute("likeData", likeData); // 좋아요를 알기위해서.
+
+		
 		
 		return "/sellitem/list";
 	}
@@ -177,7 +201,9 @@ public class SelItemController {
 	@GetMapping(value="/itemdetail")
 	public String detail(Model model, HttpServletRequest request
 			,HttpSession session) {
-		// 판매자 닉네임 가져오기
+
+		// 판매자 닉네임 가져오기	
+
 		String name = request.getParameter("search");
 
 
@@ -216,6 +242,34 @@ public class SelItemController {
 		return "sellitem/itemdetail";
 	}
 	
+	@PostMapping(value="/like", produces="application/json; charset=utf-8")
+	@ResponseBody
+	public String like(@SessionAttribute("loginData") AccountsDTO acDto,
+			 @RequestParam int id
+			 , HttpSession session)
+	{
+		
+		JSONObject json = new JSONObject();
+		System.out.println(id);
+		System.out.println(acDto);
+
+		SelItemDTO itemdata = service.getData(id); // 번호를 토대로 정보 데이터 가져오기
+		
+		if(itemdata != null) {
+			service.incLike(session, itemdata);
+			json.put("code", "success");
+		}else {
+			json.put("code", "default");
+		}
+		
+		return json.toJSONString();
+	}
+	
+	
+	
+	
+	
+	
 	@GetMapping(value="/modify")
 	public String itemmodify(Model model
 			, HttpServletRequest request
@@ -225,7 +279,8 @@ public class SelItemController {
 		SelItemDTO itemdata = service.getData(id);
 		
 		request.setAttribute("itemdata", itemdata);
-		
+		model.addAttribute("Option", Option.fieldpage());
+		model.addAttribute("lc", Option.Location());
 		
 		return "sellitem/modify";
 	}
@@ -272,6 +327,9 @@ public class SelItemController {
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
+				String error = "수정실패";
+				request.setAttribute("error", error);
+				return "sellitem/itemdetail";
 			}
 
 		}

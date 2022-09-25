@@ -75,16 +75,16 @@
 					<input class="form-control" type="text" name="title" id="title" placeholder="제목을 입력하세요.">
 				</div>
 			</div>
+	
 		    <div class="mb-3">
 		       <label class="col-sm-2 control-label">서비스</label>
 		       <div class="mt-3">
 			       <select class="form-select" name="field">
-						<option selected value="무관">-선택-</option>
-						<option value="IT">IT</option>
-						<option value="레슨">레슨</option>
-						<option value="미용">미용</option>
-						<option value="국영수">국영수</option>
-						<option value="기타">기타</option>
+						<option selected value="무관">무관</option>
+						
+						<c:forEach var="name" items="${Option}" >
+						<option value="${name}">${name}</option>
+						</c:forEach>
 			       	</select>
 		       </div>
 		    </div>
@@ -92,38 +92,24 @@
 		        <label class="col-sm-2 control-label">지역</label>
 		        <div class="mt-3">
 			        <select class="form-select" name="location">
-							<option selected value="무관">-선택-</option>
-							<option value="서울">서울</option>
-							<option value="경기">경기</option>
-							<option value="부산">부산</option>
-							<option value="대구">대구</option>
-							<option value="인천">인천</option>
-							<option value="대전">대전</option>
-							<option value="울산">울산</option>
-							<option value="광주">광주</option>
-							<option value="세종">세종</option>
-							<option value="경남">강원</option>
-							<option value="경북">경북</option>
-							<option value="경남">경남</option>
-							<option value="충북">충북</option>
-							<option value="충남">충남</option>
-							<option value="전북">전북</option>
-							<option value="전남">전남</option>
-							<option value="제주">제주</option>
+							<option selected value="무관">무관</option>
+							<c:forEach var="lc" items="${lc}" >
+							<option value="${lc}">${lc}</option>
+							</c:forEach>
 			        </select>
 		     	</div>
 		     </div>
-		    <div class="form-group">
+		    <div class="mb-3">
 				<label class="col-sm-2 control-label">가격</label>
-				<div class="col-sm-10">
+				<div class="mt-3">
 					<input class="form-control" type="text" name="price" placeholder="가격을 입력하세요.">
 				</div>
 			</div> 
 	
-			<div class="mb-3">
+			<div class="mt-3 mb-3">
 				<p>상품상세설명</p>
-				<textarea class="form-control" id="content" name="content" rows="10"
-					placeholder="내용을 입력하세요."></textarea>
+				<textarea required class="form-control" id="content" name="content" rows="10"
+				 ></textarea>
 			</div>
 
 		
@@ -158,7 +144,7 @@
 			}
 			
 			   $('form').on('submit', function(e) {
-					alert($('#formFile').val());
+					
 					
 					if($('#title').val() == ''){
 					   e.preventDefault();
@@ -166,9 +152,7 @@
 					}
 					
 					if($('#content').val() == ''){
-					   e.preventDefault();
-			           swal('등록 오류!', "내용을 입력해주세요!.", 'warning');
-				
+					   	e.preventDefault();
 					}
 					
 					if($('#formFile').val() == ''){

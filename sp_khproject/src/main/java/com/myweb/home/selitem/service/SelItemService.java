@@ -45,6 +45,16 @@ public class SelItemService {
 		return null;
 	}
 	
+	public List getLocation(String locationData) {
+		List datas = dao.locationData(locationData);
+		
+		if(datas != null) {
+			return datas;
+		}
+		
+		return null;
+	}
+	
 	public List<SelItemDTO> getAll() {
 		List<SelItemDTO> datas = dao.selectAll();
 	return datas;
@@ -71,21 +81,33 @@ public class SelItemService {
 		return result;
 	}
 	
-	public boolean remove(SelItemDTO data) {
-		SelItemStaticsDTO staticsData = new SelItemStaticsDTO();
-		staticsData.setbId(data.getSel_id());
-		
-		dao.deleteStaticsData(staticsData);
-		boolean result = dao.deleteData(data);
-		
-		return result;
-	}
 	
 	public void incLike(HttpSession session, SelItemDTO data) {
-		AccountsDTO accData = (AccountsDTO)session.getAttribute("loginData");
+		AccountsDTO acData = (AccountsDTO)session.getAttribute("loginData");
 		
-		SelItemStaticsDTO staticsDTO = new SelItemStaticsDTO();
-//		staticsData.setbId(data.getSel_id());
+		SelItemStaticsDTO staticsData = new SelItemStaticsDTO();
+		staticsData.setSel_id(data.getSel_id());
+		staticsData.setAc_name(acData.getAc_name());
+		
+		SelItemStaticsDTO selectData = dao.selectStatics(staticsData);
+		
+		//조회해서 조회값이 없으면 테이블에 INSERT 생성하기!!!!!!
+		if(selectData == null) {
+			boolean insert_reuslt = dao.insertStatics(staticsData);	
+			selectData = dao.selectStatics(staticsData);
+		}
+		
+		if(selectData.isLiked()) {
+			staticsData.setLiked(false);
+			data.setSel_like(data.getSel_like() -1);
+		}else {
+			selectData.setLiked(true);
+			data.setSel_like(data.getSel_like() + 1);
+		}
+		
+		dao.updateStaticsLike(selectData);
+		
+		boolean result = dao.updateLike(data);
 		
 	}
 	//조회로 게시글찾rl
@@ -176,6 +198,9 @@ public class SelItemService {
 		boolean result = dao.addReviewStar(detail);
 		return result;
 	}
+
+
+
 
 
 

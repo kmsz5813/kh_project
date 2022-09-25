@@ -15,6 +15,11 @@
 	<select id="selectData" resultType="selItemDto">
 		SELECT * FROM SEL_ITEM  S FULL OUTER JOIN FILE_UPLOAD ON S.SEL_ID = FILE_BID WHERE SEL_FIELD = #{selectData} ORDER BY SEL_ID DESC
 	</select>
+	
+	<select id="locationData" resultType="selItemDto">
+		SELECT * FROM SEL_ITEM  S FULL OUTER JOIN FILE_UPLOAD ON S.SEL_ID = FILE_BID WHERE SEL_LOCATION = #{locationData} ORDER BY SEL_ID DESC
+	</select>
+	
 
 	<insert id="insertData" parameterType="selItemDto" useGeneratedKeys="true"
         keyProperty="sel_id" keyColumn="SEL_ID">
@@ -57,6 +62,7 @@
 		 WHERE SEL_ID = #{sel_id}
 	</update>
 	
+
 	<insert id="addReview" parameterType="reviewDto">
 		INSERT INTO REVIEW (REVIEW_NUMBER, REVIEW_ITEMNUMBER, REVIEW_STARCOUNT, REVIEW_WRITER, REVIEW_CONTENT)
 		VALUES (REVIEW_SEQ.NEXTVAL, #{review_itemNumber}, #{review_starCount}, #{review_writer}, #{review_content})
@@ -88,6 +94,35 @@
 	<update id="addReviewStar" parameterType="reviewDetailVo">
 		UPDATE SEL_ITEM
 		   SET SEL_STARSCORE = #{star}
+		 WHERE SEL_ID = #{sel_id}
+	</update>  
+	
+	<select id="selectStatics" resultType="SelItemStaticsDto">
+		SELECT * FROM SEL_ITEM_STATICS WHERE AC_NAME = #{ac_name} AND SEL_ID = #{sel_id}
+	</select>
+	
+	<insert id="insertStatics" parameterType="SelItemStaticsDto">
+		INSERT INTO SEL_ITEM_STATICS(ID, AC_NAME, SEL_ID, LIKED)
+		     VALUES(SEL_ITEM_STATICS_SEQ.NEXTVAL
+		          , #{ac_name} , #{sel_id}, 'N')
+	</insert>
+	
+	<update id="updateStaticsLike" parameterType="SelItemStaticsDto">
+		UPDATE SEL_ITEM_STATICS
+		<choose>
+			<when test="liked">
+				SET LIKED = 'Y'
+			</when>
+			<otherwise>
+				SET LIKED = 'N'
+			</otherwise>
+		</choose>
+		 WHERE ID = #{id}
+	</update>
+	
+	<update id="updateLike" parameterType="selItemDto">
+		UPDATE SEL_ITEM
+		   SET "SEL_LIKE" = #{sel_like}
 		 WHERE SEL_ID = #{sel_id}
 	</update>
 
