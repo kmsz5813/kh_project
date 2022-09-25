@@ -253,7 +253,7 @@ feed-item .feed-content {
 		</div>
 
 		<form action="${findProUrl}/home/community/findPro/add">
-						<input type="hidden" name="qid" value="${data.findPro_id}">
+						<input type="hidden" name="fpid" value="${data.findPro_id}">
 						<button class="btn btn-outline-success" type="submit"
 							style="width: 150px; position: relative; top: 45px; left: 1200px;" id="button" onclick="formCheck(this.form);">글쓰기</button>
 					</form>

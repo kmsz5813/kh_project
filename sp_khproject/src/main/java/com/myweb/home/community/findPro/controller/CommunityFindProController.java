@@ -22,11 +22,11 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.myweb.home.Accounts.model.AccountsDTO;
 import com.myweb.home.common.util.Paging;
+import com.myweb.home.community.findPro.comment.model.FindProCommentDTO;
+import com.myweb.home.community.findPro.comment.service.FindProCommentService;
 import com.myweb.home.community.findPro.model.CommunityFindProDTO;
 import com.myweb.home.community.findPro.service.CommunityFindProService;
 import com.myweb.home.community.findPro.vo.CommunityFindProVO;
-import com.myweb.home.upload.model.FileUploadDTO;
-import com.myweb.home.upload.service.FileUploadService;
 
 
 @Controller
@@ -36,6 +36,9 @@ public class CommunityFindProController {
 	
 	@Autowired
 	private CommunityFindProService service;
+	
+	@Autowired
+	private FindProCommentService commentService;
 	
 	@RequestMapping(value="/list", method=RequestMethod.GET)
 	public String getList(Model model, HttpSession session
@@ -64,9 +67,13 @@ public class CommunityFindProController {
 			, @RequestParam int id) {
 		CommunityFindProDTO data = service.getData(id);
 		
+		//id값이 만든 페이지 번호 
+		List<FindProCommentDTO> datas = commentService.getDatas(id);
+		
 		if(data != null) {
 			service.incViewCnt(session, data);
 			model.addAttribute("data", data);
+			model.addAttribute("datas", datas);
 			return "community/findPro/detail";
 		} else {
 			model.addAttribute("error", "해당 데이터가 존재하지 않습니다.");

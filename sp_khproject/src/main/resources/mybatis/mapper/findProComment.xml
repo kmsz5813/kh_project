@@ -9,8 +9,14 @@
 		INSERT INTO FINDPRO_COMMENT(COMMENT_ID, COMMENT_BID, USER_NAME, COMMENT_CONTENT, COMMENT_DELETED)
 			 VALUES(FINDPRO_COMMENT_SEQ.NEXTVAL
 			      , #{comment_bId}, #{user_Name}, #{comment_Content}
-			      , 'N', 'N')
+			      , 'N')
 	</insert>
+	
+	<select id="selectDatas" resultType="findProCommentDto">
+	  SELECT * FROM FINDPRO_COMMENT WHERE COMMENT_BID = #{id}
+	</select>
+	
+	<!-- 
 	<select id="selectDatas" resultType="findProCommentDto">
 		SELECT P.COMMENT_ID
 		     , P.COMMENT_BID
@@ -25,6 +31,7 @@
 		 WHERE P.COMMENT_BID = #{comment_bId}
 		 ORDER BY P.COMMENT_ID
 	</select>
+	 -->
 	<select id="selectData" resultType="findProCommentDto">
 		SELECT P.COMMENT_ID
 		     , P.COMMENT_BID
