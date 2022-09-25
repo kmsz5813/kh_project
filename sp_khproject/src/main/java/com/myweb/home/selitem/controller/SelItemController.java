@@ -2,6 +2,8 @@ package com.myweb.home.selitem.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.Enumeration;
@@ -37,6 +39,10 @@ import com.google.common.io.Files;
 import com.myweb.home.Accounts.model.AccountsDTO;
 import com.myweb.home.common.Paging;
 import com.myweb.home.login.service.LoginService;
+import com.myweb.home.purchase.model.PurchaseDTO;
+import com.myweb.home.purchase.service.PurchaseService;
+import com.myweb.home.selitem.model.ReviewDTO;
+import com.myweb.home.selitem.model.ReviewDetailVO;
 import com.myweb.home.selitem.model.SelItemDTO;
 import com.myweb.home.selitem.service.SelItemService;
 import com.myweb.home.upload.model.FileUploadDTO;
@@ -54,6 +60,9 @@ public class SelItemController {
 	
 	@Autowired
 	private LoginService loginService;
+	
+	@Autowired
+	private PurchaseService purchaseService;
 	
 //	@Autowired
 //	private FileUploadService fileUploadService;
@@ -156,6 +165,8 @@ public class SelItemController {
 			paging = new Paging(result, page, pageCount);
 		}
 		
+
+			
 		model.addAttribute("result", paging.getPageData());
 		model.addAttribute("pageData", paging);
 		
@@ -167,7 +178,6 @@ public class SelItemController {
 	public String detail(Model model, HttpServletRequest request
 			,HttpSession session) {
 		// 판매자 닉네임 가져오기
-
 		String name = request.getParameter("search");
 
 
@@ -182,17 +192,24 @@ public class SelItemController {
 			String test1 = itemdata.getSel_name();
 			String test2 = acDto.getAc_name();
 			if(!test1.equals(test2)) {
-				System.out.println("실행");
 				boolean result = service.incViewCnt(itemdata);
 				if(!result) {
 					request.setAttribute("viewerror", "조회수오류가있습니다.");
 				}
 			}
-
+			List<PurchaseDTO> buycheck = purchaseService.getFromBuyerName(acDto.getAc_name());
+			for(PurchaseDTO check : buycheck) {
+				if(check.getBuy_itemNumber() == itemid) {
+					request.setAttribute("purchaseCheck", "Y");
+				}
+			}
 		}
 		
+		List<ReviewDTO> reviews = service.getReviews(itemid);
+		int reviewCount = service.getReviewCount(itemid);
 		
-
+		request.setAttribute("reviews", reviews);
+		request.setAttribute("reviewCount", reviewCount);
 		request.setAttribute("data", data);
 		request.setAttribute("itemdata", itemdata);
 
@@ -270,4 +287,44 @@ public class SelItemController {
 		
 	}
 	
+	@PostMapping(value="/review")
+	public String review(Model model, HttpServletRequest request) {
+		String itemid = request.getParameter("itemid");	// url 에 쓸것이므로 굳이 int 반환 필요없음
+		String seller = request.getParameter("sellerName");
+		String writer = request.getParameter("writer");
+		
+		String sellerName = null;
+		try {
+			sellerName = URLEncoder.encode(seller, "UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+		
+		int starCount = Integer.parseInt(request.getParameter("modal-star"));
+		String reviewContent = request.getParameter("modal-desc");
+		System.out.println("별점 : " + starCount);
+		System.out.println("리뷰내용 : " + reviewContent);
+		
+		ReviewDTO review = new ReviewDTO();	// buy_number 는 시퀀스.nextval  writeday 는 DB의 SYSDATE로
+		review.setReview_itemNumber(Integer.parseInt(itemid));
+		review.setReview_starCount(starCount);
+		review.setReview_writer(writer);
+		review.setReview_content(reviewContent);
+		
+
+		int reviewCount = service.getReviewCount(Integer.parseInt(itemid));
+		int previousStar = service.getStarScore(Integer.parseInt(itemid));
+		int star = (previousStar + starCount) / (reviewCount + 1);			
+		ReviewDetailVO detail = new ReviewDetailVO();
+		detail.setSel_id(Integer.parseInt(itemid));
+		detail.setStar(star);
+		
+		service.addReview(review);		// 리뷰 테이블에 등록
+		service.addReviewCount(Integer.parseInt(itemid));	// 아이템 테이블에 리뷰등록횟수 + 1
+		service.addReviewStar(detail);	// 아이템 테이블에 별점 수정
+		
+		String redirectUrl = "sellitem/itemdetail?search=" + sellerName + "&itemid=" + itemid;
+		
+		return "redirect:/" + redirectUrl;
+	}
 }

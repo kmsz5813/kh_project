@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.myweb.home.Accounts.model.AccountsDTO;
+import com.myweb.home.selitem.model.ReviewDTO;
+import com.myweb.home.selitem.model.ReviewDetailVO;
 import com.myweb.home.selitem.model.SelItemDAO;
 import com.myweb.home.selitem.model.SelItemDTO;
 import com.myweb.home.selitem.model.SelItemStaticsDTO;
@@ -138,6 +140,43 @@ public class SelItemService {
 
 
 	}
+
+
+	public boolean addReview(ReviewDTO review) {
+		boolean result = dao.addReview(review);
+		return result;
+	}
+
+
+	public List<ReviewDTO> getReviews(int itemid) {
+		List<ReviewDTO> result = dao.getReviews(itemid);
+		return result;
+	}
+
+
+	public int getReviewCount(int itemid) {
+		int result = dao.getReviewCount(itemid);
+		return result;
+	}
+
+
+	public int getStarScore(int parseInt) {
+		int result = dao.getStarScore(parseInt);
+		return result;
+	}
+
+
+	public boolean addReviewCount(int i) {
+		boolean result = dao.addReviewCount(i);
+		return result;
+	}
+
+
+	public boolean addReviewStar(ReviewDetailVO detail) {
+		boolean result = dao.addReviewStar(detail);
+		return result;
+	}
+
 
 
 

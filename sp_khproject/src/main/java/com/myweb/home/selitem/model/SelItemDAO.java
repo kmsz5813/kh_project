@@ -135,4 +135,41 @@ public class SelItemDAO {
 		int res = session.update(mapperId, itemdata);
 		return res == 1 ? true : false;
 	}
+
+	public boolean addReview(ReviewDTO review) {
+		String mapperId = String.format(mapper, "addReview");
+		int res = session.insert(mapperId, review);
+		return res == 1 ? true : false;
+	}
+
+	public List<ReviewDTO> getReviews(int itemid) {
+		String mapperId = String.format(mapper, "getReviews");
+		List<ReviewDTO> result = session.selectList(mapperId, itemid);
+		return result;
+	}
+
+	public int getReviewCount(int itemid) {
+		String mapperId = String.format(mapper, "getReviewCount");
+		int res = session.selectOne(mapperId, itemid);
+		return res;
+	}
+
+	public int getStarScore(int parseInt) {
+		String mapperId = String.format(mapper, "getStarScore");
+		int res = session.selectOne(mapperId, parseInt);
+		return res;
+	}
+
+	public boolean addReviewCount(int i) {
+		String mapperId = String.format(mapper, "addReviewCount");
+		int res = session.update(mapperId, i);
+		return res == 1 ? true : false;
+	}
+
+	public boolean addReviewStar(ReviewDetailVO detail) {
+		String mapperId = String.format(mapper, "addReviewStar");
+		int res = session.update(mapperId, detail);
+		return res == 1 ? true : false; 
+	}
+
 }
