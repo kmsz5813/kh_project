@@ -97,6 +97,12 @@ public class PurchaseDAO {
 		return list;
 	}
 
+	public boolean deleteCoupon(String ac_name) {
+		String mapperId = String.format(mapper, "deleteCoupon");
+		int res = session.delete(mapperId, ac_name);
+		return res == 1? true: false;
+	}
+
 
 
 

@@ -28,7 +28,7 @@
 		}
 		
 		.img-hover-zoom:hover img {
-		  transform: scale(1.15);
+		  transform: scale(1.1);
 		}
 		
 		.card-img-top{
@@ -112,7 +112,13 @@
 		
 		<!-- 메인 내용 페이지 !!!!!!!!!!!!!!!!!!!!!!!!!! -->
 		<div class="row g-1 mt-5">
-		<c:forEach items="${result}" var="data">	
+			<c:if test="${empty result}">
+				<div class="mt-5">
+					<img style="margin-left:550px; width:200px;" src="${pageContext.request.contextPath}/static/img/NoData.png">
+					<i class="bi bi-exclamation-circle"></i>
+				</div>
+			</c:if>	
+		<c:forEach items="${result}" var="data">
 			<div class="card" style="width: 18rem; margin-right: 2rem; margin-bottom: 2rem;">
 			  <div class="img-hover-zoom" style="border-radius:10px;">
 				<a href="./sellitem/itemdetail?search=${data.sel_name}&itemid=${data.sel_id}">
@@ -129,24 +135,26 @@
 			  </div>
 			  <div class="card-body">
 
-			  	<h5 class="card-title" style="font-weight:bold; text-align:center">${data.sel_title}</h5>
+			  	<span class="card-title" style="font-size: 1.5rem;font-weight:bold;">${data.sel_title}</span>
 				 <!-- 좋아요를 보여주는 것 -->
 				 <c:forEach items="${likeData}" var="likeData">
 				 	<c:if test="${data.sel_id == likeData.sel_id}">
-				 		❤
+				 		<img style="width:20px;float:right;"src="${pageContext.request.contextPath}/static/img/heart.png">
 				 	</c:if>
-
 				 </c:forEach>
-				 
-			   
-			    <h4 style="text-align:right"><a href="./detail?search=${data.sel_name}" class="card-text">${data.sel_name}</a></h4>
-			    <h4 class="price" style="text-align:right">&#8361; <fmt:formatNumber type="number" maxFractionDigits="3" value="${data.sel_price}"/></h4>
-			    <h4>리뷰등록횟수 : ${data.sel_reviewCount}</h4>
+			    <h5 style="text-align:right"><a href="./detail?search=${data.sel_name}" class="card-text">${data.sel_name}</a></h5>
+			    <h5 class="price" style="text-align:right">&#8361; <fmt:formatNumber type="number" maxFractionDigits="3" value="${data.sel_price}"/></h5>
 			    <c:if test="${data.sel_starScore < 1}">
-			    	<h4>별점 : 0.0</h4>
+			  		<div style="float:right;">
+				    	<img src="${pageContext.request.contextPath}/static/img/star.png">
+				    	<span>0.0(${data.sel_reviewCount})</span>
+			  		</div>
 			    </c:if>
 			    <c:if test="${data.sel_starScore >= 1}">
-				    <h4>별점 :  <fmt:formatNumber value="${data.sel_starScore}" pattern=".0"/></h4>
+			    	<div style="float:right;">
+				    	<img style="position:relative; bottom:2px;" src="${pageContext.request.contextPath}/static/img/star.png">
+					    <span><fmt:formatNumber value="${data.sel_starScore}" pattern=".0"/>(${data.sel_reviewCount})</span>
+				    </div>
 			    </c:if>
 			  </div>
 			</div>

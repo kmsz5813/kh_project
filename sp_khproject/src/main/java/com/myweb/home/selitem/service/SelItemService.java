@@ -197,6 +197,13 @@ public class SelItemService {
 		
 	}
 	
+	public boolean deleteData2(String name) {
+		boolean result = dao.deleteData2(name);
+		// boolean result = dao.deleteFiles(name);
+		
+		return result;
+	}
+	
 	public boolean deleteRv(int id) {
 		boolean reviewResult = dao.deleteReviewNumber(id);
 		
@@ -253,6 +260,24 @@ public class SelItemService {
 
 	public String getSeller(int sel_id) {
 		String result = dao.getSeller(sel_id);
+		return result;
+	}
+
+
+	public boolean deleteReviewCount(int sel_id) {
+		boolean result = dao.deleteReviewCount(sel_id);
+		return result;
+	}
+
+
+	public boolean deleteLike(String ac_name) {
+		boolean result = dao.deleteLike(ac_name);
+		return result;
+	}
+
+
+	public boolean deleteReview(String ac_name) {
+		boolean result = dao.deleteReview(ac_name);
 		return result;
 	}
 

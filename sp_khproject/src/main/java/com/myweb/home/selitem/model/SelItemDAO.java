@@ -53,6 +53,7 @@ public class SelItemDAO {
 	public SelItemDTO selectData(int id) {
 		String mapperId = String.format(mapper, "selectIdData");
 		SelItemDTO res = session.selectOne(mapperId, id);
+		System.out.println("판매횟수 : " + res.getSel_number());
 		return res;
 	}
 	
@@ -83,6 +84,12 @@ public class SelItemDAO {
 	public boolean deleteData(int id) {
 		String mapperId = String.format(mapper, "deleteData");
 		int res = session.delete(mapperId, id);
+		return res == 1 ? true : false;
+	}
+	
+	public boolean deleteData2(String name) {
+		String mapperId = String.format(mapper, "deleteData2");
+		int res = session.delete(mapperId, name);
 		return res == 1 ? true : false;
 	}
 	
@@ -226,8 +233,23 @@ public class SelItemDAO {
 		int res = session.delete(mapperId, id);
 		return res == 1 ? true : false;
 	}
+	public boolean deleteReviewCount(int sel_id) {
+		String mapperId = String.format(mapper, "deleteReviewCount");
+		int res = session.update(mapperId, sel_id);
+		return res == 1 ? true : false;
+	}
+	public boolean deleteLike(String ac_name) {
+		String mapperId = String.format(mapper, "deleteLike");
+		int res = session.delete(mapperId, ac_name);
+		return res == 1 ? true : false;
+	}
+	public boolean deleteReview(String ac_name) {
+		String mapperId = String.format(mapper, "deleteReview2");
+		int res = session.delete(mapperId, ac_name);
+		return res == 1 ? true : false;
+	}
 
-
+	
 
 
 }

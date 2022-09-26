@@ -249,7 +249,8 @@ public class SelItemController {
 		//아이템 번호도 가져와야됨
 		int itemid = Integer.parseInt(request.getParameter("itemid"));
 		SelItemDTO itemdata = service.getData(itemid);
-
+		
+		
 		if(session.getAttribute("loginData") != null) {
 			//로그인했을때만... 로그인안했을때 들어가는건 동일ip일땐 안늘게
 			AccountsDTO acDto = (AccountsDTO) session.getAttribute("loginData");
@@ -271,6 +272,9 @@ public class SelItemController {
 		
 		List<ReviewDTO> reviews = service.getReviews(itemid);
 		int reviewCount = service.getReviewCount(itemid);
+		
+		FileUploadDTO thumbnail = service.getThumbnail(itemdata.getSel_id());
+		request.setAttribute("thumbnail", thumbnail);
 		
 		request.setAttribute("reviews", reviews);
 		request.setAttribute("reviewCount", reviewCount);
@@ -395,21 +399,19 @@ public class SelItemController {
 	
 	@PostMapping(value="/deleteReview", produces="application/json; charset=utf-8")
 	@ResponseBody
-	public String deleteReview( @RequestParam int id)
+	public String deleteReview( @RequestParam int id,
+			@RequestParam int sel_id)
 	{
 		
 		JSONObject json = new JSONObject();
-
-
-		boolean result = service.deleteRv(id); // 번호를 토대로 정보 데이터 가져오기
+		service.deleteReviewCount(sel_id);
 		
+		boolean result = service.deleteRv(id); // 번호를 토대로 정보 데이터 가져오기
 		if(result) {
-			
 			json.put("code", "success");
 		}else {
 			json.put("code", "default");
 		}
-		
 		return json.toJSONString();
 	}
 	
@@ -443,14 +445,6 @@ public class SelItemController {
 
 		int reviewCount = service.getReviewCount(Integer.parseInt(itemid));
 		double previousStar = service.getStarScore(Integer.parseInt(itemid));
-		/*
-		 * int totalStar = 0; int[] ints = getStars.stream().mapToInt(i->i).toArray();
-		 * for(int i : ints) { totalStar += ints[i]; }
-		 */
-		/*
-		 * double double_star = totalStar / (reviewCount + 1); double star =
-		 * (double)Math.round(double_star*100);
-		 */
 		double star = (previousStar + starCount) / (reviewCount + 1);
 		System.out.println("평균별점 : " + star);	
 		ReviewDetailVO detail = new ReviewDetailVO();

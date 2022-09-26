@@ -44,6 +44,7 @@ import com.myweb.home.purchase.service.PurchaseService;
 import com.myweb.home.selitem.model.SelItemDTO;
 import com.myweb.home.selitem.model.SelItemStaticsDTO;
 import com.myweb.home.selitem.service.SelItemService;
+import com.myweb.home.upload.model.FileUploadDTO;
 
 
 @Controller
@@ -222,10 +223,18 @@ public class InfoController {
 		// 서버에 저장된 프로필 이미지파일 경로
 		String path = request.getServletContext().getRealPath("/resources/img/profile/");
 		File file = new File(path + "\\" + acDto.getAc_email() + ".png");
+		// FileUploadDTO 의 게시글 번호를 통해 판매자 이름 추가
+		// 일단 FileUploadDTO 전체조회
 		
-		if(email.equals(email2) && pw.equals(pw2)) { //이메일주소랑 비밀번호 체크 완료시	
+		
+		
+		if(email.equals(email2) && pw.equals(pw2)) { //이메일주소랑 비밀번호 체크 완료시
+			purchaseService.deleteCoupon(acDto.getAc_name());	// 쿠폰 삭제
+			selService.deleteLike(acDto.getAc_name());	  // 좋아요 테이블 삭제	
+			selService.deleteReview(acDto.getAc_name());  // 리뷰 삭제
+			selService.deleteData2(acDto.getAc_name()); // 업로드한 게시물, 파일 삭제
 			service.delete(data);
-			file.delete();
+			file.delete();	// 프로필 이미지 삭제
 			System.out.println("삭제 완료");
 			session.invalidate();
 			request.setAttribute("errorMsg", true);
