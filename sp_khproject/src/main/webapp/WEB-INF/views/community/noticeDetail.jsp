@@ -45,19 +45,23 @@ a:link {
 	font-weight: bold;
 	font-family: 'Noto Sans KR', sans-serif;
 }
+
 body {
 	width: 1500px;
 	margin: auto;
 	font-family: 'Noto Sans KR', sans-serif;
 }
+
 #jb-container {
 	width: 1500px;
 	padding: 20px;
 }
+
 #jb-header {
 	padding: 20px;
 	margin-bottom: 20px;
 }
+
 #jb-content-head {
 	width: 950px;
 	height: 500px;
@@ -65,6 +69,7 @@ body {
 	margin-bottom: 20px;
 	float: left;
 }
+
 #jb-sidebar {
 	width: 300px;
 	height: 900px;
@@ -73,12 +78,14 @@ body {
 	float: left;
 	padding: 20px;
 }
+
 #jb-content {
 	width: 950px;
 	padding: 20px;
 	margin-bottom: 20px;
 	float: left;
 }
+
 #jb-footer {
 	width: 1500px;
 	clear: both;
@@ -88,6 +95,7 @@ body {
 	font-family: 'Noto Sans KR', sans-serif;
 	clear: both;
 }
+
 @media ( max-width : 480px ) {
 	#jb-container {
 		width: auto;
@@ -105,100 +113,67 @@ body {
 		width: auto;
 	}
 }
+
 .feed-item {
 	padding: 1rem 0.5rem;
 	border-bottom: 0.0625rem solid #f4f4f4;
 	cursor: pointer;
 }
+
 ul li {
 	list-style: none;
 }
+
 * {
 	word-break: break-word;
 }
+
 *, :after, :before {
 	box-sizing: border-box;
 }
+
 user agent stylesheet
 li {
 	display: list-item;
 	text-align: -webkit-match-parent;
 }
-@media ( max-width : 991.98px) .feed-item[data-v-05dbd958] {
+
+@media ( max-width : 991.98px) .feed-item {
 	padding
-	
-	
-	
-	
-	
-	
-		
-	
-	
-	
-	
-	
-	
-	:
-	
-	
-	
-	
-	
-	
 	 
-	
-	
-	
-	
-	
-	
+	:
 	1
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	 
 	.25rem
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	;
+	
+
 }
+
 .feed-list {
 	margin: 0;
 }
+
 ul {
 	padding: 0;
 }
+
 dl, ol, ul {
 	margin-top: 0;
 }
+
 address, dl, ol, ul {
 	margin-bottom: 1rem;
 }
+
 * {
 	word-break: break-word;
 }
+
 *, :after, :before {
 	box-sizing: border-box;
 }
+
 user agent stylesheet
 ul {
 	display: block;
@@ -209,54 +184,77 @@ ul {
 	margin-inline-end: 0px;
 	padding-inline-start: 40px;
 }
+
 feed-item .feed-content {
 	display: flex;
 	margin-bottom: 0.875rem;
 }
+
 * {
 	word-break: break-word;
 }
+
 *, :after, :before {
 	box-sizing: border-box;
 }
+
 .table th {
-    font-weight: 500;
-    color: #777777;
-    font-weight: bold;
+	font-weight: 500;
+	color: #777777;
+	font-weight: bold;
 }
-.table thead { background-color: #fff; }
-.table thead th:first-child { padding: 0 30px 8px; }
-.table tbody tr td:first-child { padding: 0 30px; }
+
+.table thead {
+	background-color: #fff;
+}
+
+.table thead th:first-child {
+	padding: 0 30px 8px;
+}
+
+.table tbody tr td:first-child {
+	padding: 0 30px;
+}
+
 .table>tbody>tr>td, .table>thead>tr>td {
-    padding: 14px 12px;
-    vertical-align: middle;
+	padding: 14px 12px;
+	vertical-align: middle;
 }
+
 .table tr td {
-    color: #555555;
+	color: #555555;
 }
-.table tbody td a {	
-	color: #555555; 
-    padding: 13px 0;
+
+.table tbody td a {
+	color: #555555;
+	padding: 13px 0;
 }
-.table tbody td a:hover { color: #17B794; }
-.pagingstyle{
- 	width: 50%; 
- 	margin: 0 auto;
+
+.table tbody td a:hover {
+	color: #17B794;
 }
-#searchbox{
-    float: right;
-    width: 270px;
-    margin: 0 auto;
+
+.pagingstyle {
+	width: 50%;
+	margin: 0 auto;
 }
+
+#searchbox {
+	float: right;
+	width: 270px;
+	margin: 0 auto;
+}
+
 #row {
-    position: relative;
-    margin-top: 10px;
+	position: relative;
+	margin-top: 10px;
 }
+
 #form-control {
 	width: 150px;
-    position: absolute;
-    right: 18%;
-    height: 30px;
+	position: absolute;
+	right: 18%;
+	height: 30px;
 }
 </style>
 </head>
@@ -279,7 +277,7 @@ feed-item .feed-content {
 			</div>
 			<div style="text-align: center;">
 				<a href="#" style="display: table; margin-top: -100px;"> <img
-					src="../static/img/logo.png"
+					src="../../static/img/logo.png"
 					style="width: 300px; margin-bottom: -100px;" class="d-inline-block">
 				</a>
 			</div>
@@ -304,11 +302,12 @@ feed-item .feed-content {
 				</div>
 			</nav>
 		</header>
+
 		<div class="container-xl">
 			<div class="row">
 				<div class="col-md-12" style="position: relative; top: 100px;">
 					<h2>
-						<b>커뮤니티</b>
+						<b>궁금해요</b>
 					</h2>
 				</div>
 			</div>
@@ -337,17 +336,17 @@ feed-item .feed-content {
 					style="position: relative; top: 120px; left: 60px;">
 					<button type="button" class="btn btn-outline-success"
 						style="width: 130px; height: 50px;">전체</button>
-		                                                                                                                		</a>
+				</a>
 			</div>
 			<div>
-				<a href="${pageContext.request.contextPath}/community/findPro"
+				<a href="${pageContext.request.contextPath}/community/findPro/list"
 					style="position: relative; top: 180px; left: 60px;">
 					<button type="button" class="btn btn-outline-success"
 						style="width: 130px; height: 50px;">전문가 찾아요</button>
 				</a>
 			</div>
 			<div>
-				<a href="${pageContext.request.contextPath}/community/findStu"
+				<a href="${pageContext.request.contextPath}/community/findStu/list"
 					style="position: relative; top: 240px; left: 60px;">
 					<button type="button" class="btn btn-outline-success"
 						style="width: 130px; height: 50px;">레슨자 찾아요</button>
@@ -361,7 +360,7 @@ feed-item .feed-content {
 				</a>
 			</div>
 			<div>
-				<a href="${pageContext.request.contextPath}/community/life"
+				<a href="${pageContext.request.contextPath}/community/life/list"
 					style="position: relative; top: 360px; left: 60px;">
 					<button type="button" class="btn btn-outline-success"
 						style="width: 130px; height: 50px;">일상</button>
@@ -377,10 +376,11 @@ feed-item .feed-content {
 		</aside>
 		<section>
 			<div id="jb-content-head">
+
 				<!-- 커뮤니티 키워드 검색 -->
 				<nav class="navbar navbar-expand-md navbar-light">
 					<div class="container"
-						style="position: relative; top: 40px; left: 40px;">
+						style="position: relative; top: 40px; left: 5px;">
 						<button class="navbar-toggler" type="button"
 							data-bs-toggle="collapse"
 							data-bs-target="#navbarSupportedContent"
@@ -393,39 +393,54 @@ feed-item .feed-content {
 								<input class="form-control me-4" type="search"
 									placeholder="키워드를 입력해주세요!" aria-label="Search"
 									style="min-width: 800px;">
+								<div class="col-3">
+									<div class="input-group">
+										<button class="btn btn-secondary" type="submit">조회</button>
+									</div>
+								</div>
 							</form>
+
 						</div>
 					</div>
 				</nav>
 				<!-- 커뮤니티 메인 새글 -->
+
 				<article>
 					<div id="jb-content">
 						<ul class="feed-list">
 							<!-- 본문 -->
-							<li class="feed-item"><a href="#"
-								data-testid="soomgo-life-feed-item"> <span>공지사항</span></a>
-								<div class="feed-content">
-									<div>
-										<section>
-											<div class="mt-5 mb-5" style="border: 1px solid; height: 4rem;">
-												${data.notice_title}
+							<div class="feed-content">
+								<div>
+									<section class="container">
+										<div class="mt-3">
+											<div class="mb-1 border-bottom border-2 border-secondary">
+												<h1>${data.notice_title}</h1>
 											</div>
-											<div class="mt-5 mb-5" style="border: 1px solid; height: 30rem;" >
-												${data.notice_content}
+											<div class="mb-1 border-bottom border-2 border-secondary">
+												<p>${data.question_Content}</p>
 											</div>
-											
-											
-										</section>
-									</div>
-								</div> <!--end table-responsive-->
-							</li>
+
+											<div class="mb-1 text-end">
+												<c:url var="noticeUrl" value="/community/notice" />
+												<button class="btn btn-primary" type="button"
+													onclick="location.href='${noticeUrl}/list'">목록</button>
+											</div>
+										</div>
+									</section>
+								</div>
+							</div>
+							<!--end table-responsive-->
 						</ul>
 					</div>
 				</article>
 				<c:url var="mainurl" value="/main" />
+
+
 				<footer id="jb-footer">
+
+
 					<div
-						style="width: 1500px; height: 200px; background-color: #f6f7f7; margin: auto; padding: 10px;">
+						style="width: 1500px; height: 200px; background-color: #f6f7f7; margin: auto; padding: 10px; position: relative; left: 50px;">
 						이용약관</div>
 				</footer>
 				<!-- go to top -->
