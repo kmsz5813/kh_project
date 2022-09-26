@@ -169,15 +169,25 @@
 				<!-- 리뷰삭제 -->
 				
 				
-	 			<div id="test1">
+	 			<div id="${reviews.review_number}">
 	 			<c:if test="${reviews.review_writer == loginData.ac_name}">
 	 				<button type="button" class="btn btn btn-outline-danger" onclick="deleteReview(${reviews.review_number});">삭제</button>					                       
+					<button type="button" class="btn btn btn-outline-danger" onclick="modify(${reviews.review_number});">수정</button>					                       
+					
 				</c:if>
 				<p>${reviews.review_starCount}</p>
 				<p>${reviews.review_writeDay}</p>
 				<p>${reviews.review_writer}</p>
 				<p>${reviews.review_content}</p>
 				</div>
+				<span id="${reviews.review_number}modify" style="display: none">
+					  <div class="col-md-12">
+						  <div class="modal-description">
+	                          <textarea id="note-has-description" name="contentTest" class="form-control" minlength="20" rows="5" maxlength="300" 
+	                          placeholder="※ 등록된 후기는 수정이 불가능합니다 .&#13;&#10;※ 최소 20글자, 최대 300글자를 입력하실 수 있습니다."></textarea>
+	                      </div>
+					 </div>
+				</span>
 			</c:forEach>
 			
 				
@@ -267,6 +277,8 @@
 	
 	<script type="text/javascript">
 		<!-- 모달 - 별점 -->
+		
+		
 	
 		$(document).ready(function(){
 			
@@ -317,6 +329,8 @@
 				success: function(data) {
 					if(data.code === "success"){
 						$('#test1').remove();
+						
+						//제이쿼리
 						swal('댓글 삭제!', "댓글이 삭제 되었습니다.", 'success');
 					}else if(data.code === "default"){
 						swal('댁슬 삭제 실패!', "다시 한번 확인하세요.", 'warning');
