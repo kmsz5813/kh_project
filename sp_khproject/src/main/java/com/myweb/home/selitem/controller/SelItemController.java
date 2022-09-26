@@ -415,6 +415,43 @@ public class SelItemController {
 		return json.toJSONString();
 	}
 	
+	
+	@PostMapping(value="/modifyReview")
+	public String modifyReview(Model model, HttpServletRequest request) {
+		String modifyContent = request.getParameter("modifyContent");
+		String id = request.getParameter("id");
+		
+		String sel_id = request.getParameter("sel_id");//판매자아이디 
+		String sel_name = request.getParameter("sel_name");//아이템값
+		
+		String seller = null;
+		try {
+		     seller = URLEncoder.encode(sel_name, "UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		int reviewNumber = Integer.parseInt(id);
+		
+		ReviewDTO data = new ReviewDTO();
+		data.setReview_number(reviewNumber);
+		data.setReview_content(modifyContent);
+		
+		boolean result = service.modifyReview(data);
+		
+		String redirectUrl = "sellitem/itemdetail?search=" + seller + "&itemid=" + sel_id;
+		
+		
+		if(result) {
+			return "redirect:/" + redirectUrl;
+		}else {
+			model.addAttribute("error","실패");
+			return "redirect:/" + redirectUrl;
+		}
+		
+		
+	}
 
 
 	

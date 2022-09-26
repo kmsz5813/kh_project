@@ -188,5 +188,9 @@
 	<delete id="deleteReview2" parameterType="string">
 		DELETE FROM REVIEW WHERE REVIEW_WRITER = #{ac_name}
 	</delete>
+	
+	<update id="modifyReview">
+		UPDATE REVIEW SET REVIEW_CONTENT = #{review_content} WHERE REVIEW_NUMBER = #{review_number} 
+	</update>
 
 </mapper>

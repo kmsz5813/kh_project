@@ -168,9 +168,27 @@
 						${reviews.review_starCount}&emsp;${reviews.review_writer}&emsp;${reviews.review_writeDay}&emsp;					
 						<c:if test="${reviews.review_writer == loginData.ac_name}">
 			 				<button type="button" class="btn btn-sm btn-outline-danger" onclick="deleteReview(${reviews.review_number}, ${itemdata.sel_id});">삭제</button>
+							<button type="button" class="btn btn-sm btn-outline-success" onclick="modifyForm(${reviews.review_number}, ${itemdata.sel_id});">수정</button>
 						</c:if>
 						</p>
 						<p style="margin-bottom: 30px;">${reviews.review_content} </p>
+						
+						<c:url var="reviewUrl" value="/sellitem/modifyReview" />
+						<form action="${reviewUrl}" method="post">
+						<span id="${reviews.review_number}modify" style="display:none; width:65rem;">
+							
+                            <label>내용</label>
+                            <textarea id="note-has-description" name="modifyContent" class="form-control" minlength="20" rows="5" maxlength="300"></textarea>
+        					  <input type="hidden" value="${reviews.review_number}" name="id">
+        					  <input type="hidden" value="${itemdata.sel_name}" name="sel_name">
+        					  <input type="hidden" value="${itemdata.sel_id}" name="sel_id">
+        					    
+        					  <button form="addnotesmodalTitle" type="submit" id="btn-n-add" class="buttonB">취소</button>
+						      <button class="buttonA" data-dismiss="modal">작성</button>
+						
+						
+						</span>
+						</form>
 					</div>
 				</c:forEach>
 				<img src="../static/img/arrow-up.png"  style="float:right; cursor:pointer; position:relative; bottom:25px;" id="scroll_top">
@@ -281,6 +299,11 @@
 		      
 		   return false;
 			});
+		
+		function modifyForm(id, sel_id){
+			var id = id;
+			$('#' + id + 'modify').css("display", "inline-block");
+		}
 		
 		
 		

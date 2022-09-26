@@ -282,6 +282,12 @@ public class SelItemService {
 	}
 
 
+	public boolean modifyReview(ReviewDTO data) {
+		boolean result = dao.modifyReview(data);
+		return result;
+	}
+
+
 
 
 

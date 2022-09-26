@@ -248,6 +248,11 @@ public class SelItemDAO {
 		int res = session.delete(mapperId, ac_name);
 		return res == 1 ? true : false;
 	}
+	public boolean modifyReview(ReviewDTO data) {
+		String mpapperId = String.format(mapper, "modifyReview");
+		int res = session.update(mpapperId, data);
+		return res == 1? true : false;
+	}
 
 	
 
