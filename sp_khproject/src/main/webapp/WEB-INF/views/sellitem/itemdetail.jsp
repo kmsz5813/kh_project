@@ -53,7 +53,7 @@
 						<p>${data.ac_field }</p>
 					</div>
 					<div class="mt-5">
-						<button type="button" onclick="location.href='${pageContext.request.contextPath}/chat'"
+						<button type="button" onclick="location.href='${pageContext.request.contextPath}/chatting?itemid=${itemdata.sel_id}&sel=${itemdata.sel_name}&cus=${loginData.ac_name}'"
 						class="btn btn-outline-success">메시지 보내기</button>
 						<c:if test="${loginData.ac_index == 10}">
 							<button style="margin-left:20px;" type="button" 

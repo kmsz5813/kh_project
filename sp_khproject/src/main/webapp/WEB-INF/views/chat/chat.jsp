@@ -162,14 +162,25 @@ div.col-md-12 { margin-bottom: 15px; }
           <div class="sender">{{sender}}</div>
           <div class="message">{{message}}</div>
         </div>
+		
        </script>
+       <c:forEach items="${Resultdata}" var="Resultdata">
+       		<p>${Resultdata.sender} :  ${Resultdata.message}</p>
+  
+       </c:forEach> 
+             <c:forEach items="${SameData}" var="SameData">
+       		<p>${SameData.sender} :  ${SameData.message}</p>
+       		${SameData.writeday }
+  
+       </c:forEach> 
+       
 		<div class="input-div">
 			<textarea id="txtMessage" cols="30" rows="10"
 				placeholder="메시지를 입력한 후에 엔터키를 누르세요."></textarea>
 		</div>
+
 	</div>
 </body>
-
 
 
 <!-- 메시지 입력시 오른쪽 왼쪽으로 기입되는 방식 지정 -->
@@ -198,7 +209,8 @@ div.col-md-12 { margin-bottom: 15px; }
 			}
 
 			// 서버로 메시지 보내기
-			sock.send(uid + "|" + message);
+			sock.send(uid + "|" + message +"|" + ${data.item_id} +"|" + "${data.receiver}" );
+			
 			$("#txtMessage").val("");
 			$("#txtMessage").focus();
 		}
