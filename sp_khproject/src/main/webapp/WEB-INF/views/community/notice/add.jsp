@@ -262,6 +262,12 @@ feed-item .feed-content {
 </head>
 <script type="text/javascript">
 	function formCheck(form) {
+		/*
+		console.log(form.notice_title.value);
+		console.log(form.notice_title.value.trim());
+		console.log((form.notice_title.value === undefined
+				|| form.notice_title.value.trim() === ""));
+		*/
 		if (form.notice_title.value === undefined
 				|| form.notice_title.value.trim() === "") {
 			var modal = new bootstrap.Modal(document
@@ -315,7 +321,7 @@ feed-item .feed-content {
 			<div class="row">
 				<div class="col-md-12" style="position: relative; top: 100px;">
 					<h2>
-						<b>궁금해요</b>
+						<b>공지사항</b>
 					</h2>
 				</div>
 			</div>
@@ -382,7 +388,7 @@ feed-item .feed-content {
 
 									<section class="container">
 										<div class="mt-3" style="position: relative; top: 50px;">
-											<c:url var="noticeAddUrl" value="/admin/notice/insert" />
+											<c:url var="noticeAddUrl" value="/admin/notice/add" />
 											<form action="${noticeAddUrl}" method="post"
 												enctype="multipart/form-data">
 												<div class="mb-3">

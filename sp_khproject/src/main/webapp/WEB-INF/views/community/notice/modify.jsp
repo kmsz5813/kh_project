@@ -274,7 +274,7 @@ feed-item .feed-content {
 			<div class="row">
 				<div class="col-md-12" style="position: relative; top: 100px;">
 					<h2>
-						<b>일상</b>
+						<b>공지사항</b>
 					</h2>
 				</div>
 			</div>
@@ -362,7 +362,7 @@ feed-item .feed-content {
 									<section class="container">
 										<div class="mt-3">
 											<c:url var="noticeModifyUrl"
-												value="/community/notice/modify" />
+												value="/admin/notice/modify" />
 											<form action="${noticeModifyUrl}" method="post">
 												<input type="hidden" name="notice_no"
 													value="${data.notice_no}">
