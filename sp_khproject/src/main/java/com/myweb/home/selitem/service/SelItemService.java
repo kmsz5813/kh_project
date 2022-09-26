@@ -1,5 +1,6 @@
 package com.myweb.home.selitem.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -197,9 +198,11 @@ public class SelItemService {
 		
 	}
 	
+	@SuppressWarnings("null")
 	public boolean deleteData2(String name) {
-		boolean result = dao.deleteData2(name);
-		// boolean result = dao.deleteFiles(name);
+		boolean result2 = dao.deleteFiles(name);	// File_upload 삭제
+		boolean result = dao.deleteData2(name);	  // Sel_item 삭제
+		
 		
 		return result;
 	}

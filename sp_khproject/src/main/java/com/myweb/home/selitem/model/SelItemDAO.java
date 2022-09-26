@@ -248,6 +248,16 @@ public class SelItemDAO {
 		int res = session.delete(mapperId, ac_name);
 		return res == 1 ? true : false;
 	}
+	public List<FileUploadDTO> selectAllFiles(String name) {
+		String mapperId = String.format(mapper, "selectAllFiles");
+		List<FileUploadDTO> list = session.selectList(mapperId, name);
+		return list;
+	}
+	public boolean deleteFiles(String name) {
+		String mapperId = String.format(mapper, "deleteFiles");
+		int res = session.delete(mapperId, name);
+		return res == 1 ? true : false;
+	}
 
 	
 

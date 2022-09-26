@@ -188,5 +188,19 @@
 	<delete id="deleteReview2" parameterType="string">
 		DELETE FROM REVIEW WHERE REVIEW_WRITER = #{ac_name}
 	</delete>
+	
+	<select id="selectAllFiles" resultType="fileUploadDto">
+		SELECT * FROM FILE_UPLOAD
+	</select>
+	
+	<delete id="deleteFiles" parameterType="string">
+		DELETE FROM FILE_UPLOAD fu
+			 WHERE fu.FILE_BID = (
+				SELECT si.SEL_ID
+				  FROM SEL_ITEM si
+				 WHERE si.SEL_ID = fu.FILE_BID
+				 AND si.SEL_NAME = #{name}
+			 )
+	</delete>
 
 </mapper>
