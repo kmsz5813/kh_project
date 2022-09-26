@@ -8,14 +8,14 @@ public class option {
 
 	public List<String> fieldpage() {
 		List<String> test1 = new ArrayList<String>();
-		test1.add("IT.프로그래밍");
+		test1.add("IT, 프로그래밍");
 		test1.add("디자인");
 		test1.add("비즈니스");
 		test1.add("마케팅");
-		test1.add("번역.통역");
+		test1.add("번역, 통역");
 		test1.add("문서, 글쓰기");
 		test1.add("주문 제작");
-		test1.add("세무.법무");
+		test1.add("세무, 법무");
 		test1.add("기타");
 		
 		return test1;

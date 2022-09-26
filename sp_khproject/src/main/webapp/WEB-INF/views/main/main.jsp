@@ -281,10 +281,10 @@
 							<div class="thumb-wrapper img-hover-zoom">
 								<span class="wish-icon"><i class="fa fa-heart-o"></i></span>
 								<div class="img-box ">
-									<a href="#"><img src="static/img/hot/hot-test1.png" class="img-fluid" alt=""></a>									
+									<a href="#"><img src="static/img/hot/IT.png" class="img-fluid" alt=""></a>									
 								</div>
 								<div class="thumb-content">
-									<h4>보컬 레슨</h4>																		
+									<h4>IT, 프로그래밍</h4>																		
 								</div>						
 							</div>
 						</div>
@@ -292,10 +292,10 @@
 							<div class="thumb-wrapper img-hover-zoom">
 								<span class="wish-icon"><i class="fa fa-heart-o"></i></span>
 								<div class="img-box">
-									<a href="#"><img src="static/img/hot/hot-test2.png" class="img-fluid " alt=""></a>
+									<a href="#"><img src="static/img/hot/Design.png" class="img-fluid " alt=""></a>
 								</div>
 								<div class="thumb-content">
-									<h4>인테리어</h4>									
+									<h4>디자인</h4>									
 								</div>						
 							</div>
 						</div>		
@@ -303,10 +303,10 @@
 							<div class="thumb-wrapper img-hover-zoom">
 								<span class="wish-icon"><i class="fa fa-heart-o"></i></span>
 								<div class="img-box">
-									<a href="#"><img src="static/img/hot/hot-test3.png" class="img-fluid " alt=""></a>
+									<a href="#"><img src="static/img/hot/Business.png" class="img-fluid " alt=""></a>
 								</div>
 								<div class="thumb-content">
-									<h4>퍼스널 트레이닝(PT)</h4>									
+									<h4>비즈니스</h4>									
 								</div>						
 							</div>
 						</div>								
@@ -314,10 +314,10 @@
 							<div class="thumb-wrapper img-hover-zoom">
 								<span class="wish-icon"><i class="fa fa-heart-o"></i></span>
 								<div class="img-box">
-									<a href="#"><img src="static/img/hot/hot-test4.png" class="img-fluid " alt=""></a>
+									<a href="#"><img src="static/img/hot/Marketing.png" class="img-fluid " alt=""></a>
 								</div>
 								<div class="thumb-content">
-									<h4>영어 과외</h4>									
+									<h4>마케팅</h4>									
 								</div>						
 							</div>
 						</div>
@@ -329,10 +329,10 @@
 							<div class="thumb-wrapper img-hover-zoom">
 								<span class="wish-icon"><i class="fa fa-heart-o"></i></span>
 								<div class="img-box">
-									<a href="#"><img src="static/img/hot/hot-test5.png" class="img-fluid " alt=""></a>
+									<a href="#"><img src="static/img/hot/Translation.png" class="img-fluid " alt=""></a>
 								</div>
 								<div class="thumb-content">
-									<h4>카테고리5</h4>
+									<h4>번역, 통역</h4>
 								</div>						
 							</div>
 						</div>
@@ -340,10 +340,10 @@
 							<div class="thumb-wrapper img-hover-zoom">
 								<span class="wish-icon"><i class="fa fa-heart-o"></i></span>
 								<div class="img-box">
-									<a href="#"><img src="static/img/hot/hot-test6.png" class="img-fluid " alt=""></a>
+									<a href="#"><img src="static/img/hot/Writing.png" class="img-fluid " alt=""></a>
 								</div>
 								<div class="thumb-content">
-									<h4>카테고리6</h4>	
+									<h4>문서, 글쓰기</h4>	
 								</div>						
 							</div>
 						</div>
@@ -351,10 +351,10 @@
 							<div class="thumb-wrapper img-hover-zoom">
 								<span class="wish-icon"><i class="fa fa-heart-o"></i></span>
 								<div class="img-box">
-									<a href="#"><img src="static/img/hot/hot-test7.png" class="img-fluid " alt=""></a>
+									<a href="#"><img src="static/img/hot/CustomOrder.png" class="img-fluid " alt=""></a>
 								</div>
 								<div class="thumb-content">
-									<h4>카테고리7</h4>										
+									<h4>주문제작</h4>										
 								</div>						
 							</div>
 						</div>
@@ -362,10 +362,10 @@
 							<div class="thumb-wrapper img-hover-zoom">
 								<span class="wish-icon"><i class="fa fa-heart-o"></i></span>
 								<div class="img-box">
-									<a href="#"><img src="static/img/hot/hot-test8.png" class="img-fluid " alt=""></a>
+									<a href="#"><img src="static/img/hot/Tax.png" class="img-fluid " alt=""></a>
 								</div>
 								<div class="thumb-content">
-									<h4>카테고리8</h4>
+									<h4>세무, 법무</h4>
 								</div>						
 							</div>
 						</div>						
@@ -377,10 +377,10 @@
 							<div class="thumb-wrapper img-hover-zoom">
 								<span class="wish-icon"><i class="fa fa-heart-o"></i></span>
 								<div class="img-box">
-									<a href="#"><img src="static/img/hot/hot-test9.png" class="img-fluid " alt="iPhone"></a>
+									<a href="#"><img src="static/img/hot/Etc.png" class="img-fluid " alt="iPhone"></a>
 								</div>
 								<div class="thumb-content">
-									<h4>카테고리9</h4>
+									<h4>기타</h4>
 								</div>						
 							</div>
 						</div>
