@@ -8,7 +8,7 @@
 	</select>
 	<insert id="insertData" parameterType="communityQuestionDto">
 		INSERT INTO QUESTION (QUESTION_ID, USER_NAME, QUESTION_TITLE, QUESTION_CONTENT, QUESTION_DATE)
-		     VALUES(#{question_id}, #{user_name}, #{question_title}, #{question_content}, SYSDATE)
+		     VALUES(#{question_Id}, #{user_Name}, #{question_Title}, #{question_Content}, SYSDATE)
 	</insert>
 	
 	<select id="selectQuestion" resultType="communityQuestionDto">
@@ -20,7 +20,7 @@
 		  FROM QUESTION Q
 		  JOIN ACCOUNTS A
 		    ON Q.USER_NAME = A.AC_NAME
-		 WHERE Q.QUESTION_ID = #{question_id}
+		 WHERE Q.QUESTION_ID = #{question_Id}
 	</select>
 	
 	<select id="selectData" resultType="communityQuestionDto">
@@ -32,17 +32,17 @@
 		  FROM QUESTION Q
 		  JOIN ACCOUNTS A
 		    ON Q.USER_NAME = A.AC_NAME
-		 WHERE Q.QUESTION_ID = #{question_id}
+		 WHERE Q.QUESTION_ID = #{question_Id}
 	</select>
 	<update id="updateViewCnt" parameterType="communityQuestionDto">
 		UPDATE QUESTION
 		   SET QUESTION_VIEW = #{question_view} + 1
-		 WHERE QUESTION_ID = #{question_id}
+		 WHERE QUESTION_ID = #{question_Id}
 	</update>
 	<update id="updateLike" parameterType="communityQuestionDto">
 		UPDATE QUESTION
 		   SET "QUESTION_LIKE" = #{question_like}
-		 WHERE QUESTION_ID= #{question_id}
+		 WHERE QUESTION_ID= #{question_Id}
 	</update>
 	<select id="selectStatics" parameterType="communityQuestionStaticsDto" resultType="communityQuestionStaticsDto">
 		SELECT QUESTION_ID, USER_NAME, QUESTION_BID
@@ -50,18 +50,18 @@
 		     , QUESTION_LATEST_VIEW_DATE AS question_latestViewDate
 		     , QUESTION_LIKED
 		  FROM QUESTION_STATICS
-		 WHERE USER_NAME = #{user_name}
+		 WHERE USER_NAME = #{user_Name}
 		   AND QUESTION_BID = #{question_bId}
 	</select>
 	<insert id="insertStatics" parameterType="communityQuestionStaticsDto">
 		INSERT INTO QUESTION_STATICS
 		     VALUES(QUESTION_STATICS_SEQ.NEXTVAL
-		          , #{user_name}, #{question_bId}, 'Y', SYSDATE, 'N')
+		          , #{user_Name}, #{question_bId}, 'Y', SYSDATE, 'N')
 	</insert>
 	<update id="updateStatics" parameterType="communityQuestionStaticsDto">
 		UPDATE QUESTION_STATICS
 		   SET QUESTION_LATEST_VIEW_DATE = SYSDATE
-		 WHERE QUESTION_ID = #{question_id}
+		 WHERE QUESTION_ID = #{question_Id}
 	</update>
 	<update id="updateStaticsLike" parameterType="communityQuestionStaticsDto">
 		UPDATE QUESTION_STATICS
@@ -73,7 +73,7 @@
 				SET QUESTION_LIKED = 'N'
 			</otherwise>
 		</choose>
-		 WHERE QUESTION_ID = #{question_id}
+		 WHERE QUESTION_ID = #{question_Id}
 	</update>
 	<select id="selectAll" resultType="communityQuestionDto">
 		SELECT Q.QUESTION_ID, Q.QUESTION_TITLE, Q.QUESTION_CONTENT
@@ -92,12 +92,12 @@
 	</delete>
 	<delete id="deleteData">
 		DELETE FROM QUESTION
-		 WHERE QUESTION_ID = #{question_id}
+		 WHERE QUESTION_ID = #{question_Id}
 	</delete>
 	<update id="updateData" parameterType="communityQuestionDto">
 		UPDATE QUESTION
-		   SET QUESTION_TITLE = #{question_title}
-		     , QUESTION_CONTENT = #{question_content}
-		 WHERE QUESTION_ID = #{question_id}
+		   SET QUESTION_TITLE = #{question_Title}
+		     , QUESTION_CONTENT = #{question_Content}
+		 WHERE QUESTION_ID = #{question_Id}
 	</update>
 </mapper>
