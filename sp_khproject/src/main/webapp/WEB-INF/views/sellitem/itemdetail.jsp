@@ -105,7 +105,7 @@
 					</div>
 					<div class="col-3 mt-4">
 						<p>&emsp;<fmt:formatNumber type="number" maxFractionDigits="3" value="${itemdata.sel_price}"/> 원</p>
-						<p>&emsp;${itemdata.sel_like}&nbsp;<img style="width:20px; position:relative; bottom:2px;" src="${pageContext.request.contextPath}/static/img/heart.png"></p>
+						<p id="liked">&emsp;${itemdata.sel_like}&nbsp;<img style="width:20px; position:relative; bottom:2px;" src="${pageContext.request.contextPath}/static/img/heart.png"></p>
 						<p>&emsp;${itemdata.sel_view} views</p>
 						<p>&emsp;${itemdata.sel_number} 건의 판매&emsp;<fmt:formatNumber value="${itemdata.sel_starScore}" pattern=".0"/>&nbsp;<img style="width:20px; position:relative; bottom:2px;" src="${pageContext.request.contextPath}/static/img/star.png"></p>
 					</div>
@@ -137,8 +137,7 @@
 			</div>
 	
 			<div class="mt-5">상세내용</div>
-			<div>${itemdata.sel_content}</div>	
-				
+
 				
 				<!-- 삭제모달창 -->
 				<div class="modal fade" id="removeModal" tabindex="-1" aria-hidden="true">
@@ -317,9 +316,12 @@
 				},
 				success: function(data) {
 					if(data.code === "success"){
+
 						swal('관심 상품에 추가되었습니다!', "", 'success');
 					}else if(data.code === "default"){
 						alert("실패");
+					}else if(data.code === "already"){
+						swal('관심 상품에 이미있는 목록입니다!', "", 'warning');
 					}
 				}
 			});

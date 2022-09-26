@@ -35,6 +35,7 @@ import com.myweb.home.purchase.service.PurchaseService;
 import com.myweb.home.selitem.model.ReviewDTO;
 import com.myweb.home.selitem.model.ReviewDetailVO;
 import com.myweb.home.selitem.model.SelItemDTO;
+import com.myweb.home.selitem.model.SelItemStaticsDTO;
 import com.myweb.home.selitem.service.SelItemService;
 import com.myweb.home.upload.model.FileUploadDTO;
 import com.myweb.home.upload.service.FileUploadService;
@@ -288,8 +289,8 @@ public class SelItemController {
 	@ResponseBody
 	public String like(@SessionAttribute("loginData") AccountsDTO acDto,
 			 @RequestParam int id
-			 , HttpSession session)
-	{
+			 , HttpSession session
+			 , Model model){
 		
 		JSONObject json = new JSONObject();
 		System.out.println(id);
@@ -298,8 +299,15 @@ public class SelItemController {
 		SelItemDTO itemdata = service.getData(id); // 번호를 토대로 정보 데이터 가져오기
 		
 		if(itemdata != null) {
-			service.incLike(session, itemdata);
-			json.put("code", "success");
+			SelItemStaticsDTO selectData = service.incLike(session, itemdata);
+			if(selectData.isLiked()) {
+				json.put("code", "success");
+			}else {
+				json.put("code", "already");
+			}
+			
+			
+			
 		}else {
 			json.put("code", "default");
 		}
