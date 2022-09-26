@@ -157,7 +157,7 @@
 				      </div>
 				      <div class="modal-footer">														
 				        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" onclick="location.href='delete?id=${itemdata.sel_id}'">삭제하기</button>
-				        <button type="button" class="btn btn-secondary">삭제하지 않기</button>
+				        <button type="button" class="btn btn-secondary">삭제하지않을게요</button>
 				      </div>
 				    </div>
 				  </div>
@@ -171,7 +171,7 @@
 				
 	 			<div id="test1">
 	 			<c:if test="${reviews.review_writer == loginData.ac_name}">
-	 				<button type="button" class="btn btn-outline-success" onclick="modifyReview(${reviews.review_number});">수정</button>					                       
+	 				<button type="button" class="btn btn btn-outline-danger" onclick="deleteReview(${reviews.review_number});">삭제</button>					                       
 				</c:if>
 				<p>${reviews.review_starCount}</p>
 				<p>${reviews.review_writeDay}</p>
@@ -317,9 +317,9 @@
 				success: function(data) {
 					if(data.code === "success"){
 						$('#test1').remove();
-						alert("성공");
+						swal('댓글 삭제!', "댓글이 삭제 되었습니다.", 'success');
 					}else if(data.code === "default"){
-						alert("실패");
+						swal('댁슬 삭제 실패!', "다시 한번 확인하세요.", 'warning');
 						
 					}
 					
