@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <mapper namespace="findProCommentMapper">
+	<insert id="insertData" parameterType="findProCommentDto">
+		INSERT INTO FINDPRO_COMMENT(COMMENT_ID, COMMENT_BID, USER_NAME, COMMENT_CONTENT, COMMENT_DELETED)
+			 VALUES(FINDPRO_COMMENT_SEQ.NEXTVAL
+			      , #{comment_bId}, #{user_Name}, #{comment_Content}
+			      , 'N')
+	</insert>
+	
+	<select id="selectDatas" resultType="findProCommentDto">
+	  SELECT * FROM FINDPRO_COMMENT WHERE COMMENT_BID = #{id}
+	</select>
+	
+	<!-- 
+	<select id="selectDatas" resultType="findProCommentDto">
+		SELECT P.COMMENT_ID
+		     , P.COMMENT_BID
+		     , USER_NAME
+		     , P.COMMENT_CONTENT
+		     , P.COMMENT_DATE
+		     , P.COMMENT_DELETED
+		     , P.COMMENT_LIKE
+		  FROM FINDPRO_COMMENT P
+		  JOIN ACCOUNTS A
+		    ON P.USER_NAME = A.AC_NAME
+		 WHERE P.COMMENT_BID = #{comment_bId}
+		 ORDER BY P.COMMENT_ID
+	</select>
+	 -->
+	<select id="selectData" resultType="findProCommentDto">
+		SELECT P.COMMENT_ID
+		     , P.COMMENT_BID
+		     , USER_NAME
+		     , P.COMMENT_CONTENT
+		     , P.COMMENT_DATE
+		     , P.COMMENT_DELETED
+		     , P.COMMENT_LIKE
+		  FROM FINDPRO_COMMENT P
+		  JOIN ACCOUNTS A
+		    ON P.USER_NAME = A.AC_NAME
+		 WHERE P.COMMENT_ID = #{comment_Id}
+	</select>
+	<update id="deleteData" parameterType="findProCommentDto">
+		UPDATE FINDPRO_COMMENT
+		   SET COMMENT_DELETED = 'Y'
+		 WHERE COMMENT_ID = #{comment_Id}
+	</update>
+	<update id="updateData" parameterType="findProCommentDto">
+		UPDATE FINDPRO_COMMENT
+		   SET COMMENT_CONTENT = #{comment_Content}
+		 WHERE COMMENT_ID = #{comment_Id}
+	</update>
+</mapper>
+  

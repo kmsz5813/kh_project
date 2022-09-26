@@ -1,8 +1,6 @@
 package com.myweb.home.community.controller;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -14,11 +12,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.myweb.home.Accounts.model.AccountsDTO;
 import com.myweb.home.common.util.Paging;
-import com.myweb.home.common.util.PagingCommunity;
-import com.myweb.home.community.model.CommunityNoticeDTO;
-import com.myweb.home.community.service.CommunityNoticeService;
+import com.myweb.home.community.notice.model.CommunityNoticeDTO;
+import com.myweb.home.community.notice.service.CommunityNoticeService;
+
 
 //사용자
 @Controller

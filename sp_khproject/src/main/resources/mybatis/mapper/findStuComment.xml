@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <mapper namespace="findStuCommentMapper">
+	<insert id="insertData" parameterType="findStuCommentDto">
+		INSERT INTO FINDSTU_COMMENT(COMMENT_ID, COMMENT_BID, USER_NAME, COMMENT_CONTENT, COMMENT_DELETED)
+			 VALUES(FINDSTU_COMMENT_SEQ.NEXTVAL
+			      , #{comment_bId}, #{user_Name}, #{comment_Content}
+			      , 'N')
+	</insert>
+	
+	 <select id="selectDatas" resultType="findStuCommentDto">
+	  SELECT * FROM FINDSTU_COMMENT WHERE COMMENT_BID = #{id}
+	</select>
+	<!-- 
+	<select id="selectDatas" resultType="findStuCommentDto">
+		SELECT S.COMMENT_ID
+		     , S.COMMENT_BID
+		     , USER_NAME
+		     , S.COMMENT_CONTENT
+		     , S.COMMENT_DATE
+		     , S.COMMENT_DELETED
+		     , S.COMMENT_LIKE
+		  FROM FINDSTU_COMMENT S
+		  JOIN ACCOUNTS A
+		    ON S.USER_NAME = A.AC_NAME
+		 WHERE S.COMMENT_BID = #{comment_bId}
+		 ORDER BY S.COMMENT_ID
+	</select>
+	 -->
+	<select id="selectData" resultType="findStuCommentDto">
+		SELECT S.COMMENT_ID
+		     , S.COMMENT_BID
+		     , USER_NAME
+		     , S.COMMENT_CONTENT
+		     , S.COMMENT_DATE
+		     , S.COMMENT_DELETED
+		     , S.COMMENT_LIKE
+		  FROM FINDSTU_COMMENT S
+		  JOIN ACCOUNTS A
+		    ON S.USER_NAME = A.AC_NAME
+		 WHERE S.COMMENT_ID = #{comment_Id}
+	</select>
+	<update id="deleteData" parameterType="findStuCommentDto">
+		UPDATE FINDSTU_COMMENT
+		   SET COMMENT_DELETED = 'Y'
+		 WHERE COMMENT_ID = #{comment_Id}
+	</update>
+	<update id="updateData" parameterType="findStuCommentDto">
+		UPDATE FINDSTU_COMMENT
+		   SET COMMENT_CONTENT = #{comment_Content}
+		 WHERE COMMENT_ID = #{comment_Id}
+	</update>
+</mapper>
+  
