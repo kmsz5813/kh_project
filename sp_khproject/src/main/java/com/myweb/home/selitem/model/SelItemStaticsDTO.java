@@ -9,9 +9,13 @@ public class SelItemStaticsDTO {
 	private int sel_id;
 	private boolean liked;
 	
+	private String sel_title;
+	private String sel_name;
+	
 	public String getAc_name() {
 		return ac_name;
 	}
+	
 	public int getId() {
 		return id;
 	}
@@ -32,6 +36,19 @@ public class SelItemStaticsDTO {
 	}
 	public void setAc_name(String ac_name) {
 		this.ac_name = ac_name;
+	}
+	public String getSel_title() {
+		return sel_title;
+	}
+	public void setSel_title(String sel_title) {
+		this.sel_title = sel_title;
+	}
+	
+	public String getSel_name() {
+		return sel_name;
+	}
+	public void setSel_name(String sel_name) {
+		this.sel_name = sel_name;
 	}
 	@Override
 	public String toString() {

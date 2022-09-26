@@ -53,6 +53,7 @@ public class SelItemDAO {
 	public SelItemDTO selectData(int id) {
 		String mapperId = String.format(mapper, "selectIdData");
 		SelItemDTO res = session.selectOne(mapperId, id);
+		System.out.println("판매횟수 : " + res.getSel_number());
 		return res;
 	}
 	
@@ -80,15 +81,17 @@ public class SelItemDAO {
 		return res == 1? true : false;
 	}
 	
-	public boolean deleteStaticsData(SelItemStaticsDTO data) {
-		String mapperId = String.format(mapper, "deleteStaticsData");
-		int res = session.delete(mapperId, data);
-		return res >= 0 ? true : false;
+	
+	//데이터삭제
+	public boolean deleteData(int id) {
+		String mapperId = String.format(mapper, "deleteData");
+		int res = session.delete(mapperId, id);
+		return res == 1 ? true : false;
 	}
 	
-	public boolean deleteData(SelItemDTO data) {
-		String mapperId = String.format(mapper, "deleteData");
-		int res = session.delete(mapperId, data);
+	public boolean deleteData2(String name) {
+		String mapperId = String.format(mapper, "deleteData2");
+		int res = session.delete(mapperId, name);
 		return res == 1 ? true : false;
 	}
 	
@@ -124,9 +127,24 @@ public class SelItemDAO {
 		return res == 1 ? true : false;
 	}
 
+	//이름으로찾기
 	public List<SelItemDTO> searchName(String ac_name) {
 		String mapperId = String.format(mapper, "searchName");
 		List<SelItemDTO> datas = session.selectList(mapperId, ac_name);
+		return datas;
+	}
+	
+	//좋아요순을 ㅗ찾기
+	public List searchLike() {
+		String mapperId = String.format(mapper, "searchLike");
+		List datas = session.selectList(mapperId);
+		return datas;
+	}
+	
+	//조회순으로 찾기
+	public List searchView() {
+		String mapperId = String.format(mapper, "searchView");
+		List datas = session.selectList(mapperId);
 		return datas;
 	}
 
@@ -167,8 +185,11 @@ public class SelItemDAO {
 
 	public int getStarScore(int parseInt) {
 		String mapperId = String.format(mapper, "getStarScore");
-		int res = session.selectOne(mapperId, parseInt);
-		return res;
+		if(session.selectOne(mapperId, parseInt) != null) {
+			int res = session.selectOne(mapperId, parseInt);
+			return res;
+		}
+		return 0;
 	}
 
 	public boolean addReviewCount(int i) {
@@ -182,6 +203,65 @@ public class SelItemDAO {
 		int res = session.update(mapperId, detail);
 		return res == 1 ? true : false; 
 	}
+	
+	public String getTitle(int sel_id) {
+		String mapperId = String.format(mapper, "getTitle");
+		String result = session.selectOne(mapperId, sel_id);
+		return result;
+	}
+	public String getSeller(int sel_id) {
+		String mapperId = String.format(mapper, "getSeller");
+		String result = session.selectOne(mapperId, sel_id);
+		return result;
+	}
+	public boolean deleteReview(int id) {
+		String mapperId = String.format(mapper, "deleteReview");
+		int res = session.delete(mapperId, id);
+		return res == 1 ? true : false;
+	}
+	public boolean deleteStatics(int id) {
+		String mapperId = String.format(mapper, "deleteStatics");
+		int res = session.delete(mapperId, id);
+		return res == 1 ? true : false;
+	}
+	public boolean deleteFile(int id) {
+		String mapperId = String.format(mapper, "deleteFile");
+		int res = session.delete(mapperId, id);
+		return res == 1 ? true : false;
+	}
+	//번호로조회
+	public boolean deleteReviewNumber(int id) {
+		String mapperId = String.format(mapper, "deleteReviewNumber");
+		int res = session.delete(mapperId, id);
+		return res == 1 ? true : false;
+	}
+	public boolean deleteReviewCount(int sel_id) {
+		String mapperId = String.format(mapper, "deleteReviewCount");
+		int res = session.update(mapperId, sel_id);
+		return res == 1 ? true : false;
+	}
+	public boolean deleteLike(String ac_name) {
+		String mapperId = String.format(mapper, "deleteLike");
+		int res = session.delete(mapperId, ac_name);
+		return res == 1 ? true : false;
+	}
+	public boolean deleteReview(String ac_name) {
+		String mapperId = String.format(mapper, "deleteReview2");
+		int res = session.delete(mapperId, ac_name);
+		return res == 1 ? true : false;
+	}
+	public List<FileUploadDTO> selectAllFiles(String name) {
+		String mapperId = String.format(mapper, "selectAllFiles");
+		List<FileUploadDTO> list = session.selectList(mapperId, name);
+		return list;
+	}
+	public boolean deleteFiles(String name) {
+		String mapperId = String.format(mapper, "deleteFiles");
+		int res = session.delete(mapperId, name);
+		return res == 1 ? true : false;
+	}
+
+	
 
 
 }

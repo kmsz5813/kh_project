@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import com.myweb.home.Accounts.model.AccountsDAO;
 import com.myweb.home.Accounts.model.AccountsDTO;
 import com.myweb.home.purchase.model.UsePointVO;
+import com.myweb.home.selitem.model.SelItemStaticsDTO;
 
 @Service
 public class LoginService {
@@ -196,6 +197,12 @@ public class LoginService {
 		
 	
 	}
+
+	public List<SelItemStaticsDTO> likeDatas(String ac_name) {
+		List<SelItemStaticsDTO> list = dao.likeDatas(ac_name);
+		return list;
+	}
+
 
 
 

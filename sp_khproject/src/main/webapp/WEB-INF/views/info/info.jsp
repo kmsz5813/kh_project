@@ -182,15 +182,23 @@
 							<colgroup>
 								<col class="col-2">
 								<col class="col-auto">
-								<col class="col-5">
 							</colgroup>
 							<thead style="background-color: rgb(224, 224, 224)">
 								<tr>
-									<th class="text-center">test2</th>
-									<th class="text-center">test2</th>
-									<th class="text-center">test2</th>
+									<th class="text-center">게시번호</th>
+									<th class="text-center">상품명</th>
+									<th class="text-center">판매자</th>
 								</tr>
 							</thead>
+							<tbody>
+								<c:forEach items="${likedData}" var="likedData">
+									<tr onclick="location.href='./sellitem/itemdetail?search=${likedData.sel_name}&itemid=${likedData.sel_id}'" style="cursor:pointer;" >
+										<th class="text-center">${likedData.sel_id}</th>
+										<th class="text-center">${likedData.sel_title}</th>
+										<th class="text-center">${likedData.sel_name}</th>
+									</tr>
+								</c:forEach>
+							</tbody>
 						</table>
 					</div>
 				</section>
@@ -227,13 +235,11 @@
 							<colgroup>
 								<col class="col-2">
 								<col class="col-auto">
-								<col class="col-5">
 							</colgroup>
 							<thead style="background-color: rgb(224, 224, 224)">
 								<tr>
-									<th class="text-center">test3</th>
-									<th class="text-center">test3</th>
-									<th class="text-center">test3</th>
+									<th class="text-center">test</th>
+									<th class="text-center">test</th>
 								</tr>
 							</thead>
 						</table>
@@ -267,8 +273,8 @@
 				<p class="fw-bold fs-4">보유 쿠폰</p>
 					<div class="mt-3">
 						<div style="float:right;">
-							<button style="background-color:#F6CECE; border: none;">유효기간 만료</button>
-							<button style="background-color:#E9967A; border: none;">사용됨</button>
+							<button style="background-color:#F6CECE; border: none;" disabled>유효기간 만료</button>
+							<button style="background-color:#E9967A; border: none;" disabled>사용됨</button>
 						</div>
 						<table class="table table-hover">
 							<thead style="background-color: rgb(224, 224, 224)">

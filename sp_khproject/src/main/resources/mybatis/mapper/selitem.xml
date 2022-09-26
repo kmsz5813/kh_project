@@ -20,6 +20,16 @@
 		SELECT * FROM SEL_ITEM  S FULL OUTER JOIN FILE_UPLOAD ON S.SEL_ID = FILE_BID WHERE SEL_LOCATION = #{locationData} ORDER BY SEL_ID DESC
 	</select>
 	
+	<!-- 좋아요로 조회 -->
+	<select id="searchLike" resultType="selItemDto">
+		SELECT * FROM SEL_ITEM  S FULL OUTER JOIN FILE_UPLOAD ON S.SEL_ID = FILE_BID ORDER BY SEL_LIKE DESC
+	</select>
+	
+	<!-- 조회순으로 조회 -->
+	<select id="searchView" resultType="selItemDto">
+		SELECT * FROM SEL_ITEM  S FULL OUTER JOIN FILE_UPLOAD ON S.SEL_ID = FILE_BID ORDER BY SEL_VIEW DESC	
+	</select>
+	
 
 	<insert id="insertData" parameterType="selItemDto" useGeneratedKeys="true"
         keyProperty="sel_id" keyColumn="SEL_ID">
@@ -79,10 +89,10 @@
 		 WHERE SEL_ID = #{itemid}
 	</select>
 	
-	<select id="getStarScore" parameterType="int" resultType="int">
-		SELECT SEL_STARSCORE
-		  FROM SEL_ITEM
-		 WHERE SEL_ID = #{parseInt}
+	<select id="getStarScore" resultType="int" parameterType="int">
+		SELECT SUM(REVIEW_STARCOUNT)
+		  FROM REVIEW
+		 WHERE REVIEW_ITEMNUMBER = #{parseInt}
 	</select>
 	
 	<update id="addReviewCount" parameterType="int">
@@ -125,6 +135,72 @@
 		   SET "SEL_LIKE" = #{sel_like}
 		 WHERE SEL_ID = #{sel_id}
 	</update>
-
 	
+	<select id="getTitle" resultType="string">
+		SELECT SEL_TITLE
+		  FROM SEL_ITEM
+		  NATURAL JOIN SEL_ITEM_STATICS
+		 WHERE SEL_ID = #{sel_id} AND LIKED = 'Y'
+	</select>
+
+
+	<select id="getSeller" resultType="string">
+		SELECT SEL_NAME
+		  FROM SEL_ITEM
+		 WHERE SEL_ID = #{sel_id}
+	</select>
+	
+	<delete id="deleteData">
+		DELETE FROM SEL_ITEM WHERE SEL_ID = #{id} 
+	</delete>
+	
+	<delete id="deleteData2">
+		DELETE FROM SEL_ITEM WHERE SEL_NAME = #{name} 
+	</delete>
+	
+	<delete id="deleteReview">
+		DELETE FROM REVIEW WHERE REVIEW_ITEMNUMBER = #{id}
+	</delete>
+	
+	<delete id="deleteStatics">
+		DELETE FROM SEL_ITEM_STATICS WHERE SEL_ID = #{id}
+	</delete>
+	
+	<delete id="deleteFile">
+		DELETE FROM FILE_UPLOAD WHERE FILE_BID = #{id}
+	</delete>
+	
+	<delete id="deleteReviewNumber">
+		DELETE FROM REVIEW WHERE REVIEW_NUMBER = #{id}
+	</delete>
+	
+	<update id="deleteReviewCount" parameterType = "int">
+		UPDATE SEL_ITEM
+		   SET SEL_REVIEWCOUNT = SEL_REVIEWCOUNT - 1
+		 WHERE SEL_ID = #{sel_id}
+	</update>
+	
+	<delete id="deleteLike" parameterType="string">
+		DELETE FROM SEL_ITEM_STATICS
+		 WHERE AC_NAME = #{ac_name}
+	</delete>
+	
+	<delete id="deleteReview2" parameterType="string">
+		DELETE FROM REVIEW WHERE REVIEW_WRITER = #{ac_name}
+	</delete>
+	
+	<select id="selectAllFiles" resultType="fileUploadDto">
+		SELECT * FROM FILE_UPLOAD
+	</select>
+	
+	<delete id="deleteFiles" parameterType="string">
+		DELETE FROM FILE_UPLOAD fu
+			 WHERE fu.FILE_BID = (
+				SELECT si.SEL_ID
+				  FROM SEL_ITEM si
+				 WHERE si.SEL_ID = fu.FILE_BID
+				 AND si.SEL_NAME = #{name}
+			 )
+	</delete>
+
 </mapper>

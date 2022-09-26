@@ -16,7 +16,7 @@ public class SelItemDTO {
 	private int sel_view;
 	private int sel_like;
 	private int sel_reviewCount;
-	private int sel_starScore;
+	private double sel_starScore;
 	private int sel_report;
 	
 	private String uuidName;
@@ -117,7 +117,7 @@ public class SelItemDTO {
 	}
 
 	public void setSel_number(int sel_number) {
-		this.sel_view = sel_number;
+		this.sel_number = sel_number;
 	}
 
 	public int getSel_view() {
@@ -152,11 +152,11 @@ public class SelItemDTO {
 		this.sel_reviewCount = sel_reviewCount;
 	}
 
-	public int getSel_starScore() {
+	public double getSel_starScore() {
 		return sel_starScore;
 	}
 
-	public void setSel_starScore(int sel_starScore) {
+	public void setSel_starScore(double sel_starScore) {
 		this.sel_starScore = sel_starScore;
 	}
 	

@@ -25,13 +25,16 @@ public class FileUploadService {
 	
 	@Transactional
 	public int upload(MultipartFile file, FileUploadDTO data) throws Exception {
-		
 		File folder = new File(data.getLocation());
+		System.out.println(folder);
+		
 		if(!folder.exists()) {
 			folder.mkdirs();
 		}
 		
 		UUID uuid = UUID.nameUUIDFromBytes(file.getBytes());
+		
+		System.out.println(uuid);
 		
 		data.setFileName(file.getOriginalFilename());
 		data.setUuidName(uuid.toString());
@@ -39,6 +42,7 @@ public class FileUploadService {
 		data.setContentType(file.getContentType());
 		
 		int count = dao.getCount(data.getFile_bId());
+		System.out.println(count);
 		
 		if(count >= 5) {
 			// 업로드 수량 초과.
@@ -46,6 +50,7 @@ public class FileUploadService {
 		}
 		
 		boolean result = dao.insertData(data);
+		System.out.println(result);
 		if(result) {
 			try {
 				System.out.println("여기는실행되나????????");

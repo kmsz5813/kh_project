@@ -1,5 +1,6 @@
 package com.myweb.home.selitem.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -20,6 +21,8 @@ public class SelItemService {
 	
 	@Autowired
 	private SelItemDAO dao;
+	
+	
 	
 	public List<Object> getData(SelItemDTO data) {
 		
@@ -99,14 +102,17 @@ public class SelItemService {
 		}
 		
 		if(selectData.isLiked()) {
-			staticsData.setLiked(false);
+			selectData.setLiked(false);
+			
 			data.setSel_like(data.getSel_like() -1);
+			
 		}else {
 			selectData.setLiked(true);
 			data.setSel_like(data.getSel_like() + 1);
 		}
 		
 		dao.updateStaticsLike(selectData);
+		//이부분이 뭔가 문제가있음.
 		
 		boolean result = dao.updateLike(data);
 		
@@ -129,6 +135,18 @@ public class SelItemService {
 			return datas;
 		}
 		return null;
+	}
+	
+	//좋아요로 게시물 찾기
+	public List getLike() {
+		List datas = dao.searchLike();
+		return datas;
+	}
+	
+	//조회순으로 찾기
+	public List getview() {
+		List datas = dao.searchView();
+		return datas;
 	}
 
 	// 구매시 구매횟수 + 1
@@ -162,6 +180,43 @@ public class SelItemService {
 		}
 
 
+	}
+	
+	public boolean delete(int id) {
+		boolean reviewResult = dao.deleteReview(id); //리뷰삭제
+		
+		boolean staticResult = dao.deleteStatics(id); //좋아요 부분삭제
+		
+		boolean fileResult = dao.deleteFile(id);
+		
+		boolean result = dao.deleteData(id);
+		
+		if(result) {
+			return true;
+		}else {
+			return false;
+		}
+		
+	}
+	
+	@SuppressWarnings("null")
+	public boolean deleteData2(String name) {
+		boolean result2 = dao.deleteFiles(name);	// File_upload 삭제
+		boolean result = dao.deleteData2(name);	  // Sel_item 삭제
+		
+		
+		return result;
+	}
+	
+	public boolean deleteRv(int id) {
+		boolean reviewResult = dao.deleteReviewNumber(id);
+		
+		if(reviewResult) {
+			return true;
+		}else {
+			return false;
+		}
+		
 	}
 
 
@@ -199,6 +254,41 @@ public class SelItemService {
 		boolean result = dao.addReviewStar(detail);
 		return result;
 	}
+
+
+	public String getTitle(int sel_id) {
+		String result = dao.getTitle(sel_id);
+		return result;
+	}
+
+
+	public String getSeller(int sel_id) {
+		String result = dao.getSeller(sel_id);
+		return result;
+	}
+
+
+	public boolean deleteReviewCount(int sel_id) {
+		boolean result = dao.deleteReviewCount(sel_id);
+		return result;
+	}
+
+
+	public boolean deleteLike(String ac_name) {
+		boolean result = dao.deleteLike(ac_name);
+		return result;
+	}
+
+
+	public boolean deleteReview(String ac_name) {
+		boolean result = dao.deleteReview(ac_name);
+		return result;
+	}
+
+
+
+
+
 
 
 

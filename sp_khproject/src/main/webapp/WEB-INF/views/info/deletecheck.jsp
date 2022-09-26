@@ -62,24 +62,25 @@
 			</div>
 			<script type="text/javascript">
 				$(document).ready(function(){
+						if(${errorMsg== false}) {
+							swal('틀린 정보!', "이메일과 비밀번호를 확인하세요.", 'warning');
+						}
 					document.querySelector('#deleteForm').addEventListener('submit', function(e) {
-						var form = this;
 						e.preventDefault();
+						
+						var form = this;
 						swal({
 							  title: "탈퇴하시겠습니까?",
-							  text: "탈퇴 시 업로드한 게시글, 파일이 전부 삭제됩니다.",
+							  text: "탈퇴 시 업로드한 자료 및 쿠폰이 전부 삭제됩니다.(거래내역은 유지)",
 							  icon: "warning",
 							  buttons: true,
 							  dangerMode: true,
 							})
 							.then((willDelete) => {
 							  if (willDelete) {
-							    swal({
-							      	title: "탈퇴가 완료되었습니다.",
-							    	icon: "info",
-							    }).then(function() {
+							   
 							    	form.submit();
-							    });
+
 							  } else {
 							    swal({
 							    	title: "탈퇴가 취소되었습니다.",

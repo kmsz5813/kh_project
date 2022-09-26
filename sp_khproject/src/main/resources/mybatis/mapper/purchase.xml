@@ -69,6 +69,11 @@
 	<select id="allEventCoupons" resultType="eventCouponDto">
 		SELECT * FROM EVENTCOUPON
 	</select>
+	
+	<delete id="deleteCoupon" parameterType="string">
+		DELETE FROM COUPON
+		 WHERE COUPON_USERNAME = #{ac_name}
+	</delete>
 
 	
 </mapper>
