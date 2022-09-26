@@ -20,6 +20,16 @@
 		SELECT * FROM SEL_ITEM  S FULL OUTER JOIN FILE_UPLOAD ON S.SEL_ID = FILE_BID WHERE SEL_LOCATION = #{locationData} ORDER BY SEL_ID DESC
 	</select>
 	
+	<!-- 좋아요로 조회 -->
+	<select id="searchLike" resultType="selItemDto">
+		SELECT * FROM SEL_ITEM  S FULL OUTER JOIN FILE_UPLOAD ON S.SEL_ID = FILE_BID ORDER BY SEL_LIKE DESC
+	</select>
+	
+	<!-- 조회순으로 조회 -->
+	<select id="searchView" resultType="selItemDto">
+		SELECT * FROM SEL_ITEM  S FULL OUTER JOIN FILE_UPLOAD ON S.SEL_ID = FILE_BID ORDER BY SEL_VIEW DESC	
+	</select>
+	
 
 	<insert id="insertData" parameterType="selItemDto" useGeneratedKeys="true"
         keyProperty="sel_id" keyColumn="SEL_ID">
@@ -133,9 +143,31 @@
 		 WHERE SEL_ID = #{sel_id} AND LIKED = 'Y'
 	</select>
 
+
 	<select id="getSeller" resultType="string">
 		SELECT SEL_NAME
 		  FROM SEL_ITEM
 		 WHERE SEL_ID = #{sel_id}
 	</select>
+	
+	<delete id="deleteData">
+		DELETE FROM SEL_ITEM WHERE SEL_ID = #{id} 
+	</delete>
+	
+	<delete id="deleteReview">
+		DELETE FROM REVIEW WHERE REVIEW_ITEMNUMBER = #{id}
+	</delete>
+	
+	<delete id="deleteStatics">
+		DELETE FROM SEL_ITEM_STATICS WHERE SEL_ID = #{id}
+	</delete>
+	
+	<delete id="deleteFile">
+		DELETE FROM FILE_UPLOAD WHERE FILE_BID = #{id}
+	</delete>
+	
+	<delete id="deleteReviewNumber">
+		DELETE FROM REVIEW WHERE REVIEW_NUMBER = #{id}
+	</delete>
+
 </mapper>

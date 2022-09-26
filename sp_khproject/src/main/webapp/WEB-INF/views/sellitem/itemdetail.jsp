@@ -127,7 +127,7 @@
 						</c:if>
 						<c:if test="${data.ac_name == loginData.ac_name}">
 							<button type="button" class="btn btn-outline-success" onclick="location.href='modify?id=${itemdata.sel_id}'">수정</button>
-							<button type="button" class="btn btn-outline-success" style="margin-left:0.5">삭제</button>
+							<button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#removeModal">삭제</button>
 						</c:if>
 						<a href="#moveToReview" id="scroll_move"><button id="moveToReview" type="button" style="margin-left:20px;" class="btn btn-outline-secondary">리뷰(${reviewCount})</button></a>
 						<button type="button" style="width:50px; margin-left:20px;" class="btn btn-outline-danger"onclick="ajaxLike(${itemdata.sel_id});">
@@ -137,23 +137,47 @@
 			</div>
 	
 			<div class="mt-5">상세내용</div>
-			<div>${itemdata.sel_content}</div>
+			<div>${itemdata.sel_content}</div>	
+				
+				
+				<!-- 삭제모달창 -->
+				<div class="modal fade" id="removeModal" tabindex="-1" aria-hidden="true">
+				  <div class="modal-dialog">
+				    <div class="modal-content">
+				      <div class="modal-header">
+				        <h5 class="modal-title">삭제 확인</h5>
+				        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				      </div>
+				      <div class="modal-body">
+				        <p>이 데이터를 삭제하시겠습니까?</p>
+				      </div>
+				      <div class="modal-footer">														
+				        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" onclick="location.href='delete?id=${itemdata.sel_id}'">삭제하기</button>
+				        <button type="button" class="btn btn-secondary">삭제하지않을게요</button>
+				      </div>
+				    </div>
+				  </div>
+				</div>
 
 			
+
 			<p id="moveToReview" class="fw-bold fs-4 mt-5 mb-3">리뷰(${reviewCount})</p>
 			<div style=" background-color:#EAF3F7; border-radius:5%; padding:30px;">
 				<c:forEach items="${reviews}" var="reviews">
 					<p><img src="${pageContext.request.contextPath}/static/img/star.png" style="position:relative; bottom:2px;">
 					${reviews.review_starCount}&emsp;${reviews.review_writer}&emsp;${reviews.review_writeDay}</p>
 					<p style="margin-bottom: 30px;">${reviews.review_content}</p>
+					<c:if test="${reviews.review_writer == loginData.ac_name}">
+		 				<button type="button" class="btn btn btn-outline-danger" onclick="deleteReview(${reviews.review_number});">삭제</button>					                       
+					</c:if>
 				</c:forEach>
-			</div>
-			
-				
+			</div>		
 				<c:if test="${loginData.ac_index == 10}">
 					<div class="mt-5" style="text-align: center; height:10rem;">
 					  <button type="button" class="btn" onclick="ajaxLike(${itemdata.sel_id});" style="margin-left:8rem; width:7rem; background-color:rgb(224, 224, 224);">❤</button>
 					  <button type="button" class="btn btn-outline-primary" style="margin-left:1rem; width:7rem;">뒤로가기</button>
+					
+					
 					  <c:if test="${purchaseCheck == 'Y'}">
 					  	<button class="btn btn-outline-primary" data-toggle="modal" data-target="#addnotesmodal" style="margin-left:1rem; width:9rem;">리뷰작성</button>
 					  	<!-- Modal Add notes -->
@@ -252,12 +276,15 @@
 		   return false;
 			});
 		
+		
+		
 		function ajaxLike(id) {
 			$.ajax({
 				type: "post",
 				url: "/home/sellitem/like",
 				data: {
-					id: id
+					id: id,
+					
 				},
 				success: function(data) {
 					if(data.code === "success"){
@@ -273,5 +300,27 @@
 			e.preventDefault();
 			$('html,body').animate({scrollTop:$(this.hash).offset().top}, 500);	// 500은 스크롤속도
 		})
+
+		function deleteReview(id) {
+			$.ajax({
+				type: "post",
+				url: "/home/sellitem/deleteReview",
+				data: {
+					id: id
+				},
+				success: function(data) {
+					if(data.code === "success"){
+						$('#test1').remove();
+						swal('댓글 삭제!', "댓글이 삭제 되었습니다.", 'success');
+					}else if(data.code === "default"){
+						swal('댁슬 삭제 실패!', "다시 한번 확인하세요.", 'warning');
+						
+					}
+					
+				}
+			});
+		}
+
+
 	</script>
 </html>
