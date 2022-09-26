@@ -434,7 +434,7 @@ feed-item .feed-content {
 																</c:when>
 																<c:otherwise>
 																	<c:set var="newLine" value="<%=\"\n\"%>" />
-																	<p class="card-text">${fn:replace(datas.comment_Content, newLine, '<br>')}</p>
+																	<p id="test1" class="card-text">${fn:replace(datas.comment_Content, newLine, '<br>')}</p>
 																</c:otherwise>
 															</c:choose>
 															<c:if
@@ -545,7 +545,9 @@ feed-item .feed-content {
 						content: value
 					},
 					success: function(datas) {
-						element.parentElement.previousElementSibling.children[0].value = datas.value
+						alert("댓글 수정 확인");
+						element.parentElement.previousElementSibling.children[0].value = value
+
 						changeText(element);
 					}
 				});

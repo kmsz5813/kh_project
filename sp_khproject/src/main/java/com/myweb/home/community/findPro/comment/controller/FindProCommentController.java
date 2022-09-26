@@ -46,29 +46,29 @@ public class FindProCommentController {
 	
 	}
 	
-	@PostMapping(value="/comment/modify")
+	@PostMapping(value="/comment/modify", produces="application/json; charset=utf-8")
+	@ResponseBody
 	public String modify(Model model
 			, @SessionAttribute("loginData") AccountsDTO acDto
-			, @ModelAttribute FindProCommentDTO findProCommentDTO) {
-		FindProCommentDTO data = service.getData(findProCommentDTO.getComment_Id());
+			, @RequestParam int id
+			, @RequestParam String content) {
+		
+		JSONObject json = new JSONObject();
+		FindProCommentDTO data = service.getData(id);
 		
 		if(data != null) {
 			if(data.getUser_Name().equals(acDto.getAc_name())) {
-				data.setComment_Content(findProCommentDTO.getComment_Content());
+				data.setComment_Content(content);
 				boolean result = service.modify(data);
 				if(result) {
-					return "redirect:/community/findPro/detail?id=" + data.getComment_Id();
-				} else {
-					return "redirect:/community/findPro/detail?id=" + data.getComment_Id();
+					json.put("success", "success");
+					json.put("code", "success");
 				}
-			} else {
-				model.addAttribute("error", "해당 작업을 수행할 권한이 없습니다.");
-				return "error/permission";
-			}
-		} else {
-			model.addAttribute("error", "해당 데이터가 존재하지 않습니다.");
-			return "error/notExists";
-		}
+					
+				} 
+			} 
+		
+		return json.toJSONString();
 	}
 	
 	@PostMapping(value="/comment/delete", produces="application/json; charset=utf-8")

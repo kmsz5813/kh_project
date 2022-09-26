@@ -369,7 +369,7 @@ feed-item .feed-content {
 													</c:url>
 													<c:if test="${commentPage.hasPrevPage()}">
 														<li class="page-item"><a class="page-link"
-															href="${lifeDetailUrl}&page=${commentPage.prevPageNumber}">Prev</a>
+															href="${lifeDetailUrl}&page=${commentPage.prevPageNumber}"><</a>
 														</li>
 													</c:if>
 													<c:forEach
@@ -383,7 +383,7 @@ feed-item .feed-content {
 													</c:forEach>
 													<c:if test="${commentPage.hasNextPage()}">
 														<li class="page-item"><a class="page-link"
-															href="${lifeDetailUrl}&page=${commentPage.nextPageNumber}">Next</a>
+															href="${lifeDetailUrl}&page=${commentPage.nextPageNumber}">></a>
 														</li>
 													</c:if>
 												</ul>
@@ -519,7 +519,8 @@ feed-item .feed-content {
 								content: value
 							},
 							success: function(datas) {
-								element.parentElement.previousElementSibling.children[0].value = datas.value
+								alert("댓글 수정 확인");
+								element.parentElement.previousElementSibling.children[0].value = value
 								changeText(element);
 							}
 						});

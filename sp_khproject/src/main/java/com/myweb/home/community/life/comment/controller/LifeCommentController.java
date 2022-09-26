@@ -47,30 +47,46 @@ public class LifeCommentController {
 	
 	}
 	
-	@PostMapping(value="/comment/modify")
+	@PostMapping(value="/comment/modify", produces="application/json; charset=utf-8")
+	@ResponseBody
 	public String modify(Model model
 			, @SessionAttribute("loginData") AccountsDTO acDto
-			, @ModelAttribute LifeCommentDTO lifeCommentDTO) {
-		LifeCommentDTO data = service.getData(lifeCommentDTO.getComment_Id());
+			, @RequestParam int id
+			, @RequestParam String content) {
+		
+		JSONObject json = new JSONObject();
+		LifeCommentDTO data = service.getData(id);
 		
 		if(data != null) {
 			if(data.getUser_Name().equals(acDto.getAc_name())) {
-				data.setComment_Content(lifeCommentDTO.getComment_Content());
+				data.setComment_Content(content);
 				boolean result = service.modify(data);
+				
 				if(result) {
-					return "redirect:/community/life/detail?id=" + data.getComment_Id();
-				} else {
-					return "redirect:/community/life/detail?id=" + data.getComment_Id();
+					json.put("success", "success");
+					json.put("code", "success");
 				}
-			} else {
-				model.addAttribute("error", "해당 작업을 수행할 권한이 없습니다.");
-				return "error/permission";
-			}
-		} else {
-			model.addAttribute("error", "해당 데이터가 존재하지 않습니다.");
-			return "error/notExists";
-		}
+					
+				} 
+			} 
+		
+		return json.toJSONString();
 	}
+				
+//				if(result) {
+//					return "redirect:/community/life/detail?id=" + data.getComment_Id();
+//				} else {
+//					return "redirect:/community/life/detail?id=" + data.getComment_Id();
+//				}
+//			} else {
+//				model.addAttribute("error", "해당 작업을 수행할 권한이 없습니다.");
+//				return "error/permission";
+//			}
+//		} else {
+//			model.addAttribute("error", "해당 데이터가 존재하지 않습니다.");
+//			return "error/notExists";
+//		}
+//	}
 	
 	@PostMapping(value="/comment/delete", produces="application/json; charset=utf-8")
 	@ResponseBody

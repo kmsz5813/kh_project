@@ -519,7 +519,8 @@ feed-item .feed-content {
 								content: value
 							},
 							success: function(datas) {
-								element.parentElement.previousElementSibling.children[0].value = datas.value
+								alert("댓글 수정 확인");
+								element.parentElement.previousElementSibling.children[0].value = value
 								changeText(element);
 							}
 						});

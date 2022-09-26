@@ -48,29 +48,34 @@ public class QuestionCommentController {
 	
 	}
 	
-	@PostMapping(value="/comment/modify")
+	@PostMapping(value="/comment/modify", produces="application/json; charset=utf-8")
+	@ResponseBody
 	public String modify(Model model
 			, @SessionAttribute("loginData") AccountsDTO acDto
-			, @ModelAttribute QuestionCommentDTO questionCommentDTO) {
-		QuestionCommentDTO data = service.getData(questionCommentDTO.getComment_Id());
+			, @RequestParam int id
+			, @RequestParam String content) {
+		JSONObject json = new JSONObject();
+		System.out.println(content);
+		System.out.println("id값 : " + id);
+		QuestionCommentDTO data = service.getData(id);
+		
+		
+		System.out.println("data값 : " + data);
+		
 		
 		if(data != null) {
 			if(data.getUser_Name().equals(acDto.getAc_name())) {
-				data.setComment_Content(questionCommentDTO.getComment_Content());
+				data.setComment_Content(content);
 				boolean result = service.modify(data);
 				if(result) {
-					return "redirect:/community/question/detail?id=" + data.getComment_Id();
-				} else {
-					return "redirect:/community/question/detail?id=" + data.getComment_Id();
+					json.put("success", "success");
+					json.put("code", "success");
 				}
-			} else {
-				model.addAttribute("error", "해당 작업을 수행할 권한이 없습니다.");
-				return "error/permission";
-			}
-		} else {
-			model.addAttribute("error", "해당 데이터가 존재하지 않습니다.");
-			return "error/notExists";
-		}
+					
+				} 
+			} 
+		
+		return json.toJSONString();
 	}
 	
 	@PostMapping(value="/comment/delete", produces="application/json; charset=utf-8")
