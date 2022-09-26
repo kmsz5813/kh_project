@@ -126,6 +126,13 @@ public class SelItemController {
 			, @RequestParam(defaultValue="1", required=false) int page
 			, @RequestParam(defaultValue="0", required=false) int pageCount) {
 		Paging paging = null;
+		List serachData = null;
+		List result = null;
+		List seletResult = null;
+		List locationResult = null;
+		List likeResult = null;
+		List viewResult = null;
+		
 		
 		//acData를 가지고 ....................... 하트표시나오게끔 하기!
 	     AccountsDTO acData = (AccountsDTO) session.getAttribute("loginData");
@@ -133,24 +140,49 @@ public class SelItemController {
 	     //acdata로 풀조인을 해서 list에 값을 넘겨주고 list에서 liked가 y로 찍히면 하트가 될수 있게끔.
 	     List<AccountsDTO> likeData = loginService.getlikeData(acData);
 	    
-	 
-
 		
 		//검색으로 조회
 		String search = request.getParameter("search");
-		List serachData = service.getSearch(search);
+		if(search != null) {
+			 serachData = service.getSearch(search);
+		}
+	
 		
 		//저장되어 있는 모든 데이터 값 가져오기...	
 		SelItemDTO data = new SelItemDTO();
-		List result = service.getData(data);
+		if(data != null) {
+			 result = service.getData(data);
+		}
+		
 	
 		//SEL_FIELD로 추적
-		String selectData = request.getParameter("select"); // <<<<<<< 주소값
-		List seletResult = service.getSelect(selectData);
-		
+		String selectData = request.getParameter("select");
+		if(selectData != null) {
+			 seletResult = service.getSelect(selectData);
+		}
+
 		//SEL_LOCATION으로 추적
 		String locationData = request.getParameter("location");
-		List locationResult = service.getLocation(locationData);
+		if(locationData != null) {
+			 locationResult = service.getLocation(locationData);
+		}
+		
+		//좋아요으로 추적
+		String like = request.getParameter("like");
+		if(like != null) {
+			likeResult = service.getLike();
+			System.out.println(likeResult);
+		}
+		
+		//조회순으로 추적
+		
+		String view = request.getParameter("view");
+		if(view != null) {
+			viewResult = service.getview();
+			System.out.println(viewResult);
+		}
+		
+		
 		
 		if(session.getAttribute("pageCount") == null) {
 			session.setAttribute("pageCount", 8);
@@ -176,6 +208,12 @@ public class SelItemController {
 			paging = new Paging(locationResult, page, pageCount);
 			model.addAttribute("selectData", "select=" + locationData);
 			
+		}else if(likeResult != null) {
+			paging = new Paging(likeResult, page, pageCount);
+			model.addAttribute("selectData", "select=" + likeResult);
+		}else if(viewResult != null) {
+			paging = new Paging(viewResult, page, pageCount);
+			model.addAttribute("selectData", "select=" + viewResult);
 		}
 		
 		
@@ -353,6 +391,31 @@ public class SelItemController {
 		return "redirect: /home/sellitem";
 	}
 	
+
+	
+	@PostMapping(value="/deleteReview", produces="application/json; charset=utf-8")
+	@ResponseBody
+	public String deleteReview( @RequestParam int id)
+	{
+		
+		JSONObject json = new JSONObject();
+
+
+		boolean result = service.deleteRv(id); // 번호를 토대로 정보 데이터 가져오기
+		
+		if(result) {
+			
+			json.put("code", "success");
+		}else {
+			json.put("code", "default");
+		}
+		
+		return json.toJSONString();
+	}
+	
+
+
+	
 	@PostMapping(value="/review")
 	public String review(Model model, HttpServletRequest request) {
 		String itemid = request.getParameter("itemid");	// url 에 쓸것이므로 굳이 int 반환 필요없음
@@ -398,6 +461,7 @@ public class SelItemController {
 		service.addReviewCount(Integer.parseInt(itemid));	// 아이템 테이블에 리뷰등록횟수 + 1
 		service.addReviewStar(detail);	// 아이템 테이블에 별점 수정
 		
+		model.addAttribute("review", review);
 		String redirectUrl = "sellitem/itemdetail?search=" + sellerName + "&itemid=" + itemid;
 		
 		return "redirect:/" + redirectUrl;

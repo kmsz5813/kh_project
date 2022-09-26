@@ -90,9 +90,8 @@
 			    인기순
 			  </button>
 			  <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-			    <li><a class="dropdown-item" href="/login/login">Action</a></li>
-			    <li><a class="dropdown-item" href="#">Another action</a></li>
-			    <li><a class="dropdown-item" href="#">Something else here</a></li>
+			    <li><a class="dropdown-item" href="sellitem?like=likeCount">좋아요</a></li>
+			    <li><a class="dropdown-item" href="sellitem?view=viewCount">조회순</a></li>
 			  </ul>
 			 </div>
 			  

@@ -115,7 +115,7 @@
 						<c:if test="${data.ac_name == loginData.ac_name}">
 							<div class="mt-5">
 								<button type="button" class="btn btn-outline-success" onclick="location.href='modify?id=${itemdata.sel_id}'">수정</button>
-								<button type="button" class="btn btn-outline-success" style="margin-left:0.5">삭제</button>
+								<button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#removeModal">삭제</button>
 							</div>
 						</c:if>
 					</div>
@@ -141,40 +141,10 @@
 			</div>
 	
 			<div class="mt-5">상세내용</div>
-			<div>${itemdata.sel_content}</div>
-
-
+			<div>${itemdata.sel_content}</div>	
 				
-				<div class="mt-5">리뷰</div>
-					<div class="mt-5 mb-5">
-						<table class="table table-sm">
-							<thead style="background-color: rgb(241, 241, 241);">
-							  <tr>
-							      <th class="col-4" style="text-align: center;">No.</th>
-							      <th class="col-4" style="text-align: center;">Name</th>
-							      <th class="col-auto" style="text-align: center;">Value</th>						      
-							  </tr>
-							</thead>
-							<tbody class="mt-5">
-							    <tr class="mt-5">
-							      <td style="text-align: center;">1회</td>
-							      <td style="text-align: center;">리뷰~</td>
-							      <td style="text-align: center;">n년</td>
-							    </tr>
-							 </tbody>
-						</table>
-					</div>
 				
-				<div class="mt-5">
-					<div class="" style="height:10rem;">
-					  <button type="button" class="btn" onclick="ajaxLike(${itemdata.sel_id});" style="margin-left:8rem; width:7rem; background-color:rgb(224, 224, 224);">❤</button>
-					  <button type="button" class="btn" style="margin-left:1rem; width:7rem; background-color:rgb(224, 224, 224);">뒤로가기</button>
-					  <button type="button" class="btn" style="margin-left:1rem; width:34rem; background-color:rgb(39, 174, 96);">견적 요청하기</button>
-					</div>
-				</div>	
-				<button type="button" class="btn btn-danger" id="myModal" data-bs-toggle="modal" data-bs-target="#removeModal"></button>
-				
-				<!-- 모달창 -->
+				<!-- 삭제모달창 -->
 				<div class="modal fade" id="removeModal" tabindex="-1" aria-hidden="true">
 				  <div class="modal-dialog">
 				    <div class="modal-content">
@@ -186,8 +156,8 @@
 				        <p>이 데이터를 삭제하시겠습니까?</p>
 				      </div>
 				      <div class="modal-footer">														
-				        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="location.href='delete?id=${itemdata.sel_id}'">Close</button>
-				        <button type="button" class="btn btn-primary">Save changes</button>
+				        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" onclick="location.href='delete?id=${itemdata.sel_id}'">삭제하기</button>
+				        <button type="button" class="btn btn-secondary">삭제하지 않기</button>
 				      </div>
 				    </div>
 				  </div>
@@ -196,10 +166,18 @@
 			
 			<p class="fw-bold fs-4 mt-5 mb-5">리뷰(${reviewCount})</p>
 			<c:forEach items="${reviews}" var="reviews">
+				<!-- 리뷰삭제 -->
+				
+				
+	 			<div id="test1">
+	 			<c:if test="${reviews.review_writer == loginData.ac_name}">
+	 				<button type="button" class="btn btn-outline-success" onclick="modifyReview(${reviews.review_number});">수정</button>					                       
+				</c:if>
 				<p>${reviews.review_starCount}</p>
 				<p>${reviews.review_writeDay}</p>
 				<p>${reviews.review_writer}</p>
 				<p>${reviews.review_content}</p>
+				</div>
 			</c:forEach>
 			
 				
@@ -207,6 +185,8 @@
 					<div class="mt-5" style="text-align: center; height:10rem;">
 					  <button type="button" class="btn" onclick="ajaxLike(${itemdata.sel_id});" style="margin-left:8rem; width:7rem; background-color:rgb(224, 224, 224);">❤</button>
 					  <button type="button" class="btn btn-outline-primary" style="margin-left:1rem; width:7rem;">뒤로가기</button>
+					
+					
 					  <c:if test="${purchaseCheck == 'Y'}">
 					  	<button class="btn btn-outline-primary" data-toggle="modal" data-target="#addnotesmodal" style="margin-left:1rem; width:9rem;">리뷰작성</button>
 					  	<!-- Modal Add notes -->
@@ -312,7 +292,8 @@
 				type: "post",
 				url: "/home/sellitem/like",
 				data: {
-					id: id
+					id: id,
+					
 				},
 				success: function(data) {
 					if(data.code === "success"){
@@ -325,5 +306,27 @@
 				}
 			});
 		}
+		
+		function deleteReview(id) {
+			$.ajax({
+				type: "post",
+				url: "/home/sellitem/deleteReview",
+				data: {
+					id: id
+				},
+				success: function(data) {
+					if(data.code === "success"){
+						$('#test1').remove();
+						alert("성공");
+					}else if(data.code === "default"){
+						alert("실패");
+						
+					}
+					
+				}
+			});
+		}
+
+
 	</script>
 </html>

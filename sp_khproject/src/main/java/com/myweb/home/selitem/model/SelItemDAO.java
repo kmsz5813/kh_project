@@ -118,9 +118,24 @@ public class SelItemDAO {
 		return res == 1 ? true : false;
 	}
 
+	//이름으로찾기
 	public List<SelItemDTO> searchName(String ac_name) {
 		String mapperId = String.format(mapper, "searchName");
 		List<SelItemDTO> datas = session.selectList(mapperId, ac_name);
+		return datas;
+	}
+	
+	//좋아요순을 ㅗ찾기
+	public List searchLike() {
+		String mapperId = String.format(mapper, "searchLike");
+		List datas = session.selectList(mapperId);
+		return datas;
+	}
+	
+	//조회순으로 찾기
+	public List searchView() {
+		String mapperId = String.format(mapper, "searchView");
+		List datas = session.selectList(mapperId);
 		return datas;
 	}
 
@@ -190,6 +205,29 @@ public class SelItemDAO {
 		String result = session.selectOne(mapperId, sel_id);
 		return result;
 	}
+	public boolean deleteReview(int id) {
+		String mapperId = String.format(mapper, "deleteReview");
+		int res = session.delete(mapperId, id);
+		return res == 1 ? true : false;
+	}
+	public boolean deleteStatics(int id) {
+		String mapperId = String.format(mapper, "deleteStatics");
+		int res = session.delete(mapperId, id);
+		return res == 1 ? true : false;
+	}
+	public boolean deleteFile(int id) {
+		String mapperId = String.format(mapper, "deleteFile");
+		int res = session.delete(mapperId, id);
+		return res == 1 ? true : false;
+	}
+	//번호로조회
+	public boolean deleteReviewNumber(int id) {
+		String mapperId = String.format(mapper, "deleteReviewNumber");
+		int res = session.delete(mapperId, id);
+		return res == 1 ? true : false;
+	}
+
+
 
 
 }

@@ -21,6 +21,8 @@ public class SelItemService {
 	@Autowired
 	private SelItemDAO dao;
 	
+	
+	
 	public List<Object> getData(SelItemDTO data) {
 		
 		List<Object> datas = dao.getData(data);
@@ -132,6 +134,18 @@ public class SelItemService {
 		}
 		return null;
 	}
+	
+	//좋아요로 게시물 찾기
+	public List getLike() {
+		List datas = dao.searchLike();
+		return datas;
+	}
+	
+	//조회순으로 찾기
+	public List getview() {
+		List datas = dao.searchView();
+		return datas;
+	}
 
 	// 구매시 구매횟수 + 1
 	public boolean plusCount(int itemid) {
@@ -167,9 +181,26 @@ public class SelItemService {
 	}
 	
 	public boolean delete(int id) {
+		boolean reviewResult = dao.deleteReview(id); //리뷰삭제
+		
+		boolean staticResult = dao.deleteStatics(id); //좋아요 부분삭제
+		
+		boolean fileResult = dao.deleteFile(id);
+		
 		boolean result = dao.deleteData(id);
 		
 		if(result) {
+			return true;
+		}else {
+			return false;
+		}
+		
+	}
+	
+	public boolean deleteRv(int id) {
+		boolean reviewResult = dao.deleteReviewNumber(id);
+		
+		if(reviewResult) {
 			return true;
 		}else {
 			return false;
@@ -224,6 +255,11 @@ public class SelItemService {
 		String result = dao.getSeller(sel_id);
 		return result;
 	}
+
+
+
+
+
 
 
 
