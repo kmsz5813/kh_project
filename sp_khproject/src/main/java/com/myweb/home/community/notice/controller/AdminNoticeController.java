@@ -11,12 +11,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttribute;
 
+import com.myweb.home.Accounts.model.AccountsDTO;
 import com.myweb.home.common.util.PagingCommunity;
 import com.myweb.home.community.notice.model.CommunityNoticeDTO;
 import com.myweb.home.community.notice.service.AdminNoticeService;
+import com.myweb.home.community.question.model.CommunityQuestionDTO;
+import com.myweb.home.community.question.vo.CommunityQuestionVO;
 
 
 @Controller
@@ -70,20 +75,29 @@ public class AdminNoticeController {
 	public String  noticeWrite(Model model) {
 //		System.out.println("/admin/notice/write");
 		
-		return "/admin/notice/write";
+		
+		
+		return "community/notice/add";
 	}	
 	
-	//공지사항 글쓰기 insert
-	@RequestMapping("/insert")
-	public String  noticeInsert(Model model,@ModelAttribute CommunityNoticeDTO notice) {
-//		System.out.println("/admin/notice/insert");
-//		System.out.println("notice"+notice);
+	@PostMapping(value="/add")
+	public String add(HttpServletRequest request
+			, @SessionAttribute("loginData") AccountsDTO acDto
+			, @ModelAttribute CommunityQuestionVO communityQuestionVo) {
+//			, @RequestParam("fileUpload") MultipartFile[] files) {
+		CommunityQuestionDTO data = new CommunityQuestionDTO();
+		data.setQuestion_Title(communityQuestionVo.getQuestion_title());
+		data.setQuestion_Content(communityQuestionVo.getQuestion_content());
+		data.setUser_Name(acDto.getAc_name());
 		
-		//글쓰기 insert
-		int res = noticeService.insertNotice(notice);
-		
-		//글쓰기 완료
-		return "redirect:list";
+		int id = service.add(data);
+			
+		if(id != -1) {
+			return "redirect:/community/question/detail?id=" + id;			
+		} else {
+			request.setAttribute("error", "게시글 저장 실패!");
+			return "community/question/add";
+		} 
 	}
 	
 	//공지사항 글수정하기 jsp
