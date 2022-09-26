@@ -163,6 +163,9 @@
 				swal('포인트 사용 오류!', "최소 결제 금액은 100원 입니다.", 'warning');
 				document.getElementById("remain_point").innerHTML = "잔여포인트 : " + pnt + "&emsp;";
 				document.getElementById("use_point").value = 0;
+				$("#select_value").val('0').prop("selected", true);
+				document.getElementById("price").innerHTML = ${itemdata.sel_price} + " 원";
+				document.getElementById("realprice").value = ${itemdata.sel_price};
 				toString();
 			}
 		}
@@ -178,10 +181,11 @@
 				document.getElementById("realprice").value = price1;		// Controller 에 넘겨줄 실 구매가
 				document.getElementById("used_coupon").value = value2[1].replace(" ","");	// Controller에 넘겨줄 hidden input value (쿠폰 번호) 넣기
 				toString();
-			} else  {		// 기본값 클릭했을 경우 or 결제금액 100원 미만일경우
+			} else  {		// 결제금액 100원 미만일경우
 				if(price1 <= 100) {
-					$("#select_value").val('0').prop("selected", true);
 					swal('쿠폰 사용 오류!', "최소 결제 금액은 100원 입니다.", 'warning');					
+					$("#select_value").val('0').prop("selected", true);
+					toString();
 				}
 				document.getElementById("price").innerHTML = ${itemdata.sel_price} - document.getElementById("use_point").value + " 원"; 
 				document.getElementById("realprice").value = ${itemdata.sel_price} - document.getElementById("use_point").value; 

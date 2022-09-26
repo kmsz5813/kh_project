@@ -105,9 +105,9 @@
 					</div>
 					<div class="col-3 mt-4">
 						<p>&emsp;<fmt:formatNumber type="number" maxFractionDigits="3" value="${itemdata.sel_price}"/> 원</p>
-						<p>&emsp;${itemdata.sel_like}&emsp;<img style="width:20px; position:relative; bottom:2px;" src="${pageContext.request.contextPath}/static/img/heart.png"></p>
+						<p>&emsp;${itemdata.sel_like}&nbsp;<img style="width:20px; position:relative; bottom:2px;" src="${pageContext.request.contextPath}/static/img/heart.png"></p>
 						<p>&emsp;${itemdata.sel_view} views</p>
-						<p>&emsp;${itemdata.sel_starScore}&emsp;<img style="width:20px; position:relative; bottom:2px;" src="${pageContext.request.contextPath}/static/img/star.png"></p>
+						<p>&emsp;${itemdata.sel_number} 건의 판매&emsp;<fmt:formatNumber value="${itemdata.sel_starScore}" pattern=".0"/>&nbsp;<img style="width:20px; position:relative; bottom:2px;" src="${pageContext.request.contextPath}/static/img/star.png"></p>
 					</div>
 					<div class="col-3">
 						<c:if test="${empty thumbnail.uuidName }">
@@ -124,14 +124,14 @@
 							<button style="margin-left:20px;" type="button" 
 							onclick="location.href='${pageContext.request.contextPath}/purchase?itemid=${itemdata.sel_id}'" 
 							class="btn btn-outline-success">구매하기</button>
+							<button type="button" style="width:50px; margin-left:20px;" class="btn btn-outline-danger"onclick="ajaxLike(${itemdata.sel_id});">
+						<img style="width:20px; position:relative; bottom:2px;" src="${pageContext.request.contextPath}/static/img/heart.png"></button>
 						</c:if>
 						<c:if test="${data.ac_name == loginData.ac_name}">
 							<button type="button" class="btn btn-outline-success" onclick="location.href='modify?id=${itemdata.sel_id}'">수정</button>
 							<button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#removeModal">삭제</button>
 						</c:if>
-						<a href="#moveToReview" id="scroll_move"><button id="moveToReview" type="button" style="margin-left:20px;" class="btn btn-outline-secondary">리뷰(${reviewCount})</button></a>
-						<button type="button" style="width:50px; margin-left:20px;" class="btn btn-outline-danger"onclick="ajaxLike(${itemdata.sel_id});">
-						<img style="width:20px; position:relative; bottom:2px;" src="${pageContext.request.contextPath}/static/img/heart.png"></button>
+						<button id="scroll_move" type="button" style="margin-left:20px;" class="btn btn-outline-secondary">리뷰(${reviewCount})</button>
 					</div>
 				</div>
 			</div>
@@ -161,16 +161,20 @@
 
 			
 
-			<p id="moveToReview" class="fw-bold fs-4 mt-5 mb-3">리뷰(${reviewCount})</p>
+			<p id="review" class="fw-bold fs-4 mt-5 mb-3">리뷰(<span id="count1">${reviewCount}</span>)</p>
 			<div style=" background-color:#EAF3F7; border-radius:5%; padding:30px;">
 				<c:forEach items="${reviews}" var="reviews">
-					<p><img src="${pageContext.request.contextPath}/static/img/star.png" style="position:relative; bottom:2px;">
-					${reviews.review_starCount}&emsp;${reviews.review_writer}&emsp;${reviews.review_writeDay}</p>
-					<p style="margin-bottom: 30px;">${reviews.review_content}</p>
-					<c:if test="${reviews.review_writer == loginData.ac_name}">
-		 				<button type="button" class="btn btn btn-outline-danger" onclick="deleteReview(${reviews.review_number});">삭제</button>					                       
-					</c:if>
+					<div id="${reviews.review_number}">
+						<p><img src="${pageContext.request.contextPath}/static/img/star.png" style="position:relative; bottom:2px;">
+						${reviews.review_starCount}&emsp;${reviews.review_writer}&emsp;${reviews.review_writeDay}&emsp;					
+						<c:if test="${reviews.review_writer == loginData.ac_name}">
+			 				<button type="button" class="btn btn-sm btn-outline-danger" onclick="deleteReview(${reviews.review_number}, ${itemdata.sel_id});">삭제</button>
+						</c:if>
+						</p>
+						<p style="margin-bottom: 30px;">${reviews.review_content} </p>
+					</div>
 				</c:forEach>
+				<img src="../static/img/arrow-up.png"  style="float:right; cursor:pointer; position:relative; bottom:25px;" id="scroll_top">
 			</div>		
 				<c:if test="${loginData.ac_index == 10}">
 					<div class="mt-5" style="text-align: center; height:10rem;">
@@ -296,27 +300,32 @@
 			});
 		}
 		
-		$('scroll_move').click(function(e) {
-			e.preventDefault();
-			$('html,body').animate({scrollTop:$(this.hash).offset().top}, 500);	// 500은 스크롤속도
+		
+		$('#scroll_move').click(function() {
+			$('html').animate({scrollTop:$('#review').offset().top}, 100);	
 		})
-
-		function deleteReview(id) {
+		
+		$('#scroll_top').click(function() {
+			$('html').animate({scrollTop:0}, 100);	
+		});
+		
+		function deleteReview(id, sel_id) {
+			var id1 = id;
 			$.ajax({
 				type: "post",
 				url: "/home/sellitem/deleteReview",
 				data: {
-					id: id
+					id: id,
+					sel_id: sel_id
 				},
 				success: function(data) {
 					if(data.code === "success"){
-						$('#test1').remove();
+						$('#' + id1).remove();
+						$('#count1').text(${reviewCount} - 1);
 						swal('댓글 삭제!', "댓글이 삭제 되었습니다.", 'success');
 					}else if(data.code === "default"){
-						swal('댁슬 삭제 실패!', "다시 한번 확인하세요.", 'warning');
-						
+						swal('댓글 삭제 실패!', "다시 한번 확인하세요.", 'warning');
 					}
-					
 				}
 			});
 		}

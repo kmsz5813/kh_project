@@ -257,6 +257,12 @@ public class SelItemService {
 	}
 
 
+	public boolean deleteReviewCount(int sel_id) {
+		boolean result = dao.deleteReviewCount(sel_id);
+		return result;
+	}
+
+
 
 
 

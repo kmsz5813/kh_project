@@ -249,7 +249,8 @@ public class SelItemController {
 		//아이템 번호도 가져와야됨
 		int itemid = Integer.parseInt(request.getParameter("itemid"));
 		SelItemDTO itemdata = service.getData(itemid);
-
+		
+		
 		if(session.getAttribute("loginData") != null) {
 			//로그인했을때만... 로그인안했을때 들어가는건 동일ip일땐 안늘게
 			AccountsDTO acDto = (AccountsDTO) session.getAttribute("loginData");
@@ -398,21 +399,19 @@ public class SelItemController {
 	
 	@PostMapping(value="/deleteReview", produces="application/json; charset=utf-8")
 	@ResponseBody
-	public String deleteReview( @RequestParam int id)
+	public String deleteReview( @RequestParam int id,
+			@RequestParam int sel_id)
 	{
 		
 		JSONObject json = new JSONObject();
-
-
-		boolean result = service.deleteRv(id); // 번호를 토대로 정보 데이터 가져오기
+		service.deleteReviewCount(sel_id);
 		
+		boolean result = service.deleteRv(id); // 번호를 토대로 정보 데이터 가져오기
 		if(result) {
-			
 			json.put("code", "success");
 		}else {
 			json.put("code", "default");
 		}
-		
 		return json.toJSONString();
 	}
 	

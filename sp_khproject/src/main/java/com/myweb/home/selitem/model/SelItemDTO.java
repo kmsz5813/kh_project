@@ -117,7 +117,7 @@ public class SelItemDTO {
 	}
 
 	public void setSel_number(int sel_number) {
-		this.sel_view = sel_number;
+		this.sel_number = sel_number;
 	}
 
 	public int getSel_view() {

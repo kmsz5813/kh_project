@@ -169,5 +169,11 @@
 	<delete id="deleteReviewNumber">
 		DELETE FROM REVIEW WHERE REVIEW_NUMBER = #{id}
 	</delete>
+	
+	<update id="deleteReviewCount" parameterType = "int">
+		UPDATE SEL_ITEM
+		   SET SEL_REVIEWCOUNT = SEL_REVIEWCOUNT - 1
+		 WHERE SEL_ID = #{sel_id}
+	</update>
 
 </mapper>

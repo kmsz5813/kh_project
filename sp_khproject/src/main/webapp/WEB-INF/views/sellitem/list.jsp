@@ -152,7 +152,7 @@
 			    </c:if>
 			    <c:if test="${data.sel_starScore >= 1}">
 			    	<div style="float:right;">
-				    	<img src="${pageContext.request.contextPath}/static/img/star.png">
+				    	<img style="position:relative; bottom:2px;" src="${pageContext.request.contextPath}/static/img/star.png">
 					    <span><fmt:formatNumber value="${data.sel_starScore}" pattern=".0"/>(${data.sel_reviewCount})</span>
 				    </div>
 			    </c:if>

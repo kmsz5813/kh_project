@@ -53,6 +53,7 @@ public class SelItemDAO {
 	public SelItemDTO selectData(int id) {
 		String mapperId = String.format(mapper, "selectIdData");
 		SelItemDTO res = session.selectOne(mapperId, id);
+		System.out.println("판매횟수 : " + res.getSel_number());
 		return res;
 	}
 	
@@ -224,6 +225,11 @@ public class SelItemDAO {
 	public boolean deleteReviewNumber(int id) {
 		String mapperId = String.format(mapper, "deleteReviewNumber");
 		int res = session.delete(mapperId, id);
+		return res == 1 ? true : false;
+	}
+	public boolean deleteReviewCount(int sel_id) {
+		String mapperId = String.format(mapper, "deleteReviewCount");
+		int res = session.update(mapperId, sel_id);
 		return res == 1 ? true : false;
 	}
 

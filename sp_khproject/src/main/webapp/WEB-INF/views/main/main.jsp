@@ -242,13 +242,13 @@
 	  <div class="carousel-inner">
 	    <div class="carousel-item active">
 	      <img id="couponDown" style="cursor:pointer;"data-bs-toggle="modal" data-bs-target="#staticBackdrop" 
-	      class="d-block w-100" src="static/img/banner/test1.png" alt="First slide">
+	      class="d-block w-100" src="static/img/banner/banner1.png" alt="First slide">
 	    </div>
 	    <div class="carousel-item">
-	      <img class="d-block w-100" src="static/img/banner/test2.png" alt="Second slide">
+	      <img class="d-block w-100" src="static/img/banner/banner2.png" alt="Second slide">
 	    </div>
 	    <div class="carousel-item">
-	      <img class="d-block w-100" src="static/img/banner/test3.png" alt="Third slide">
+	      <img class="d-block w-100" src="static/img/banner/banner3.png" alt="Third slide">
 	    </div>
 	  </div>
 	  <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
@@ -547,21 +547,21 @@
 		</div>
 		<div class="row mt-3 mb-3" style="margin-left:100px; color: #747D89;">
 			<div class="col img-hover-zoom" onclick="location.href='${pageContext.request.contextPath}/main'" style="cursor:pointer;">			
-				<img src="static/img/hot/hot-test1.png" style="max-width: 300px; border-radius:20px;">
+				<img src="static/img/community/pro.png" style="max-width: 300px; border-radius:20px;">
 				<span style="font-size:1rem; font-weight:bold; margin-left:3rem;">전문가 구해요</span>			
 			</div>
 			<div class="col img-hover-zoom" onclick="location.href='${pageContext.request.contextPath}/main'" style="cursor:pointer;">
-				<img src="static/img/hot/hot-test2.png" style="max-width: 300px; border-radius:20px;">
+				<img src="static/img/community/lesson.png" style="max-width: 300px; border-radius:20px;">
 				<span style="font-size:1rem; font-weight:bold; margin-left:3rem;">레슨자 구해요</span>
 			</div>
 		</div>
 		<div class="row mt-3 mb-3" style="margin-left:100px; margin-botton:50px; color: #747D89;">
 			<div class="col img-hover-zoom" onclick="location.href='${pageContext.request.contextPath}/main'" style="cursor:pointer;">
-				<img src="static/img/hot/hot-test3.png" style="max-width: 300px; border-radius:20px;">
+				<img src="static/img/community/question.png" style="max-width: 300px; border-radius:20px;">
 				<span style="font-size:1rem; font-weight:bold; margin-left:3rem;">궁금해요</span>
 			</div>
 			<div class="col img-hover-zoom" onclick="location.href='${pageContext.request.contextPath}/main'" style="cursor:pointer;">
-				<img src="static/img/hot/hot-test4.png" style="max-width: 300px; border-radius:20px;">
+				<img src="static/img/community/daily.png" style="max-width: 300px; border-radius:20px;">
 				<span style="font-size:1rem; font-weight:bold; margin-left:3rem;">일상</span>
 			</div>
 		</div>
