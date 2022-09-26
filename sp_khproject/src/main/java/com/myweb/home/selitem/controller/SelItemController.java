@@ -445,14 +445,6 @@ public class SelItemController {
 
 		int reviewCount = service.getReviewCount(Integer.parseInt(itemid));
 		double previousStar = service.getStarScore(Integer.parseInt(itemid));
-		/*
-		 * int totalStar = 0; int[] ints = getStars.stream().mapToInt(i->i).toArray();
-		 * for(int i : ints) { totalStar += ints[i]; }
-		 */
-		/*
-		 * double double_star = totalStar / (reviewCount + 1); double star =
-		 * (double)Math.round(double_star*100);
-		 */
 		double star = (previousStar + starCount) / (reviewCount + 1);
 		System.out.println("평균별점 : " + star);	
 		ReviewDetailVO detail = new ReviewDetailVO();

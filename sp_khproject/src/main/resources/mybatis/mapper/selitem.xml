@@ -154,6 +154,10 @@
 		DELETE FROM SEL_ITEM WHERE SEL_ID = #{id} 
 	</delete>
 	
+	<delete id="deleteData2">
+		DELETE FROM SEL_ITEM WHERE SEL_NAME = #{name} 
+	</delete>
+	
 	<delete id="deleteReview">
 		DELETE FROM REVIEW WHERE REVIEW_ITEMNUMBER = #{id}
 	</delete>
@@ -175,5 +179,14 @@
 		   SET SEL_REVIEWCOUNT = SEL_REVIEWCOUNT - 1
 		 WHERE SEL_ID = #{sel_id}
 	</update>
+	
+	<delete id="deleteLike" parameterType="string">
+		DELETE FROM SEL_ITEM_STATICS
+		 WHERE AC_NAME = #{ac_name}
+	</delete>
+	
+	<delete id="deleteReview2" parameterType="string">
+		DELETE FROM REVIEW WHERE REVIEW_WRITER = #{ac_name}
+	</delete>
 
 </mapper>

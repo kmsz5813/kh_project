@@ -87,6 +87,12 @@ public class SelItemDAO {
 		return res == 1 ? true : false;
 	}
 	
+	public boolean deleteData2(String name) {
+		String mapperId = String.format(mapper, "deleteData2");
+		int res = session.delete(mapperId, name);
+		return res == 1 ? true : false;
+	}
+	
 	//statics 조회-----------조회수가 추가되어 있는지 안되어 있는지
 	public SelItemStaticsDTO selectStatics(SelItemStaticsDTO data) {
 		String mapperId = String.format(mapper, "selectStatics");
@@ -232,8 +238,18 @@ public class SelItemDAO {
 		int res = session.update(mapperId, sel_id);
 		return res == 1 ? true : false;
 	}
+	public boolean deleteLike(String ac_name) {
+		String mapperId = String.format(mapper, "deleteLike");
+		int res = session.delete(mapperId, ac_name);
+		return res == 1 ? true : false;
+	}
+	public boolean deleteReview(String ac_name) {
+		String mapperId = String.format(mapper, "deleteReview2");
+		int res = session.delete(mapperId, ac_name);
+		return res == 1 ? true : false;
+	}
 
-
+	
 
 
 }

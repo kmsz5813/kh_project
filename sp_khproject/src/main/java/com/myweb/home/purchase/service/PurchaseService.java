@@ -95,6 +95,11 @@ public class PurchaseService {
 		return list;
 	}
 
+	public boolean deleteCoupon(String ac_name) {
+		boolean result = dao.deleteCoupon(ac_name);
+		return result;
+	}
+
 
 
 
