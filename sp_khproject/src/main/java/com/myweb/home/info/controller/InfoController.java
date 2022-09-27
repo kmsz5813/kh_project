@@ -190,6 +190,8 @@ public class InfoController {
 		
 		String email2 = acDto.getAc_email();
 		String pw2 = acDto.getAc_pw();
+		
+		
 
 		if(email.equals(email2) && pw.equals(pw2)) {
 	        return "redirect:/info/modify";

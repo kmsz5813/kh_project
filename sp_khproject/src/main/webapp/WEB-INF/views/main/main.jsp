@@ -281,7 +281,7 @@
 							<div class="thumb-wrapper img-hover-zoom">
 								<span class="wish-icon"><i class="fa fa-heart-o"></i></span>
 								<div class="img-box ">
-									<a href="#"><img src="static/img/hot/IT.png" class="img-fluid" alt=""></a>									
+									<a href="${pageContext.request.contextPath}/sellitem?select=IT.프로그래밍"><img src="static/img/hot/IT.png" class="img-fluid" alt=""></a>									
 								</div>
 								<div class="thumb-content">
 									<h4>IT, 프로그래밍</h4>																		
@@ -292,7 +292,7 @@
 							<div class="thumb-wrapper img-hover-zoom">
 								<span class="wish-icon"><i class="fa fa-heart-o"></i></span>
 								<div class="img-box">
-									<a href="#"><img src="static/img/hot/Design.png" class="img-fluid " alt=""></a>
+									<a href="${pageContext.request.contextPath}/sellitem?select=디자인"><img src="static/img/hot/Design.png" class="img-fluid " alt=""></a>
 								</div>
 								<div class="thumb-content">
 									<h4>디자인</h4>									
@@ -303,7 +303,7 @@
 							<div class="thumb-wrapper img-hover-zoom">
 								<span class="wish-icon"><i class="fa fa-heart-o"></i></span>
 								<div class="img-box">
-									<a href="#"><img src="static/img/hot/Business.png" class="img-fluid " alt=""></a>
+									<a href="${pageContext.request.contextPath}/sellitem?select=비즈니스"><img src="static/img/hot/Business.png" class="img-fluid " alt=""></a>
 								</div>
 								<div class="thumb-content">
 									<h4>비즈니스</h4>									
@@ -314,7 +314,7 @@
 							<div class="thumb-wrapper img-hover-zoom">
 								<span class="wish-icon"><i class="fa fa-heart-o"></i></span>
 								<div class="img-box">
-									<a href="#"><img src="static/img/hot/Marketing.png" class="img-fluid " alt=""></a>
+									<a href="${pageContext.request.contextPath}/sellitem?select=마케팅"><img src="static/img/hot/Marketing.png" class="img-fluid " alt=""></a>
 								</div>
 								<div class="thumb-content">
 									<h4>마케팅</h4>									
@@ -329,7 +329,7 @@
 							<div class="thumb-wrapper img-hover-zoom">
 								<span class="wish-icon"><i class="fa fa-heart-o"></i></span>
 								<div class="img-box">
-									<a href="#"><img src="static/img/hot/Translation.png" class="img-fluid " alt=""></a>
+									<a href="${pageContext.request.contextPath}/sellitem?select=번역.통역"><img src="static/img/hot/Translation.png" class="img-fluid " alt=""></a>
 								</div>
 								<div class="thumb-content">
 									<h4>번역, 통역</h4>
@@ -340,7 +340,7 @@
 							<div class="thumb-wrapper img-hover-zoom">
 								<span class="wish-icon"><i class="fa fa-heart-o"></i></span>
 								<div class="img-box">
-									<a href="#"><img src="static/img/hot/Writing.png" class="img-fluid " alt=""></a>
+									<a href="${pageContext.request.contextPath}/sellitem?select=문서, 글쓰기"><img src="static/img/hot/Writing.png" class="img-fluid " alt=""></a>
 								</div>
 								<div class="thumb-content">
 									<h4>문서, 글쓰기</h4>	
@@ -351,7 +351,7 @@
 							<div class="thumb-wrapper img-hover-zoom">
 								<span class="wish-icon"><i class="fa fa-heart-o"></i></span>
 								<div class="img-box">
-									<a href="#"><img src="static/img/hot/CustomOrder.png" class="img-fluid " alt=""></a>
+									<a href="${pageContext.request.contextPath}/sellitem?select=주문 제작"><img src="static/img/hot/CustomOrder.png" class="img-fluid " alt=""></a>
 								</div>
 								<div class="thumb-content">
 									<h4>주문제작</h4>										
@@ -362,7 +362,7 @@
 							<div class="thumb-wrapper img-hover-zoom">
 								<span class="wish-icon"><i class="fa fa-heart-o"></i></span>
 								<div class="img-box">
-									<a href="#"><img src="static/img/hot/Tax.png" class="img-fluid " alt=""></a>
+									<a href="${pageContext.request.contextPath}/sellitem?select=세무.법무"><img src="static/img/hot/Tax.png" class="img-fluid " alt=""></a>
 								</div>
 								<div class="thumb-content">
 									<h4>세무, 법무</h4>
@@ -377,7 +377,7 @@
 							<div class="thumb-wrapper img-hover-zoom">
 								<span class="wish-icon"><i class="fa fa-heart-o"></i></span>
 								<div class="img-box">
-									<a href="#"><img src="static/img/hot/Etc.png" class="img-fluid " alt="iPhone"></a>
+									<a href="${pageContext.request.contextPath}/sellitem?select=기타"><img src="static/img/hot/Etc.png" class="img-fluid " alt="iPhone"></a>
 								</div>
 								<div class="thumb-content">
 									<h4>기타</h4>
@@ -386,6 +386,8 @@
 						</div>
 					</div>
 				</div>
+				
+				
 			</div>
 			<!-- Carousel controls -->
 			<a class="carousel-control-prev control2" href="#myCarousel1" data-slide="prev">
@@ -417,10 +419,10 @@
 							<div class="thumb-wrapper img-hover-zoom">
 								<span class="wish-icon"><i class="fa fa-heart-o"></i></span>
 								<div class="img-box">
-									<a href="#"><img src="static/img/hot/hot-test1.png" class="img-fluid" alt=""></a>									
+									<a href="./sellitem/itemdetail?search=${list1.sel_name}&itemid=${list1.sel_id}"><img src="${pageContext.request.contextPath}/${list1.url}/${list1.uuidName}" class="img-fluid " alt="iPhone"></a>
 								</div>
 								<div class="thumb-content">
-									<h4>전문가1</h4>																		
+									<h4>${list1.sel_name}</h4>
 								</div>						
 							</div>
 						</div>
@@ -428,21 +430,21 @@
 							<div class="thumb-wrapper img-hover-zoom">
 								<span class="wish-icon"><i class="fa fa-heart-o"></i></span>
 								<div class="img-box">
-									<a href="#"><img src="static/img/hot/hot-test2.png" class="img-fluid " alt="Headphone"></a>
+									<a href="./sellitem/itemdetail?search=${list2.sel_name}&itemid=${list2.sel_id}"><img src="${pageContext.request.contextPath}/${list2.url}/${list2.uuidName}" class="img-fluid " alt="iPhone"></a>
 								</div>
 								<div class="thumb-content">
-									<h4>전문가2</h4>																			
+									<h4>${list2.sel_name}</h4>
 								</div>						
 							</div>
-						</div>		
+						</div>	
 						<div class="col-sm-3">
 							<div class="thumb-wrapper img-hover-zoom">
 								<span class="wish-icon"><i class="fa fa-heart-o"></i></span>
 								<div class="img-box">
-									<a href="#"><img src="static/img/hot/hot-test3.png" class="img-fluid " alt="Macbook"></a>
+									<a href="./sellitem/itemdetail?search=${list3.sel_name}&itemid=${list3.sel_id}"><img src="${pageContext.request.contextPath}/${list3.url}/${list3.uuidName}" class="img-fluid " alt="iPhone"></a>
 								</div>
 								<div class="thumb-content">
-									<h4>전문가3</h4>									
+									<h4>${list3.sel_name}</h4>
 								</div>						
 							</div>
 						</div>								
@@ -450,10 +452,10 @@
 							<div class="thumb-wrapper img-hover-zoom">
 								<span class="wish-icon"><i class="fa fa-heart-o"></i></span>
 								<div class="img-box">
-									<a href="#"><img src="static/img/hot/hot-test4.png" class="img-fluid " alt="Nikon"></a>
+									<a href="./sellitem/itemdetail?search=${list4.sel_name}&itemid=${list4.sel_id}"><img src="${pageContext.request.contextPath}/${list4.url}/${list4.uuidName}" class="img-fluid " alt="iPhone"></a>
 								</div>
 								<div class="thumb-content">
-									<h4>전문가4</h4>									
+									<h4>${list4.sel_name}</h4>
 								</div>						
 							</div>
 						</div>
@@ -465,10 +467,10 @@
 							<div class="thumb-wrapper img-hover-zoom">
 								<span class="wish-icon"><i class="fa fa-heart-o"></i></span>
 								<div class="img-box">
-									<a href="#"><img src="static/img/hot/hot-test5.png" class="img-fluid " alt="Play Station"></a>
+									<a href="./sellitem/itemdetail?search=${list5.sel_name}&itemid=${list5.sel_id}"><img src="${pageContext.request.contextPath}/${list5.url}/${list5.uuidName}" class="img-fluid " alt="iPhone"></a>
 								</div>
 								<div class="thumb-content">
-									<h4>전문가5</h4>																				
+									<h4>${list5.sel_name}</h4>
 								</div>						
 							</div>
 						</div>
@@ -476,10 +478,10 @@
 							<div class="thumb-wrapper img-hover-zoom">
 								<span class="wish-icon"><i class="fa fa-heart-o"></i></span>
 								<div class="img-box">
-									<a href="#"><img src="static/img/hot/hot-test6.png" class="img-fluid " alt="Macbook"></a>
+									<a href="./sellitem/itemdetail?search=${list6.sel_name}&itemid=${list6.sel_id}"><img src="${pageContext.request.contextPath}/${list6.url}/${list6.uuidName}" class="img-fluid " alt="iPhone"></a>
 								</div>
 								<div class="thumb-content">
-									<h4>전문가6</h4>
+									<h4>${list6.sel_name}</h4>
 								</div>						
 							</div>
 						</div>
@@ -487,10 +489,10 @@
 							<div class="thumb-wrapper img-hover-zoom">
 								<span class="wish-icon"><i class="fa fa-heart-o"></i></span>
 								<div class="img-box">
-									<a href="#"><img src="static/img/hot/hot-test7.png" class="img-fluid " alt="Speaker"></a>
+									<a href="./sellitem/itemdetail?search=${list7.sel_name}&itemid=${list7.sel_id}"><img src="${pageContext.request.contextPath}/${list7.url}/${list7.uuidName}" class="img-fluid " alt="iPhone"></a>
 								</div>
 								<div class="thumb-content">
-									<h4>전문가7</h4>
+									<h4>${list7.sel_name}</h4>
 								</div>						
 							</div>
 						</div>
@@ -498,10 +500,10 @@
 							<div class="thumb-wrapper img-hover-zoom">
 								<span class="wish-icon"><i class="fa fa-heart-o"></i></span>
 								<div class="img-box">
-									<a href="#"><img src="static/img/hot/hot-test8.png" class="img-fluid " alt="Galaxy"></a>
+									<a href="./sellitem/itemdetail?search=${list8.sel_name}&itemid=${list8.sel_id}"><img src="${pageContext.request.contextPath}/${list8.url}/${list8.uuidName}" class="img-fluid " alt="iPhone"></a>
 								</div>
 								<div class="thumb-content">
-									<h4>전문가 8</h4>
+									<h4>${list8.sel_name}</h4>
 								</div>						
 							</div>
 						</div>						
@@ -513,10 +515,10 @@
 							<div class="thumb-wrapper img-hover-zoom">
 								<span class="wish-icon"><i class="fa fa-heart-o"></i></span>
 								<div class="img-box">
-									<a href="#"><img src="static/img/hot/hot-test9.png" class="img-fluid " alt="iPhone"></a>
+									<a href="./sellitem/itemdetail?search=${list9.sel_name}&itemid=${list9.sel_id}"><img src="${pageContext.request.contextPath}/${list9.url}/${list9.uuidName}" class="img-fluid " alt="iPhone"></a>
 								</div>
 								<div class="thumb-content">
-									<h4>전문가 9</h4>
+									<h4>${list9.sel_name}</h4>
 								</div>						
 							</div>
 						</div>
@@ -542,25 +544,25 @@
 		<div style="margin-bottom:30px;">
 			<span style="font-weight: bold; font-size: 25px; margin-left: 112px;">커뮤니티 HOT</span>
 			<img src="static/img/fire.png" style="width: 30px; position:relative; bottom: 2px;">
-			<button onclick="location.href='${pageContext.request.contextPath}/main'" class="btn btn-outline-success" 
+			<button onclick="location.href='${pageContext.request.contextPath}/community/main'" class="btn btn-outline-success" 
 			style="margin-left:50px; width:100px;">전체보기</button>
 		</div>
 		<div class="row mt-3 mb-3" style="margin-left:100px; color: #747D89;">
-			<div class="col img-hover-zoom" onclick="location.href='${pageContext.request.contextPath}/main'" style="cursor:pointer;">			
+			<div class="col img-hover-zoom" onclick="location.href='${pageContext.request.contextPath}/community/findPro/list'" style="cursor:pointer;">			
 				<img src="static/img/community/pro.png" style="max-width: 300px; border-radius:20px;">
 				<span style="font-size:1rem; font-weight:bold; margin-left:3rem;">전문가 구해요</span>			
 			</div>
-			<div class="col img-hover-zoom" onclick="location.href='${pageContext.request.contextPath}/main'" style="cursor:pointer;">
+			<div class="col img-hover-zoom" onclick="location.href='${pageContext.request.contextPath}/community/findStu/list'" style="cursor:pointer;">
 				<img src="static/img/community/lesson.png" style="max-width: 300px; border-radius:20px;">
 				<span style="font-size:1rem; font-weight:bold; margin-left:3rem;">레슨자 구해요</span>
 			</div>
 		</div>
 		<div class="row mt-3 mb-3" style="margin-left:100px; margin-botton:50px; color: #747D89;">
-			<div class="col img-hover-zoom" onclick="location.href='${pageContext.request.contextPath}/main'" style="cursor:pointer;">
+			<div class="col img-hover-zoom" onclick="location.href='${pageContext.request.contextPath}/community/question/list'" style="cursor:pointer;">
 				<img src="static/img/community/question.png" style="max-width: 300px; border-radius:20px;">
 				<span style="font-size:1rem; font-weight:bold; margin-left:3rem;">궁금해요</span>
 			</div>
-			<div class="col img-hover-zoom" onclick="location.href='${pageContext.request.contextPath}/main'" style="cursor:pointer;">
+			<div class="col img-hover-zoom" onclick="location.href='${pageContext.request.contextPath}/community/life/list'" style="cursor:pointer;">
 				<img src="static/img/community/daily.png" style="max-width: 300px; border-radius:20px;">
 				<span style="font-size:1rem; font-weight:bold; margin-left:3rem;">일상</span>
 			</div>

@@ -11,6 +11,18 @@ public class FileUploadDTO {
 	private int fileSize;
 	private String contentType;
 	
+	private String sel_name;
+	
+	
+	
+	public String getSel_name() {
+		return sel_name;
+	}
+
+	public void setSel_name(String sel_name) {
+		this.sel_name = sel_name;
+	}
+
 	public FileUploadDTO() {}
 	
 	public FileUploadDTO(int file_bId, String location, String url) {
@@ -82,13 +94,15 @@ public class FileUploadDTO {
 	public void setContentType(String contentType) {
 		this.contentType = contentType;
 	}
-	
+
 	@Override
 	public String toString() {
-		return "FileUploadDTO [file_id=" + file_id + ", file_bId=" + file_bId + ", fileName=" + fileName + ", uuidName=" + uuidName
-				+ ", location=" + location + ", url=" + url + ", fileSize=" + fileSize + ", contentType=" + contentType
-				+ "]";
+		return "FileUploadDTO [file_id=" + file_id + ", file_bId=" + file_bId + ", fileName=" + fileName + ", uuidName="
+				+ uuidName + ", location=" + location + ", url=" + url + ", fileSize=" + fileSize + ", contentType="
+				+ contentType + ", sel_name=" + sel_name + "]";
 	}
+	
+	
 
 }
 

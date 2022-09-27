@@ -57,6 +57,8 @@ public class AccountsDAO {
 	}
 
 	public boolean modifyData(AccountsDTO data) {
+		String mapperId2 = String.format(mapper, "removeConstraint");
+		session.update(mapperId2);
 		String mapperId = String.format(mapper, "modifyData");
 		int res = session.update(mapperId, data);
 		return res >= 1 ? true : false;

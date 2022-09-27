@@ -53,6 +53,10 @@
 		 WHERE AC_EMAIL = #{ac_email}
 	</update>
 	
+	<update id="removeConstraint">
+		ALTER TABLE COUPON DROP CONSTRAINT COUPON_COUPON_USERNAME_FK
+	</update>
+	
 	<update id="modifyPw" parameterType="acDto">
 		UPDATE ACCOUNTS
 		   SET AC_PW = #{ac_pw}

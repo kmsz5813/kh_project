@@ -144,8 +144,8 @@
 					<label class="mb-2">관심사 선택</label>
 					<select class="form-select" name="cus_interest" required>
 					<option value="">선택</option>
-					<option value="스포츠, 레저">스포츠</option>
-					<option value="패션, 디자인">미용</option>
+					<option value="스포츠">스포츠</option>
+					<option value="패션">패션</option>
 					<option value="문화">문화</option>
 					<option value="법률">법률</option>
 					<option value="금융">금융</option>

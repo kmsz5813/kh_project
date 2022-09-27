@@ -270,9 +270,14 @@ public class SelItemDAO {
 	
 
 	public boolean modifyReview(ReviewDTO data) {
-		String mpapperId = String.format(mapper, "modifyReview");
-		int res = session.update(mpapperId, data);
+		String mapperId = String.format(mapper, "modifyReview");
+		int res = session.update(mapperId, data);
 		return res == 1? true : false;
+	}
+	public List<SelItemDTO> searchLike2() {
+		String mapperId = String.format(mapper, "searchLike2");
+		List<SelItemDTO> list = session.selectList(mapperId);
+		return list;
 	}
 
 

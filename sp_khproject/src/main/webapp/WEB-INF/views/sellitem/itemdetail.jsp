@@ -136,8 +136,7 @@
 				</div>
 			</div>
 	
-			<div class="mt-5">상세내용</div>
-
+			<div>${itemdata.sel_content}</div>
 				
 				<!-- 삭제모달창 -->
 				<div class="modal fade" id="removeModal" tabindex="-1" aria-hidden="true">

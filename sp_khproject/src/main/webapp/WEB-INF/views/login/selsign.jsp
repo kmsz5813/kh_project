@@ -110,7 +110,7 @@
 			<div class="mb-3">
 				<label class="mb-2">직업</label>
 				<select class="form-select" name="sel_job" required>
-					<option value="">선택</option>
+						<option value="">선택</option>
 						<option value="학생">학생</option>
 						<option value="무직">무직</option>
 						<option value="구직자">구직자</option>
@@ -139,8 +139,8 @@
 				<label class="mb-2">관심사 선택</label>
 				<select class="form-select" name="sel_interest" required>
 					<option value="">선택</option>
-					<option value="스포츠, 레저">스포츠</option>
-					<option value="패션, 디자인">미용</option>
+					<option value="스포츠">스포츠</option>
+					<option value="패션">패션</option>
 					<option value="문화">문화</option>
 					<option value="법률">법률</option>
 					<option value="금융">금융</option>

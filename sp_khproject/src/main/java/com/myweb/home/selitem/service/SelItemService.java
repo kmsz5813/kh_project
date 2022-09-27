@@ -301,6 +301,12 @@ public class SelItemService {
 	}
 
 
+	public List<SelItemDTO> searchLike2() {
+		List<SelItemDTO> list = dao.searchLike2();
+		return list;
+	}
+
+
 
 
 
