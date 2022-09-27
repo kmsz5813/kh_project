@@ -1,5 +1,6 @@
 package com.myweb.home.community.main.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -31,7 +32,7 @@ public class CommunityMainController {
 			
 			//공지사항
 			List<Map<String, Object>> notice = communityMainService.selectNotice();
-			
+			System.out.println(notice);
 			//질문게시판
 			List<Map<String, Object>> question = communityMainService.selectQuestion();		
 			
@@ -44,6 +45,17 @@ public class CommunityMainController {
 			//일상
 			List<Map<String, Object>> life = communityMainService.selectLife();	
 			
+
+			List<Map<String, Object>>  joined = new ArrayList<>();
+			joined.addAll(notice);
+			joined.addAll(question);
+			joined.addAll(findStu);
+			System.out.println(joined);
+			//방법하나 ----------> NO를 바꿔서 넣고 EX) NOTICE_NO만 이름값을 QUESTION_NO
+			//조인을 순서랜덤값으로 바꾸잖아???????? 바꿔도 의미가 없는게 출력할ㄸㄴ느 joined.findstu_title <<< 이렇게해야 조회값이 나오잖아 순서는 상관이
+			//없어 랜덤돌려가지고 출력하면 
+			
+			model.addAttribute("joined", joined);
 			model.addAttribute("notice", notice);
 			model.addAttribute("question", question);
 			model.addAttribute("findStu", findStu);
