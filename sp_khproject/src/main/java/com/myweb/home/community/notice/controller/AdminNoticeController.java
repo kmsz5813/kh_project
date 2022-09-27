@@ -110,6 +110,7 @@ public class AdminNoticeController {
 		return "error/permission";
 		
 	}
+
 	
 //	//공지사항 글수정하기 jsp
 //	@RequestMapping("/modify")

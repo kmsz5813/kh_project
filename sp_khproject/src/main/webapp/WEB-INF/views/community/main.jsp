@@ -197,6 +197,15 @@ feed-item .feed-content {
 *, :after, :before {
    box-sizing: border-box;
 }
+
+#test1{
+border:0.5px solid; width:10rem; text-align: center; font-weight: bolder; background-color:rgb(222, 242, 230);
+}
+
+#test2{
+ border:0.5px solid; width:45rem; height:5rem; padding: 6px;
+}
+
 </style>
 </head>
 
@@ -315,40 +324,64 @@ feed-item .feed-content {
 
 
       <!-- 커뮤니티 메인 새글 -->
-      <c:forEach items="${joined}" var="joined">
-       NOTICE_TITLE값 : ${joined.NOTICE_TITLE}
-       QUESTION_TITLE값 : ${joined.QUESTION_TITLE}
-      </c:forEach>
-
+    
+      
       <article>
+      
          <div id="jb-content">
-            <ul class="feed-list">
-               <li class="feed-item"><a href="#"
-                  data-testid="soomgo-life-feed-item"> <span>게시글 1</span>
-                     <div class="feed-content">
-                        <div>
-                           <section>
-                              <h3>게시글 1</h3>
-                              <p>게시글 1</p>
-                           </section>
-                           <ul class="tag-list">
-                              <li>게시글 1</li>
-                              <li>게시글 1</li>
-                              <li>게시글 1</li>
-                           </ul>
-                        </div>
-                     </div>
-                     <div>
-                        <div>
-                           <span class="like">0</span> <span class="comment">0</span>
-                        </div>
-                        <span class="sg-text-description">6분 전</span>
-                     </div>
-               </a></li>
-
-            </ul>
+           
+           <!-- 공지 -->
+           <c:forEach items="${notice}" var="notice">
+           	<div class="mt-1" id="test1" >
+           		공지사항
+           	</div>
+           	<div class="mt-3" id="test2"  onclick="location.href='./notice/detail?no=${notice.NOTICE_NO}'">
+           		<p>${notice.NOTICE_CONTENT }</p>
+           	</div>
+         	</c:forEach>
+            
+         
+            <c:forEach items="${question}" var="question">
+           	<div class="mt-5" id="test1" >
+           	 	궁금해요
+           	</div>
+           	<div class="mt-3" id="test2" onclick="location.href='./notice/detail?no=${question.QUESTION_NO}'">
+           		<p>${question.QUESTION_CONTENT }</p>
+           	</div>
+         	</c:forEach>
+      
+         	
+         	 <c:forEach items="${findStu}" var="findStu">
+           	<div class="mt-5" id="test1">
+           		레슨자 찾아요
+           	</div>
+           	<div class="mt-3" id="test2" onclick="location.href='./notice/detail?no=${findStu.FINDSTU_NO}'">
+           		<p>${findStu.FINDSTU_CONTENT }</p>
+           	</div>
+         	</c:forEach>
+         	
+         	 <c:forEach items="${findPro}" var="findPro">
+           	<div class="mt-5" id="test1">
+           		 전문가 찾아요
+           	</div>
+           	<div class="mt-3" id="test2" onclick="location.href='./notice/detail?no=${findPro.FINDPRO_NO}'">
+           		<p>${findPro.FINDPRO_CONTENT }</p>
+           	</div>
+         	</c:forEach>
+         	
+         	 <c:forEach items="${life}" var="life">
+           	<div class="mt-5" id="test1">
+           		일상생활
+           	</div>
+           	<div class="mt-3" id="test2" onclick="location.href='./notice/detail?no=${life.LIFE_NO}'">
+           		<p>${life.LIFE_CONTENT }</p>
+           	</div>
+         	</c:forEach>
+         
          </div>
       </article>
+      
+
       <c:url var="mainurl" value="/main" />
 
 
