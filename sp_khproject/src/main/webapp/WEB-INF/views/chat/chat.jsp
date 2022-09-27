@@ -164,7 +164,7 @@ div.col-md-12 { margin-bottom: 15px; }
         </div>
 		
        </script>
-       <c:forEach items="${Resultdata}" var="Resultdata">
+      <!--  <c:forEach items="${Resultdata}" var="Resultdata">
        		<p>${Resultdata.sender} :  ${Resultdata.message}</p>
   
        </c:forEach> 
@@ -172,7 +172,7 @@ div.col-md-12 { margin-bottom: 15px; }
        		<p>${SameData.sender} :  ${SameData.message}</p>
        		${SameData.writeday }
   
-       </c:forEach> 
+       </c:forEach> --> 
        
 		<div class="input-div">
 			<textarea id="txtMessage" cols="30" rows="10"
