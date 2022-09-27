@@ -7,7 +7,7 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>Want</title>
+	<title>Find</title>
 	<!-- jQuery 적용 -->
 	<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 	<!-- ajax 적용 -->
@@ -193,6 +193,24 @@
 		border-radius : 20%;
 	}
 	
+	.modal {
+        text-align: center;
+	}
+	 
+	@media screen and (min-width: 768px) { 
+	        .modal:before {
+	                display: inline-block;
+	                vertical-align: middle;
+	                content: " ";
+	                height: 100%;
+	        }
+	}
+	.modal-dialog {
+        display: inline-block;
+        text-align: left;
+        vertical-align: middle;
+	}
+	
 	</style>
 
 	<script type="text/javascript">
@@ -213,7 +231,7 @@
 	<!-- 헤더 -->
 	<%@ include file="../module/head.jsp" %>
 	
-<!-- 배너, carousel -->
+	<!-- 배너, carousel -->
 	
 	<div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
 	  <ol class="carousel-indicators">
@@ -223,13 +241,14 @@
 	  </ol>
 	  <div class="carousel-inner">
 	    <div class="carousel-item active">
-	      <img class="d-block w-100" src="static/img/banner/test1.png" alt="First slide">
+	      <img id="couponDown" style="cursor:pointer;"data-bs-toggle="modal" data-bs-target="#staticBackdrop" 
+	      class="d-block w-100" src="static/img/banner/banner1.png" alt="First slide">
 	    </div>
 	    <div class="carousel-item">
-	      <img class="d-block w-100" src="static/img/banner/test2.png" alt="Second slide">
+	      <img class="d-block w-100" src="static/img/banner/banner2.png" alt="Second slide">
 	    </div>
 	    <div class="carousel-item">
-	      <img class="d-block w-100" src="static/img/banner/test3.png" alt="Third slide">
+	      <img class="d-block w-100" src="static/img/banner/banner3.png" alt="Third slide">
 	    </div>
 	  </div>
 	  <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
@@ -262,10 +281,10 @@
 							<div class="thumb-wrapper img-hover-zoom">
 								<span class="wish-icon"><i class="fa fa-heart-o"></i></span>
 								<div class="img-box ">
-									<a href="#"><img src="static/img/hot/hot-test1.png" class="img-fluid" alt=""></a>									
+									<a href="#"><img src="static/img/hot/IT.png" class="img-fluid" alt=""></a>									
 								</div>
 								<div class="thumb-content">
-									<h4>보컬 레슨</h4>																		
+									<h4>IT, 프로그래밍</h4>																		
 								</div>						
 							</div>
 						</div>
@@ -273,10 +292,10 @@
 							<div class="thumb-wrapper img-hover-zoom">
 								<span class="wish-icon"><i class="fa fa-heart-o"></i></span>
 								<div class="img-box">
-									<a href="#"><img src="static/img/hot/hot-test2.png" class="img-fluid " alt=""></a>
+									<a href="#"><img src="static/img/hot/Design.png" class="img-fluid " alt=""></a>
 								</div>
 								<div class="thumb-content">
-									<h4>인테리어</h4>									
+									<h4>디자인</h4>									
 								</div>						
 							</div>
 						</div>		
@@ -284,10 +303,10 @@
 							<div class="thumb-wrapper img-hover-zoom">
 								<span class="wish-icon"><i class="fa fa-heart-o"></i></span>
 								<div class="img-box">
-									<a href="#"><img src="static/img/hot/hot-test3.png" class="img-fluid " alt=""></a>
+									<a href="#"><img src="static/img/hot/Business.png" class="img-fluid " alt=""></a>
 								</div>
 								<div class="thumb-content">
-									<h4>퍼스널 트레이닝(PT)</h4>									
+									<h4>비즈니스</h4>									
 								</div>						
 							</div>
 						</div>								
@@ -295,10 +314,10 @@
 							<div class="thumb-wrapper img-hover-zoom">
 								<span class="wish-icon"><i class="fa fa-heart-o"></i></span>
 								<div class="img-box">
-									<a href="#"><img src="static/img/hot/hot-test4.png" class="img-fluid " alt=""></a>
+									<a href="#"><img src="static/img/hot/Marketing.png" class="img-fluid " alt=""></a>
 								</div>
 								<div class="thumb-content">
-									<h4>영어 과외</h4>									
+									<h4>마케팅</h4>									
 								</div>						
 							</div>
 						</div>
@@ -310,10 +329,10 @@
 							<div class="thumb-wrapper img-hover-zoom">
 								<span class="wish-icon"><i class="fa fa-heart-o"></i></span>
 								<div class="img-box">
-									<a href="#"><img src="static/img/hot/hot-test5.png" class="img-fluid " alt=""></a>
+									<a href="#"><img src="static/img/hot/Translation.png" class="img-fluid " alt=""></a>
 								</div>
 								<div class="thumb-content">
-									<h4>카테고리5</h4>
+									<h4>번역, 통역</h4>
 								</div>						
 							</div>
 						</div>
@@ -321,10 +340,10 @@
 							<div class="thumb-wrapper img-hover-zoom">
 								<span class="wish-icon"><i class="fa fa-heart-o"></i></span>
 								<div class="img-box">
-									<a href="#"><img src="static/img/hot/hot-test6.png" class="img-fluid " alt=""></a>
+									<a href="#"><img src="static/img/hot/Writing.png" class="img-fluid " alt=""></a>
 								</div>
 								<div class="thumb-content">
-									<h4>카테고리6</h4>	
+									<h4>문서, 글쓰기</h4>	
 								</div>						
 							</div>
 						</div>
@@ -332,10 +351,10 @@
 							<div class="thumb-wrapper img-hover-zoom">
 								<span class="wish-icon"><i class="fa fa-heart-o"></i></span>
 								<div class="img-box">
-									<a href="#"><img src="static/img/hot/hot-test7.png" class="img-fluid " alt=""></a>
+									<a href="#"><img src="static/img/hot/CustomOrder.png" class="img-fluid " alt=""></a>
 								</div>
 								<div class="thumb-content">
-									<h4>카테고리7</h4>										
+									<h4>주문제작</h4>										
 								</div>						
 							</div>
 						</div>
@@ -343,10 +362,10 @@
 							<div class="thumb-wrapper img-hover-zoom">
 								<span class="wish-icon"><i class="fa fa-heart-o"></i></span>
 								<div class="img-box">
-									<a href="#"><img src="static/img/hot/hot-test8.png" class="img-fluid " alt=""></a>
+									<a href="#"><img src="static/img/hot/Tax.png" class="img-fluid " alt=""></a>
 								</div>
 								<div class="thumb-content">
-									<h4>카테고리8</h4>
+									<h4>세무, 법무</h4>
 								</div>						
 							</div>
 						</div>						
@@ -358,10 +377,10 @@
 							<div class="thumb-wrapper img-hover-zoom">
 								<span class="wish-icon"><i class="fa fa-heart-o"></i></span>
 								<div class="img-box">
-									<a href="#"><img src="static/img/hot/hot-test9.png" class="img-fluid " alt="iPhone"></a>
+									<a href="#"><img src="static/img/hot/Etc.png" class="img-fluid " alt="iPhone"></a>
 								</div>
 								<div class="thumb-content">
-									<h4>카테고리9</h4>
+									<h4>기타</h4>
 								</div>						
 							</div>
 						</div>
@@ -528,33 +547,81 @@
 		</div>
 		<div class="row mt-3 mb-3" style="margin-left:100px; color: #747D89;">
 			<div class="col img-hover-zoom" onclick="location.href='${pageContext.request.contextPath}/main'" style="cursor:pointer;">			
-				<img src="static/img/hot/hot-test1.png" style="max-width: 300px; border-radius:20px;">
+				<img src="static/img/community/pro.png" style="max-width: 300px; border-radius:20px;">
 				<span style="font-size:1rem; font-weight:bold; margin-left:3rem;">전문가 구해요</span>			
 			</div>
 			<div class="col img-hover-zoom" onclick="location.href='${pageContext.request.contextPath}/main'" style="cursor:pointer;">
-				<img src="static/img/hot/hot-test2.png" style="max-width: 300px; border-radius:20px;">
+				<img src="static/img/community/lesson.png" style="max-width: 300px; border-radius:20px;">
 				<span style="font-size:1rem; font-weight:bold; margin-left:3rem;">레슨자 구해요</span>
 			</div>
 		</div>
 		<div class="row mt-3 mb-3" style="margin-left:100px; margin-botton:50px; color: #747D89;">
 			<div class="col img-hover-zoom" onclick="location.href='${pageContext.request.contextPath}/main'" style="cursor:pointer;">
-				<img src="static/img/hot/hot-test3.png" style="max-width: 300px; border-radius:20px;">
+				<img src="static/img/community/question.png" style="max-width: 300px; border-radius:20px;">
 				<span style="font-size:1rem; font-weight:bold; margin-left:3rem;">궁금해요</span>
 			</div>
 			<div class="col img-hover-zoom" onclick="location.href='${pageContext.request.contextPath}/main'" style="cursor:pointer;">
-				<img src="static/img/hot/hot-test4.png" style="max-width: 300px; border-radius:20px;">
+				<img src="static/img/community/daily.png" style="max-width: 300px; border-radius:20px;">
 				<span style="font-size:1rem; font-weight:bold; margin-left:3rem;">일상</span>
 			</div>
 		</div>
 	</article>
 	
-	
+	<!-- 이벤트 쿠폰 Modal -->
+	<%-- <div class="modal fade" id="staticBackdrop"  data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+	  <div class="modal-dialog">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h5 class="modal-title" id="staticBackdropLabel">오픈 기념 15% 할인쿠폰</h5>
+	        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+	      </div>
+	      <div class="modal-body">
+	        1회만 다운로드 가능하며, 유효기간은 발급일로부터 30일입니다.
+	      </div>
+	      <div class="modal-footer">
+	      	<c:url var="couponUrl" value="/main" />
+			<form action="${couponUrl}" method="post">
+		        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+		        <button id="submit" type="submit" class="btn btn-success">다운받기</button>
+	      	</form>
+	      </div>
+	    </div>
+	  </div>
+	</div> --%>
 	
 	<footer class="footer" style="margin-top : 200px; text-align:center; border-top: 3px solid #dcdcde; ">
-		<div style="width: 400px; height: 200px; background-color: #f6f7f7; margin: auto; margin-bottom: 50px; margin-top: 20px; padding: 10px;" >
-			이용약관
+		<div style="height:100px; padding: 22px; font-weight:bold; color:#747D89; background-color:#F2F3F7; margin: auto; margin-bottom: 50px; margin-top: 20px;" >
+			<p style="margin-bottom:0px;">© 2020 Copyright: Find.com</p>
+			<p>이메일 : findofficial9@gmail.com</p>
 		</div>
 	</footer>
+	
+	<script type="text/javascript">	
+	/* 배너에서 쿠폰다운 */
+		/* $('#couponDown').on('click', function(e) {
+			if(${empty loginData}) {
+				$('#submit').prop('disabled', true);
+				$('.modal-body').text("로그인이 필요한 서비스입니다.");
+			} else {
+				$('.modal-body').text("1회만 다운로드 가능하며, 유효기간은 발급일로부터 30일입니다.");
+			}
+		});
+				
+		$('form').on('submit', function(e) {
+			if(${loginData.ac_index == 10}) {
+				if(${couponcheck} == 1) {
+					swal("쿠폰 다운로드 완료!", "마이페이지에서 확인하세요.", "success");					
+				} else {
+					e.preventDefault();
+					swal("쿠폰 다운로드 실패!", "이미 발급받은 쿠폰입니다.", "warning");
+					$('#staticBackdrop').modal('hide');
+				}
+			} else {
+				e.preventDefault();
+				alert("일반회원만 다운로드 받을 수 있습니다.");
+			}
+		}); */
+	</script>
 </body>
 	
 </html>

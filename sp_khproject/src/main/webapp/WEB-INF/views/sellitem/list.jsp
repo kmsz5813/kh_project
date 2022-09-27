@@ -28,7 +28,7 @@
 		}
 		
 		.img-hover-zoom:hover img {
-		  transform: scale(1.15);
+		  transform: scale(1.1);
 		}
 		
 		.card-img-top{
@@ -64,10 +64,10 @@
 			  </button>
 			  <!------------------- 반복문 만들어서 집어넣기---------------------------->
 			  <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-			    <li><a class="dropdown-item" href="sellitem?select=IT">IT</a></li>
-			    <li><a class="dropdown-item" href="sellitem?select=운동">운동</a></li>
-			    <li><a class="dropdown-item" href="sellitem?select=음악">음악</a></li>
-			    <li><a class="dropdown-item" href="#">기타</a></li>
+			  	  <li><a class="dropdown-item" href="sellitem?">전체</a></li>
+			  	<c:forEach var="name" items="${Option}" >
+			    <li><a class="dropdown-item" href="sellitem?select=${name}">${name}</a></li>
+			  	</c:forEach>
 			  </ul>
 			 </div>
 			  
@@ -76,9 +76,10 @@
 			    지역
 			  </button>
 			  <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-			    <li><a class="dropdown-item" href="#">Action</a></li>
-			    <li><a class="dropdown-item" href="#">Another action</a></li>
-			    <li><a class="dropdown-item" href="#">Something else here</a></li>
+			 	   <li><a class="dropdown-item" href="sellitem?">전체</a></li>
+			    <c:forEach var="lc" items="${lc}" >
+			    <li><a class="dropdown-item" href="sellitem?location=${lc}">${lc}</a></li>
+			    </c:forEach>
 			  </ul>
 			 </div>
 			  <!-- ---------------------------------------------------------------- -->
@@ -89,9 +90,8 @@
 			    인기순
 			  </button>
 			  <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-			    <li><a class="dropdown-item" href="/login/login">Action</a></li>
-			    <li><a class="dropdown-item" href="#">Another action</a></li>
-			    <li><a class="dropdown-item" href="#">Something else here</a></li>
+			    <li><a class="dropdown-item" href="sellitem?like=likeCount">좋아요</a></li>
+			    <li><a class="dropdown-item" href="sellitem?view=viewCount">조회순</a></li>
 			  </ul>
 			 </div>
 			  
@@ -112,7 +112,13 @@
 		
 		<!-- 메인 내용 페이지 !!!!!!!!!!!!!!!!!!!!!!!!!! -->
 		<div class="row g-1 mt-5">
-		<c:forEach items="${result}" var="data">	
+			<c:if test="${empty result}">
+				<div class="mt-5">
+					<img style="margin-left:550px; width:200px;" src="${pageContext.request.contextPath}/static/img/NoData.png">
+					<i class="bi bi-exclamation-circle"></i>
+				</div>
+			</c:if>	
+		<c:forEach items="${result}" var="data">
 			<div class="card" style="width: 18rem; margin-right: 2rem; margin-bottom: 2rem;">
 			  <div class="img-hover-zoom" style="border-radius:10px;">
 				<a href="./sellitem/itemdetail?search=${data.sel_name}&itemid=${data.sel_id}">
@@ -128,9 +134,30 @@
 				  </a>
 			  </div>
 			  <div class="card-body">
-			    <h5 class="card-title" style="font-weight:bold; text-align:center">${data.sel_title}</h5>
-			    <h4 style="text-align:right"><a href="./detail?search=${data.sel_name}" class="card-text">${data.sel_name}</a></h4>
-			    <h4 class="price" style="text-align:right">&#8361; <fmt:formatNumber type="number" maxFractionDigits="3" value="${data.sel_price}"/></h4>
+
+			  	<span class="card-title" style="font-size: 1.5rem;font-weight:bold;">${data.sel_title}</span>
+				 <!-- 좋아요를 보여주는 것 -->
+				 <c:forEach items="${likeData}" var="likeData">
+				 	<c:if test="${data.sel_id == likeData.sel_id}">
+				 		<c:if test="${likeData.liked == 'true'}">
+				 		<img style="width:20px;float:right;"src="${pageContext.request.contextPath}/static/img/heart.png">
+				 		</c:if>
+				 	</c:if>
+				 </c:forEach>
+			    <h5 style="text-align:right"><a href="./detail?search=${data.sel_name}" class="card-text">${data.sel_name}</a></h5>
+			    <h5 class="price" style="text-align:right">&#8361; <fmt:formatNumber type="number" maxFractionDigits="3" value="${data.sel_price}"/></h5>
+			    <c:if test="${data.sel_starScore < 1}">
+			  		<div style="float:right;">
+				    	<img src="${pageContext.request.contextPath}/static/img/star.png">
+				    	<span>0.0(${data.sel_reviewCount})</span>
+			  		</div>
+			    </c:if>
+			    <c:if test="${data.sel_starScore >= 1}">
+			    	<div style="float:right;">
+				    	<img style="position:relative; bottom:2px;" src="${pageContext.request.contextPath}/static/img/star.png">
+					    <span><fmt:formatNumber value="${data.sel_starScore}" pattern=".0"/>(${data.sel_reviewCount})</span>
+				    </div>
+			    </c:if>
 			  </div>
 			</div>
 		</c:forEach>
@@ -159,6 +186,7 @@
 				</ul>
 			</div>
 		</nav>
+		<%@ include file="../module/footer.jsp" %>
 	<script type="text/javascript">
 		
 	</script>

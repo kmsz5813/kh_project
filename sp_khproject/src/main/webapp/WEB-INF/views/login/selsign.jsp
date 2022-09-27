@@ -109,25 +109,41 @@
 			
 			<div class="mb-3">
 				<label class="mb-2">직업</label>
-				<select class="form-select" name="sel_job">
-					<option value="테스트">테스트</option>
-					<option value="테스트1">테스트1</option>
+				<select class="form-select" name="sel_job" required>
+					<option value="">선택</option>
+						<option value="학생">학생</option>
+						<option value="무직">무직</option>
+						<option value="구직자">구직자</option>
+						<option value="회사원">회사원</option>
+						<option value="개인사업자">개인사업자</option>
 				</select>
 			</div>
 			
 			<div class="mb-3">	
 				<label class="mb-2">비즈니스</label>
-				<select class="form-select" name="sel_field">
-					<option value="비즈니스테스트">비즈니스테스트</option>
-					<option value="비즈니스테스트2">비즈니스테스트2</option>
+				<select class="form-select" name="sel_field" required>
+					<option value="">선택</option>
+						<option value="IT, 프로그래밍">IT, 프로그래밍</option>
+						<option value="디자인">디자인</option>
+						<option value="비즈니스">비즈니스</option>
+						<option value="마케팅">마케팅</option>
+						<option value="번역, 통역">번역, 통역</option>
+						<option value="문서, 글쓰기">문서, 글쓰기</option>
+						<option value="주문 제작">주문 제작</option>
+						<option value="세무, 법무">세무, 법무</option>
+						<option value="기타">기타</option>
 				</select>
 			</div>
 			
 			<div class="mb-3">	
 				<label class="mb-2">관심사 선택</label>
-				<select class="form-select" name="sel_interest">
-					<option value="관심분야테스트">관심분야테스트</option>
-					<option value="관심분야테스트2">관심분야테스트2</option>
+				<select class="form-select" name="sel_interest" required>
+					<option value="">선택</option>
+					<option value="스포츠, 레저">스포츠</option>
+					<option value="패션, 디자인">미용</option>
+					<option value="문화">문화</option>
+					<option value="법률">법률</option>
+					<option value="금융">금융</option>
 				</select>
 			</div>
 			
@@ -425,5 +441,6 @@
 
 		</script>
 	</section>
+	<%@ include file="../module/footer.jsp" %>
 </body>
 </html>

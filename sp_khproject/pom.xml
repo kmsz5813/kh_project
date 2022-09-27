@@ -297,6 +297,14 @@
 		    <version>5.3.22</version>
 		</dependency>
 		
+		<!-- 아임포트 -->
+		<dependency>
+		    <groupId>com.github.iamport</groupId>
+		    <artifactId>iamport-rest-client-java</artifactId>
+		    <version>0.2.22</version>
+		</dependency>
+		
+		
 	</dependencies>
 	
 	<!-- KOMORAN 불러오기 위한 메이븐 사설 저장소 -->

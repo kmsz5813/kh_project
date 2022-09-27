@@ -109,6 +109,7 @@
 				<input type="hidden" value="${loginData.ac_name}" id="origin_name">
 			</form>
 		</div>
+		<%@ include file="../module/footer.jsp" %>
 		<script type="text/javascript">
 			window.onload = function() {
 				previewImg.addEventListener("click", function(e) {

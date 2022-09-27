@@ -325,17 +325,19 @@ feed-item .feed-content {
 			</div>
 		</div>
 		
-		<!-- 관리자만 글 등록가능하게 -->
-		<!-- 
+		
 		<c:if test="${loginData.ac_index == 30}">
-			<form action="${noticeUrl}/home/community/notice/add">
+			<c:url var="noticeUrl" value="/admin/notice/write" />
+			<form action="${noticeUrl}" method="post">
 			<input type="hidden" name="nid" value="${data.notice_no}">
 			<button class="btn btn-outline-success" type="submit"
 				style="width: 150px; position: relative; top: 45px; left: 1200px;"
-				id="button" onclick="formCheck(this.form);">글쓰기</button>
-		</form>
+				id="button">글쓰기</button>
+			</form>
 		</c:if>
-		 -->
+		
+	
+	
 		
 		
 

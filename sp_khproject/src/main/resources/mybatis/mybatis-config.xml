@@ -21,17 +21,23 @@
     	<typeAlias type="com.myweb.home.community.life.model.CommunityLifeDTO" alias="communityLifeDto" />
     	<typeAlias type="com.myweb.home.community.life.model.CommunityLifeStaticsDTO" alias="communityLifeStaticsDto" />
     	<typeAlias type="com.myweb.home.selitem.model.SelItemDTO" alias="selItemDto" />
-    	<typeAlias type="com.myweb.home.selitem.model.SelItemCommentDTO" alias="selItemComDto" />
+    	<typeAlias type="com.myweb.home.selitem.model.SelItemStaticsDTO" alias="SelItemStaticsDto" />  	
     	<typeAlias type="com.myweb.home.upload.model.FileUploadDTO" alias="fileUploadDto"/>
+
     	<typeAlias type="com.myweb.home.message.model.MessageDTO" alias="messageDto"/>
-    	<typeAlias type="com.myweb.home.chat.model.ChatVO" alias="ChatVO"/>
+    	<typeAlias type="com.myweb.home.selitem.model.ReviewDTO" alias="reviewDto" />
+    	<typeAlias type="com.myweb.home.selitem.model.ReviewDetailVO" alias="reviewDetailVo" />
+    	<typeAlias type="com.myweb.home.chat.model.ChatDAOImpl" alias="ChatMapper"/>
     	<typeAlias type="com.myweb.home.purchase.model.PurchaseDTO" alias="purchaseDto" />
     	<typeAlias type="com.myweb.home.purchase.model.CouponDTO" alias="CouponDto" />
     	<typeAlias type="com.myweb.home.purchase.model.UsePointVO" alias="UsePointVo" />
+    	<typeAlias type="com.myweb.home.purchase.model.EventCouponDTO" alias="eventCouponDto" />
+
     	<typeAlias type="com.myweb.home.community.question.comment.model.QuestionCommentDTO" alias="questionCommentDto" />
     	<typeAlias type="com.myweb.home.community.life.comment.model.LifeCommentDTO" alias="lifeCommentDto" />
     	<typeAlias type="com.myweb.home.community.findPro.comment.model.FindProCommentDTO" alias="findProCommentDto" />
     	<typeAlias type="com.myweb.home.community.findStu.comment.model.FindStuCommentDTO" alias="findStuCommentDto" />
+
 	</typeAliases>
 	
 </configuration>
