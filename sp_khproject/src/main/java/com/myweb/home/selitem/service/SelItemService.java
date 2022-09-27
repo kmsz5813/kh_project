@@ -115,9 +115,12 @@ public class SelItemService {
 		
 		dao.updateStaticsLike(selectData);
 		
-		boolean result = dao.updateLike(data);
+		System.out.println(data);
+		boolean result = dao.updateLike(data); //실행되는지 안되는지???
+		System.out.println(result);
 		
 		return selectData;
+	
 	}
 	//조회로 게시글찾rl
 	public List getSearch(String search) {

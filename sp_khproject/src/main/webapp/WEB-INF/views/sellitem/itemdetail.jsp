@@ -83,7 +83,7 @@
 </head>
 	<body>
 		<%@ include file="../module/head.jsp"%>
-		<c:if test="${data.ac_index == 20}">
+
 		<section class="container w-75">
 			<div class="mt-5">
 				<div class="row mb-5 center">
@@ -118,9 +118,14 @@
 						</c:if>
 					</div>
 					<div class="mt-5">
-						<c:if test="${loginData.ac_index == 10}">
+
+
+
 							<button type="button" onclick="location.href='${pageContext.request.contextPath}/chatting?itemid=${itemdata.sel_id}&sel=${itemdata.sel_name}&cus=${loginData.ac_name}'"
 							class="btn btn-outline-success">메시지 보내기</button>
+
+						<c:if test="${loginData.ac_index == 10}">
+
 							<button style="margin-left:20px;" type="button" 
 							onclick="location.href='${pageContext.request.contextPath}/purchase?itemid=${itemdata.sel_id}'" 
 							class="btn btn-outline-success">구매하기</button>
@@ -136,7 +141,9 @@
 				</div>
 			</div>
 	
-			<div>${itemdata.sel_content}</div>
+
+			<div class="mt-5 mb-3">${itemdata.sel_content}</div>
+
 				
 				<!-- 삭제모달창 -->
 				<div class="modal fade" id="removeModal" tabindex="-1" aria-hidden="true">
@@ -189,6 +196,7 @@
 						</form>
 					</div>
 				</c:forEach>
+				
 				<img src="../static/img/arrow-up.png"  style="float:right; cursor:pointer; position:relative; bottom:25px;" id="scroll_top">
 			</div>
 				
@@ -266,7 +274,7 @@
 				</div>	
 			</c:if>
 		</section>
-		</c:if>
+		
 
 		
 		
