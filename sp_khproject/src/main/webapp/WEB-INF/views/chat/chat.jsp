@@ -148,37 +148,36 @@ div.col-md-12 { margin-bottom: 15px; }
 	
 	
 	
-	
-	<div class="chat_wrap">
-		<div class="header">
-			<h3>채팅방</h3>
-		</div>
-		<div id="chat"></div>
-		<!-- 채팅저장출력 -->
-		<div id="temp" type="text/x-handlebars-template">
+	   <div class="chat_wrap">
+      <div class="header">
+         <h3>채팅방</h3>
+      </div>
+      <div id="chat"></div>
+      <!-- 채팅저장출력 -->
+      <script id="temp" type="text/x-handlebars-template">
         <div class="{{printLeftRight sender}}">
-          <div class="sender"></div>
-          <div class="message"></div>
+          <div class="sender">{{sender}}</div>
+          <div class="message">{{message}}</div>
         </div>
-
-		
-
-       <!--<c:forEach items="${Resultdata}" var="Resultdata">
-       		<p>${Resultdata.sender} :  ${Resultdata.message}</p>
+      
+       </script>
+      <!--  <c:forEach items="${Resultdata}" var="Resultdata">
+             <p>${Resultdata.sender} :  ${Resultdata.message}</p>
   
        </c:forEach> 
              <c:forEach items="${SameData}" var="SameData">
-       		<p>${SameData.sender} :  ${SameData.message}</p>
-       		${SameData.writeday }
+             <p>${SameData.sender} :  ${SameData.message}</p>
+             ${SameData.writeday }
   
-       </c:forEach> 
-       -->
-		<div class="input-div">
-			<textarea id="txtMessage" cols="30" rows="10"
-				placeholder="메시지를 입력한 후에 엔터키를 누르세요."></textarea>
-		</div>
+       </c:forEach> --> 
+       
+      <div class="input-div">
+         <textarea id="txtMessage" cols="30" rows="10"
+            placeholder="메시지를 입력한 후에 엔터키를 누르세요."></textarea>
+      </div>
 
-	</div>
+   </div>
+
 
 
 
