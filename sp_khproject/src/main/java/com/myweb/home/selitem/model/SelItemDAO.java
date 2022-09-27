@@ -258,6 +258,15 @@ public class SelItemDAO {
 		int res = session.delete(mapperId, name);
 		return res == 1 ? true : false;
 	}
+	/*
+	 * public int nameReviewCount(String name) { String mapperId =
+	 * String.format(mapper, "nameReviewCount"); int count =
+	 * session.selectOne(mapperId, name); return count; } public boolean
+	 * minusReviewCount(ReviewDetailVO datas) { String mapperId =
+	 * String.format(mapper, "minusReviewCount"); int res = session.update(mapperId,
+	 * datas); return res == 1 ? true : false; }
+	 */
+	
 
 	
 

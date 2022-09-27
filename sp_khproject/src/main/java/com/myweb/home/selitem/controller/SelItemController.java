@@ -134,6 +134,7 @@ public class SelItemController {
 		List viewResult = null;
 		
 		
+		
 		//acData를 가지고 ....................... 하트표시나오게끔 하기!
 	     AccountsDTO acData = (AccountsDTO) session.getAttribute("loginData");
 		
@@ -152,6 +153,12 @@ public class SelItemController {
 		SelItemDTO data = new SelItemDTO();
 		if(data != null) {
 			 result = service.getData(data);
+			 
+			 List<SelItemDTO> result2 = (List<SelItemDTO>) result;
+			 for(SelItemDTO a : result2) {
+				 a.setSel_reviewCount(service.getReviewCount(a.getSel_id()));
+			 }
+			 result = (List<SelItemDTO>) result2;
 		}
 		
 	
@@ -221,7 +228,7 @@ public class SelItemController {
 			paging = new Paging(result, page, pageCount);
 		}
 		
-
+		
 			
 		model.addAttribute("result", paging.getPageData());
 		model.addAttribute("pageData", paging);

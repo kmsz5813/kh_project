@@ -266,8 +266,7 @@ feed-item .feed-content {
 
 				<!-- 커뮤니티 키워드 검색 -->
 				<div>
-					<form class="d-flex"
-						style="position: relative; top: 80px; left: 50px;">
+					<form class="d-flex">
 						<input class="form-control me-4" type="search"
 							placeholder="키워드를 입력해주세요!" aria-label="Search"
 							style="min-width: 725px;">
@@ -281,46 +280,33 @@ feed-item .feed-content {
 				</div>
 
 				<!-- 커뮤니티 HOT -->
-				<div style="position: relative; top: 70px;">
-					<div
-						style="font-weight: bold; font-size: 20px; position: relative; top: 70px; left: 50px;">
+				<div class="mt-5">
+					<div class="mb-5" style="font-weight: bold; font-size: 20px; ">
 						<h2>커뮤니티 HOT🔥</h2>
 					</div>
-					<div>
+					<div class="mt-5">
 						<a href="${pageContext.request.contextPath}/community/notice/list"
-							data-testid="curation-item" tabIndex="-1"
-							style="width: 100%; display: block;"> <span
-							style="position: relative; top: 120px; left: 50px;">
-								<button type="button" class="btn btn-outline-success"
-									style="width: 200px; height: 200px;">
-									<p style="font-weight: bold; font-size: 25px;">공지사항</p>
-									<h3 style="font-weight: bold; font-size: 15px;">커뮤니티 사용법✏️</h3>
-								</button>
-						</span>
+							data-testid="curation-item" tabIndex="-1"> 
+							<button type="button" class="btn btn-outline-success"
+								style="width: 200px; height: 200px; margin-right: 60px;">
+								<p style="font-weight: bold; font-size: 25px;">공지사항</p>
+								<h3 style="font-weight: bold; font-size: 15px;">커뮤니티 사용법✏️</h3>
+							</button>
 						</a>
-					</div>
-					<div>
-						<a href="${pageContext.request.contextPath}/community/question/list" data-testid="curation-item" tabIndex="-1"
-							style="width: 100%; display: inline-block;"> <span
-							style="position: relative; top: -80px; left: 350px;">
-								<button type="button" class="btn btn-outline-success"
-									style="width: 200px; height: 200px;">
-									<p style="font-weight: bold; font-size: 25px;">궁금해요</p>
-									<h3 style="font-weight: bold; font-size: 15px;"></h3>
-								</button>
-						</span>
+						<a href="${pageContext.request.contextPath}/community/question/list" data-testid="curation-item" tabIndex="-1">
+							<button type="button" class="btn btn-outline-success"
+								style="width: 200px; height: 200px; margin-right: 60px;">
+								<p style="font-weight: bold; font-size: 25px;">궁금해요</p>
+								<h3 style="font-weight: bold; font-size: 15px;"></h3>
+							</button>
 						</a>
-					</div>
-					<div>
 						<a href="${pageContext.request.contextPath}/community/life/list" data-testid="curation-item" tabIndex="-1"
-							style="width: 100%; display: inline-block;"> <span
-							style="position: relative; top: -280px; left: 650px;">
-								<button type="button" class="btn btn-outline-success"
-									style="width: 200px; height: 200px;">
-									<p style="font-weight: bold; font-size: 25px;">일상</p>
-									<h3 style="font-weight: bold; font-size: 15px;"></h3>
-								</button>
-						</span>
+							style=""> 
+							<button type="button" class="btn btn-outline-success"
+								style="width: 200px; height: 200px;">
+								<p style="font-weight: bold; font-size: 25px;">일상</p>
+								<h3 style="font-weight: bold; font-size: 15px;"></h3>
+							</button>
 						</a>
 					</div>
 				</div>
@@ -358,20 +344,13 @@ feed-item .feed-content {
 				</ul>
 			</div>
 		</article>
-
-
-
-
-
-
 		<c:url var="mainurl" value="/main" />
 
 
 		<footer id="jb-footer">
-			<div
-				style="width: 1500px; height: 200px; background-color: #f6f7f7; margin: auto; padding: 10px;">
-				이용약관</div>
+			
 		</footer>
+		<%@ include file="../module/footer.jsp" %>
 		<!-- go to top -->
 		<a class="btn-top" href="#"><i class="xi-angle-up-thin"></i></a>
 	</div>

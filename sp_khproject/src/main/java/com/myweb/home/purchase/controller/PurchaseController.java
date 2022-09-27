@@ -46,6 +46,7 @@ public class PurchaseController {
 		if(request.getParameter("itemid") == null) {
 			return "redirect:/main";
 		}
+		
 		int itemid = Integer.parseInt(request.getParameter("itemid"));
 		SelItemDTO itemdata = ItemService.getData(itemid);
 		request.setAttribute("itemdata", itemdata);
@@ -82,24 +83,52 @@ public class PurchaseController {
 		if(request.getParameter("use_point") != "") {			
 			purchase.setBuy_usedPoint(Integer.parseInt(request.getParameter("use_point")));		// 사용한 포인트 저장
 		}
+		int couponNumber = 0;
 		if(request.getParameter("used_coupon") != "") {			
-			int couponNumber = Integer.parseInt(request.getParameter("used_coupon"));			// 사용한 쿠폰
+			couponNumber = Integer.parseInt(request.getParameter("used_coupon"));			// 사용한 쿠폰
 			purchase.setBuy_usedCoupon(couponNumber);
 			service.usingCoupon(couponNumber);	// COUPON 테이블의 coupon_used에 'Y' 추가
 		}
-		System.out.println("실구매가 : "+ request.getParameter("realprice"));
 		purchase.setBuy_realPrice(Integer.parseInt(request.getParameter("realprice")));		// 실제 구매 가격 저장
 		
 		UsePointVO usingpoint = new UsePointVO();
 		usingpoint.setAc_name(acData.getAc_name());	
 		usingpoint.setEarn_point((int)(itemdata.getSel_price() / 100));
 		
+		// 변조 방지
+		int originPrice = itemdata.getSel_price();
+		int purchasePrice = Integer.parseInt(request.getParameter("realprice"));
+		int usedPoint = 0;
+		if(request.getParameter("use_point") != "") {			
+			usedPoint = Integer.parseInt(request.getParameter("use_point"));		// 사용한 포인트 저장
+		}
+		int couponPercent = 0;
+		if(request.getParameter("used_coupon") != "") {	
+			couponPercent = service.getPercent(couponNumber); 
+		}
+		
+		
 
+		
+		
+		if(request.getParameter("used_coupon") != "") {			
+			service.usingCoupon(couponNumber);	// COUPON 테이블의 coupon_used에 'Y' 추가
+		}
 		loginService.usePoint(usingpoint);  // 계정에서 포인트 사용 빼고, 판매가 1% 적립하기
-		service.insertData(purchase);		// ISBUY 테이블에 삽입
 		ItemService.plusCount(itemid);		// SEL_ITEM 테이블에서 해당 항목 구매횟수 + 1
 		
-		return "redirect:/info";
+		
+		// 위-변조 확인
+		int serverPrice = (originPrice - usedPoint) - ((originPrice * couponPercent) / 100);
+		if (serverPrice != purchasePrice) {		// 가격 위변조시
+			purchase.setBuy_falsification("Y");	// 위변조여부 "Y"
+			service.insertData(purchase);		// ISBUY 테이블에 삽입
+			return "redirect:/info?purchaseError=1";
+		} else {
+			service.insertData(purchase);		// ISBUY 테이블에 삽입
+			return "redirect:/info";
+		}
+		
 	}
 	
 	@PostMapping("/iamport")

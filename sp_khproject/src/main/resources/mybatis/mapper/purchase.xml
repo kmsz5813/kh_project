@@ -4,8 +4,8 @@
 
 <mapper namespace="purchaseMapper">
 	<insert id="insertData" parameterType="purchaseDto">
-		INSERT INTO ISBUY(BUY_NUMBER, BUY_ITEMNUMBER, BUY_BUYER, BUY_SELLER, BUY_PRICE, BUY_USEDPOINT, BUY_USEDCOUPON, BUY_REALPRICE)
-		VALUES (ISBUY_SEQ.NEXTVAL, #{buy_itemNumber}, #{buy_buyer}, #{buy_seller}, #{buy_price}, #{buy_usedPoint}, #{buy_usedCoupon}, #{buy_realPrice})
+		INSERT INTO ISBUY(BUY_NUMBER, BUY_ITEMNUMBER, BUY_BUYER, BUY_SELLER, BUY_PRICE, BUY_USEDPOINT, BUY_USEDCOUPON, BUY_REALPRICE, BUY_FALSIFICATION)
+		VALUES (ISBUY_SEQ.NEXTVAL, #{buy_itemNumber}, #{buy_buyer}, #{buy_seller}, #{buy_price}, #{buy_usedPoint}, #{buy_usedCoupon}, #{buy_realPrice}, #{buy_falsification})
 	</insert>
 	
 	<select id="selectAll" resultType="purchaseDto">
@@ -74,6 +74,12 @@
 		DELETE FROM COUPON
 		 WHERE COUPON_USERNAME = #{ac_name}
 	</delete>
+	
+	<select id="getPercent" resultType="int">
+		SELECT COUPON_SALEPERCENT
+		  FROM COUPON
+		 WHERE COUPON_NUBMER = #{couponNumber}
+	</select>
 
 	
 </mapper>

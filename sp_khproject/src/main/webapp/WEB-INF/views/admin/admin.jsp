@@ -131,10 +131,13 @@
 	</section>
 	
 	<section class="container-fluid container3">
-
+		
+		
 		<div id="input-form" class="mb-3" style="margin-left : 1200px;">
 			<input type="text" class="form-control form-right" id="keyword2" placeholder="거래정보 검색">
 		</div>
+		<button style="border:none; cursor:none; background-color:#FA5858;" >거래내역 확인요망</button>
+		
 		
 		<table class="table wide vertical-hidden table-hover" id="table3">
 			<colgroup>
@@ -160,7 +163,8 @@
 			</thead>
 			<tbody id="searching2">
 				<c:forEach items="${purchaseDatas}" var="purchaseDatas">
-					<tr onclick="location.href='./sellitem/itemdetail?search=${purchaseDatas.buy_seller}&itemid=${purchaseDatas.buy_itemNumber}'" style="cursor:pointer;">
+					<c:if test="${not empty purchaseDatas.buy_falsification}">
+						<tr onclick="location.href='./sellitem/itemdetail?search=${purchaseDatas.buy_seller}&itemid=${purchaseDatas.buy_itemNumber}'" style="cursor:pointer; background-color: #FA5858;">
 						<td>${purchaseDatas.buy_number}</td>
 						<td>${purchaseDatas.buy_itemNumber}</td>
 						<td>${purchaseDatas.buy_buyer}</td>
@@ -170,7 +174,23 @@
 						<td>${purchaseDatas.buy_usedPoint}</td>
 						<td>${purchaseDatas.buy_usedCouponName}</td>
 						<td>${purchaseDatas.buy_realPrice}</td>
-					</tr>
+						</tr>	
+					</c:if>
+				</c:forEach>
+				<c:forEach items="${purchaseDatas}" var="purchaseDatas">	
+					<c:if test="${empty purchaseDatas.buy_falsification}">
+						<tr onclick="location.href='./sellitem/itemdetail?search=${purchaseDatas.buy_seller}&itemid=${purchaseDatas.buy_itemNumber}'" style="cursor:pointer;">
+							<td>${purchaseDatas.buy_number}</td>
+							<td>${purchaseDatas.buy_itemNumber}</td>
+							<td>${purchaseDatas.buy_buyer}</td>
+							<td>${purchaseDatas.buy_seller}</td>
+							<td>${purchaseDatas.buy_buyday}</td>
+							<td><fmt:formatNumber type="number" maxFractionDigits="3" value="${purchaseDatas.buy_price}"/></td>
+							<td>${purchaseDatas.buy_usedPoint}</td>
+							<td>${purchaseDatas.buy_usedCouponName}</td>
+							<td>${purchaseDatas.buy_realPrice}</td>
+						</tr>
+					</c:if>	
 				</c:forEach>
 			</tbody>
 		</table>	

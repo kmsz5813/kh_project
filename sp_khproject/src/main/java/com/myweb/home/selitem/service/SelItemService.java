@@ -1,7 +1,9 @@
 package com.myweb.home.selitem.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -283,6 +285,13 @@ public class SelItemService {
 		boolean result = dao.deleteReview(ac_name);
 		return result;
 	}
+
+	/*
+	 * // name을 설정해야됨 public boolean nameReviewCount(String name) { int count =
+	 * dao.nameReviewCount(name); // 작성한 리뷰갯수 불러와서 ReviewDetailVO datas = new
+	 * ReviewDetailVO(); datas.setSel_name(name); datas.setCount(count); boolean
+	 * result = dao.minusReviewCount(datas); return result; }
+	 */
 
 
 

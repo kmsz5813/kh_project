@@ -68,6 +68,11 @@ public class InfoController {
 		
 		logger.info("main({}) cusdata({})", model, acDto);
 		
+		if(request.getParameter("purchaseError") != null) {
+			request.setAttribute("purchaseError", 01);
+			// 로직작성해야됨 (관리자에게 정보 넘어가게)
+		}
+		
 		Date today = new Date(System.currentTimeMillis());
 		// 프로필 이미지 이름은 서버에 이메일로 저장되므로
 		request.setAttribute("profileImage", acDto.getAc_email());
@@ -233,6 +238,7 @@ public class InfoController {
 			selService.deleteLike(acDto.getAc_name());	  // 좋아요 테이블 삭제	
 			selService.deleteReview(acDto.getAc_name());  // 리뷰 삭제
 			selService.deleteData2(acDto.getAc_name()); // 업로드한 게시물, 파일 삭제
+			
 			service.delete(data);
 			file.delete();	// 프로필 이미지 삭제
 			System.out.println("삭제 완료");

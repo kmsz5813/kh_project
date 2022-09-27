@@ -98,7 +98,7 @@
 						<c:url var="purchaseurl" value="/purchase/purchase" />
 						<form id="submit" action="${purchaseurl}" method="post">
 							<input type="hidden" name="itemid" value="${itemdata.sel_id}">
-							<!-- Controller 에 보낼 실구매가격 -->
+							<!-- Controller 에 보낼 실구매가격, 결제 모듈에 보낼 실구매가격 -->
 							<input type="hidden" id="realprice" name="realprice" value="${itemdata.sel_price}">
 							<!-- Controller 에 보낼 사용 쿠폰 번호 -->
 							<input type="hidden" id="used_coupon" name="used_coupon" value="">	
@@ -110,9 +110,6 @@
 			</div>
 		</div>
 		<script type="text/javascript">
-		window.onload = function() {
-			toString();
-		}
 		
 		
 		// 금액에 , 표현
@@ -205,27 +202,26 @@
 		$('form').on('submit', function(e) {
 			e.preventDefault();
 	      // IMP.request_pay(param, callback) 결제창 호출
-	      IMP.request_pay({ // param
-	          pg: "html5_inicis",
-	          pay_method: "card",
-	          merchant_uid: "item" + new Date().getTime(),		// 이미 결제된 번호는 하면 안됨
-	          name: "${itemdata.sel_title}",
-	          amount: $('#realprice').val(),
-	          buyer_email: "${loginData.ac_email}",
-	          buyer_name: "${loginData.ac_name}",
-	          buyer_tel: "010-7372-8727",
-	      }, function (rsp) { // callback
-	          if (rsp.success) {
-	        	  swal('결제완료!', "마이페이지에서 구매내역을 확인하세요.", 'success');
-	        	  // return true; 안됨
-	        	  // e.submit(); 안됨
-	        	  // e.unbind(); 안됨
-	        	  $('form').unbind();
-	        	  $('form').submit();
-	          } else {
-	              swal('결제를 취소하셨습니다.', '', 'warning')
-	          }
-	      })
+	      if($('#check').is(':checked')) {
+		      IMP.request_pay({ // param
+		          pg: "html5_inicis",
+		          pay_method: "card",
+		          merchant_uid: "item" + new Date().getTime(),		// 이미 결제된 번호는 하면 안됨
+		          name: "${itemdata.sel_title}",
+		          amount: $('#realprice').val(),
+		          buyer_email: "${loginData.ac_email}",
+		          buyer_name: "${loginData.ac_name}",
+		          buyer_tel: "010-7372-8727",
+		      }, function (rsp) { // callback
+		          if (rsp.success) {
+		        	  swal('결제완료!', "마이페이지에서 구매내역을 확인하세요.", 'success');
+		        	  $('form').unbind();
+		        	  $('form').submit();
+		          } else {
+		              swal('결제를 취소하셨습니다.', '', 'warning')
+		          }
+		      })
+	      }
 	    });
 		
 		IMP.request_pay({

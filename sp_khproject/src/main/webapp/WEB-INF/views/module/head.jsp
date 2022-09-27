@@ -87,7 +87,7 @@
 	          </ul>
 	        </li>
 	        <li class="nav-item">
-	          <a class="nav-link" href="#" style="padding-left:100px;">커뮤니티</a>
+	          <a class="nav-link" href="${pageContext.request.contextPath}/community/main" style="padding-left:100px;">커뮤니티</a>
 	        </li>
 	      
 	      </ul>
