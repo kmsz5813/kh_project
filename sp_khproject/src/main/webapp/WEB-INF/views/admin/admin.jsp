@@ -48,8 +48,8 @@
 		<input type="radio" class="btn-check radio-value" value = "1" name="options-outlined" id="success-outlined" autocomplete="off" checked>
 		<label class="btn btn-outline-success" for="success-outlined">회원목록 조회</label>
 		
-		<input type="radio" class="btn-check radio-value" value = "2" name="options-outlined" id="success-outlined2" autocomplete="off">
-		<label class="btn btn-outline-success" for="success-outlined2">섹션2</label>
+		<!-- <input type="radio" class="btn-check radio-value" value = "2" name="options-outlined" id="success-outlined2" autocomplete="off">
+		<label class="btn btn-outline-success" for="success-outlined2">섹션2</label> -->
 		
 		<input type="radio" class="btn-check radio-value" value = "3" name="options-outlined" id="success-outlined3" autocomplete="off">
 		<label class="btn btn-outline-success" for="success-outlined3">거래내역 조회</label>
@@ -115,10 +115,10 @@
 			</tbody>
 		</table>
 	</section>
-	
+	<!-- 	
 	<section class="container-fluid container2">
 		<p>
-			웹크롤링 테스트(jsoup, 크몽) --> jsoup은 동적 페이지를 인식하지 못해 안되는 것으로 추정<br>
+			웹크롤링 테스트(jsoup, 크몽) -> jsoup은 동적 페이지를 인식하지 못해 안되는 것으로 추정<br>
 			다른 정적 페이지는 잘 됨. jsoup의 장점은 웹을 직접 열지 않고도 html만 따올 수 있음.<br>
 			웹 크롤링 목표 : 사용자 닉네임 입력시 작성한 댓글 모아서 보여주기 (이건 DB에서 가져와서 굳이 필요한가??)<br>
 		</p>
@@ -126,10 +126,10 @@
 		<input type="button" id="craw_submit" name="craw_submit" class="btn btn-warning" value="조회"/>
 		
 		<div class="content_craw">
-			<!-- 여기엔 검색 결과물이 출력됨.(json 방식) -->
+			여기엔 검색 결과물이 출력됨.(json 방식)
 		</div>	
 	</section>
-	
+	 -->
 	<section class="container-fluid container3">
 		
 		

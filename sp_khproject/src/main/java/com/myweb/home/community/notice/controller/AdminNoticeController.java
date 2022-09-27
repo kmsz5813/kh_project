@@ -80,25 +80,25 @@ public class AdminNoticeController {
 		return "community/notice/add";
 	}	
 	
-	@PostMapping(value="/add")
-	public String add(HttpServletRequest request
-			, @SessionAttribute("loginData") AccountsDTO acDto
-			, @ModelAttribute CommunityQuestionVO communityQuestionVo) {
-//			, @RequestParam("fileUpload") MultipartFile[] files) {
-		CommunityQuestionDTO data = new CommunityQuestionDTO();
-		data.setQuestion_Title(communityQuestionVo.getQuestion_title());
-		data.setQuestion_Content(communityQuestionVo.getQuestion_content());
-		data.setUser_Name(acDto.getAc_name());
-		
-		int id = service.add(data);
-			
-		if(id != -1) {
-			return "redirect:/community/question/detail?id=" + id;			
-		} else {
-			request.setAttribute("error", "게시글 저장 실패!");
-			return "community/question/add";
-		} 
-	}
+//	@PostMapping(value="/add")
+//	public String add(HttpServletRequest request
+//			, @SessionAttribute("loginData") AccountsDTO acDto
+//			, @ModelAttribute CommunityQuestionVO communityQuestionVo) {
+////			, @RequestParam("fileUpload") MultipartFile[] files) {
+//		CommunityQuestionDTO data = new CommunityQuestionDTO();
+//		data.setQuestion_Title(communityQuestionVo.getQuestion_title());
+//		data.setQuestion_Content(communityQuestionVo.getQuestion_content());
+//		data.setUser_Name(acDto.getAc_name());
+//		
+//		int id = noticeService.add(data);
+//			
+//		if(id != -1) {
+//			return "redirect:/community/question/detail?id=" + id;			
+//		} else {
+//			request.setAttribute("error", "게시글 저장 실패!");
+//			return "community/question/add";
+//		} 
+//	}
 	
 	//공지사항 글수정하기 jsp
 	@RequestMapping("/modifyJsp")

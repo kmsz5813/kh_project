@@ -321,7 +321,7 @@
 					}else if(data.code === "default"){
 						alert("실패");
 					}else if(data.code === "already"){
-						swal('관심 상품에 이미있는 목록입니다!', "", 'warning');
+						swal('관심 상품에서 제거합니다.', "", 'warning');
 					}
 				}
 			});

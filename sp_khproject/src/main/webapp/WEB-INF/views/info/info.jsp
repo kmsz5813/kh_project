@@ -207,11 +207,13 @@
 							</thead>
 							<tbody>
 								<c:forEach items="${likedData}" var="likedData">
+								<c:if test="${likedData.liked == true}">
 									<tr onclick="location.href='./sellitem/itemdetail?search=${likedData.sel_name}&itemid=${likedData.sel_id}'" style="cursor:pointer;" >
 										<th class="text-center">${likedData.sel_id}</th>
 										<th class="text-center">${likedData.sel_title}</th>
 										<th class="text-center">${likedData.sel_name}</th>
 									</tr>
+								</c:if>
 								</c:forEach>
 							</tbody>
 						</table>
