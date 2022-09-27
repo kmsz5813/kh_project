@@ -339,10 +339,37 @@ feed-item .feed-content {
 												<p>${data.notice_content}</p>
 											</div>
 
-											<div class="mb-1 text-end" style="position: relative; top: 50px;">
+											
+										<div class="mb-1 text-end" style="position: relative; top: 150px;">
 												<c:url var="noticeUrl" value="/community/notice" />
 												<button class="btn btn-primary" type="button"
 													onclick="location.href='${noticeUrl}/list'">목록</button>
+												<c:if test="${loginData.ac_index == 30}">
+												<c:url var="noticeAdminUrl" value="/admin/notice" />
+													<button class="btn btn-success" type="button"
+														onclick="location.href='${noticeAdminUrl}/modify?id=${data.notice_no}'">수정</button>
+													<button class="btn btn-danger" type="button"
+														data-bs-toggle="modal" data-bs-target="#removeModal">삭제</button>
+												</c:if>
+											</div>
+										</div>
+										
+										<div class="modal fade" id="removeModal" tabindex="-1"
+											aria-hidden="true">
+											<div class="modal-dialog">
+												<div class="modal-content">
+													<div class="modal-header">
+														<h6 class="modal-title">삭제 확인</h6>
+														<button type="button" class="btn-close"
+															data-bs-dismiss="modal" aria-label="Close"></button>
+													</div>
+													<div class="modal-body">해당 데이터를 삭제하겠습니까?</div>
+													<div class="modal-footer">
+														<button type="button" class="btn btn-sm btn-danger"
+															data-bs-dismiss="modal"
+															onclick="deleteNoticeDetail(${data.notice_no})">확인</button>
+													</div>
+												</div>
 											</div>
 										</div>
 									</section>
@@ -356,6 +383,31 @@ feed-item .feed-content {
 
 
 				<footer id="jb-footer">
+				
+				<script type="text/javascript">
+		
+		function deleteNoticeDetail(notice_no) {
+			$.ajax({
+				url: "${noticeAdminUrl}/delete",
+				type: "post",
+				data: {
+					id: notice_no
+				},
+				dataType: "json",
+				success: function(data) {
+					if(data.code === "success") {
+						alert("삭제 완료");
+						location.href = "${noticeUrl}/list";
+					} else if(data.code === "permissionError") {
+						alert("권한이 오류");
+					} else if(data.code === "notExists") {
+						alert("이미 삭제되었습니다.")
+					}
+				}
+			});
+		}
+		
+	</script>
 
 
 					<div
