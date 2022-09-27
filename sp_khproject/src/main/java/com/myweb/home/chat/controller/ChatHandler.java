@@ -8,14 +8,20 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.socket.CloseStatus;
 import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
 
 import com.myweb.home.Accounts.model.AccountsDTO;
+import com.myweb.home.chat.model.ChatDAOImpl;
+import com.myweb.home.chat.model.ChatVO;
 
 public class ChatHandler extends TextWebSocketHandler {
+	
+	@Autowired
+	private ChatDAOImpl dao;
 	
 	
 	// 여러개의 웹소켓 세션을 담도록 리스트를 생성한다.
@@ -55,6 +61,29 @@ public class ChatHandler extends TextWebSocketHandler {
 			if(map.get("loginData") != null) {
 				name = ((AccountsDTO)map.get("loginData")).getAc_name();
 			}
+			
+			String m = message.getPayload();
+			System.out.println("m의 값 : " + m);
+			String[] strArray = m.split("\\|");
+			
+	
+			ChatVO v = new ChatVO();
+			System.out.println("strArra[0] : " +  strArray[0]);
+			System.out.println("strArra[1] : " +  strArray[1]);
+			System.out.println("strArra[2] : " +  strArray[2]);
+			System.out.println("strArra[3] :" +  strArray[3]);
+
+			//ㄴㄴ 값은 반환받아서 arry로 나눠서 다 나분핧해썽 
+			//이렇게해도저장되나?
+			
+			v.setSender(strArray[0]);
+			v.setMessage(strArray[1]);
+			v.setItem_id(strArray[2]);
+			v.setReceiver(strArray[3]);
+			
+			dao.insert(v);
+			
+			
 			
 			// 메시지가 들어오는 부분
 			String strMessage = message.getPayload();

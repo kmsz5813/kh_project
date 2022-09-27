@@ -10,9 +10,9 @@ import org.springframework.stereotype.Repository;
 public class ChatDAOImpl implements ChatDAO {
 	
 	@Autowired
-	SqlSession session;
+	private SqlSession session;
 
-	String namespace = "ChatMapper";
+	private String namespace = "ChatMapper";
 
 	@Override
 	public List<ChatVO> list() {
@@ -21,14 +21,25 @@ public class ChatDAOImpl implements ChatDAO {
 
 	@Override
 	public void insert(ChatVO vo) {
+		System.out.println("dao에서의:" + vo);
 		session.insert(namespace + ".insert", vo);
 	}
 
+	@Override
+	public List<ChatVO> select(ChatVO data) {
+		return session.selectList(namespace + ".select", data);
+	}
 
 	@Override
-	public int last() {
-		return session.selectOne(namespace + ".last");
+	public List<ChatVO> sameSelect(ChatVO data) {
+		return session.selectList(namespace + ".sameSelect", data);
 	}
+
+
+//	@Override
+//	public int last() {
+//		return session.selectOne(namespace + ".last");
+//	}
 
 
 }

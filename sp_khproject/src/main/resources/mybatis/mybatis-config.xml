@@ -31,13 +31,13 @@
     	<typeAlias type="com.myweb.home.purchase.model.PurchaseDTO" alias="purchaseDto" />
     	<typeAlias type="com.myweb.home.purchase.model.CouponDTO" alias="CouponDto" />
     	<typeAlias type="com.myweb.home.purchase.model.UsePointVO" alias="UsePointVo" />
+    	<typeAlias type="com.myweb.home.chat.model.ChatVO" alias="ChatVO"/>
     	<typeAlias type="com.myweb.home.purchase.model.EventCouponDTO" alias="eventCouponDto" />
-
+    	
     	<typeAlias type="com.myweb.home.community.question.comment.model.QuestionCommentDTO" alias="questionCommentDto" />
     	<typeAlias type="com.myweb.home.community.life.comment.model.LifeCommentDTO" alias="lifeCommentDto" />
     	<typeAlias type="com.myweb.home.community.findPro.comment.model.FindProCommentDTO" alias="findProCommentDto" />
     	<typeAlias type="com.myweb.home.community.findStu.comment.model.FindStuCommentDTO" alias="findStuCommentDto" />
-
 	</typeAliases>
 	
 </configuration>

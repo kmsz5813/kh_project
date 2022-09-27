@@ -118,8 +118,9 @@
 						</c:if>
 					</div>
 					<div class="mt-5">
+
 						<c:if test="${loginData.ac_index == 10}">
-							<button type="button" onclick="location.href='${pageContext.request.contextPath}/chatting?itemid=${itemdata.sel_id}&buyer=${loginData.ac_name}&seller=${itemdata.sel_name}'"
+							<button type="button" onclick="location.href='${pageContext.request.contextPath}/chatting?itemid=${itemdata.sel_id}&sel=${itemdata.sel_name}&cus=${loginData.ac_name}'"
 							class="btn btn-outline-success">메시지 보내기</button>
 							<button style="margin-left:20px;" type="button" 
 							onclick="location.href='${pageContext.request.contextPath}/purchase?itemid=${itemdata.sel_id}'" 

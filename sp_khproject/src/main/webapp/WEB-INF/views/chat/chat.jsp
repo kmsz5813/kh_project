@@ -160,13 +160,174 @@ div.col-md-12 { margin-bottom: 15px; }
           <div class="sender"></div>
           <div class="message"></div>
         </div>
-       </div>
-		<div style="width:1500px;" class="input-div">
+
+		
+
+       <!--<c:forEach items="${Resultdata}" var="Resultdata">
+       		<p>${Resultdata.sender} :  ${Resultdata.message}</p>
+  
+       </c:forEach> 
+             <c:forEach items="${SameData}" var="SameData">
+       		<p>${SameData.sender} :  ${SameData.message}</p>
+       		${SameData.writeday }
+  
+       </c:forEach> 
+       -->
+		<div class="input-div">
 			<textarea id="txtMessage" cols="30" rows="10"
 				placeholder="메시지를 입력한 후에 엔터키를 누르세요."></textarea>
 		</div>
+
 	</div>
 
+
+
+<!-- 메시지 입력시 오른쪽 왼쪽으로 기입되는 방식 지정 -->
+<script>
+	var uid = "${sessionScope.loginData.ac_name}";
+	
+	Handlebars.registerHelper("printLeftRight", function(sender) {
+		if (uid === sender) {
+			return "right";
+		} else {
+			return "left";
+		}
+	});
+	
+</script>
+<script>
+	
+	$("#txtMessage").on("keypress", function(e) {
+		if (e.keyCode == 13 && !e.shiftKey) {
+			e.preventDefault();
+			var message = $("#txtMessage").val();
+			if (message == "") {
+				alert("메시지를 입력하세요.");
+				$("#txtMessage").focus();
+				return;
+			}
+
+			// 서버로 메시지 보내기
+			sock.send(uid + "|" + message +"|" + ${data.item_id} +"|" + "${data.receiver}" );
+			
+			$("#txtMessage").val("");
+			$("#txtMessage").focus();
+		}
+	})
+
+	// 웹소캣 생성
+	var sock = new WebSocket("ws://localhost/home/echo");
+	sock.onmessage = onMessage;
+
+	//서버로부터 메세지 받기...
+	   function onMessage(msg) {
+	      var items = msg.data.split("|");
+	      var sender = items[0];
+	      
+	      if(sender == "delete"){
+	    	  getList();
+	    	  return;
+	      }
+	      
+	      var message = items[1];
+	      var id= items[2];
+	      var photo = items[3];
+	      var date = items[4];
+	      
+	      var data = {
+	         "message" : message,
+	         "sender" : sender,
+	         "regdate" : date,
+	         "id": id
+	      };
+
+	      var template = Handlebars.compile($("#temp").html());
+	      $("#chat").append(template(data));
+
+	      //스크롤바 아래 고정
+	      window.scrollTo(0, $('#chat').prop('scrollHeight'));
+	   }
+
+	    function getList() {
+	      $.ajax({
+	         type : "get",
+	         url : "/chat.json",
+	         dataType : "json",
+	         success : function(data) {
+	            var template = Handlebars.compile($("#temp").html());
+	            $("#chat").html(template(data));
+	         }
+	      });
+	   } 
+	</script>
+	
+	
+	
+<script type="text/javascript">
+	ws = new WebSocket("ws://localhost/home/echo");
+	ws.onopen = function() {
+		console.log("Chatting Server Connection...");
+	};
+	ws.onmessage = function(data) {
+		console.log(data);
+		id_chat.innerHTML += data.data;
+		id_chat.scrollTo(0, id_chat.scrollHeight);
+	};
+	ws.onclose = function() {
+		console.log("Chatting Server Close...");
+	};
+
+	function sendMessage(element) {
+		value = element.value;
+		element.value = "";
+		ws.send(value);
+		element.focus();
+		return false;
+	}
+</script>
+
+
+
+
+
+
+
+
+
+
+<!-- 모달 - 별점 -->
+<script type="text/javascript">
+$(document).ready(function(){
+   
+   $('#mstar i').click(function (){
+      /* 별점의 star_on 클래스 전부 제거 */ 
+       $(this).parent().children("i").removeClass("star_on"); 
+       /* 클릭한 별과, 그 앞 까지 별점에 star_on 클래스 추가 */
+       $(this).addClass("star_on").prevAll("i").addClass("star_on"); 
+       
+       var starpoint = this.id;
+       
+       $('#note-has-star').attr("value", starpoint)
+          
+       return false;
+   });
+});
+
+// 채팅 데이터 받아오기
+function getList() {
+   $.ajax({
+      type : 'get',
+      url : '/chat.json',
+      dataType : 'json',
+      success : function(data) {
+         var temp = Handlebars.compile($("#temp").html());
+         $("#chat").append(temp(data));
+      }
+   });
+}
+
+
+</script>
 
 
 
