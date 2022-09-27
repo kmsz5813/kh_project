@@ -20,8 +20,6 @@ import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
 
 import com.myweb.home.Accounts.model.AccountsDTO;
-import com.myweb.home.message.model.MessageDAO;
-import com.myweb.home.message.service.MessageService;
 
 
 public class ChattingCS extends TextWebSocketHandler {

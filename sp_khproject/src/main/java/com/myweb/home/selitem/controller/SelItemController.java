@@ -35,6 +35,7 @@ import com.myweb.home.purchase.service.PurchaseService;
 import com.myweb.home.selitem.model.ReviewDTO;
 import com.myweb.home.selitem.model.ReviewDetailVO;
 import com.myweb.home.selitem.model.SelItemDTO;
+import com.myweb.home.selitem.model.SelItemStaticsDTO;
 import com.myweb.home.selitem.service.SelItemService;
 import com.myweb.home.upload.model.FileUploadDTO;
 import com.myweb.home.upload.service.FileUploadService;
@@ -134,6 +135,7 @@ public class SelItemController {
 		List viewResult = null;
 		
 		
+		
 		//acData를 가지고 ....................... 하트표시나오게끔 하기!
 	     AccountsDTO acData = (AccountsDTO) session.getAttribute("loginData");
 		
@@ -152,6 +154,12 @@ public class SelItemController {
 		SelItemDTO data = new SelItemDTO();
 		if(data != null) {
 			 result = service.getData(data);
+			 
+			 List<SelItemDTO> result2 = (List<SelItemDTO>) result;
+			 for(SelItemDTO a : result2) {
+				 a.setSel_reviewCount(service.getReviewCount(a.getSel_id()));
+			 }
+			 result = (List<SelItemDTO>) result2;
 		}
 		
 	
@@ -221,7 +229,7 @@ public class SelItemController {
 			paging = new Paging(result, page, pageCount);
 		}
 		
-
+		
 			
 		model.addAttribute("result", paging.getPageData());
 		model.addAttribute("pageData", paging);
@@ -288,8 +296,8 @@ public class SelItemController {
 	@ResponseBody
 	public String like(@SessionAttribute("loginData") AccountsDTO acDto,
 			 @RequestParam int id
-			 , HttpSession session)
-	{
+			 , HttpSession session
+			 , Model model){
 		
 		JSONObject json = new JSONObject();
 		System.out.println(id);
@@ -298,8 +306,15 @@ public class SelItemController {
 		SelItemDTO itemdata = service.getData(id); // 번호를 토대로 정보 데이터 가져오기
 		
 		if(itemdata != null) {
-			service.incLike(session, itemdata);
-			json.put("code", "success");
+			SelItemStaticsDTO selectData = service.incLike(session, itemdata);
+			if(selectData.isLiked()) {
+				json.put("code", "success");
+			}else {
+				json.put("code", "already");
+			}
+			
+			
+			
 		}else {
 			json.put("code", "default");
 		}
@@ -415,6 +430,43 @@ public class SelItemController {
 		return json.toJSONString();
 	}
 	
+	
+	@PostMapping(value="/modifyReview")
+	public String modifyReview(Model model, HttpServletRequest request) {
+		String modifyContent = request.getParameter("modifyContent");
+		String id = request.getParameter("id");
+		
+		String sel_id = request.getParameter("sel_id");//판매자아이디 
+		String sel_name = request.getParameter("sel_name");//아이템값
+		
+		String seller = null;
+		try {
+		     seller = URLEncoder.encode(sel_name, "UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		int reviewNumber = Integer.parseInt(id);
+		
+		ReviewDTO data = new ReviewDTO();
+		data.setReview_number(reviewNumber);
+		data.setReview_content(modifyContent);
+		
+		boolean result = service.modifyReview(data);
+		
+		String redirectUrl = "sellitem/itemdetail?search=" + seller + "&itemid=" + sel_id;
+		
+		
+		if(result) {
+			return "redirect:/" + redirectUrl;
+		}else {
+			model.addAttribute("error","실패");
+			return "redirect:/" + redirectUrl;
+		}
+		
+		
+	}
 
 
 	

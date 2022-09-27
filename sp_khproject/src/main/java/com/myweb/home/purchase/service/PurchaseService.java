@@ -100,6 +100,11 @@ public class PurchaseService {
 		return result;
 	}
 
+	public int getPercent(int couponNumber) {
+		int result = dao.getPercent(couponNumber);
+		return result;
+	}
+
 
 
 

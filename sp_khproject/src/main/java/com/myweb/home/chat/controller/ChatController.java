@@ -33,7 +33,42 @@ public class ChatController {
 	
 	
 	@GetMapping(value="/chatting")
-	public String Chatting(Model model) {
+	public String Chatting(Model model, HttpServletRequest request) {
+		
+		
+		String id = request.getParameter("itemid");
+		String sel = request.getParameter("sel");
+		String cus = request.getParameter("cus");
+		
+		
+		
+		System.out.println(id);
+		System.out.println(sel);
+		System.out.println(cus);
+		
+		ChatVO data = new ChatVO();
+		
+		//자동커밋 
+		//다시 들어왔을때 뿌려줘야하낟...
+
+		
+		data.setItem_id(id);
+		data.setSender(cus);
+		data.setReceiver(sel);
+		//조회 하면 되겠네
+		if(sel.equals(cus)) {
+			List<ChatVO> samedata = dao.sameSelect(data); //SEL_ITEM의 번호와 RECEIVER 를 조회했는데 RECEIVER는 전부다 나올수밖에 구조로 되어있어
+			System.out.print("samdata값 :" + samedata);
+			model.addAttribute("SameData", samedata);
+		}
+		
+		
+		List<ChatVO> Resultdata = dao.select(data);
+//		
+		model.addAttribute("data", data);
+		if(Resultdata != null) {
+			model.addAttribute("Resultdata", Resultdata);
+		}
 		return "/chat/chat";
 	   }
 	   
@@ -48,12 +83,12 @@ public class ChatController {
 	      return "/chat/chat";
 	   }
 	
-	 @RequestMapping(value="/chat/insert", method=RequestMethod.POST)
-		public int insert(ChatVO vo){
-			dao.insert(vo);
-			int last=dao.last();
-			System.out.println("last......." + last);
-			return last;
-		}
-	 
+//	 @RequestMapping(value="/chat/insert", method=RequestMethod.POST)
+//		public int insert(ChatVO vo){
+//			dao.insert(vo);
+//			int last=dao.last();
+//			System.out.println("last......." + last);
+//			return last;
+//		}
+//	 
 }

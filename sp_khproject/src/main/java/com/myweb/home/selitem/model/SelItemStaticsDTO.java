@@ -50,10 +50,13 @@ public class SelItemStaticsDTO {
 	public void setSel_name(String sel_name) {
 		this.sel_name = sel_name;
 	}
+
 	@Override
 	public String toString() {
-		return "SelItemStaticsDTO [id=" + id + ", ac_name=" + ac_name + ", sel_id=" + sel_id + ", liked=" + liked + "]";
+		return "SelItemStaticsDTO [id=" + id + ", ac_name=" + ac_name + ", sel_id=" + sel_id + ", liked=" + liked
+				+ ", sel_title=" + sel_title + ", sel_name=" + sel_name + "]";
 	}
+	
 
 	
 

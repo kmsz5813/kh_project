@@ -313,6 +313,7 @@ feed-item .feed-content {
 				</div>
 			</div>
 		</div>
+	
 		<script type="text/javascript">
 			$('.carousel').carousel()
 		</script>
@@ -330,6 +331,18 @@ feed-item .feed-content {
 		<script type="text/javascript">
 			$('.carousel').carousel()
 		</script>
+		
+		
+	
+			<input type="hidden" name="qid" value="${data.question_id}">
+			<button class="btn btn-outline-success" type="submit"
+				style="width: 150px; position: relative; top: 45px; left: 1200px;"
+				id="button" onclick="formCheck(this.form);">글쓰기</button>
+		<button>머야이거</button>
+		
+		
+		
+		
 		<!-- 커뮤니티 메뉴 -->
 		<aside id="jb-sidebar">
 			<div>

@@ -5,14 +5,22 @@
 <mapper namespace="ChatMapper">
 
 	
-	<select id="list" resultType="com.myweb.home.chat.model.ChatVO">
+	<select id="list" parameterType="ChatVO">
  		select * from tbl_chat
  	</select>
  	
- 	<insert id="insert">
- 		insert into tbl_chat(sender, message)
- 		values(#{sender},#{message})
+ 	<insert id="insert" parameterType="ChatVO">
+ 		insert into tbl_chat(id, ITEM_ID, sender, message, RECEIVER)
+ 		values(TBL_CHAT_SEQ.NEXTVAL, #{item_id}, #{sender},#{message}, #{receiver})
  	</insert>
 
+
+	<select id="select" parameterType="ChatVO" resultType="ChatVO">
+ 		select * from tbl_chat WHERE SENDER = #{sender} AND RECEIVER = #{receiver} ORDER BY id DESC
+ 	</select>
+ 	
+		<select id="sameSelect" parameterType="ChatVO" resultType="ChatVO">
+ 		select * from tbl_chat WHERE RECEIVER = #{receiver} AND ITEM_ID = #{item_id} ORDER BY id DESC
+ 	</select>
 
 </mapper>

@@ -84,9 +84,9 @@
 	</select>
 	
 	<select id="getReviewCount" parameterType="int" resultType="int">
-		SELECT SEL_REVIEWCOUNT
-		  FROM SEL_ITEM
-		 WHERE SEL_ID = #{itemid}
+		SELECT COUNT(*) 
+		  FROM REVIEW
+		 WHERE REVIEW_ITEMNUMBER = #{itemid}
 	</select>
 	
 	<select id="getStarScore" resultType="int" parameterType="int">
@@ -189,6 +189,7 @@
 		DELETE FROM REVIEW WHERE REVIEW_WRITER = #{ac_name}
 	</delete>
 	
+
 	<select id="selectAllFiles" resultType="fileUploadDto">
 		SELECT * FROM FILE_UPLOAD
 	</select>
@@ -202,5 +203,20 @@
 				 AND si.SEL_NAME = #{name}
 			 )
 	</delete>
+	
+	<!-- <select id="nameReviewCount" resultType="int">
+		SELECT COUNT(*) FROM REVIEW
+		 WHERE REVIEW_WRITER = #{name}
+	</select>
+	
+	<update id="minusReviewCount" parameterType="reviewDetailVo">
+		UPDATE SEL_ITEM
+		   SET SEL_REVIEWCOUNT = SEL_REVIEWCOUNT - #{count}
+		 WHERE SEL_NAME = #{sel_name}
+	</update> -->
+
+	<update id="modifyReview">
+		UPDATE REVIEW SET REVIEW_CONTENT = #{review_content} WHERE REVIEW_NUMBER = #{review_number} 
+	</update>
 
 </mapper>

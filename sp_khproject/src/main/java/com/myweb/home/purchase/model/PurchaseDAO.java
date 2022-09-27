@@ -103,6 +103,12 @@ public class PurchaseDAO {
 		return res == 1? true: false;
 	}
 
+	public int getPercent(int couponNumber) {
+		String mapperId = String.format(mapper, "getPercent");
+		int percent = session.selectOne(mapperId, couponNumber);
+		return percent;
+	}
+
 
 
 

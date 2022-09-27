@@ -2,6 +2,8 @@ package com.myweb.home.common;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.myweb.home.selitem.service.SelItemService;
+
 public class Paging {
 
 	private int offset;
@@ -26,6 +28,7 @@ public class Paging {
 		int max = this.offset + this.limit;
 		max = max < datas.size() ? max : datas.size();
 		this.pageData = datas.subList(this.offset, max);
+		
 	}
 	
 	public int getOffset() {

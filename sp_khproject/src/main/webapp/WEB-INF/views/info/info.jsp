@@ -10,7 +10,7 @@
 	
 	<meta charset="UTF-8">
 	<title>마이페이지</title>
-	
+	<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 	<style>
 		#previewImg {
 			max-width : 250px;
@@ -134,7 +134,8 @@
 						</thead>
 						<tbody>
 							<c:forEach items="${purchaseData}" var="purchaseData">
-								<tr onclick="location.href='./sellitem/itemdetail?search=${purchaseData.buy_seller}&itemid=${purchaseData.buy_itemNumber}'" style="cursor:pointer;">
+								<c:if test="${not empty purchaseData.buy_falsification}">
+								<tr onclick="location.href='./sellitem/itemdetail?search=${purchaseData.buy_seller}&itemid=${purchaseData.buy_itemNumber}'" style="cursor:pointer; background-color: #FA5858;">
 									<td scope="row" class="text-center">${purchaseData.buy_number}</td>
 									<td class="text-center">${purchaseData.buy_itemName}</td>
 									<td class="text-center">${purchaseData.buy_buyday}</td>
@@ -143,6 +144,20 @@
 									<td class="text-center">${purchaseData.buy_usedCouponName}</td>
 									<td class="text-center"><fmt:formatNumber type="number" maxFractionDigits="3" value="${purchaseData.buy_realPrice}"/></td>
 								</tr>
+								</c:if>
+							</c:forEach>
+							<c:forEach items="${purchaseData}" var="purchaseData">
+								<c:if test="${empty purchaseData.buy_falsification}">
+									<tr onclick="location.href='./sellitem/itemdetail?search=${purchaseData.buy_seller}&itemid=${purchaseData.buy_itemNumber}'" style="cursor:pointer;">
+										<td scope="row" class="text-center">${purchaseData.buy_number}</td>
+										<td class="text-center">${purchaseData.buy_itemName}</td>
+										<td class="text-center">${purchaseData.buy_buyday}</td>
+										<td class="text-center"><fmt:formatNumber type="number" maxFractionDigits="3" value="${purchaseData.buy_price}"/></td>
+										<td class="text-center"><fmt:formatNumber type="number" maxFractionDigits="3" value="${purchaseData.buy_usedPoint}"/></td>
+										<td class="text-center">${purchaseData.buy_usedCouponName}</td>
+										<td class="text-center"><fmt:formatNumber type="number" maxFractionDigits="3" value="${purchaseData.buy_realPrice}"/></td>
+									</tr>
+								</c:if>
 							</c:forEach>
 						</tbody>
 					</table>
@@ -192,11 +207,13 @@
 							</thead>
 							<tbody>
 								<c:forEach items="${likedData}" var="likedData">
+								<c:if test="${likedData.liked == true}">
 									<tr onclick="location.href='./sellitem/itemdetail?search=${likedData.sel_name}&itemid=${likedData.sel_id}'" style="cursor:pointer;" >
 										<th class="text-center">${likedData.sel_id}</th>
 										<th class="text-center">${likedData.sel_title}</th>
 										<th class="text-center">${likedData.sel_name}</th>
 									</tr>
+								</c:if>
 								</c:forEach>
 							</tbody>
 						</table>
@@ -326,10 +343,19 @@
 				</section>
 				</c:if>
 		</div>
+	<input type="hidden" id="purchaseError" value="${purchaseError}">	
 	</section>
 	<%@ include file="../module/footer.jsp" %>
 	<script type="text/javascript">
 		// radio active 버튼
+		
+		window.onload = function() {
+			
+			if($('#purchaseError').val() == 1) {
+				swal('변조가 감지되었습니다.', "관리자에게 정보가 넘어갑니다.", 'warning'); 
+			}
+		}
+		
 		$('.radio-value').on('click', function() {
 			var chkValue = $('.radio-value:checked').val();
 			if(chkValue == 1) {

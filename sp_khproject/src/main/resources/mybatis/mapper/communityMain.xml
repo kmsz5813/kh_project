@@ -10,38 +10,38 @@
 	<select id="selectNotice" resultType="Map">
 	
 		SELECT R.* 
-		FROM (SELECT notice_no, notice_title FROM notice ORDER BY notice_no DESC) R
-		WHERE rownum BETWEEN 1 AND 3
+		FROM (SELECT notice_no, notice_title, NOTICE_CONTENT FROM notice ORDER BY notice_no DESC) R
+		WHERE rownum = 1
 	
 	</select>
 	
 	<select id="selectQuestion" resultType="Map">
 	
 		SELECT R.* 
-		FROM (SELECT question_Id, question_Title FROM question ORDER BY question_Id DESC) R
-		WHERE rownum BETWEEN 1 AND 3
+		FROM (SELECT question_Id, question_Title, question_CONTENT FROM question ORDER BY question_Id DESC) R
+		WHERE rownum = 1
 	
 	</select>
 	
 	<select id="selectFindStu" resultType="Map">
 	
 		SELECT R.* 
-		FROM (SELECT findStu_Id, findStu_Title FROM findStu ORDER BY findstu_Id DESC) R
-		WHERE rownum BETWEEN 1 AND 3
+		FROM (SELECT findStu_Id, findStu_Title, findStu_CONTENT FROM findStu ORDER BY findstu_Id DESC) R
+		WHERE rownum = 1
 	
 	</select>
 	
 	<select id="selectFindPro" resultType="Map">
 		SELECT R.*
-		  FROM (SELECT findPro_Id, findPro_Title FROM findPro ORDER BY findPro_Id DESC) R
-		 WHERE ROWNUM BETWEEN 1 AND 3
+		  FROM (SELECT findPro_Id, findPro_Title, findPro_CONTENT FROM findPro ORDER BY findPro_Id DESC) R
+		 WHERE rownum = 1
 	</select>
 	
 	<select id="selectLife" resultType="Map">
 	
 		SELECT R.* 
-		FROM (SELECT life_Id, life_Title FROM life ORDER BY life_Id DESC) R
-		WHERE rownum BETWEEN 1 AND 3
+		FROM (SELECT life_Id, life_Title, life_CONTENT FROM life ORDER BY life_Id DESC) R
+		WHERE rownum = 1
 	
 	</select>
 
