@@ -248,7 +248,7 @@ public class SelItemDAO {
 		int res = session.delete(mapperId, ac_name);
 		return res == 1 ? true : false;
 	}
-<<<<<<< HEAD
+
 	public List<FileUploadDTO> selectAllFiles(String name) {
 		String mapperId = String.format(mapper, "selectAllFiles");
 		List<FileUploadDTO> list = session.selectList(mapperId, name);
@@ -268,15 +268,14 @@ public class SelItemDAO {
 	 * datas); return res == 1 ? true : false; }
 	 */
 	
-=======
+
 	public boolean modifyReview(ReviewDTO data) {
 		String mpapperId = String.format(mapper, "modifyReview");
 		int res = session.update(mpapperId, data);
 		return res == 1? true : false;
 	}
->>>>>>> refs/remotes/origin/이윤지
 
-	
+
 
 
 }
