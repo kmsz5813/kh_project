@@ -419,22 +419,7 @@ Handlebars.registerHelper("printLeftRight", function(sender) {
 
 
 
-$("#txtMessage").on("keypress", function(e) {
-	if (e.keyCode == 13 && !e.shiftKey) {
-		e.preventDefault();
-		var message = $("#txtMessage").val();
-		if (message == "") {
-			alert("메시지를 입력하세요.");
-			$("#txtMessage").focus();
-			return;
-		}
 
-		// 서버로 메시지 보내기
-		sock.send(uid + "|" + message);
-		$("#txtMessage").val("");
-		$("#txtMessage").focus();
-	}
-})
 
 // 웹소캣 생성
 var sock = new WebSocket("ws://localhost/home/echo");
