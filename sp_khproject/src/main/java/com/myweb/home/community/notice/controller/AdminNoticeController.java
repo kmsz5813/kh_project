@@ -100,7 +100,9 @@ public class AdminNoticeController {
 		
 		if(acDto.getAc_index() == 30) {
 			if(id != -1) {
-				return "redirect:/community/notice/detail?no=" + id;		
+				return "redirect:/community/notice/list";		
+			
+			
 			} else {
 				request.setAttribute("error", "게시글 저장 실패!");
 				return "community/notice/add";
