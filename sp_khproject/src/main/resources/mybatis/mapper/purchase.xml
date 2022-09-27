@@ -78,7 +78,7 @@
 	<select id="getPercent" resultType="int">
 		SELECT COUPON_SALEPERCENT
 		  FROM COUPON
-		 WHERE COUPON_NUBMER = #{couponNumber}
+		 WHERE COUPON_NUMBER = #{couponNumber}
 	</select>
 
 	

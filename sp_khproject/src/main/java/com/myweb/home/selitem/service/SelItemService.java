@@ -310,6 +310,12 @@ public class SelItemService {
 	}
 
 
+	public int checkIdNull(String parameter) {
+		int nullCheck = dao.checkIdNull(parameter);
+		return nullCheck;
+	}
+
+
 
 
 

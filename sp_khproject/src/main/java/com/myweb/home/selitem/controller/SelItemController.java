@@ -247,12 +247,14 @@ public class SelItemController {
 	@GetMapping(value="/itemdetail")
 	public String detail(Model model, HttpServletRequest request
 			,HttpSession session) {
-
+		// 없는 ID 값을 요청했을경우
+		if(service.checkIdNull(request.getParameter("itemid")) != 1) {
+			String referer = request.getHeader("Referer");
+			return "redirect:"+ referer + "?itemid=Null";
+		}
+		
 		// 판매자 닉네임 가져오기	
-
 		String name = request.getParameter("search");
-
-
 		AccountsDTO data = loginService.nameCheck(name);
 		//아이템 번호도 가져와야됨
 		int itemid = Integer.parseInt(request.getParameter("itemid"));

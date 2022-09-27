@@ -202,8 +202,7 @@
 				
 				<c:if test="${loginData.ac_index == 10}">
 					<div class="mt-5" style="text-align: center; height:10rem;">
-					  <button type="button" class="btn" onclick="ajaxLike(${itemdata.sel_id});" style="margin-left:8rem; width:7rem; background-color:rgb(224, 224, 224);">❤</button>
-					  <button type="button" class="btn btn-outline-primary" style="margin-left:1rem; width:7rem;">뒤로가기</button>
+					  
 					
 					
 					  <c:if test="${purchaseCheck == 'Y'}">

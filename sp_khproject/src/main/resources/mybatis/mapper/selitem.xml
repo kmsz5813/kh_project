@@ -223,5 +223,9 @@
 	<update id="modifyReview">
 		UPDATE REVIEW SET REVIEW_CONTENT = #{review_content} WHERE REVIEW_NUMBER = #{review_number} 
 	</update>
+	
+	<select id="checkIdNull">
+		SELECT COUNT(*) FROM SEL_ITEM WHERE SEL_ID = #{parameter}
+	</select>
 
 </mapper>

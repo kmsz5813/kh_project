@@ -47,6 +47,7 @@ import com.myweb.home.login.service.LoginService;
 import com.myweb.home.purchase.model.EventCouponDTO;
 import com.myweb.home.purchase.model.PurchaseDTO;
 import com.myweb.home.purchase.service.PurchaseService;
+import com.myweb.home.selitem.service.SelItemService;
 
 import kr.co.shineware.nlp.komoran.constant.DEFAULT_MODEL;
 import kr.co.shineware.nlp.komoran.core.Komoran;
