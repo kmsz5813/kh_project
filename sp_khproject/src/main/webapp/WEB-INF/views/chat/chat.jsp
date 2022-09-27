@@ -1,11 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
    pageEncoding="UTF-8"%>
-<!-- <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd"> -->
-<!DOCTYPE html>
-<html>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jstl/fmt" prefix="fmt"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="ko">
 <head>
-	<meta charset="UTF-8">
-	<meta http-equiv="Content-Type" content="text/html, charset=UTF-8">
 <link rel="stylesheet"
    href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
@@ -27,7 +27,10 @@
 <!-- 무료아이콘 -->
 <link rel="stylesheet"
    href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel=stylesheet href=../resources/chatting.css>
 
+
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Chat Application</title>
 <style>
 div.header {
@@ -140,8 +143,7 @@ div.col-md-12 { margin-bottom: 15px; }
 	<%@ include file="../module/head.jsp"%>
 	
 	<div style="text-align: right; margin: 10px;">
-		 <p>${itemid}</p>
-         <button class="btn btn-success" type="button" onclick="location.href='${pageContext.request.contextPath}/purchase?itemid=${itemid}'" >구매하기</button>
+         <button class="btn btn-success">거래하기</button>
          <button class="btn btn-danger" data-toggle="modal" data-target="#addnotesmodal">리뷰작성</button>
    </div>
 	
@@ -155,15 +157,16 @@ div.col-md-12 { margin-bottom: 15px; }
 		</div>
 		<div id="chat"></div>
 		<!-- 채팅저장출력 -->
-		<div id="temp" type="text/x-handlebars-template">
+		<script id="temp" type="text/x-handlebars-template">
         <div class="{{printLeftRight sender}}">
-          <div class="sender"></div>
-          <div class="message"></div>
+          <div class="sender">{{sender}}</div>
+          <div class="message">{{message}}</div>
         </div>
-
 		
-
-       <!--<c:forEach items="${Resultdata}" var="Resultdata">
+       </script>
+       <!--  
+       <c:forEach items="${Resultdata}" var="Resultdata">
+>>>>>>> branch '채민선' of https://github.com/kmsz5813/kh_project.git
        		<p>${Resultdata.sender} :  ${Resultdata.message}</p>
   
        </c:forEach> 
@@ -173,13 +176,14 @@ div.col-md-12 { margin-bottom: 15px; }
   
        </c:forEach> 
        -->
+       
 		<div class="input-div">
 			<textarea id="txtMessage" cols="30" rows="10"
 				placeholder="메시지를 입력한 후에 엔터키를 누르세요."></textarea>
 		</div>
 
 	</div>
-
+</body>
 
 
 <!-- 메시지 입력시 오른쪽 왼쪽으로 기입되는 방식 지정 -->
@@ -405,124 +409,74 @@ function getList() {
 </div> <!-- end modal -->
 
 <script type="text/javascript">
-<!-- 메시지 입력시 오른쪽 왼쪽으로 기입되는 방식 지정 -->
-var uid = "${sessionScope.loginData.ac_name}";
 
-Handlebars.registerHelper("printLeftRight", function(sender) {
-	if (uid === sender) {
-		return "right";
-	} else {
-		return "left";
-	}
-});
+$('#addnotesmodal').modal('toggle');
+function formCheck() {
+   formData = new FormData(addnotesmodalTitle);
 
-
-
-
-
-
-// 웹소캣 생성
-var sock = new WebSocket("ws://localhost/home/echo");
-sock.onmessage = onMessage;
-
-//서버로부터 메세지 받기...
-   function onMessage(msg) {
-      var items = msg.data.split("|");
-      var sender = items[0];
-      
-      if(sender == "delete"){
-    	  getList();
-    	  return;
-      }
-      
-      var message = items[1];
-      var id= items[2];
-      var photo = items[3];
-      var date = items[4];
-      
-      var data = {
-         "message" : message,
-         "sender" : sender,
-         "regdate" : date,
-         "id": id
-      };
-
-      var template = Handlebars.compile($("#temp").html());
-      $("#chat").append(template(data));
-
-      //스크롤바 아래 고정
-      window.scrollTo(0, $('#chat').prop('scrollHeight'));
+   addnotesmodalTitle["modal-desc"].value = ""; //작성누르면 초기화 됨
+   for (const [key, value] of formData) {
+      console.log(key, ":", value);
    }
-
-    function getList() {
-      $.ajax({
-         type : "get",
-         url : "/chat.json",
-         dataType : "json",
-         success : function(data) {
-            var template = Handlebars.compile($("#temp").html());
-            $("#chat").html(template(data));
-         }
-      });
-   } 
-
-
-
-
-ws = new WebSocket("ws://localhost/home/echo");
-ws.onopen = function() {
-	console.log("Chatting Server Connection...");
-};
-ws.onmessage = function(data) {
-	console.log(data);
-	id_chat.innerHTML += data.data;
-	id_chat.scrollTo(0, id_chat.scrollHeight);
-};
-ws.onclose = function() {
-	console.log("Chatting Server Close...");
-};
-
-function sendMessage(element) {
-	value = element.value;
-	element.value = "";
-	ws.send(value);
-	element.focus();
-	return false;
-}
-
-
-<!-- 모달 - 별점 -->
-
-$(document).ready(function(){
-
-$('#mstar i').click(function (){
-  /* 별점의 star_on 클래스 전부 제거 */ 
-   $(this).parent().children("i").removeClass("star_on"); 
-   /* 클릭한 별과, 그 앞 까지 별점에 star_on 클래스 추가 */
-   $(this).addClass("star_on").prevAll("i").addClass("star_on"); 
-   
-   var starpoint = this.id;
-   
-   $('#note-has-star').attr("value", starpoint)
+   $.ajax({
+      url: addnotesmodalTitle.action,
+      data: formData
       
-   return false;
-});
-});
-
-//채팅 데이터 받아오기
-function getList() {
-$.ajax({
-  type : 'get',
-  url : '/chat.json',
-  dataType : 'json',
-  success : function(data) {
-     var temp = Handlebars.compile($("#temp").html());
-     $("#chat").append(temp(data));
-  }
-});
+   });
 }
-
+$(function() {
+   //모달창 띄우기
+    // $('#addnotesmodal').modal('toggle');
+   
+    //작성 버튼 클릭 시
+//     $("#btn-n-add").on('click', function(event) {
+       
+//         var noteTitle = document.getElementById('note-has-title').value; //conn_lesson_no
+//         var noteStar = document.getElementById('note-has-star').value; //내용
+//         var noteDesc = document.getElementById('note-has-description').value; //별점
+        
+// //         console.log(noteTitle)
+// //         console.log(noteStar)
+// //         console.log(noteDesc)
+        
+        
+//         if(noteTitle == 0 || noteStar == "" || noteDesc == ""){
+           
+//            alert('모든 항목을 작성해주세요.')
+//         }
+        
+//         if(noteTitle != 0 && noteStar != "" && noteDesc != "" && noteDesc.length < 20) {
+           
+//            alert('최소 20글자 이상 작성하셔야 합니다.')
+//         }
+        
+//       if(noteTitle != 0 && noteStar != "" && noteDesc != "" && noteDesc.length > 300) {
+           
+//            alert('최대 300글자 이하 작성하셔야 합니다.')
+//         }
+        
+//         if(noteTitle != 0 && noteStar != "" && noteDesc != "" && noteDesc.length >= 20 && noteDesc.length <= 300){ //전부 작성해야 submit
+           
+//            alert('후기를 등록하시겠습니까?')
+//            $('#addnotesmodal').modal('hide');
+//            $("#addnotesmodalTitle").submit();
+//         }
+        
+//     });
+    
+//     //모달이 닫히면서 실행되는 함수 - 모달 내용 초기화
+//     $('#addnotesmodal').on('hidden.bs.modal', function (event) {
+       
+//         event.preventDefault();
+        
+//         document.getElementById('note-has-title').value = '';
+//         document.getElementById('note-has-description').value = '';
+//         $('#mstar i').parent().children("i").removeClass("star_on"); 
+//         document.getElementById('note-has-star').value = '';
+        
+//     })
+})
 </script>
 
-</body>
+
 </html>
