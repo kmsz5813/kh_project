@@ -9,6 +9,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
 
 import com.myweb.home.Accounts.model.AccountsDTO;
 import com.myweb.home.selitem.model.ReviewDTO;
@@ -87,7 +88,7 @@ public class SelItemService {
 	}
 	
 	
-	public void incLike(HttpSession session, SelItemDTO data) {
+	public SelItemStaticsDTO incLike(HttpSession session, SelItemDTO data) {
 		AccountsDTO acData = (AccountsDTO)session.getAttribute("loginData");
 		
 		SelItemStaticsDTO staticsData = new SelItemStaticsDTO();
@@ -104,7 +105,7 @@ public class SelItemService {
 		
 		if(selectData.isLiked()) {
 			selectData.setLiked(false);
-			
+		
 			data.setSel_like(data.getSel_like() -1);
 			
 		}else {
@@ -113,10 +114,10 @@ public class SelItemService {
 		}
 		
 		dao.updateStaticsLike(selectData);
-		//이부분이 뭔가 문제가있음.
 		
 		boolean result = dao.updateLike(data);
 		
+		return selectData;
 	}
 	//조회로 게시글찾rl
 	public List getSearch(String search) {
@@ -292,6 +293,12 @@ public class SelItemService {
 	 * ReviewDetailVO(); datas.setSel_name(name); datas.setCount(count); boolean
 	 * result = dao.minusReviewCount(datas); return result; }
 	 */
+
+
+	public boolean modifyReview(ReviewDTO data) {
+		boolean result = dao.modifyReview(data);
+		return result;
+	}
 
 
 

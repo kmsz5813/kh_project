@@ -252,7 +252,7 @@ feed-item .feed-content {
 	margin-top: 10px;
 }
 
-#form-control {
+# 	-control {
 	width: 150px;
 	position: absolute;
 	right: 18%;
@@ -382,7 +382,7 @@ feed-item .feed-content {
 
 									<section class="container">
 										<div class="mt-3" style="position: relative; top: 50px;">
-											<c:url var="noticeAddUrl" value="/community/notice/add" />
+											<c:url var="noticeAddUrl" value="/admin/notice/insert" />
 											<form action="${noticeAddUrl}" method="post"
 												enctype="multipart/form-data">
 												<div class="mb-3">
@@ -393,25 +393,6 @@ feed-item .feed-content {
 													<textarea class="form-control" name="notice_content"
 														rows="8" placeholder="내용을 입력하세요."></textarea>
 												</div>
-												<!-- 
-												<div class="mb-3">
-													<ul class="list-group">
-														<c:forEach items="${fileDatas}" var="file">
-															<c:url var="downUrl" value="${file.url}/${file.uuidName}" />
-															<li class="list-group-item">
-																<button class="btn btn-sm btn-danger">삭제</button> <a
-																class="text-info text-decoration-none" href="${downUrl}"
-																download="${file.fileName}">${file.fileName}</a>
-															</li>
-														</c:forEach>
-													</ul>
-												</div>
-
-												<div class="mb-3">
-													<input class="form-control" type="file"
-														onchange="uploadCheck(this);" name="fileUpload" multiple>
-												</div>
-												 -->
 
 												<div class="mb-3 text-end">
 													<button class="btn btn-primary" type="button"

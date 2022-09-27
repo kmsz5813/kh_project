@@ -139,7 +139,9 @@
 				 <!-- 좋아요를 보여주는 것 -->
 				 <c:forEach items="${likeData}" var="likeData">
 				 	<c:if test="${data.sel_id == likeData.sel_id}">
+				 		<c:if test="${likeData.liked == 'true'}">
 				 		<img style="width:20px;float:right;"src="${pageContext.request.contextPath}/static/img/heart.png">
+				 		</c:if>
 				 	</c:if>
 				 </c:forEach>
 			    <h5 style="text-align:right"><a href="./detail?search=${data.sel_name}" class="card-text">${data.sel_name}</a></h5>
