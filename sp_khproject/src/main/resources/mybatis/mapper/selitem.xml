@@ -135,6 +135,7 @@
 		   SET "SEL_LIKE" = #{sel_like}
 		 WHERE SEL_ID = #{sel_id}
 	</update>
+
 	
 	<select id="getTitle" resultType="string">
 		SELECT SEL_TITLE

@@ -114,7 +114,7 @@
 
 		
 			<div class="form-group row">
-				<button type="submit" class="form-control" onclick="imageUpload()">등록</button>
+				<button type="submit" class="form-control">등록</button>
 			</div>
 		</form>
 	</div>
