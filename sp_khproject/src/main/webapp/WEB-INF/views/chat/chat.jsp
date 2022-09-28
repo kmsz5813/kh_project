@@ -41,6 +41,7 @@ div.header {
 * {
 	margin: 0px;
 	padding: 0px;
+	
 }
 
 .chat_wrap .header {
