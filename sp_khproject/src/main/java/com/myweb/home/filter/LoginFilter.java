@@ -1,6 +1,8 @@
 package com.myweb.home.filter;
 
 import java.io.IOException;
+import java.io.PrintWriter;
+
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -14,7 +16,8 @@ import javax.servlet.http.HttpSession;
 
 @WebFilter(
 		urlPatterns = {
-				"/info", "/info/*"		
+				"/info", "/info/*",
+				"/sellitem/additem"
 		}
 )
 public class LoginFilter extends HttpFilter implements Filter {
@@ -22,12 +25,17 @@ public class LoginFilter extends HttpFilter implements Filter {
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 		HttpSession session = ((HttpServletRequest)request).getSession();
 		HttpServletRequest req = (HttpServletRequest)request;
-		
+		String url = null;
 		if(session.getAttribute("loginData") != null) {
 			chain.doFilter(request, response);
 		} else {
-			System.out.println(req.getQueryString());
-			((HttpServletResponse)response).sendRedirect(req.getContextPath() + "/login" + "?url=" + req.getRequestURI());
+			String context_path = ((HttpServletRequest) request).getContextPath();
+			String reqURI = req.getRequestURI();
+			if(reqURI.contains(context_path)) {
+				url = reqURI.replace(context_path,"");
+				System.out.println(url);
+			}
+			((HttpServletResponse)response).sendRedirect(req.getContextPath() + "/login" + "?url=" + url);
 		}
 	}
 	

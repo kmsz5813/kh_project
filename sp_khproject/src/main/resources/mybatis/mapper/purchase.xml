@@ -4,8 +4,8 @@
 
 <mapper namespace="purchaseMapper">
 	<insert id="insertData" parameterType="purchaseDto">
-		INSERT INTO ISBUY(BUY_NUMBER, BUY_ITEMNUMBER, BUY_BUYER, BUY_SELLER, BUY_PRICE, BUY_USEDPOINT, BUY_USEDCOUPON, BUY_REALPRICE)
-		VALUES (ISBUY_SEQ.NEXTVAL, #{buy_itemNumber}, #{buy_buyer}, #{buy_seller}, #{buy_price}, #{buy_usedPoint}, #{buy_usedCoupon}, #{buy_realPrice})
+		INSERT INTO ISBUY(BUY_NUMBER, BUY_ITEMNUMBER, BUY_BUYER, BUY_SELLER, BUY_PRICE, BUY_USEDPOINT, BUY_USEDCOUPON, BUY_REALPRICE, BUY_FALSIFICATION)
+		VALUES (ISBUY_SEQ.NEXTVAL, #{buy_itemNumber}, #{buy_buyer}, #{buy_seller}, #{buy_price}, #{buy_usedPoint}, #{buy_usedCoupon}, #{buy_realPrice}, #{buy_falsification})
 	</insert>
 	
 	<select id="selectAll" resultType="purchaseDto">
@@ -27,7 +27,7 @@
 		FROM COUPON
 	</select>
 	
-	<insert id="addSignCoupon" parameterType="couponDto">
+	<insert id="addCoupon" parameterType="couponDto">
 		INSERT INTO COUPON(COUPON_NUMBER, COUPON_NAME, COUPON_STARTDATE, COUPON_ENDDATE, COUPON_USERNAME, COUPON_SALEPERCENT)
 		VALUES(#{coupon_number}, #{coupon_name}, #{coupon_startDate}, #{coupon_endDate}, #{coupon_userName}, #{coupon_salePercent})
 	</insert>
@@ -42,6 +42,44 @@
 		   SET COUPON_USED = 'Y'
 		 WHERE COUPON_NUMBER = #{couponNumber}
 	</update>
+	
+	<select id="getCouponNameFromNumber" resultType="string">
+		SELECT COUPON_NAME
+		  FROM COUPON
+		 WHERE COUPON_NUMBER = #{coupon_number}
+	</select>
+	
+	<select id="getBuyItemName" resultType="string">
+		SELECT SEL_TITLE
+		  FROM SEL_ITEM
+		 WHERE SEL_ID = #{buy_itemNumber}
+	</select>
+	
+	<update id="addEventCoupon" parameterType="eventCouponDto">
+		INSERT INTO EVENTCOUPON(EVTCOU_SEQ, EVTCOU_NAME, EVTCOU_ENDDATE, EVTCOU_SALEPERCENT)
+		VALUES(EVENTCOUPON_SEQ.NEXTVAL, #{evtcou_name}, #{evtcou_endDate}, #{evtcou_salePercent})
+	</update>
+	
+	<select id="checkOverlap" parameterType="couponDto" resultType="int">
+		SELECT COUNT(*) FROM COUPON
+ 		 WHERE COUPON_NAME = #{coupon_name} 
+ 		   AND COUPON_USERNAME = #{coupon_userName}
+	</select>
+	
+	<select id="allEventCoupons" resultType="eventCouponDto">
+		SELECT * FROM EVENTCOUPON
+	</select>
+	
+	<delete id="deleteCoupon" parameterType="string">
+		DELETE FROM COUPON
+		 WHERE COUPON_USERNAME = #{ac_name}
+	</delete>
+	
+	<select id="getPercent" resultType="int">
+		SELECT COUPON_SALEPERCENT
+		  FROM COUPON
+		 WHERE COUPON_NUMBER = #{couponNumber}
+	</select>
 
 	
 </mapper>

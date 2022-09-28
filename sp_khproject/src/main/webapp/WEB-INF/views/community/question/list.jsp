@@ -252,7 +252,7 @@ feed-item .feed-content {
 			</div>
 		</div>
 
-		<form action="${questionUrl}/home/community/question/add">
+		<form action="./add">
 			<input type="hidden" name="qid" value="${data.question_id}">
 			<button class="btn btn-outline-success" type="submit"
 				style="width: 150px; position: relative; top: 45px; left: 1200px;"

@@ -40,17 +40,18 @@
 	<div style="text-align: right; margin-right: 100px; position:relative; top: 20px;">
 		<c:if test="${empty loginData }">
 			<a href="${pageContext.request.contextPath}/login">로그인</a>&emsp;/&emsp; 
-			<a href="${pageContext.request.contextPath}/login/sign">회원가입</a>&emsp;/&emsp;
+			<a href="${pageContext.request.contextPath}/login/sign">회원가입</a>
 		</c:if>
 		<c:if test="${not empty loginData }">
 			${loginData.ac_name }님 환영합니다!&emsp;/&emsp;
 			<c:if test="${loginData.ac_index == 30}">
 				<a href="${pageContext.request.contextPath}/admin">관리자페이지&emsp;/&emsp;</a>
 			</c:if>
-			<a href="${pageContext.request.contextPath}/main/logout">로그아웃&emsp;/&emsp;</a>
-			<a href="${pageContext.request.contextPath}/info">마이페이지&emsp;/&emsp;</a>
+			<a href="${pageContext.request.contextPath}/main/logout">로그아웃</a>
+			<c:if test="${loginData.ac_index == 10 || loginData.ac_index == 20}">
+				<a href="${pageContext.request.contextPath}/info">&emsp;/&emsp;마이페이지&emsp;</a>
+			</c:if>
 		</c:if>
-		<a href="#">FAQ</a>
 	</div>
 	
 <!-- nav-bar -->
@@ -74,15 +75,19 @@
 	          <ul class="dropdown-menu" >
 	          	<li><a class="dropdown-item" href="${pageContext.request.contextPath}/sellitem">전체보기</a></li>
 	          	<li><hr class="dropdown-divider"></li>
-	            <li><a class="dropdown-item" href="/selItem?pageCount=1">IT</a></li>
-	            <li><a class="dropdown-item" href="#">카테고리2</a></li>
-	            <li><hr class="dropdown-divider"></li>
-	            <li><a class="dropdown-item" href="#">카테고리3</a></li>
-	            <li><a class="dropdown-item" href="#">카테고리4</a></li>
+	            <li><a class="dropdown-item" href="${pageContext.request.contextPath}/sellitem?select=IT.프로그래밍">IT, 프로그래밍</a></li>
+	            <li><a class="dropdown-item" href="${pageContext.request.contextPath}/sellitem?select=디자인">디자인</a></li>
+	            <li><a class="dropdown-item" href="${pageContext.request.contextPath}/sellitem?select=비즈니스">비즈니스</a></li>
+	            <li><a class="dropdown-item" href="${pageContext.request.contextPath}/sellitem?select=마케팅">마케팅</a></li>
+	            <li><a class="dropdown-item" href="${pageContext.request.contextPath}/sellitem?select=번역.통역">번역, 통역</a></li>
+	            <li><a class="dropdown-item" href="${pageContext.request.contextPath}/sellitem?select=문서, 글쓰기">문서, 글쓰기</a></li>
+	            <li><a class="dropdown-item" href="${pageContext.request.contextPath}/sellitem?select=주문 제작">주문제작</a></li>
+	            <li><a class="dropdown-item" href="${pageContext.request.contextPath}/sellitem?select=세무.법무">세무, 법무</a></li>
+	            <li><a class="dropdown-item" href="${pageContext.request.contextPath}/sellitem?select=기타">기타</a></li>
 	          </ul>
 	        </li>
 	        <li class="nav-item">
-	          <a class="nav-link" href="#" style="padding-left:100px;">커뮤니티</a>
+	          <a class="nav-link" href="${pageContext.request.contextPath}/community/main" style="padding-left:100px;">커뮤니티</a>
 	        </li>
 	      
 	      </ul>
@@ -97,4 +102,5 @@
 	    </div>
 	  </div>
 	</nav>
-</header>	
+</header>
+	

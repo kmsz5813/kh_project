@@ -12,6 +12,12 @@ public class PurchaseDTO {
 	private int buy_usedPoint;		// 사용한 포인트
 	private int buy_usedCoupon;		// 사용한 쿠폰
 	private int buy_realPrice;		// 실제 구매 가격
+	private String buy_falsification;	// 변조여부 (변조했으면 "Y")
+	
+	private String buy_usedCouponName;	// 사용한 쿠폰(쿠폰번호)를 통한 쿠폰명 조회
+	private String buy_itemName;
+	
+	
 	
 	
 	public int getBuy_number() {
@@ -68,14 +74,33 @@ public class PurchaseDTO {
 	public void setBuy_realPrice(int buy_realPrice) {
 		this.buy_realPrice = buy_realPrice;
 	}
+	public String getBuy_usedCouponName() {
+		return buy_usedCouponName;
+	}
+	public void setBuy_usedCouponName(String buy_usedCouponName) {
+		this.buy_usedCouponName = buy_usedCouponName;
+	}
+	public String getBuy_itemName() {
+		return buy_itemName;
+	}
+	public void setBuy_itemName(String buy_itemName) {
+		this.buy_itemName = buy_itemName;
+	}
+	public String getBuy_falsification() {
+		return buy_falsification;
+	}
+	public void setBuy_falsification(String buy_falsification) {
+		this.buy_falsification = buy_falsification;
+	}
 	
 	@Override
 	public String toString() {
 		return "PurchaseDTO [buy_number=" + buy_number + ", buy_itemNumber=" + buy_itemNumber + ", buy_buyer="
 				+ buy_buyer + ", buy_seller=" + buy_seller + ", buy_buyday=" + buy_buyday + ", buy_price=" + buy_price
 				+ ", buy_usedPoint=" + buy_usedPoint + ", buy_usedCoupon=" + buy_usedCoupon + ", buy_realPrice="
-				+ buy_realPrice + "]";
+				+ buy_realPrice + ", buy_falsification=" + buy_falsification + ", buy_usedCouponName="
+				+ buy_usedCouponName + ", buy_itemName=" + buy_itemName + "]";
 	}
-
+	
 	
 }

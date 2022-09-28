@@ -30,6 +30,8 @@ public class AdminNoticeServiceImpl implements AdminNoticeService{
 		return noticeone;
 	}
 	
+
+	
 	@Override
 	public int insertNotice(CommunityNoticeDTO notice) {
 		int res = noticeDao.insertNotice(notice);
@@ -43,8 +45,8 @@ public class AdminNoticeServiceImpl implements AdminNoticeService{
 	}
 	
 	@Override
-	public int deleteNotice(int noticeNo) {
-		int res = noticeDao.deleteNotice(noticeNo);
+	public int deleteNotice(int id) {
+		int res = noticeDao.deleteNotice(id);
 		return res;
 	}
 	

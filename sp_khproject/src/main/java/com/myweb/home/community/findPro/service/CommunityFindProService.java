@@ -62,8 +62,9 @@ public class CommunityFindProService {
 	public void incViewCnt(HttpSession session, CommunityFindProDTO data) {
 		CommunityFindProStaticsDTO staticsData = new CommunityFindProStaticsDTO();
 		staticsData.setFindPro_bId(data.getFindPro_Id());
-		staticsData.setUser_Name(((AccountsDTO)session.getAttribute("loginData")).getAc_name());
-		
+		if(session.getAttribute("loginData") != null) {
+			staticsData.setUser_Name(((AccountsDTO)session.getAttribute("loginData")).getAc_name());
+		}
 		staticsData = dao.selectStatics(staticsData);
 		
 		boolean result = false;
@@ -75,7 +76,9 @@ public class CommunityFindProService {
 			
 			staticsData = new CommunityFindProStaticsDTO();
 			staticsData.setFindPro_bId(data.getFindPro_Id());
-			staticsData.setUser_Name(((AccountsDTO)session.getAttribute("loginData")).getAc_name());
+			if(session.getAttribute("loginData") != null) {
+				staticsData.setUser_Name(((AccountsDTO)session.getAttribute("loginData")).getAc_name());
+			}
 			result = dao.insertStatics(staticsData);
 			if(!result) {
 				throw new RuntimeException("조회수 통계 추가 처리에 문제가 발생 하였습니다.");

@@ -6,16 +6,18 @@
   
 	  
 <mapper namespace="CommunityNotice">
-
+	 
 	<!--           윤지님이 만드신부분 시작                -->
 	<!-- 모든 공지사항 수 조회 - 페이징 -->
+	<!--
 	<select id="selectCntNotice" resultType="int">
 	
 		select count(*) from notice
 	
 	</select>
-
+-->
 	<!-- 모든 공지사항 -->
+	<!--
 	<select id="selectNotice" resultType="CommunityNoticeDTO">
 	
 		select * from (
@@ -29,24 +31,27 @@
 		where rnum BETWEEN #{startNo} AND #{endNo}
 	
 	</select>
-	
+	-->
 	<!-- 공지사항 상세 -->
+	<!--
 	<select id="selectNoticeDetail" parameterType="int" resultType="CommunityNoticeDTO">
 	
 		select * from notice
 		where notice_no = #{no}
 	
 	</select>
-	
+	-->
 	<!-- 공지사항 검색결과 수 -->
+	<!--
 	<select id="selectCnNoticeSearch" parameterType="String" resultType="int">
 	
 		select count(*) from notice
 		where notice_title like '%' || #{keyword} || '%'
 	
 	</select>
-	
+	-->
 	<!-- 공지사항 검색결과 -->
+	<!--
 	<select id="selectNoticeSearch" parameterType="map" resultType="CommunityNoticeDTO">
 	
 		select * from (
@@ -60,7 +65,7 @@
 		) notice 
 		where rnum BETWEEN #{paging.startNo} AND #{paging.endNo}
 	</select>
-
+	 -->
 
 	<!--                   제가만든 부분 시작 -->
 	<!-- 내림차순으로 정렬해서 최신정보가 제일 위에오게끔 만들기 -->
@@ -71,6 +76,22 @@
 	<select id="getDatas" resultType="communityNoticeDto">
 		SELECT * FROM NOTICE WHERE NOTICE_NO = #{notice_no}
 	</select>
+	
+	<delete id="deleteNotice">
+		DELETE FROM NOTICE
+		 WHERE NOTICE_NO = #{id}
+	</delete>
+	<insert id="insertNotice" parameterType="communityNoticeDto">
+		INSERT INTO NOTICE (NOTICE_NO, NOTICE_TITLE, NOTICE_CONTENT, NOTICE_DATE)
+					VALUES(NOTICE_SEQ.NEXTVAL, #{notice_title}, #{notice_content}, SYSDATE)
+	</insert>
+	
+	<update id="updateNotice" parameterType="communityNoticeDto">
+		UPDATE NOTICE
+		   SET NOTICE_TITLE = #{notice_title}
+		     , NOTICE_CONTENT = #{notice_content}
+		 WHERE NOTICE_NO = #{notice_no}
+	</update>
 	
 	
 </mapper>

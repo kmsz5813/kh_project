@@ -15,14 +15,30 @@
 	<select id="selectData" resultType="selItemDto">
 		SELECT * FROM SEL_ITEM  S FULL OUTER JOIN FILE_UPLOAD ON S.SEL_ID = FILE_BID WHERE SEL_FIELD = #{selectData} ORDER BY SEL_ID DESC
 	</select>
+	
+	<select id="locationData" resultType="selItemDto">
+		SELECT * FROM SEL_ITEM  S FULL OUTER JOIN FILE_UPLOAD ON S.SEL_ID = FILE_BID WHERE SEL_LOCATION = #{locationData} ORDER BY SEL_ID DESC
+	</select>
+	
+	<!-- 좋아요로 조회 -->
+	<select id="searchLike" resultType="selItemDto">
+		SELECT * FROM SEL_ITEM  S FULL OUTER JOIN FILE_UPLOAD ON S.SEL_ID = FILE_BID ORDER BY SEL_LIKE DESC
+	</select>
+	
+	<select id="searchLike2" resultType="selItemDto">
+		SELECT * FROM (SELECT * FROM SEL_ITEM S FULL OUTER JOIN FILE_UPLOAD ON S.SEL_ID = FILE_BID ORDER BY SEL_LIKE DESC) WHERE ROWNUM BETWEEN 1 AND 9
+	</select>
+	
+	<!-- 조회순으로 조회 -->
+	<select id="searchView" resultType="selItemDto">
+		SELECT * FROM SEL_ITEM  S FULL OUTER JOIN FILE_UPLOAD ON S.SEL_ID = FILE_BID ORDER BY SEL_VIEW DESC	
+	</select>
+	
 
 	<insert id="insertData" parameterType="selItemDto" useGeneratedKeys="true"
         keyProperty="sel_id" keyColumn="SEL_ID">
-	
-		INSERT INTO SEL_ITEM(SEL_ID, SEL_NAME, SEL_FIELD, SEL_LOCATION, SEL_TITLE, SEL_CONTENT) 
-		VALUES (SEL_ITEM_SEQ.NEXTVAL, #{sel_name}, #{sel_field}, #{sel_location}, #{sel_title}, #{sel_content})
-	
-	
+		INSERT INTO SEL_ITEM(SEL_ID, SEL_NAME, SEL_FIELD, SEL_LOCATION, SEL_TITLE, SEL_CONTENT, SEL_PRICE) 
+		VALUES (SEL_ITEM_SEQ.NEXTVAL, #{sel_name}, #{sel_field}, #{sel_location}, #{sel_title}, #{sel_content}, #{sel_price})
 	</insert>
 
 	<select id="searchData" resultType="selItemDto">
@@ -43,6 +59,11 @@
 		UPDATE SEL_ITEM SET SEL_NUMBER = SEL_NUMBER + 1
 		 WHERE SEL_ID = #{itemid}
 	</update>
+	
+	<select id="getThumbnail" resultType="fileUploadDto">
+		SELECT * FROM FILE_UPLOAD
+		 WHERE FILE_BID = #{i}
+	</select>
 
 	<update id="updateData">
 		UPDATE SEL_ITEM SET SEL_FIELD = #{sel_field} , SEL_TITLE = #{sel_title} ,
@@ -54,5 +75,157 @@
 		UPDATE SEL_ITEM SET SEL_VIEW = SEL_VIEW + 1
 		 WHERE SEL_ID = #{sel_id}
 	</update>
+	
+
+	<insert id="addReview" parameterType="reviewDto">
+		INSERT INTO REVIEW (REVIEW_NUMBER, REVIEW_ITEMNUMBER, REVIEW_STARCOUNT, REVIEW_WRITER, REVIEW_CONTENT)
+		VALUES (REVIEW_SEQ.NEXTVAL, #{review_itemNumber}, #{review_starCount}, #{review_writer}, #{review_content})
+	</insert>
+	
+	<select id="getReviews" resultType="reviewDto">
+		SELECT * FROM REVIEW
+		 WHERE REVIEW_ITEMNUMBER = #{itemid}
+	</select>
+	
+	<select id="getReviewCount" parameterType="int" resultType="int">
+		SELECT COUNT(*) 
+		  FROM REVIEW
+		 WHERE REVIEW_ITEMNUMBER = #{itemid}
+	</select>
+	
+	<select id="getStarScore" resultType="int" parameterType="int">
+		SELECT SUM(REVIEW_STARCOUNT)
+		  FROM REVIEW
+		 WHERE REVIEW_ITEMNUMBER = #{parseInt}
+	</select>
+	
+	<update id="addReviewCount" parameterType="int">
+		UPDATE SEL_ITEM
+		   SET SEL_REVIEWCOUNT = SEL_REVIEWCOUNT + 1
+		 WHERE SEL_ID = #{i}  
+	</update>
+	
+	<update id="addReviewStar" parameterType="reviewDetailVo">
+		UPDATE SEL_ITEM
+		   SET SEL_STARSCORE = #{star}
+		 WHERE SEL_ID = #{sel_id}
+	</update>  
+	
+	<select id="selectStatics" resultType="SelItemStaticsDto">
+		SELECT * FROM SEL_ITEM_STATICS WHERE AC_NAME = #{ac_name} AND SEL_ID = #{sel_id}
+	</select>
+	
+	<insert id="insertStatics" parameterType="SelItemStaticsDto">
+		INSERT INTO SEL_ITEM_STATICS(ID, AC_NAME, SEL_ID, LIKED)
+		     VALUES(SEL_ITEM_STATICS_SEQ.NEXTVAL
+		          , #{ac_name} , #{sel_id}, 'N')
+	</insert>
+	
+	<update id="updateStaticsLike" parameterType="SelItemStaticsDto">
+		UPDATE SEL_ITEM_STATICS
+		<choose>
+			<when test="liked">
+				SET LIKED = 'Y'
+			</when>
+			<otherwise>
+				SET LIKED = 'N'
+			</otherwise>
+		</choose>
+		 WHERE ID = #{id}
+	</update>
+	
+	<update id="updateLike" parameterType="selItemDto">
+		UPDATE SEL_ITEM
+		   SET "SEL_LIKE" = #{sel_like}
+		 WHERE SEL_ID = #{sel_id}
+	</update>
+
+	
+	<select id="getTitle" resultType="string">
+		SELECT SEL_TITLE
+		  FROM SEL_ITEM
+		  NATURAL JOIN SEL_ITEM_STATICS
+		 WHERE SEL_ID = #{sel_id} AND LIKED = 'Y'
+	</select>
+
+
+	<select id="getSeller" resultType="string">
+		SELECT SEL_NAME
+		  FROM SEL_ITEM
+		 WHERE SEL_ID = #{sel_id}
+	</select>
+	
+	<delete id="deleteData">
+		DELETE FROM SEL_ITEM WHERE SEL_ID = #{id} 
+	</delete>
+	
+	<delete id="deleteData2">
+		DELETE FROM SEL_ITEM WHERE SEL_NAME = #{name} 
+	</delete>
+	
+	<delete id="deleteReview">
+		DELETE FROM REVIEW WHERE REVIEW_ITEMNUMBER = #{id}
+	</delete>
+	
+	<delete id="deleteStatics">
+		DELETE FROM SEL_ITEM_STATICS WHERE SEL_ID = #{id}
+	</delete>
+	
+	<delete id="deleteFile">
+		DELETE FROM FILE_UPLOAD WHERE FILE_BID = #{id}
+	</delete>
+	
+	<delete id="deleteReviewNumber">
+		DELETE FROM REVIEW WHERE REVIEW_NUMBER = #{id}
+	</delete>
+	
+	<update id="deleteReviewCount" parameterType = "int">
+		UPDATE SEL_ITEM
+		   SET SEL_REVIEWCOUNT = SEL_REVIEWCOUNT - 1
+		 WHERE SEL_ID = #{sel_id}
+	</update>
+	
+	<delete id="deleteLike" parameterType="string">
+		DELETE FROM SEL_ITEM_STATICS
+		 WHERE AC_NAME = #{ac_name}
+	</delete>
+	
+	<delete id="deleteReview2" parameterType="string">
+		DELETE FROM REVIEW WHERE REVIEW_WRITER = #{ac_name}
+	</delete>
+	
+
+	<select id="selectAllFiles" resultType="fileUploadDto">
+		SELECT * FROM FILE_UPLOAD
+	</select>
+	
+	<delete id="deleteFiles" parameterType="string">
+		DELETE FROM FILE_UPLOAD fu
+			 WHERE fu.FILE_BID = (
+				SELECT si.SEL_ID
+				  FROM SEL_ITEM si
+				 WHERE si.SEL_ID = fu.FILE_BID
+				 AND si.SEL_NAME = #{name}
+			 )
+	</delete>
+	
+	<!-- <select id="nameReviewCount" resultType="int">
+		SELECT COUNT(*) FROM REVIEW
+		 WHERE REVIEW_WRITER = #{name}
+	</select>
+	
+	<update id="minusReviewCount" parameterType="reviewDetailVo">
+		UPDATE SEL_ITEM
+		   SET SEL_REVIEWCOUNT = SEL_REVIEWCOUNT - #{count}
+		 WHERE SEL_NAME = #{sel_name}
+	</update> -->
+
+	<update id="modifyReview">
+		UPDATE REVIEW SET REVIEW_CONTENT = #{review_content} WHERE REVIEW_NUMBER = #{review_number} 
+	</update>
+	
+	<select id="checkIdNull">
+		SELECT COUNT(*) FROM SEL_ITEM WHERE SEL_ID = #{parameter}
+	</select>
 
 </mapper>

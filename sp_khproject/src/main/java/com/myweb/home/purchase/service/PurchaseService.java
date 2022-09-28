@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.myweb.home.purchase.model.CouponDTO;
+import com.myweb.home.purchase.model.EventCouponDTO;
 import com.myweb.home.purchase.model.PurchaseDAO;
 import com.myweb.home.purchase.model.PurchaseDTO;
 
@@ -45,8 +46,8 @@ public class PurchaseService {
 		return numbers;
 	}
 
-	public boolean addSignCoupon(CouponDTO coupon) {
-		boolean result = dao.addSignCoupon(coupon);
+	public boolean addCoupon(CouponDTO coupon) {
+		boolean result = dao.addCoupon(coupon);
 		return result;
 	}
 
@@ -66,6 +67,46 @@ public class PurchaseService {
 			return false;
 		}
 	}
+
+	public String getCouponNameFromNumber(int coupon_number) {
+		String res = dao.getCouponNameFromNumber(coupon_number);
+		return res;
+	}
+
+	public String getBuyItemName(int buy_itemNumber) {
+		String itemName = dao.getBuyItemName(buy_itemNumber);
+		return itemName;
+	}
+
+	public boolean addEventCoupon(EventCouponDTO eventCoupon) {
+		boolean result = dao.addEventCoupon(eventCoupon);
+		return result;
+	}
+
+	public boolean checkOverlap(CouponDTO coupon) {
+		boolean result = dao.checkOverlap(coupon);
+		return result;
+	}
+
+
+
+	public List<EventCouponDTO> allEventCoupons() {
+		List<EventCouponDTO> list = dao.allEventCoupons();
+		return list;
+	}
+
+	public boolean deleteCoupon(String ac_name) {
+		boolean result = dao.deleteCoupon(ac_name);
+		return result;
+	}
+
+	public int getPercent(int couponNumber) {
+		int result = dao.getPercent(couponNumber);
+		return result;
+	}
+
+
+
 
 
 

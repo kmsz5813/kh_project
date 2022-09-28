@@ -413,11 +413,6 @@ feed-item .feed-content {
 		<c:url var="mainurl" value="/main" />
 
 
-		<footer id="jb-footer">
-			<div
-				style="width: 1500px; height: 200px; background-color: #f6f7f7; margin: auto; padding: 10px; position: relative; left: 50px;">
-				이용약관</div>
-		</footer>
 		<!-- go to top -->
 		<a class="btn-top" href="#"><i class="xi-angle-up-thin"></i></a>
 	</div>

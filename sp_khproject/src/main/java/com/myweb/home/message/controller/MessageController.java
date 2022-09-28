@@ -33,7 +33,9 @@ public class MessageController {
 
 	
 	@GetMapping(value="/chat")
-	public String ChattingUser(Model model) {
+	public String ChattingUser(Model model, HttpServletRequest request) {
+		String itemid = request.getParameter("itemid");
+	    request.setAttribute("itemid", itemid);
 		return "/message/ChattingUser";
 	   }
 	   

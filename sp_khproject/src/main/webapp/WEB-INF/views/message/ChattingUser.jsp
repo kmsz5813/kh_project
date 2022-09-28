@@ -258,8 +258,6 @@ div.col-md-12 { margin-bottom: 15px; }
    <div style="border-bottom: 4px dashed gray; margin-top: 10px;">
          <h3 class="text-center">견적 상담</h3>
    </div>
-
-
    <section class="container">
       <div style="height:500px; overflow:scroll;" id="id_chat">
       </div>
@@ -275,13 +273,6 @@ div.col-md-12 { margin-bottom: 15px; }
    </section> 
    
    
-   
-   
-   
-   
-   
-   
- 
 <script type="text/javascript">
    ws = new WebSocket("ws://localhost/home/chatting/cs");
    ws.onopen = function() {
