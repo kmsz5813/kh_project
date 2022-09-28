@@ -263,7 +263,7 @@ feed-item .feed-content {
 		<script type="text/javascript">
 			$('.carousel').carousel()
 		</script>
-		<form action="${lifeUrl}/home/community/life/add">
+		<form action="${lifeUrl}/community/life/add">
 						<input type="hidden" name="lid" value="${data.life_id}">
 						<button class="btn btn-outline-success" type="submit"
 							style="width: 150px; position: relative; top: 45px; left: 1200px;" id="button" onclick="formCheck(this.form);">글쓰기</button>
