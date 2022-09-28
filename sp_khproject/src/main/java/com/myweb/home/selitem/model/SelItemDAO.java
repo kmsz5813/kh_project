@@ -279,7 +279,7 @@ public class SelItemDAO {
 		List<SelItemDTO> list = session.selectList(mapperId);
 		return list;
 	}
-	public int checkIdNull(String parameter) {
+	public int checkIdNull(int parameter) {
 		String mapperId = String.format(mapper, "checkIdNull");
 		int checkNull = session.update(mapperId, parameter);
 		return checkNull;

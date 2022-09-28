@@ -218,10 +218,10 @@ public class SelItemController {
 			
 		}else if(likeResult != null) {
 			paging = new Paging(likeResult, page, pageCount);
-			model.addAttribute("selectData", "select=" + likeResult);
+			model.addAttribute("selectData", "select=" + like);
 		}else if(viewResult != null) {
 			paging = new Paging(viewResult, page, pageCount);
-			model.addAttribute("selectData", "select=" + viewResult);
+			model.addAttribute("selectData", "select=" + view);
 		}
 		
 		
@@ -248,9 +248,9 @@ public class SelItemController {
 	public String detail(Model model, HttpServletRequest request
 			,HttpSession session) {
 		// 없는 ID 값을 요청했을경우
-		if(service.checkIdNull(request.getParameter("itemid")) != 1) {
+		if(service.checkIdNull(Integer.parseInt(request.getParameter("itemid"))) == -1) {
 			String referer = request.getHeader("Referer");
-			return "redirect:"+ referer + "?itemid=Null";
+			return "redirect:"+ referer;
 		}
 		
 		// 판매자 닉네임 가져오기	

@@ -144,7 +144,7 @@
 				 		</c:if>
 				 	</c:if>
 				 </c:forEach>
-			    <h5 style="text-align:right">${data.sel_name}</a></h5>
+			    <h5 style="text-align:right">${data.sel_name}</h5>
 			    <h5 class="price" style="text-align:right">&#8361; <fmt:formatNumber type="number" maxFractionDigits="3" value="${data.sel_price}"/></h5>
 			    <c:if test="${data.sel_starScore < 1}">
 			  		<div style="float:right;">
