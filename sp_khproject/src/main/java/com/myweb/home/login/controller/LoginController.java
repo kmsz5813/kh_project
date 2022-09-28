@@ -309,7 +309,7 @@ public class LoginController {
 			
 			if(result) {
 				//비밀번호 수정완료
-				return "redirect: /home/login";
+				return "redirect: /login";
 			}else {
 				
 				return null;
@@ -435,7 +435,7 @@ public class LoginController {
 			data.setAc_email(cus_email);
 			data.setAc_pw(cus_pw);
 			service.getLogin(session, data);
-			return "redirect: /home/main";
+			return "redirect: /main";
 		}
 
 		
@@ -547,7 +547,7 @@ public class LoginController {
 			data.setAc_email(sel_email);
 			data.setAc_pw(sel_pw);
 			service.getLogin(session, data);
-			return "redirect: /home/main";
+			return "redirect: /main";
 		}
 		
 		return "login/selsign";
@@ -696,7 +696,7 @@ public class LoginController {
 				e.printStackTrace();
 			}
 			
-			return "redirect: /home/login/sign";
+			return "redirect: /login/sign";
 		}
 		
 		
@@ -790,7 +790,7 @@ public class LoginController {
 		    } catch (Exception e) {
 		      System.out.println(e);
 		    }
-		return "redirect: /home/login/sign";
+		return "redirect: /login/sign";
 	}
 	
 	
