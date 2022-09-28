@@ -124,10 +124,10 @@
 				<a href="./sellitem/itemdetail?search=${data.sel_name}&itemid=${data.sel_id}">
 			
 				 <c:if test="${empty data.uuidName }">
-				 <img src="${pageContext.request.contextPath}/static/img/profile/logo.png" class="card-img-top" alt="...">
+				 <img src="./static/img/profile/logo.png" class="card-img-top" alt="...">
 				 </c:if>
 				 <c:if test="${not empty data.uuidName}">
-				  <img src="${pageContext.request.contextPath}/${data.url}/${data.uuidName}" class="card-img-top"/> 
+				  <img src=".${data.url}/${data.uuidName}" class="card-img-top"/> 
 				 
 				  </c:if>
 

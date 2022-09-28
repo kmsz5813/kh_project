@@ -114,7 +114,7 @@
 							<img style="max-width:200px; border-radius:10%" src="${pageContext.request.contextPath}/static/img/profile/logo.png" style="max-width:250px; border-radius:5%;">
 						</c:if>
 						<c:if test="${not empty thumbnail.uuidName }">
-							<img style="max-width:200px; border-radius:10%" src="/home/${thumbnail.url}/${thumbnail.uuidName}">
+							<img style="max-width:200px; border-radius:10%" src="..${thumbnail.url}/${thumbnail.uuidName}">
 						</c:if>
 					</div>
 					<div class="mt-5">
@@ -315,7 +315,7 @@
 		function ajaxLike(id) {
 			$.ajax({
 				type: "post",
-				url: "/home/sellitem/like",
+				url: "./like",
 				data: {
 					id: id,
 					

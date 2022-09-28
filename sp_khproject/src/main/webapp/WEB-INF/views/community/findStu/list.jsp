@@ -252,7 +252,7 @@ feed-item .feed-content {
 			</div>
 		</div>
 
-		<form action="${findStuUrl}/home/community/findStu/add">
+		<form action="./add">
 						<input type="hidden" name="fsid" value="${data.findStu_id}">
 						<button class="btn btn-outline-success" type="submit"
 							style="width: 150px; position: relative; top: 45px; left: 1200px;" id="button" onclick="formCheck(this.form);">글쓰기</button>

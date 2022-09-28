@@ -282,6 +282,7 @@ public class SelItemDAO {
 	public int checkIdNull(int parameter) {
 		String mapperId = String.format(mapper, "checkIdNull");
 		int checkNull = session.update(mapperId, parameter);
+		System.out.println("checkNull : " + checkNull);
 		return checkNull;
 	}
 

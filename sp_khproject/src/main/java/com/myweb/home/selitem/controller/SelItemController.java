@@ -248,10 +248,11 @@ public class SelItemController {
 	public String detail(Model model, HttpServletRequest request
 			,HttpSession session) {
 		// 없는 ID 값을 요청했을경우
-		if(service.checkIdNull(Integer.parseInt(request.getParameter("itemid"))) == -1) {
-			String referer = request.getHeader("Referer");
-			return "redirect:"+ referer;
-		}
+		/*
+		 * if(service.checkIdNull(Integer.parseInt(request.getParameter("itemid"))) ==
+		 * -1) { String referer = request.getHeader("Referer"); return "redirect:"+
+		 * referer; }
+		 */
 		
 		// 판매자 닉네임 가져오기	
 		String name = request.getParameter("search");
