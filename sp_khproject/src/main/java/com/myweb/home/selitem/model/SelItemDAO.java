@@ -202,9 +202,9 @@ public class SelItemDAO {
 		return res == 1 ? true : false; 
 	}
 	
-	public String getTitle(int sel_id) {
+	public String getTitle(SelItemStaticsDTO data) {
 		String mapperId = String.format(mapper, "getTitle");
-		String result = session.selectOne(mapperId, sel_id);
+		String result = session.selectOne(mapperId, data);
 		return result;
 	}
 	public String getSeller(int sel_id) {
@@ -284,6 +284,27 @@ public class SelItemDAO {
 		int checkNull = session.update(mapperId, parameter);
 		System.out.println("checkNull : " + checkNull);
 		return checkNull;
+	}
+	public List<Integer> getItemNumbers() {
+		String mapperId = String.format(mapper, "getItemNumbers");
+		List<Integer> itemNumbers = session.selectList(mapperId);
+		return itemNumbers;
+	}
+	public List<String> allReviews(int starCount) {
+		String mapperId = String.format(mapper, "allReviews");
+		List<String> reviews = session.selectList(mapperId, starCount);
+		return reviews;
+	}
+	
+	public boolean saveWord(String search) {
+		String mapperId = String.format(mapper, "saveWord");
+		int res = session.insert(mapperId, search);
+		return res == 1? true : false;
+	}
+	public List<String> searchWordList() {
+		String mapperId = String.format(mapper, "searchWordList");
+		List<String> list = session.selectList(mapperId);
+		return list;
 	}
 
 

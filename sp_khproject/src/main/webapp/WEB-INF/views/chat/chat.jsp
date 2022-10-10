@@ -142,10 +142,6 @@ div.col-md-12 { margin-bottom: 15px; }
 <!-- 헤더 -->
 	<%@ include file="../module/head.jsp"%>
 	
-	<div style="text-align: right; margin: 10px;">
-         <button class="btn btn-success">거래하기</button>
-         <button class="btn btn-danger" data-toggle="modal" data-target="#addnotesmodal">리뷰작성</button>
-   </div>
 	
 	
 	
@@ -169,7 +165,7 @@ div.col-md-12 { margin-bottom: 15px; }
        </script>
    
        
-		<div class="input-div">
+		<div class="input-div" style="width:1500px;">
 			<textarea id="txtMessage" cols="30" rows="10"
 				placeholder="메시지를 입력한 후에 엔터키를 누르세요."></textarea>
 		</div>

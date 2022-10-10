@@ -157,8 +157,8 @@ public class LoginService {
 		return Integer.toString(randomNumber);
 	}
 
-	public boolean addBlacklist(String id) {
-		boolean result = dao.addBlacklist(id);
+	public boolean addBlacklist(String name) {
+		boolean result = dao.addBlacklist(name);
 		if(result) {
 			return true;
 		} else {

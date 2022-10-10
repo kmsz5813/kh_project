@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -53,10 +54,9 @@ public class SelItemController {
 	@Autowired
 	private LoginService loginService;
 	
-
 	@Autowired
 	private PurchaseService purchaseService;
-
+	
 	option Option = new option();
 
 	
@@ -147,7 +147,11 @@ public class SelItemController {
 		String search = request.getParameter("search");
 		if(search != null) {
 			 serachData = service.getSearch(search);
+			 service.saveWord(search);	// 검색어 DB 저장
+			 
+			 
 		}
+	
 	
 		
 		//저장되어 있는 모든 데이터 값 가져오기...	
@@ -351,7 +355,7 @@ public class SelItemController {
 			,@SessionAttribute("loginData") AccountsDTO acData
 			, MultipartHttpServletRequest mtfRequest
 			, @RequestParam("fileUpload") MultipartFile[] files
-			) {
+			) throws UnsupportedEncodingException {
 		
 		SelItemDTO data = new SelItemDTO();
 	
@@ -394,9 +398,12 @@ public class SelItemController {
 
 		}
 		
-		
+
+		String itemid = request.getParameter("sel_id");
+		String name = acData.getAc_name();
+		String ac_name = URLEncoder.encode(name, "UTF-8");
 		if(result) {
-			return "redirect: /home/sellitem";
+			return "redirect:/sellitem/itemdetail?search=" + ac_name + "&itemid=" + itemid;
 		}else {
 			String error = "수정실패";
 			request.setAttribute("error", error);
@@ -410,7 +417,7 @@ public class SelItemController {
 	private String delete(@RequestParam int id) {
 		boolean result = service.delete(id);
 		
-		return "redirect: /home/sellitem";
+		return "redirect:/sellitem";
 	}
 	
 

@@ -151,7 +151,7 @@
 				document.getElementById("use_point").value = v_point;
 			}
 			document.getElementById("remain_point").innerHTML = "잔여포인트 : " + (pnt - v_point) + "&emsp;";
-			var price1 = Math.floor((amt - v_point) - (${itemdata.sel_price} * $('#select_value').val().split(',')[0]) / 100);
+			var price1 = Math.floor((amt - v_point) - Math.floor((${itemdata.sel_price} * $('#select_value').val().split(',')[0]) / 100));
 			if(price1 >= 100) {				
 				document.getElementById("price").innerHTML = price1 + " 원";	// 페이지에 표기될 구매가
 				document.getElementById("realprice").value = price1;	// 서버에 저장될 구매가
@@ -172,7 +172,7 @@
 			var value1 = document.getElementById('select_value').value;
 			var value2 = value1.split(',');
 			var value = value2[0];
-			var price1 = Math.floor(document.getElementById("realprice").value - (${itemdata.sel_price} * value / 100));
+			var price1 = Math.floor(document.getElementById("realprice").value - Math.floor(${itemdata.sel_price} * value / 100));
 			if(value1 != 0 && price1 >= 100) {				
 				document.getElementById("price").innerHTML = price1 + " 원";	// 페이지 표기될 실구매가
 				document.getElementById("realprice").value = price1;		// Controller 에 넘겨줄 실 구매가

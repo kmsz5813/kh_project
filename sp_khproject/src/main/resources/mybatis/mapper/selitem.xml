@@ -145,7 +145,7 @@
 		SELECT SEL_TITLE
 		  FROM SEL_ITEM
 		  NATURAL JOIN SEL_ITEM_STATICS
-		 WHERE SEL_ID = #{sel_id} AND LIKED = 'Y'
+		 WHERE SEL_ID = #{sel_id} AND LIKED = 'Y' AND AC_NAME = #{ac_name}
 	</select>
 
 
@@ -227,5 +227,22 @@
 	<select id="checkIdNull">
 		SELECT COUNT(*) FROM SEL_ITEM WHERE SEL_ID = #{parameter}
 	</select>
-
+	
+	<select id="getItemNumbers" resultType="string">
+		SELECT SEL_ID FROM SEL_ITEM
+	</select>
+	
+	<select id="allReviews" resultType="string">
+		SELECT REVIEW_CONTENT FROM REVIEW
+		 WHERE REVIEW_STARCOUNT &lt;= #{starCount}
+	</select>
+	
+	<insert id="saveWord">
+		INSERT INTO SEARCHWORD
+		VALUES( #{search} )
+	</insert>
+	
+	<select id="searchWordList" resultType="string">
+		SELECT * FROM SEARCHWORD
+	</select>
 </mapper>

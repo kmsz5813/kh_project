@@ -4,12 +4,16 @@ import java.io.File;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServletRequest;
@@ -35,6 +39,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.multipart.MultipartFile;
@@ -68,6 +73,8 @@ public class AdminController {
 	private AdminService adminService;
 	@Autowired
 	private PurchaseService purchaseService;
+	@Autowired
+	private SelItemService selService;
 	
 	@GetMapping(value="")
 	public String admin(Model model,
@@ -78,11 +85,15 @@ public class AdminController {
 		request.setAttribute("datas", datas);
 		// 거래내역 전체조회
 		List<PurchaseDTO> purchaseDatas = purchaseService.selectAll();
-		
+		List<Integer> itemNumbers = new ArrayList<>(); 
+		itemNumbers = selService.getItemNumbers();
 		for(PurchaseDTO purchaseData : purchaseDatas) {
 			int coupon_number = purchaseData.getBuy_usedCoupon();
 			String coupon_name = purchaseService.getCouponNameFromNumber(coupon_number);
 			purchaseData.setBuy_usedCouponName(coupon_name);
+			if(! itemNumbers.contains(Integer.toString(purchaseData.getBuy_itemNumber()))) {
+				purchaseData.setItemDelChk("Y");
+			}
 		}
 		request.setAttribute("purchaseDatas", purchaseDatas);
 
@@ -153,45 +164,54 @@ public class AdminController {
 //	}
 	
 	
-	// jsoup 웹 크롤링
+	// 리뷰 인기키워드
 	@PostMapping(value="/crawling")
 	@ResponseBody
-	public Map<String, Object> craw_select(String content, 
-			HttpServletRequest request, HttpServletResponse response)throws Exception {
+	public Map<String, Integer> craw_select(String content, 
+			HttpServletRequest request, HttpServletResponse response
+			, @RequestParam("starCount") int starCount)throws Exception {
 		
-		String url = "http://localhost/home/sellitem" + content;
-		System.out.println(url);
-		Document doc = Jsoup.connect(url).get();
+		//String url = "http://localhost/home/sellitem" + content;
+		//System.out.println(url);
+		//Document doc = Jsoup.connect(url).get();		
+		//Elements ele = doc.select("div.card");		
+		//int Length = ele.size();
+		//System.out.println("div개수" + Length);
 		
-		Elements ele = doc.select("div.card");		
-		
-		int Length = ele.size();
-		System.out.println("div개수" + Length);
-		
-		List<String> NameResult = new ArrayList<>();
-		List<String> ReviewCount = new ArrayList<>();
-		NameResult.add(ele.select("h5.card-title").text());
+		//List<String> NameResult = new ArrayList<>();
+		//List<String> ReviewCount = new ArrayList<>();
+		//NameResult.add(ele.select("h5.card-title").text());
 
-		ReviewCount.add(ele.select("p.card-text").text());
-		System.out.println(NameResult);
-		System.out.println(ReviewCount);
+		//ReviewCount.add(ele.select("p.card-text").text());
+		//System.out.println(NameResult);
+		//System.out.println(ReviewCount);
 		
-		Map<String, Object> resultMap = new HashMap<String, Object>();
+		String Reviews = null;
+		System.out.println("starcount : " + starCount);
+		System.out.println(1 + starCount);
+		List<String> reviewList = selService.allReviews(starCount);
+		for (String review : reviewList) {
+			Reviews += review;
+		}
+		System.out.println(Reviews);
+		
+		
+		//Map<String, Object> resultMap = new HashMap<String, Object>();
 		// resultMap 은 단순히 크롤링한거
-		resultMap.put("NameResult", NameResult);
-		resultMap.put("ReviewCount", ReviewCount);
-		System.out.println("resultMap : " + resultMap);
+		//resultMap.put("NameResult", NameResult);
+		//resultMap.put("ReviewCount", ReviewCount);
+		//System.out.println("resultMap : " + resultMap);
 		
 		// komoran
-		String res1 = ele.select("h5.card-title").text() + ele.select("p.card-text").text();
-		String replace_text = res1.replace("[^가-힣a-zA-Z0-9", " ");	// 쓸데없는 문자 제거
-		String trim_text = replace_text.trim();  // 불필요한 공백제거
+		//String res1 = ele.select("h5.card-title").text() + ele.select("p.card-text").text();
 		
+		String replace_text = Reviews.replace("[^가-힣a-zA-Z0-9", " ");	// 쓸데없는 문자 제거
+		String trim_text = replace_text.trim();  // 불필요한 공백제거
 		
 		Komoran komoran = new Komoran(DEFAULT_MODEL.FULL);	// FULL 은 무거운대신 정확도, LIGHT 는 가벼운버전
 		// 일반명사, 고유명사, 의존명사, 동사, 형용사만 따오기
 		List<String> pList = komoran.analyze(trim_text).getMorphesByTags("NNG", "NNP", "NNB", "VV", "VA");
-		Map<String, Object> rMap = new HashMap<>();
+		Map<String, Integer> rMap = new HashMap<>();
 		Set<String> rSet = new HashSet<String>(pList);	// 중복되지 않은 단어만 저장
 		Iterator<String> it = rSet.iterator();
 		while(it.hasNext()) {
@@ -201,8 +221,20 @@ public class AdminController {
 		}
 		// rMap 은 형태소에 따라 나눈 것.
 		System.out.println("rMap : " + rMap);
-		// 현재 rMap은 ajax 로 못받아가는 상황(자료형 다름)
-		return resultMap;
+		List<Map.Entry<String, Integer>> entryList = new LinkedList<>(rMap.entrySet());
+		entryList.sort(new Comparator<Map.Entry<String, Integer>>() {
+		    @Override
+		    public int compare(Map.Entry<String, Integer> o1, Map.Entry<String, Integer> o2) {
+			return o2.getValue() - o1.getValue();
+		    }
+		});
+
+		Map<String, Integer> rMap2 = new HashMap<>();
+		for(int i = 0; i < 20; i++) {
+			rMap2.put(entryList.get(i).getKey(), entryList.get(i).getValue());
+		}
+
+		return rMap2;
 	}
 	
 	@GetMapping(value="/addBlacklist")
@@ -222,6 +254,7 @@ public class AdminController {
 			, HttpServletRequest request) {
 		
 		String id = request.getParameter("blackId");
+		String name = request.getParameter("blackName");
 		String path = request.getServletContext().getRealPath("/resources/img/profile/");
 		System.out.println(path + id + ".png");
 		// 서버에 저장된 이미지 삭제
@@ -235,7 +268,7 @@ public class AdminController {
 		black.setIp_address(ip);
 		black.setBanned("Y");
 		// DB 에 아이디 및 정보 삭제
-		boolean result = service.addBlacklist(id);
+		boolean result = service.addBlacklist(name);
 		// BLACKLIST 테이블에 해당 회원 정보 추가
 		boolean result2 = adminService.addBlacklist(black);
 		return "redirect:/admin";

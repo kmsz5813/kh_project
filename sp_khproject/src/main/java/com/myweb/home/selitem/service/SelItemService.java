@@ -261,8 +261,8 @@ public class SelItemService {
 	}
 
 
-	public String getTitle(int sel_id) {
-		String result = dao.getTitle(sel_id);
+	public String getTitle(SelItemStaticsDTO data) {
+		String result = dao.getTitle(data);
 		return result;
 	}
 
@@ -313,6 +313,30 @@ public class SelItemService {
 	public int checkIdNull(int parameter) {
 		int nullCheck = dao.checkIdNull(parameter);
 		return nullCheck;
+	}
+
+
+	public List<Integer> getItemNumbers() {
+		List<Integer> itemNumbers = dao.getItemNumbers();
+		return itemNumbers;
+	}
+
+
+	public List<String> allReviews(int starCount) {
+		List<String> reviews = dao.allReviews(starCount);
+		return reviews;
+	}
+
+
+	public boolean saveWord(String search) {
+		boolean result = dao.saveWord(search);
+		return result;
+	}
+
+
+	public List<String> searchWordList() {
+		List<String> list = dao.searchWordList();
+		return list;
 	}
 
 

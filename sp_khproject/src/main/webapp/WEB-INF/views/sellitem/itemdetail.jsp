@@ -157,7 +157,7 @@
 				        <p>이 데이터를 삭제하시겠습니까?</p>
 				      </div>
 				      <div class="modal-footer">														
-				        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" onclick="location.href='delete?id=${itemdata.sel_id}'">삭제하기</button>
+				        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" onclick="location.href='./delete?id=${itemdata.sel_id}'">삭제하기</button>
 				        <button type="button" class="btn btn-secondary">삭제하지않을게요</button>
 				      </div>
 				    </div>
@@ -346,7 +346,7 @@
 			var id1 = id;
 			$.ajax({
 				type: "post",
-				url: "/home/sellitem/deleteReview",
+				url: "../sellitem/deleteReview",
 				data: {
 					id: id,
 					sel_id: sel_id

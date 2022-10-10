@@ -16,10 +16,9 @@ public class PurchaseDTO {
 	
 	private String buy_usedCouponName;	// 사용한 쿠폰(쿠폰번호)를 통한 쿠폰명 조회
 	private String buy_itemName;
+	private String itemDelChk;			// 구매한 상품 삭제여부
 	
-	
-	
-	
+
 	public int getBuy_number() {
 		return buy_number;
 	}
@@ -92,15 +91,22 @@ public class PurchaseDTO {
 	public void setBuy_falsification(String buy_falsification) {
 		this.buy_falsification = buy_falsification;
 	}
-	
+	public String getItemDelChk() {
+		return itemDelChk;
+	}
+	public void setItemDelChk(String itemDelChk) {
+		this.itemDelChk = itemDelChk;
+	}
 	@Override
 	public String toString() {
 		return "PurchaseDTO [buy_number=" + buy_number + ", buy_itemNumber=" + buy_itemNumber + ", buy_buyer="
 				+ buy_buyer + ", buy_seller=" + buy_seller + ", buy_buyday=" + buy_buyday + ", buy_price=" + buy_price
 				+ ", buy_usedPoint=" + buy_usedPoint + ", buy_usedCoupon=" + buy_usedCoupon + ", buy_realPrice="
 				+ buy_realPrice + ", buy_falsification=" + buy_falsification + ", buy_usedCouponName="
-				+ buy_usedCouponName + ", buy_itemName=" + buy_itemName + "]";
+				+ buy_usedCouponName + ", buy_itemName=" + buy_itemName + ", itemDelChk=" + itemDelChk + "]";
 	}
+	
+	
 	
 	
 }

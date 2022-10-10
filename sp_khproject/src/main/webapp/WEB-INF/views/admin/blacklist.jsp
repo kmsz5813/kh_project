@@ -27,6 +27,7 @@
 			onerror="this.onerror=null; this.src='../static/img/profile/basic.png'">
 		<form action="./addBlacklist" method="post" enctype="multipart/form-data">
 			<input type="hidden" name="blackId" value="${blackData.ac_email}">
+			<input type="hidden" name="blackName" value="${blackData.ac_name}">
 			<div class="mb-3">
 				<p>회원 번호 : ${blackData.ac_number}</p>
 				<p>이메일 : ${blackData.ac_email}</p>

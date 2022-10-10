@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -70,7 +71,8 @@ public class PurchaseController {
 	// 구매페이지 값 받아서 넘기기
 	@PostMapping(value="/purchase")
 	public String purchaseOrder(Model model, HttpServletRequest request
-			, @SessionAttribute("loginData") AccountsDTO acData) {
+			, @SessionAttribute("loginData") AccountsDTO acData
+			, HttpSession session) {
 		int itemid = Integer.parseInt(request.getParameter("itemid"));
 		SelItemDTO itemdata = ItemService.getData(itemid);	// 상품번호로 
 		String selName = itemdata.getSel_name();			// 판매자 닉네임 불러오기
@@ -92,24 +94,21 @@ public class PurchaseController {
 		purchase.setBuy_realPrice(Integer.parseInt(request.getParameter("realprice")));		// 실제 구매 가격 저장
 		
 		UsePointVO usingpoint = new UsePointVO();
-		usingpoint.setAc_name(acData.getAc_name());	
+		usingpoint.setAc_name(acData.getAc_name());
+		int usedPoint = 0;
+		if(request.getParameter("use_point") != "") {
+			usedPoint = Integer.parseInt(request.getParameter("use_point"));
+			usingpoint.setUse_point(usedPoint);
+		}
 		usingpoint.setEarn_point((int)(itemdata.getSel_price() / 100));
-		
-		// 변조 방지
+		acData.setAc_point(acData.getAc_point() - usedPoint + (int)(itemdata.getSel_price() / 100));
+		session.setAttribute("loginData", acData);
 		int originPrice = itemdata.getSel_price();
 		int purchasePrice = Integer.parseInt(request.getParameter("realprice"));
-		int usedPoint = 0;
-		if(request.getParameter("use_point") != "") {			
-			usedPoint = Integer.parseInt(request.getParameter("use_point"));		// 사용한 포인트 저장
-		}
 		int couponPercent = 0;
 		if(request.getParameter("used_coupon") != "") {	
 			couponPercent = service.getPercent(couponNumber); 
 		}
-		
-		
-
-		
 		
 		if(request.getParameter("used_coupon") != "") {			
 			service.usingCoupon(couponNumber);	// COUPON 테이블의 coupon_used에 'Y' 추가
@@ -120,6 +119,7 @@ public class PurchaseController {
 		
 		// 위-변조 확인
 		int serverPrice = (originPrice - usedPoint) - ((originPrice * couponPercent) / 100);
+		System.out.println("서버 계산가 : " + serverPrice + " 실구매가 : " + purchasePrice);
 		if (serverPrice != purchasePrice) {		// 가격 위변조시
 			purchase.setBuy_falsification("Y");	// 위변조여부 "Y"
 			service.insertData(purchase);		// ISBUY 테이블에 삽입

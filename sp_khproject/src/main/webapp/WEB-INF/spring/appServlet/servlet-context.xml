@@ -38,6 +38,9 @@
 		</mvc:interceptor>
 	</mvc:interceptors>
 	
+	
+	
+	
 	<!-- 데이터베이스 설정 -->
 	<beans:bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<beans:property name="driverClassName" value="oracle.jdbc.OracleDriver"></beans:property>
@@ -56,7 +59,8 @@
 	<beans:bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
 		<beans:constructor-arg index="0" ref="sqlSessionFactory"></beans:constructor-arg>
 	</beans:bean>
-
+	
+	<!-- 웹소켓 핸들러 -->
 	<beans:bean id="echoHandler" class="com.myweb.home.chat.controller.ChatHandler"/>
 	<websocket:handlers>
 			<websocket:mapping handler="echoHandler" path="/echo"/>

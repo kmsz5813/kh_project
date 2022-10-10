@@ -80,6 +80,8 @@ public class InfoController {
 		List<SelItemDTO> items = selService.getName(acDto.getAc_name());
 		// 구매내역
 		List<PurchaseDTO> purchaseDatas = purchaseService.getFromBuyerName(acDto.getAc_name());
+		List<Integer> itemNumbers = new ArrayList<>(); 
+		itemNumbers = selService.getItemNumbers();
 		for(PurchaseDTO purchaseData : purchaseDatas) {
 			int coupon_number = purchaseData.getBuy_usedCoupon();
 			String coupon_name = purchaseService.getCouponNameFromNumber(coupon_number);
@@ -87,6 +89,9 @@ public class InfoController {
 			int buy_itemNumber = purchaseData.getBuy_itemNumber();
 			String buy_itemName = purchaseService.getBuyItemName(buy_itemNumber);
 			purchaseData.setBuy_itemName(buy_itemName);
+			if(! itemNumbers.contains(Integer.toString(buy_itemNumber))) {
+				purchaseData.setItemDelChk("Y");
+			}
 		}
 		// 판매내역
 		List<PurchaseDTO> sellData = purchaseService.getFromSellerName(acDto.getAc_name());
@@ -125,7 +130,8 @@ public class InfoController {
 		// 관심상품 전체조회
 		List<SelItemStaticsDTO> likedData = service.likeDatas(acDto.getAc_name()); 
 		for(SelItemStaticsDTO data : likedData) {
-			data.setSel_title(selService.getTitle(data.getSel_id()));
+			
+			data.setSel_title(selService.getTitle(data));
 			data.setSel_name(selService.getSeller(data.getSel_id()));
 		}
 		System.out.println(likedData);

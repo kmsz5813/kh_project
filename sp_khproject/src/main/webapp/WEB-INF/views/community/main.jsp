@@ -335,7 +335,7 @@ border:0.5px solid; width:10rem; text-align: center; font-weight: bolder; backgr
            	<div class="mt-1" id="test1" >
            		공지사항
            	</div>
-           	<div class="mt-3" id="test2"  onclick="location.href='./notice/detail?no=${notice.NOTICE_NO}'">
+           	<div class="mt-3" id="test2" style="cursor:pointer;" onclick="location.href='./notice/detail?no=${notice.NOTICE_NO}'">
            		<p>${notice.NOTICE_CONTENT }</p>
            	</div>
          	</c:forEach>
@@ -345,7 +345,7 @@ border:0.5px solid; width:10rem; text-align: center; font-weight: bolder; backgr
            	<div class="mt-5" id="test1" >
            	 	궁금해요
            	</div>
-           	<div class="mt-3" id="test2" onclick="location.href='./question/detail?id=${question.QUESTION_ID}'">
+           	<div class="mt-3" id="test2" style="cursor:pointer;" onclick="location.href='./question/detail?id=${question.QUESTION_ID}'">
            		<p>${question.QUESTION_CONTENT }</p>
            	</div>
          	</c:forEach>
@@ -355,7 +355,7 @@ border:0.5px solid; width:10rem; text-align: center; font-weight: bolder; backgr
            	<div class="mt-5" id="test1">
            		레슨자 찾아요
            	</div>
-           	<div class="mt-3" id="test2" onclick="location.href='./findStu/detail?id=${findStu.FINDSTU_ID}'">
+           	<div class="mt-3" id="test2" style="cursor:pointer;" onclick="location.href='./findStu/detail?id=${findStu.FINDSTU_ID}'">
            		<p>${findStu.FINDSTU_CONTENT }</p>
            	</div>
          	</c:forEach>
@@ -364,7 +364,7 @@ border:0.5px solid; width:10rem; text-align: center; font-weight: bolder; backgr
            	<div class="mt-5" id="test1">
            		 전문가 찾아요
            	</div>
-           	<div class="mt-3" id="test2" onclick="location.href='./findPro/detail?id=${findPro.FINDPRO_ID}'">
+           	<div class="mt-3" id="test2" style="cursor:pointer;" onclick="location.href='./findPro/detail?id=${findPro.FINDPRO_ID}'">
            		<p>${findPro.FINDPRO_CONTENT }</p>
            	</div>
          	</c:forEach>
@@ -373,7 +373,7 @@ border:0.5px solid; width:10rem; text-align: center; font-weight: bolder; backgr
            	<div class="mt-5" id="test1">
            		일상생활
            	</div>
-           	<div class="mt-3" id="test2" onclick="location.href='./life/detail?id=${life.LIFE_ID}'">
+           	<div class="mt-3" id="test2" style="cursor:pointer;" onclick="location.href='./life/detail?id=${life.LIFE_ID}'">
            		<p>${life.LIFE_CONTENT }</p>
            	</div>
          	</c:forEach>

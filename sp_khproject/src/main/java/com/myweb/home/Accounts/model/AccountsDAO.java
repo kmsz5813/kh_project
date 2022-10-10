@@ -74,10 +74,14 @@ public class AccountsDAO {
 		return result;
 	}
 
-	public boolean addBlacklist(String id) {
+	public boolean addBlacklist(String name) {
+		String mapperId3 = String.format(mapper, "addBlacklist3");
+		session.delete(mapperId3, name);
+		String mapperId2 = String.format(mapper, "addBlacklist2");
+		session.delete(mapperId2, name);
 		String mapperId = String.format(mapper, "addBlacklist");
-		session.delete(mapperId, id);
-		return false;
+		session.delete(mapperId, name);
+		return true;
 	}
 
 	public String getIp(String id) {

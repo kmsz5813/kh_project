@@ -211,6 +211,7 @@
         vertical-align: middle;
 	}
 	
+	
 	</style>
 
 	<script type="text/javascript">
@@ -227,12 +228,23 @@
 
 </head>
 
+<aside style="float:right; position:relative; top:76px; left:10px;">
+	<a class="btn btn-success dropdown-toggle" href="#" role="button" style="font-weight:10; color:white;" 
+	id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    	인기검색어
+    </a>
+	<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+		<c:forEach items="${wordList}" var="wordList">
+		 	<a class="dropdown-item" href="./sellitem?search=${wordList.word}">
+		 	<span style="color:green;">${wordList.ranking}&emsp;</span> ${wordList.word}(${wordList.frequency})</a>
+		</c:forEach>
+    </div>
+</aside>
 <body>
 	<!-- 헤더 -->
 	<%@ include file="../module/head.jsp" %>
 	
 	<!-- 배너, carousel -->
-	
 	<div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
 	  <ol class="carousel-indicators">
 	    <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
@@ -419,7 +431,10 @@
 							<div class="thumb-wrapper img-hover-zoom">
 								<span class="wish-icon"><i class="fa fa-heart-o"></i></span>
 								<div class="img-box">
-									<a href="./sellitem/itemdetail?search=${list1.sel_name}&itemid=${list1.sel_id}"><img src="${pageContext.request.contextPath}/${list1.url}/${list1.uuidName}" class="img-fluid " alt="iPhone"></a>
+									<a href="./sellitem/itemdetail?search=${list1.sel_name}&itemid=${list1.sel_id}">
+									<img src="${pageContext.request.contextPath}/${list1.url}/${list1.uuidName}" class="img-fluid"
+									onerror="this.onerror=null; this.src='./static/img/NoData.png'">
+									</a>
 								</div>
 								<div class="thumb-content">
 									<h4>${list1.sel_name}</h4>
@@ -430,7 +445,10 @@
 							<div class="thumb-wrapper img-hover-zoom">
 								<span class="wish-icon"><i class="fa fa-heart-o"></i></span>
 								<div class="img-box">
-									<a href="./sellitem/itemdetail?search=${list2.sel_name}&itemid=${list2.sel_id}"><img src="${pageContext.request.contextPath}/${list2.url}/${list2.uuidName}" class="img-fluid " alt="iPhone"></a>
+									<a href="./sellitem/itemdetail?search=${list2.sel_name}&itemid=${list2.sel_id}">
+									<img src="${pageContext.request.contextPath}/${list2.url}/${list2.uuidName}" class="img-fluid " 
+									onerror="this.onerror=null; this.src='./static/img/NoData.png'">
+									</a>
 								</div>
 								<div class="thumb-content">
 									<h4>${list2.sel_name}</h4>
@@ -441,7 +459,10 @@
 							<div class="thumb-wrapper img-hover-zoom">
 								<span class="wish-icon"><i class="fa fa-heart-o"></i></span>
 								<div class="img-box">
-									<a href="./sellitem/itemdetail?search=${list3.sel_name}&itemid=${list3.sel_id}"><img src="${pageContext.request.contextPath}/${list3.url}/${list3.uuidName}" class="img-fluid " alt="iPhone"></a>
+									<a href="./sellitem/itemdetail?search=${list3.sel_name}&itemid=${list3.sel_id}">
+									<img src="${pageContext.request.contextPath}/${list3.url}/${list3.uuidName}" class="img-fluid"
+									onerror="this.onerror=null; this.src='./static/img/NoData.png'">
+									</a>
 								</div>
 								<div class="thumb-content">
 									<h4>${list3.sel_name}</h4>
@@ -452,7 +473,10 @@
 							<div class="thumb-wrapper img-hover-zoom">
 								<span class="wish-icon"><i class="fa fa-heart-o"></i></span>
 								<div class="img-box">
-									<a href="./sellitem/itemdetail?search=${list4.sel_name}&itemid=${list4.sel_id}"><img src="${pageContext.request.contextPath}/${list4.url}/${list4.uuidName}" class="img-fluid " alt="iPhone"></a>
+									<a href="./sellitem/itemdetail?search=${list4.sel_name}&itemid=${list4.sel_id}">
+									<img src="${pageContext.request.contextPath}/${list4.url}/${list4.uuidName}" class="img-fluid" 
+									onerror="this.onerror=null; this.src='./static/img/NoData.png'">
+									</a>
 								</div>
 								<div class="thumb-content">
 									<h4>${list4.sel_name}</h4>
@@ -467,7 +491,10 @@
 							<div class="thumb-wrapper img-hover-zoom">
 								<span class="wish-icon"><i class="fa fa-heart-o"></i></span>
 								<div class="img-box">
-									<a href="./sellitem/itemdetail?search=${list5.sel_name}&itemid=${list5.sel_id}"><img src="${pageContext.request.contextPath}/${list5.url}/${list5.uuidName}" class="img-fluid " alt="iPhone"></a>
+									<a href="./sellitem/itemdetail?search=${list5.sel_name}&itemid=${list5.sel_id}">
+									<img src="${pageContext.request.contextPath}/${list5.url}/${list5.uuidName}" class="img-fluid"
+									onerror="this.onerror=null; this.src='./static/img/NoData.png'">
+									</a>
 								</div>
 								<div class="thumb-content">
 									<h4>${list5.sel_name}</h4>
@@ -478,7 +505,10 @@
 							<div class="thumb-wrapper img-hover-zoom">
 								<span class="wish-icon"><i class="fa fa-heart-o"></i></span>
 								<div class="img-box">
-									<a href="./sellitem/itemdetail?search=${list6.sel_name}&itemid=${list6.sel_id}"><img src="${pageContext.request.contextPath}/${list6.url}/${list6.uuidName}" class="img-fluid " alt="iPhone"></a>
+									<a href="./sellitem/itemdetail?search=${list6.sel_name}&itemid=${list6.sel_id}">
+									<img src="${pageContext.request.contextPath}/${list6.url}/${list6.uuidName}" class="img-fluid"
+									onerror="this.onerror=null; this.src='./static/img/NoData.png'">
+									</a>
 								</div>
 								<div class="thumb-content">
 									<h4>${list6.sel_name}</h4>
@@ -489,7 +519,10 @@
 							<div class="thumb-wrapper img-hover-zoom">
 								<span class="wish-icon"><i class="fa fa-heart-o"></i></span>
 								<div class="img-box">
-									<a href="./sellitem/itemdetail?search=${list7.sel_name}&itemid=${list7.sel_id}"><img src="${pageContext.request.contextPath}/${list7.url}/${list7.uuidName}" class="img-fluid " alt="iPhone"></a>
+									<a href="./sellitem/itemdetail?search=${list7.sel_name}&itemid=${list7.sel_id}">
+									<img src="${pageContext.request.contextPath}/${list7.url}/${list7.uuidName}" class="img-fluid"
+									onerror="this.onerror=null; this.src='./static/img/NoData.png'" >
+									</a>
 								</div>
 								<div class="thumb-content">
 									<h4>${list7.sel_name}</h4>
@@ -500,7 +533,10 @@
 							<div class="thumb-wrapper img-hover-zoom">
 								<span class="wish-icon"><i class="fa fa-heart-o"></i></span>
 								<div class="img-box">
-									<a href="./sellitem/itemdetail?search=${list8.sel_name}&itemid=${list8.sel_id}"><img src="${pageContext.request.contextPath}/${list8.url}/${list8.uuidName}" class="img-fluid " alt="iPhone"></a>
+									<a href="./sellitem/itemdetail?search=${list8.sel_name}&itemid=${list8.sel_id}">
+									<img src="${pageContext.request.contextPath}/${list8.url}/${list8.uuidName}" class="img-fluid"
+									onerror="this.onerror=null; this.src='./static/img/NoData.png'">
+									</a>
 								</div>
 								<div class="thumb-content">
 									<h4>${list8.sel_name}</h4>
@@ -515,7 +551,10 @@
 							<div class="thumb-wrapper img-hover-zoom">
 								<span class="wish-icon"><i class="fa fa-heart-o"></i></span>
 								<div class="img-box">
-									<a href="./sellitem/itemdetail?search=${list9.sel_name}&itemid=${list9.sel_id}"><img src="${pageContext.request.contextPath}/${list9.url}/${list9.uuidName}" class="img-fluid " alt="iPhone"></a>
+									<a href="./sellitem/itemdetail?search=${list9.sel_name}&itemid=${list9.sel_id}">
+									<img src="${pageContext.request.contextPath}/${list9.url}/${list9.uuidName}" class="img-fluid"
+									onerror="this.onerror=null; this.src='./static/img/NoData.png'">
+									</a>
 								</div>
 								<div class="thumb-content">
 									<h4>${list9.sel_name}</h4>
@@ -623,6 +662,7 @@
 				alert("일반회원만 다운로드 받을 수 있습니다.");
 			}
 		}); */
+		
 	</script>
 </body>
 	

@@ -60,9 +60,19 @@
 		 WHERE AC_EMAIL = #{ac_email}
 	</update>
 	
+	<delete id="addBlacklist3" parameterType="acDto">
+		DELETE FROM SEL_ITEM_STATICS
+		 WHERE AC_NAME = #{name}
+	</delete>
+	
+	<delete id="addBlacklist2" parameterType="acDto">
+		DELETE FROM REVIEW
+		 WHERE REVIEW_WRITER = #{name}
+	</delete>
+	
 	<delete id="addBlacklist" parameterType="acDto">
 		DELETE FROM ACCOUNTS
-		 WHERE AC_EMAIL = #{id}
+		 WHERE AC_NAME = #{name}
 	</delete>
 	
 	<select id="getIp" resultType="string">

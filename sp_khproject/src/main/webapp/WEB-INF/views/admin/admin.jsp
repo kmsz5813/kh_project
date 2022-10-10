@@ -9,6 +9,7 @@
 	<meta charset="UTF-8">
 	<title>관리자 페이지</title>
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.min.js"></script>
 	<style>
 		.container1 {
 			width: 1500px;
@@ -48,8 +49,8 @@
 		<input type="radio" class="btn-check radio-value" value = "1" name="options-outlined" id="success-outlined" autocomplete="off" checked>
 		<label class="btn btn-outline-success" for="success-outlined">회원목록 조회</label>
 		
-		<!-- <input type="radio" class="btn-check radio-value" value = "2" name="options-outlined" id="success-outlined2" autocomplete="off">
-		<label class="btn btn-outline-success" for="success-outlined2">섹션2</label> -->
+		<input type="radio" class="btn-check radio-value" value = "2" name="options-outlined" id="success-outlined2" autocomplete="off">
+		<label class="btn btn-outline-success" for="success-outlined2">리뷰 불만족 키워드</label>
 		
 		<input type="radio" class="btn-check radio-value" value = "3" name="options-outlined" id="success-outlined3" autocomplete="off">
 		<label class="btn btn-outline-success" for="success-outlined3">거래내역 조회</label>
@@ -115,21 +116,19 @@
 			</tbody>
 		</table>
 	</section>
-	<!-- 	
-	<section class="container-fluid container2">
-		<p>
-			웹크롤링 테스트(jsoup, 크몽) -> jsoup은 동적 페이지를 인식하지 못해 안되는 것으로 추정<br>
-			다른 정적 페이지는 잘 됨. jsoup의 장점은 웹을 직접 열지 않고도 html만 따올 수 있음.<br>
-			웹 크롤링 목표 : 사용자 닉네임 입력시 작성한 댓글 모아서 보여주기 (이건 DB에서 가져와서 굳이 필요한가??)<br>
-		</p>
-		<input type="text" id="craw_id" name="craw_id" class="form-control" placeholder="카테고리번호입력" style="width: 300px;">
-		<input type="button" id="craw_submit" name="craw_submit" class="btn btn-warning" value="조회"/>
 		
-		<div class="content_craw">
-			여기엔 검색 결과물이 출력됨.(json 방식)
-		</div>	
+	<section class="container-fluid container2">
+		<button type="button" onclick="reviewKeyword(this.value)" class="craw_submit btn btn-outline-success" 
+		 style="margin-left: 420px;" value="4">별점 4점이하 조회</button>
+		<button type="button" onclick="reviewKeyword(this.value)" class="craw_submit btn btn-outline-success" 
+		 value="3">별점 3점이하 조회</button>
+		<button type="button" onclick="reviewKeyword(this.value)" class="craw_submit btn btn-outline-success" 
+		 value="2">별점 2점이하 조회</button>
+		<button type="button" onclick="reviewKeyword(this.value)" class="craw_submit btn btn-outline-success" 
+		 value="1">별점 1점이하 조회</button>
+		<canvas id="bar-chart" width="1500" height="600"></canvas>
 	</section>
-	 -->
+	
 	<section class="container-fluid container3">
 		
 		
@@ -164,22 +163,8 @@
 			<tbody id="searching2">
 				<c:forEach items="${purchaseDatas}" var="purchaseDatas">
 					<c:if test="${not empty purchaseDatas.buy_falsification}">
-						<tr onclick="location.href='./sellitem/itemdetail?search=${purchaseDatas.buy_seller}&itemid=${purchaseDatas.buy_itemNumber}'" style="cursor:pointer; background-color: #FA5858;">
-						<td>${purchaseDatas.buy_number}</td>
-						<td>${purchaseDatas.buy_itemNumber}</td>
-						<td>${purchaseDatas.buy_buyer}</td>
-						<td>${purchaseDatas.buy_seller}</td>
-						<td>${purchaseDatas.buy_buyday}</td>
-						<td><fmt:formatNumber type="number" maxFractionDigits="3" value="${purchaseDatas.buy_price}"/></td>
-						<td>${purchaseDatas.buy_usedPoint}</td>
-						<td>${purchaseDatas.buy_usedCouponName}</td>
-						<td>${purchaseDatas.buy_realPrice}</td>
-						</tr>	
-					</c:if>
-				</c:forEach>
-				<c:forEach items="${purchaseDatas}" var="purchaseDatas">	
-					<c:if test="${empty purchaseDatas.buy_falsification}">
-						<tr onclick="location.href='./sellitem/itemdetail?search=${purchaseDatas.buy_seller}&itemid=${purchaseDatas.buy_itemNumber}'" style="cursor:pointer;">
+						<c:if test="${purchaseDatas.itemDelChk != 'Y'}">
+							<tr onclick="location.href='./sellitem/itemdetail?search=${purchaseDatas.buy_seller}&itemid=${purchaseDatas.buy_itemNumber}'" style="cursor:pointer; background-color: #FA5858;">
 							<td>${purchaseDatas.buy_number}</td>
 							<td>${purchaseDatas.buy_itemNumber}</td>
 							<td>${purchaseDatas.buy_buyer}</td>
@@ -189,7 +174,51 @@
 							<td>${purchaseDatas.buy_usedPoint}</td>
 							<td>${purchaseDatas.buy_usedCouponName}</td>
 							<td>${purchaseDatas.buy_realPrice}</td>
-						</tr>
+							</tr>
+						</c:if>
+						<c:if test="${purchaseDatas.itemDelChk == 'Y'}">
+							<tr style="background-color: #FA5858;">
+							<td>${purchaseDatas.buy_number}</td>
+							<td style="color:orange">${purchaseDatas.buy_itemNumber} 삭제된 상품</td>
+							<td>${purchaseDatas.buy_buyer}</td>
+							<td>${purchaseDatas.buy_seller}</td>
+							<td>${purchaseDatas.buy_buyday}</td>
+							<td><fmt:formatNumber type="number" maxFractionDigits="3" value="${purchaseDatas.buy_price}"/></td>
+							<td>${purchaseDatas.buy_usedPoint}</td>
+							<td>${purchaseDatas.buy_usedCouponName}</td>
+							<td>${purchaseDatas.buy_realPrice}</td>
+							</tr>
+						</c:if>	
+					</c:if>
+				</c:forEach>
+				<c:forEach items="${purchaseDatas}" var="purchaseDatas">	
+					<c:if test="${empty purchaseDatas.buy_falsification}">
+						<c:if test="${purchaseDatas.itemDelChk != 'Y'}">
+							<tr onclick="location.href='./sellitem/itemdetail?search=${purchaseDatas.buy_seller}&itemid=${purchaseDatas.buy_itemNumber}'" style="cursor:pointer;">
+							<td>${purchaseDatas.buy_number}</td>
+							<td>${purchaseDatas.buy_itemNumber}</td>
+							<td>${purchaseDatas.buy_buyer}</td>
+							<td>${purchaseDatas.buy_seller}</td>
+							<td>${purchaseDatas.buy_buyday}</td>
+							<td><fmt:formatNumber type="number" maxFractionDigits="3" value="${purchaseDatas.buy_price}"/></td>
+							<td>${purchaseDatas.buy_usedPoint}</td>
+							<td>${purchaseDatas.buy_usedCouponName}</td>
+							<td>${purchaseDatas.buy_realPrice}</td>
+							</tr>
+						</c:if>
+						<c:if test="${purchaseDatas.itemDelChk == 'Y'}">
+							<tr>
+							<td>${purchaseDatas.buy_number}</td>
+							<td style="color:orange">${purchaseDatas.buy_itemNumber} 삭제된 상품</td>
+							<td>${purchaseDatas.buy_buyer}</td>
+							<td>${purchaseDatas.buy_seller}</td>
+							<td>${purchaseDatas.buy_buyday}</td>
+							<td><fmt:formatNumber type="number" maxFractionDigits="3" value="${purchaseDatas.buy_price}"/></td>
+							<td>${purchaseDatas.buy_usedPoint}</td>
+							<td>${purchaseDatas.buy_usedCouponName}</td>
+							<td>${purchaseDatas.buy_realPrice}</td>
+							</tr>
+						</c:if>	
 					</c:if>	
 				</c:forEach>
 			</tbody>
@@ -279,56 +308,71 @@
 			});
 		
 		// 회원목록 검색(키를 누를때마다)
-		$(document).ready(function(){
-		
-		  $("#keyword").on("keyup", function() { 
-		
-		    var value = $(this).val().toLowerCase();
-		
+		$(document).ready(function(){	
+		  $("#keyword").on("keyup", function() { 		
+		    var value = $(this).val().toLowerCase();	
 		    $("#searching tr").filter(function() {
-		
 		      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1) 
-		
 		    });
-		
 		  });
-		
 		});
 		
 		// 거래목록 검색(키를 누를때마다)
 		$(document).ready(function(){
-		
 		  $("#keyword2").on("keyup", function() { 
-		
 		    var value = $(this).val().toLowerCase();
-		
 		    $("#searching2 tr").filter(function() {
-		
 		      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1) 
-		
 		    });
-		
-		  });
-		
+		  });	
 		});
 		
-		// jSoup 웹 크롤링(크몽)
-		$("#craw_submit").click(function(){
+		/* 리뷰 키워드 분석 */
+		function reviewKeyword(star){
+		 
          $.ajax({
              url :"admin/crawling",
              data :{
-                 content : $("#craw_id").val(),
+                 starCount : star
              },
              dataType : "json",
              type : "post",
              success:function(data){
-                console.log(data.NameResult);
-                console.log(data.ReviewCount);
-                     $(".content_craw").append("<tr><th>"+data.NameResult+"</th><th>"+data.ReviewCount+"</th></tr>");    
-                 
-            	 }
-        	 })
-     	})
+            	const data2 = new Map();
+            	for(let i = 0; i < 20; i++) { 	/* sort 하기 위한 작업 */
+            		data2.set(Object.keys(data)[i], Object.values(data)[i]);
+            	}	
+            	const sortData = new Map([...data2.entries()].sort((a, b) => b[1] - a[1]));
+            	console.log(sortData);	/* 내림차순 정렬된 sortData */
+            	
+            	const wordList = Array.from(sortData.keys());
+            	const frequencyList = Array.from(sortData.values());
+
+                new Chart(document.getElementById("bar-chart"), {
+                	type:'bar',
+                	data: {
+                		labels: wordList,
+                		datasets: [{
+                			label : '단어 빈도수',
+                			backgroundColor : 'rgb(108, 219, 110)',
+                            borderColor : 'rgb(255, 99, 132)',
+                            data : frequencyList
+                		}]
+                	},
+                	options: {
+                		scales: {
+                			yAxes:[{
+                				display:true,
+                				ticks:{
+                					beginAtZero: true
+                				}
+                			}]
+                		}
+                	}
+                });
+             }
+         })
+     	}
      	
      	// Selenium 크롤링
      	$("#craw_kmong").click(function(){
@@ -340,7 +384,7 @@
 				dataType : "json",
 				type : "get",
 				success:function(data){
-					// 로직 작성해야함
+					
 				}
 			})
      	});
