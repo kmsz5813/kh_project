@@ -155,11 +155,7 @@ public class SelItemController {
 		if(data != null) {
 			 result = service.getData(data);
 			 
-			 List<SelItemDTO> result2 = (List<SelItemDTO>) result;
-			 for(SelItemDTO a : result2) {
-				 a.setSel_reviewCount(service.getReviewCount(a.getSel_id()));
-			 }
-			 result = (List<SelItemDTO>) result2;
+
 		}
 		
 	
@@ -218,10 +214,10 @@ public class SelItemController {
 			
 		}else if(likeResult != null) {
 			paging = new Paging(likeResult, page, pageCount);
-			model.addAttribute("selectData", "select=" + likeResult);
+			model.addAttribute("selectData", "select=" + like);
 		}else if(viewResult != null) {
 			paging = new Paging(viewResult, page, pageCount);
-			model.addAttribute("selectData", "select=" + viewResult);
+			model.addAttribute("selectData", "select=" + view);
 		}
 		
 		

@@ -120,7 +120,7 @@
 	</div>
 	</section>
 
-	<%@ include file="../module/footer.jsp" %>
+	<%@ include file="../module/foter.jsp" %>
 	<c:url var="upload" value="/upload/image" />
 		<script type="text/javascript">
 			CKEDITOR.replace("content", {

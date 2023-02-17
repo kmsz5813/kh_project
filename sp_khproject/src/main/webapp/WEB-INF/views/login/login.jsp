@@ -65,8 +65,7 @@
 			<button type="button" class="form-control mw-100" style="background-color: rgb(3, 199, 90); height: 3rem"
 			onclick="location.href='login/naver'">
 			<img  alt="네이버로 가입하기" src="static/img/naver/naverbtn1.png">		
-		 </button>
-		 
+			 </button>
 		</div>
 	</form>
 	</div>

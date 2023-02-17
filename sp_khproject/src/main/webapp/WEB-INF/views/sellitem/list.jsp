@@ -127,7 +127,7 @@
 				 <img src="${pageContext.request.contextPath}/static/img/profile/logo.png" class="card-img-top" alt="...">
 				 </c:if>
 				 <c:if test="${not empty data.uuidName}">
-				  <img src="/home/${data.url}/${data.uuidName}" class="card-img-top"/> 
+				  <img src="${pageContext.request.contextPath}/${data.url}/${data.uuidName}" class="card-img-top"/> 
 				 
 				  </c:if>
 

@@ -312,7 +312,7 @@
 		function ajaxLike(id) {
 			$.ajax({
 				type: "post",
-				url: "/home/sellitem/like",
+				url: "/${pageContext.request.contextPath}/sellitem/like",
 				data: {
 					id: id,
 					
@@ -343,7 +343,7 @@
 			var id1 = id;
 			$.ajax({
 				type: "post",
-				url: "/home/sellitem/deleteReview",
+				url: "/${pageContext.request.contextPath}/sellitem/deleteReview",
 				data: {
 					id: id,
 					sel_id: sel_id
